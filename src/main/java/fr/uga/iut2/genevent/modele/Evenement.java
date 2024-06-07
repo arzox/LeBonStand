@@ -1,64 +1,227 @@
 package fr.uga.iut2.genevent.modele;
 
-import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
+public class Evenement {
+    private String nom;
+    private int maxParticipants;
+    private String debut;
+    private String fin;
 
-public class Evenement implements Serializable {
+    private TypeEvenement type;
+    private Lieu lieu;
 
-    private static final long serialVersionUID = 1L;  // nécessaire pour la sérialisation
-    private final GenEvent genevent;
-    private final String nom;
-    private LocalDate dateDebut;
-    private LocalDate dateFin;
-    private final Map<String, Utilisateur> administrateurs;  // association qualifiée par l'email
+    // Module Commerçants
+    private HashMap<TypeCommerce, Integer> typeCommerces = null;
+    private ArrayList<Commercant> commercants = null;
+    private ArrayList<Emplacement> emplacements = null;
 
-    // Invariant de classe : !dateDebut.isAfter(dateFin)
-    //     On utilise la négation ici pour exprimer (dateDebut <= dateFin), ce
-    //     qui est équivalent à !(dateDebut > dateFin).
+    // Module AgentsSecurite
+    private ArrayList<AgentSecurite> agentsSecurite = null;
+    private ArrayList<Zone> zones = null;
 
-    public static Evenement initialiseEvenement(GenEvent genevent, String nom, LocalDate dateDebut, LocalDate dateFin, Utilisateur admin) {
-        Evenement evt = new Evenement(genevent, nom, dateDebut, dateFin);
-        evt.ajouteAdministrateur(admin);
-        return evt;
+    // Module Entretien
+    private ArrayList<AgentEntretien> agentsEntretien = null;
+
+    // Module Participants
+    private ArrayList<Participant> participants = null;
+
+    // Module Animation
+    private ArrayList<Animation> animations = null;
+
+    public Evenement(String nom, String debut, String fin, TypeEvenement typeEvenement) {
+        this.nom = nom;
+        this.debut = debut;
+        this.fin = fin;
+        this.type = typeEvenement;
     }
 
-    public Evenement(GenEvent genevent, String nom, LocalDate dateDebut, LocalDate dateFin) {
-        assert !dateDebut.isAfter(dateFin);
-        this.genevent = genevent;
-        this.nom = nom;
-        this.dateDebut = dateDebut;
-        this.dateFin = dateFin;
-        this.administrateurs = new HashMap<>();
+    // ---------Module Commercants---------
+
+    public void inscrireCommercant(Commercant commercant) {
+        this.commercants.add(commercant);
+    }
+
+    public void desinscrireCommercant(Commercant commercant) {
+        commercant.setEmplacement(null);
+        this.commercants.remove(commercant);
+    }
+
+    public void ajouterEmplacement(Emplacement emplacement) {
+        this.emplacements.add(emplacement);
+    }
+
+    public void retirerEmplacement(Emplacement emplacement) {
+        for (Commercant commercant : emplacement.getCommercants()) {
+            commercant.setEmplacement(null);
+        }
+        this.emplacements.remove(emplacement);
+    }
+
+    public void ajouterTypeCommerce(TypeCommerce typeCommerce, int nombre) {
+        this.typeCommerces.put(typeCommerce, nombre);
+    }
+
+    public void retirerTypeCommerce(TypeCommerce typeCommerce) {
+        for (Commercant commercant : typeCommerce.getCommercants()) {
+            commercant.setTypeCommerce(null);
+        }
+        this.typeCommerces.remove(typeCommerce);
+    }
+
+    // ---------Module Securite---------
+
+    public void inscireAgentSecurite(AgentSecurite agentSecurite) {
+        this.agentsSecurite.add(agentSecurite);
+    }
+
+    public void desinscrireAgentSecurite(AgentSecurite agentSecurite) {
+        agentSecurite.setZone(null);
+        this.agentsSecurite.remove(agentSecurite);
+    }
+
+    public void removeZone(Zone zone) {
+        for (AgentSecurite agent : agentsSecurite) {
+            if (agent.getZone().equals(zone)) {
+                agent.setZone(null);
+            }
+        }
+        zones.remove(zone);
+    }
+
+    // ---------Module Entretien---------
+
+    public void inscrireAgentEntretien(AgentEntretien agentEntretien) {
+        this.agentsEntretien.add(agentEntretien);
+    }
+
+    public void desinscrireAgentEntretien(AgentEntretien agentEntretien) {
+        this.agentsEntretien.remove(agentEntretien);
+    }
+
+    // ---------Module Participants---------
+
+    public void inscrireParticipant(Participant participant) {
+        this.participants.add(participant);
+    }
+
+    public void desinscrireParticipant(Participant participant) {
+        this.participants.remove(participant);
+    }
+
+    // ---------Module Animation---------
+
+    public void ajouterAnimation(Animation animation) {
+        this.animations.add(animation);
+    }
+
+    public void retirerAnimation(Animation animation) {
+        this.animations.remove(animation);
+    }
+
+
+
+    public void initieCommerce() {
+        this.commercants = new ArrayList<>();
+        this.emplacements = new ArrayList<>();
+        this.typeCommerces = new HashMap<>();
+    }
+
+    public void initieSecurite() {
+        this.agentsSecurite = new ArrayList<>();
+        this.zones = new ArrayList<>();
+    }
+
+    public void initieEntretien() {
+        this.agentsEntretien = new ArrayList<>();
+    }
+
+    public void initieParticipant() {
+        this.participants = new ArrayList<>();
+    }
+
+    public void initieAnimation() {
+        this.animations = new ArrayList<>();
     }
 
     public String getNom() {
-        return this.nom;
+        return nom;
     }
 
-    public LocalDate getDateDebut() {
-        return dateDebut;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
-    public void setDateDebut(LocalDate dateDebut) {
-        assert !dateDebut.isAfter(this.dateFin);
-        this.dateDebut = dateDebut;
+    public String getDebut() {
+        return debut;
     }
 
-    public LocalDate getDateFin() {
-        return dateFin;
+    public void setDebut(String debut) {
+        this.debut = debut;
     }
 
-    public void setDateFin(LocalDate dateFin) {
-        assert !this.dateDebut.isAfter(dateFin);
-        this.dateFin = dateFin;
+    public String getFin() {
+        return fin;
     }
 
-    public void ajouteAdministrateur(Utilisateur admin) {
-        assert !this.administrateurs.containsKey(admin.getEmail());
-        this.administrateurs.put(admin.getEmail(), admin);
-        admin.ajouteEvenementAdministre(this);
+    public void setFin(String fin) {
+        this.fin = fin;
+    }
+
+    public int getMaxParticipants() {
+        return maxParticipants;
+    }
+
+    public void setMaxParticipants(int maxParticipants) {
+        this.maxParticipants = maxParticipants;
+    }
+
+    public TypeEvenement getType() {
+        return type;
+    }
+
+    public void setType(TypeEvenement type) {
+        this.type = type;
+    }
+
+    public Lieu getLieu() {
+        return lieu;
+    }
+
+    public void setLieu(Lieu lieu) {
+        this.lieu = lieu;
+    }
+
+    public HashMap<TypeCommerce, Integer> getTypeCommerces() {
+        return typeCommerces;
+    }
+
+    public ArrayList<Commercant> getCommercants() {
+        return commercants;
+    }
+
+    public ArrayList<Emplacement> getEmplacements() {
+        return emplacements;
+    }
+
+    public ArrayList<AgentSecurite> getAgentsSecurite() {
+        return agentsSecurite;
+    }
+
+    public ArrayList<Zone> getZones() {
+        return zones;
+    }
+
+    public ArrayList<AgentEntretien> getAgentsEntretien() {
+        return agentsEntretien;
+    }
+
+    public ArrayList<Participant> getParticipants() {
+        return participants;
+    }
+
+    public ArrayList<Animation> getAnimations() {
+        return animations;
     }
 }
