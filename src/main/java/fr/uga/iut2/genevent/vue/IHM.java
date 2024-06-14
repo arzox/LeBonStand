@@ -54,7 +54,12 @@ public abstract class IHM {
      * Rend actif l'interface Humain-machine.
      *
      * L'appel est bloquant : le contrôle est rendu à l'appelant une fois que
-     * l'IHM est fermée.
+     * l'IHM est fermée.public static Controleur getInstance() {
+        if (instance == null) {
+            instance = new Controleur();
+        }
+        return instance;
+    }
      *
      */
     public abstract void demarrerInteraction();

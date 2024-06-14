@@ -1,8 +1,6 @@
 package fr.uga.iut2.genevent.modele;
 
-import java.util.ArrayList;
-
-public class AgentSecurite extends Employee {
+public class AgentSecurite extends Employe {
     private Zone zone;
 
     public AgentSecurite(String nom, String prenom, String email, String telephone, String horaires, Zone zone) {

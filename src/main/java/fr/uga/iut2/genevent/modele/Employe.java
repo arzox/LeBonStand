@@ -1,13 +1,13 @@
 package fr.uga.iut2.genevent.modele;
 
-public abstract class Employee {
+public abstract class Employe {
     private String nom;
     private String prenom;
     private String email;
     private String telephone;
     private String horaires;
 
-    public Employee(String nom, String prenom, String email, String telephone, String horaires) {
+    public Employe(String nom, String prenom, String email, String telephone, String horaires) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;

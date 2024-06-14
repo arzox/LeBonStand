@@ -1,26 +1,26 @@
 package fr.uga.iut2.genevent.controleur;
 
+import fr.uga.iut2.genevent.modele.Application;
 import fr.uga.iut2.genevent.vue.IHM;
 import fr.uga.iut2.genevent.vue.JavaFXGUI;
 
 
 public class Controleur {
+    private static Controleur instance;
+    private Application application;
 
-    private final GenEvent genevent;
-    private final IHM ihm;
-
-    public Controleur(GenEvent genevent) {
-        this.genevent = genevent;
-
-        // choisir la classe CLI ou JavaFXGUI
-//        this.ihm = new CLI(this);
-        this.ihm = new JavaFXGUI(this);
+    private Controleur(Application application) {
+        this.application = application;
+    }
+    
+    public static Controleur getInstance(Application application) {
+        if (instance == null) {
+            instance = new Controleur(application);
+        }
+        return instance;
     }
 
-    public void demarrer() {
-        this.ihm.demarrerInteraction();
-    }
-
+    /*
     public void saisirUtilisateur() {
         this.ihm.saisirUtilisateur();
     }
@@ -71,5 +71,5 @@ public class Controleur {
                 "Nouvel évènement : " + infos.nom + ", administré par " + infos.admin.email,
                 true
         );
-    }
+    }*/
 }
