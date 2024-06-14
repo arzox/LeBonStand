@@ -1,5 +1,6 @@
 package fr.uga.iut2.genevent.controleur;
 
+import fr.uga.iut2.genevent.modele.Application;
 import fr.uga.iut2.genevent.vue.IHM;
 import fr.uga.iut2.genevent.vue.JavaFXGUI;
 
@@ -7,8 +8,12 @@ import fr.uga.iut2.genevent.vue.JavaFXGUI;
 public class Controleur {
 
     private static Controleur instance;
+    private Application application;
+
+    private Controleur(Application application) {
+        this.application = application;
     private final IHM startup;
-    
+
     public Controleur() {
         this.startup = new JavaFXGUI();
         ControleurAgentSecu controleurAgentSecu = new ControleurAgentSecu();
@@ -18,18 +23,12 @@ public class Controleur {
         ControleurEvenement controleurEvenement = new ControleurEvenement();
     }
     
-    public static Controleur getInstance() {
+    public static Controleur getInstance(Application application) {
         if (instance == null) {
-            instance = new Controleur();
+            instance = new Controleur(application);
         }
         return instance;
     }
-
-    public void demarrer() {
-        this.startup.demarrerInteraction();
-    }
-
-
 
     /*
     public void saisirUtilisateur() {
