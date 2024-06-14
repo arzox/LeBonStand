@@ -40,5 +40,4 @@ public class ControleurEvenement {
         application.removeEvenement(evenement);
         ihm.informerUtilisateur("Evenement supprimé avec succès", true);
     }
-
 }

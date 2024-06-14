@@ -17,10 +17,10 @@ public class ControleurCommercant {
         this.evenement = evenement;
     }
 
-    public void inscrireCommercant(String nom, String prenom, String email, String tel, String horaires,
+    public void inscrireCommercant(String nom, String prenom, String email, String tel, int heureDebut, int heureFin,
                                 Emplacement emplacement, TypeCommerce typeCommerce) {
         if (evenement != null){
-            Commercant commercant = new Commercant(nom, prenom, email, tel, horaires, emplacement, typeCommerce);
+            Commercant commercant = new Commercant(nom, prenom, email, tel, heureDebut, heureFin, emplacement, typeCommerce);
             evenement.inscrireCommercant(commercant);
         }
     }
@@ -36,7 +36,8 @@ public class ControleurCommercant {
                                    Optional<String> prenom,
                                    Optional<String> email,
                                    Optional<String> tel,
-                                   Optional<String> horaires,
+                                   Optional<Integer> heureDebut,
+                                   Optional<Integer> heureFin,
                                    Optional<Emplacement> emplacement,
                                    Optional<TypeCommerce> typeCommerce) {
         if (evenement != null){
@@ -44,10 +45,10 @@ public class ControleurCommercant {
             prenom.ifPresent(commercant::setPrenom);
             email.ifPresent(commercant::setEmail);
             tel.ifPresent(commercant::setTelephone);
-            horaires.ifPresent(commercant::setHoraires);
+            heureDebut.ifPresent(commercant::setHeureDebut);
+            heureFin.ifPresent(commercant::setHeureFin);
             emplacement.ifPresent(commercant::setEmplacement);
             typeCommerce.ifPresent(commercant::setTypeCommerce);
         }
     }
-
 }

@@ -1,5 +1,6 @@
 package fr.uga.iut2.genevent.controleur;
 
+import fr.uga.iut2.genevent.modele.AgentEntretien;
 import fr.uga.iut2.genevent.modele.Application;
 import fr.uga.iut2.genevent.modele.Evenement;
 

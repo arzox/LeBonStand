@@ -92,11 +92,11 @@ public class Evenement {
 
     // ---------Module Entretien---------
 
-    public void inscrireAgentEntretien(AgentEntretien agentEntretien) {
+    public void ajouterAgentEntretien(AgentEntretien agentEntretien) {
         this.agentsEntretien.add(agentEntretien);
     }
 
-    public void desinscrireAgentEntretien(AgentEntretien agentEntretien) {
+    public void supprimerAgentEntretien(AgentEntretien agentEntretien) {
         this.agentsEntretien.remove(agentEntretien);
     }
 

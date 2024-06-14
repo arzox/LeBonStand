@@ -4,8 +4,8 @@ public class Commercant extends Employe {
     private Emplacement emplacement = null;
     private TypeCommerce typeCommerce = null;
 
-    public Commercant(String nom, String prenom, String email, String telephone, String horaires, Emplacement emplacement, TypeCommerce typeCommerce) {
-        super(nom, prenom, email, telephone, horaires);
+    public Commercant(String nom, String prenom, String email, String telephone, int heureDebut, int heureFin, Emplacement emplacement, TypeCommerce typeCommerce) {
+        super(nom, prenom, email, telephone, heureDebut, heureFin);
         setEmplacement(emplacement);
         this.typeCommerce = typeCommerce;
     }
