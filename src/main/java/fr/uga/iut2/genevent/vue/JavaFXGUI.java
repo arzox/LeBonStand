@@ -1,6 +1,8 @@
 package fr.uga.iut2.genevent.vue;
 
 import fr.uga.iut2.genevent.controleur.Controleur;
+import fr.uga.iut2.genevent.util.Vues;
+
 import java.io.IOException;
 import java.util.Set;
 import java.util.concurrent.CountDownLatch;
@@ -66,6 +68,9 @@ public class JavaFXGUI extends IHM {
         primaryStage.setTitle("GenEvent");
         primaryStage.setScene(mainScene);
         primaryStage.show();
+
+        // Stage fenetreTest = new Stage();
+        // Vues.loadViewIntoStage(fenetreTest, "new-event-view.fxml");
     }
 
 //-----  Éléments du dialogue  -------------------------------------------------
