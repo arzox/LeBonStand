@@ -1,0 +1,6 @@
+.trash{
+    -fx-opacity:0;
+}
+.trash:hover{
+    -fx-opacity: 100;
+}
