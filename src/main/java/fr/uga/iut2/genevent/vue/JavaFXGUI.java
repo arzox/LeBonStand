@@ -32,7 +32,7 @@ import org.apache.commons.validator.routines.EmailValidator;
  */
 public class JavaFXGUI extends IHM {
 
-    //private final Controleur controleur;
+    private final Controleur controleur;
     private final CountDownLatch eolBarrier;  // /!\ ne pas supprimer /!\ : suivi de la durée de vie de l'interface
 
     // éléments vue nouvel·le utilisa·teur/trice
@@ -43,7 +43,7 @@ public class JavaFXGUI extends IHM {
     @FXML private Button newUserCancelButton;
 
     public JavaFXGUI() {
-        //this.controleur = Controleur.getInstance();
+        this.controleur = Controleur.getInstance(null);
 
         this.eolBarrier = new CountDownLatch(1);  // /!\ ne pas supprimer /!\
     }
