@@ -15,6 +15,7 @@ public class Controleur {
     ControleurParticipant controleurParticipant;
     ControleurCommercant controleurCommercant;
     ControleurEvenement controleurEvenement;
+    ControleurAnimation controleurAnimation;
 
     private Controleur(Application application) {
         this.application = application;
@@ -23,6 +24,7 @@ public class Controleur {
         controleurParticipant = new ControleurParticipant(application);
         controleurCommercant = new ControleurCommercant(application);
         controleurEvenement = new ControleurEvenement(application);
+        controleurAnimation = new ControleurAnimation(application);
     }
 
     public void setEvenementCourant(Evenement evenement) {
@@ -30,6 +32,7 @@ public class Controleur {
         controleurAgentSecu.setEvenement(evenement);
         controleurParticipant.setEvenement(evenement);
         controleurCommercant.setEvenement(evenement);
+        controleurAnimation.setEvenement(evenement);
     }
     
     public static Controleur getInstance(Application application) {

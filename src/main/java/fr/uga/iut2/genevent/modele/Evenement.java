@@ -133,16 +133,33 @@ public class Evenement {
         this.zones = new ArrayList<>();
     }
 
+    public void supprimerSecurite() {
+        this.agentsSecurite = null;
+        this.zones = null;
+    }
+
     public void initieEntretien() {
         this.agentsEntretien = new ArrayList<>();
+    }
+
+    public void supprimerEntretien() {
+        this.agentsEntretien = null;
     }
 
     public void initieParticipant() {
         this.participants = new ArrayList<>();
     }
 
+    public void supprimerParticipant() {
+        this.participants = null;
+    }
+
     public void initieAnimation() {
         this.animations = new ArrayList<>();
+    }
+
+    public void supprimerAnimation() {
+        this.animations = null;
     }
 
     public String getNom() {

@@ -2,13 +2,13 @@ package fr.uga.iut2.genevent.modele;
 
 public class Animation {
     private String nom;
-    private float price;
+    private float prix;
     private String debut;
     private String fin;
 
-    public Animation(String nom, float price, String debut, String fin) {
+    public Animation(String nom, float prix, String debut, String fin) {
         this.nom = nom;
-        this.price = price;
+        this.prix = prix;
         this.debut = debut;
         this.fin = fin;
     }
@@ -21,12 +21,12 @@ public class Animation {
         this.nom = nom;
     }
 
-    public float getPrice() {
-        return price;
+    public float getPrix() {
+        return prix;
     }
 
-    public void setPrice(float price) {
-        this.price = price;
+    public void setPrix(float prix) {
+        this.prix = prix;
     }
 
     public String getDebut() {
