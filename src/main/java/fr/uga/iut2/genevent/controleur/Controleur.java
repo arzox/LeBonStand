@@ -5,11 +5,17 @@ import fr.uga.iut2.genevent.vue.JavaFXGUI;
 
 
 public class Controleur {
+
     private static Controleur instance;
     private final IHM startup;
     
     public Controleur() {
         this.startup = new JavaFXGUI();
+        ControleurAgentSecu controleurAgentSecu = new ControleurAgentSecu();
+        ControleurAgentEntretient controleurAgentEntretient = new ControleurAgentEntretient();
+        ControleurClient controleurClient = new ControleurClient();
+        ControleurCommercant controleurCommercant = new ControleurCommercant();
+        ControleurEvenement controleurEvenement = new ControleurEvenement();
     }
     
     public static Controleur getInstance() {
@@ -22,6 +28,8 @@ public class Controleur {
     public void demarrer() {
         this.startup.demarrerInteraction();
     }
+
+
 
     /*
     public void saisirUtilisateur() {
