@@ -12,15 +12,11 @@ public class Controleur {
 
     private Controleur(Application application) {
         this.application = application;
-    private final IHM startup;
-
-    public Controleur() {
-        this.startup = new JavaFXGUI();
-        ControleurAgentSecu controleurAgentSecu = new ControleurAgentSecu();
-        ControleurAgentEntretient controleurAgentEntretient = new ControleurAgentEntretient();
-        ControleurClient controleurClient = new ControleurClient();
-        ControleurCommercant controleurCommercant = new ControleurCommercant();
-        ControleurEvenement controleurEvenement = new ControleurEvenement();
+        ControleurAgentSecu controleurAgentSecu = new ControleurAgentSecu(application);
+        ControleurAgentEntretient controleurAgentEntretient = new ControleurAgentEntretient(application);
+        ControleurParticipant controleurParticipant = new ControleurParticipant(application);
+        ControleurCommercant controleurCommercant = new ControleurCommercant(application);
+        ControleurEvenement controleurEvenement = new ControleurEvenement(application);
     }
     
     public static Controleur getInstance(Application application) {
