@@ -32,7 +32,7 @@ import org.apache.commons.validator.routines.EmailValidator;
  */
 public class JavaFXGUI extends IHM {
 
-    private final Controleur controleur;
+    //private final Controleur controleur;
     private final CountDownLatch eolBarrier;  // /!\ ne pas supprimer /!\ : suivi de la durée de vie de l'interface
 
     // éléments vue nouvel·le utilisa·teur/trice
@@ -42,8 +42,8 @@ public class JavaFXGUI extends IHM {
     @FXML private Button newUserOkButton;
     @FXML private Button newUserCancelButton;
 
-    public JavaFXGUI(Controleur controleur) {
-        this.controleur = controleur;
+    public JavaFXGUI() {
+        //this.controleur = Controleur.getInstance();
 
         this.eolBarrier = new CountDownLatch(1);  // /!\ ne pas supprimer /!\
     }
@@ -77,10 +77,10 @@ public class JavaFXGUI extends IHM {
 
     // menu principal  -----
 
-    @FXML
-    private void newUserMenuItemAction() {
-        this.controleur.saisirUtilisateur();
-    }
+//    @FXML
+//    private void newUserMenuItemAction() {
+//        this.controleur.saisirUtilisateur();
+//    }
 
     @FXML
     private void exitMenuItemAction() {
@@ -90,57 +90,57 @@ public class JavaFXGUI extends IHM {
 
     // vue nouvel·le utilisa·teur/trice  -----
 
-    @FXML
-    private void createNewUserAction() {
-        IHM.InfosUtilisateur data = new IHM.InfosUtilisateur(
-                this.newUserEmailTextField.getText().strip().toLowerCase(),
-                this.newUserSurnameTextField.getText().strip(),
-                this.newUserForenameTextField.getText().strip()
-        );
-        this.controleur.creerUtilisateur(data);
-        this.newUserOkButton.getScene().getWindow().hide();
-    }
-
-    @FXML
-    private void cancelNewUserAction() {
-        this.newUserCancelButton.getScene().getWindow().hide();
-    }
-
-    @FXML
-    private void validateTextFields() {
-        boolean isValid = true;
-
-        isValid &= validateNonEmptyTextField(this.newUserForenameTextField);
-        isValid &= validateNonEmptyTextField(this.newUserSurnameTextField);
-        isValid &= validateEmailTextField(this.newUserEmailTextField);
-
-        this.newUserOkButton.setDisable(!isValid);
-    }
-
-    private static void markTextFieldErrorStatus(TextField textField, boolean isValid) {
-        if (isValid) {
-            textField.setStyle(null);
-        } else {
-            textField.setStyle("-fx-control-inner-background: f8d7da");
-        }
-    }
-
-    private static boolean validateNonEmptyTextField(TextField textField) {
-        boolean isValid = textField.getText().strip().length() > 0;
-
-        markTextFieldErrorStatus(textField, isValid);
-
-        return isValid;
-    }
-
-    private static boolean validateEmailTextField(TextField textField) {
-        EmailValidator validator = EmailValidator.getInstance(false, false);
-        boolean isValid = validator.isValid(textField.getText().strip().toLowerCase());
-
-        markTextFieldErrorStatus(textField, isValid);
-
-        return isValid;
-    }
+//    @FXML
+//    private void createNewUserAction() {
+//        IHM.InfosUtilisateur data = new IHM.InfosUtilisateur(
+//                this.newUserEmailTextField.getText().strip().toLowerCase(),
+//                this.newUserSurnameTextField.getText().strip(),
+//                this.newUserForenameTextField.getText().strip()
+//        );
+//        this.controleur.creerUtilisateur(data);
+//        this.newUserOkButton.getScene().getWindow().hide();
+//    }
+//
+//    @FXML
+//    private void cancelNewUserAction() {
+//        this.newUserCancelButton.getScene().getWindow().hide();
+//    }
+//
+//    @FXML
+//    private void validateTextFields() {
+//        boolean isValid = true;
+//
+//        isValid &= validateNonEmptyTextField(this.newUserForenameTextField);
+//        isValid &= validateNonEmptyTextField(this.newUserSurnameTextField);
+//        isValid &= validateEmailTextField(this.newUserEmailTextField);
+//
+//        this.newUserOkButton.setDisable(!isValid);
+//    }
+//
+//    private static void markTextFieldErrorStatus(TextField textField, boolean isValid) {
+//        if (isValid) {
+//            textField.setStyle(null);
+//        } else {
+//            textField.setStyle("-fx-control-inner-background: f8d7da");
+//        }
+//    }
+//
+//    private static boolean validateNonEmptyTextField(TextField textField) {
+//        boolean isValid = textField.getText().strip().length() > 0;
+//
+//        markTextFieldErrorStatus(textField, isValid);
+//
+//        return isValid;
+//    }
+//
+//    private static boolean validateEmailTextField(TextField textField) {
+//        EmailValidator validator = EmailValidator.getInstance(false, false);
+//        boolean isValid = validator.isValid(textField.getText().strip().toLowerCase());
+//
+//        markTextFieldErrorStatus(textField, isValid);
+//
+//        return isValid;
+//    }
 
 //-----  Implémentation des méthodes abstraites  -------------------------------
 
