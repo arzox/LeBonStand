@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="451.0" prefWidth="418.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="382.0" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label styleClass="h1" text="Nouvel événement" />
+         </children>
+      </HBox>
+      <VBox prefHeight="138.0" prefWidth="600.0">
+         <children>
+            <Label styleClass="h2" text="Informations" />
+            <GridPane hgap="10.0" prefHeight="88.0" prefWidth="600.0" vgap="10.0">
+              <columnConstraints>
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="287.0" minWidth="10.0" prefWidth="39.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="493.0" minWidth="10.0" prefWidth="289.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Nom" />
+                  <TextField prefHeight="29.0" prefWidth="258.0" promptText="Marché de Noël Saint-Martin d'Heres" GridPane.columnIndex="1" />
+                  <Label text="Type" GridPane.rowIndex="1" />
+                  <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               </children>
+               <padding>
+                  <Insets left="20.0" right="20.0" />
+               </padding>
+            </GridPane>
+         </children>
+      </VBox>
+      <VBox layoutX="10.0" layoutY="210.0" prefHeight="143.0" prefWidth="378.0" spacing="10.0">
+         <children>
+            <Label styleClass="h2" text="Fonctionnalités" />
+            <VBox prefHeight="132.0" prefWidth="378.0" spacing="5.0">
+               <children>
+                  <CheckBox layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Sécurité" />
+                  <CheckBox layoutX="10.0" layoutY="29.0" mnemonicParsing="false" text="Entretien" />
+                  <CheckBox layoutX="10.0" layoutY="48.0" mnemonicParsing="false" text="Animations" />
+                  <CheckBox layoutX="10.0" layoutY="67.0" mnemonicParsing="false" text="Participants" />
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
+            </VBox>
+         </children>
+      </VBox>
+      <HBox alignment="CENTER_RIGHT" prefHeight="53.0" prefWidth="378.0" spacing="20.0">
+         <children>
+            <Button mnemonicParsing="false" text="Annuler" />
+            <Button mnemonicParsing="false" styleClass="mainButton" text="Créer" />
+         </children>
+      </HBox>
+   </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" />
+   </padding>
+</VBox>
