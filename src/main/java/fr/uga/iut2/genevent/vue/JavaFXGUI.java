@@ -61,16 +61,10 @@ public class JavaFXGUI extends IHM {
      * @see javafx.application.Application#start(Stage)
      */
     private void start(Stage primaryStage) throws IOException {
-        FXMLLoader mainViewLoader = new FXMLLoader(getClass().getResource("main-view.fxml"));
+        FXMLLoader mainViewLoader = Vues.loadViewIntoStage(primaryStage, "main-view.fxml");
+
         mainViewLoader.setController(this);
-        Scene mainScene = new Scene(mainViewLoader.load());
-
         primaryStage.setTitle("GenEvent");
-        primaryStage.setScene(mainScene);
-        primaryStage.show();
-
-        // Stage fenetreTest = new Stage();
-        // Vues.loadViewIntoStage(fenetreTest, "new-event-view.fxml");
     }
 
 //-----  Éléments du dialogue  -------------------------------------------------
