@@ -1,5 +1,7 @@
 package fr.uga.iut2.genevent.util;
 
+import fr.uga.iut2.genevent.modele.Application;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -38,7 +40,7 @@ public final class Persisteur {
      * @throws IOException si une erreur d'entrée/sortie survient pendant
      *     l'enregistrement.
      */
-    public static final void sauverEtat(final GenEvent genevent) throws FileNotFoundException, IOException {
+    public static final void sauverEtat(final Application genevent) throws FileNotFoundException, IOException {
         try (
             FileOutputStream fos = new FileOutputStream(Persisteur.NOM_BDD);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -77,14 +79,14 @@ public final class Persisteur {
      * @throws IOException si le fichier de persistance est corrompu ou qu'une
      *     erreur d'entrée/sortie survient.
      */
-    public static final GenEvent lireEtat() throws ClassNotFoundException, IOException {
-        GenEvent genevent;
+    public static final Application lireEtat() throws ClassNotFoundException, IOException {
+        Application genevent;
 
         try (
             FileInputStream fis = new FileInputStream(Persisteur.NOM_BDD);
             ObjectInputStream ois = new ObjectInputStream(fis);
         ){
-            genevent = (GenEvent) ois.readObject();
+            genevent = (Application) ois.readObject();
             System.out.println("Restauration de l'état réussie.");
             System.out.flush();
             // Les classes `FileInputStream` et `ObjectInputStream`
@@ -94,7 +96,7 @@ public final class Persisteur {
         catch (FileNotFoundException ignored) {
             System.out.println("Fichier de persistance inexistant : création d'une nouvelle instance.");
             System.out.flush();
-            genevent = new GenEvent();
+            genevent = new Application();
         }
         catch (IOException ioe) {
             System.err.println("Erreur de lecture du fichier de persistance.");

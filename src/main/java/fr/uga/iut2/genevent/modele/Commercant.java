@@ -1,6 +1,6 @@
 package fr.uga.iut2.genevent.modele;
 
-public class Commercant extends Employee{
+public class Commercant extends Employe {
     private Emplacement emplacement = null;
     private TypeCommerce typeCommerce = null;
 
