@@ -1,6 +1,7 @@
 package fr.uga.iut2.genevent.controleur;
 
 import fr.uga.iut2.genevent.modele.Application;
+import fr.uga.iut2.genevent.modele.Evenement;
 import fr.uga.iut2.genevent.vue.IHM;
 import fr.uga.iut2.genevent.vue.JavaFXGUI;
 
@@ -9,14 +10,26 @@ public class Controleur {
 
     private static Controleur instance;
     private Application application;
+    ControleurAgentSecu controleurAgentSecu;
+    ControleurAgentEntretient controleurAgentEntretient;
+    ControleurParticipant controleurParticipant;
+    ControleurCommercant controleurCommercant;
+    ControleurEvenement controleurEvenement;
 
     private Controleur(Application application) {
         this.application = application;
-        ControleurAgentSecu controleurAgentSecu = new ControleurAgentSecu(application);
-        ControleurAgentEntretient controleurAgentEntretient = new ControleurAgentEntretient(application);
-        ControleurParticipant controleurParticipant = new ControleurParticipant(application);
-        ControleurCommercant controleurCommercant = new ControleurCommercant(application);
-        ControleurEvenement controleurEvenement = new ControleurEvenement(application);
+        controleurAgentSecu = new ControleurAgentSecu(application);
+        controleurAgentEntretient = new ControleurAgentEntretient(application);
+        controleurParticipant = new ControleurParticipant(application);
+        controleurCommercant = new ControleurCommercant(application);
+        controleurEvenement = new ControleurEvenement(application);
+    }
+
+    public void setEvenementCourant(Evenement evenement) {
+        controleurAgentEntretient.setEvenement(evenement);
+        controleurAgentSecu.setEvenement(evenement);
+        controleurParticipant.setEvenement(evenement);
+        controleurCommercant.setEvenement(evenement);
     }
     
     public static Controleur getInstance(Application application) {
