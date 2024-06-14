@@ -8,7 +8,6 @@ public class Evenement {
     private int maxParticipants;
     private String debut;
     private String fin;
-
     private TypeEvenement type;
     private Lieu lieu;
 
@@ -35,6 +34,7 @@ public class Evenement {
         this.debut = debut;
         this.fin = fin;
         this.type = typeEvenement;
+        initieCommerce();
     }
 
     // ---------Module Commercants---------
