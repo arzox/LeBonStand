@@ -20,7 +20,7 @@ import java.io.ObjectOutputStream;
  */
 public final class Persisteur {
 
-    private static final String NOM_BDD = "persistence/genevent.bdd";
+    private static final String NOM_BDD = "persistence/application.bdd";
 
     private Persisteur() {
         // interdit l'instanciation de la classe utilitaire via un constructeur privé
@@ -32,7 +32,7 @@ public final class Persisteur {
      * <p>
      * Le fichier de persistance est le fichier "{@value Persisteur#NOM_BDD}".
      *
-     * @param genevent L'application dont l'état est persisté.
+     * @param application L'application dont l'état est persisté.
      *
      * @throws FileNotFoundException si le fichier de persistance est un
      *     dossier, ne peut pas être créé ou ne peut pas être ouvert.
@@ -40,12 +40,12 @@ public final class Persisteur {
      * @throws IOException si une erreur d'entrée/sortie survient pendant
      *     l'enregistrement.
      */
-    public static final void sauverEtat(final Application genevent) throws FileNotFoundException, IOException {
+    public static final void sauverEtat(final Application application) throws FileNotFoundException, IOException {
         try (
             FileOutputStream fos = new FileOutputStream(Persisteur.NOM_BDD);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
         ){
-            oos.writeObject(genevent);
+            oos.writeObject(application);
             // Les classes `FileOutputStream` et `ObjectOutputStream`
             // implémentent l'interface `AutoCloseable` : pas besoin de faire
             // un appel explicite à `.close()`.
@@ -80,13 +80,13 @@ public final class Persisteur {
      *     erreur d'entrée/sortie survient.
      */
     public static final Application lireEtat() throws ClassNotFoundException, IOException {
-        Application genevent;
+        Application application;
 
         try (
             FileInputStream fis = new FileInputStream(Persisteur.NOM_BDD);
             ObjectInputStream ois = new ObjectInputStream(fis);
         ){
-            genevent = (Application) ois.readObject();
+            application = (Application) ois.readObject();
             System.out.println("Restauration de l'état réussie.");
             System.out.flush();
             // Les classes `FileInputStream` et `ObjectInputStream`
@@ -96,7 +96,7 @@ public final class Persisteur {
         catch (FileNotFoundException ignored) {
             System.out.println("Fichier de persistance inexistant : création d'une nouvelle instance.");
             System.out.flush();
-            genevent = new Application();
+            application = new Application();
         }
         catch (IOException ioe) {
             System.err.println("Erreur de lecture du fichier de persistance.");
@@ -109,6 +109,6 @@ public final class Persisteur {
             throw cnfe;
         }
 
-        return genevent;
+        return application;
     }
 }

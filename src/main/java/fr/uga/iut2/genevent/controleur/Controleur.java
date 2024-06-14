@@ -8,7 +8,7 @@ public class Controleur {
     private static Controleur instance;
     private final IHM startup;
     
-    public Controleur() {
+    private Controleur() {
         this.startup = new JavaFXGUI();
     }
     
