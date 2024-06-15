@@ -58,8 +58,8 @@ public class JavaFXGUI extends IHM {
      */
     private void start(Stage primaryStage) throws IOException {
         primaryStage.setMaximized(true);
-        FXMLLoader mainViewLoader = new FXMLLoader(getClass().getResource("Accueil.fxml"));
-        mainViewLoader.setController(new ControleurAccueil());
+        FXMLLoader mainViewLoader = new FXMLLoader(getClass().getResource("Evenement.fxml"));
+        mainViewLoader.setController(new VueEvenement());
         Scene mainScene = new Scene(mainViewLoader.load());
 
         primaryStage.setTitle("LeBonStand");
