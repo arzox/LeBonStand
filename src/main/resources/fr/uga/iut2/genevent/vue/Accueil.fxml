@@ -27,7 +27,7 @@
                               <Image url="@../Images/marche_noel.jpg" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="39.0" fitWidth="33.0" layoutX="6.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true" styleClass="trash">
+                        <ImageView fitHeight="39.0" fitWidth="33.0" layoutX="6.0" layoutY="96.0" onMouseClicked="#supprimerEvenement" pickOnBounds="true" preserveRatio="true" styleClass="trash">
                            <image>
                               <Image url="@../Images/trash.png" />
                            </image>

@@ -1,5 +1,6 @@
 .trash {
     -fx-opacity: 0;
+    -fx-cursor: hand;
 }
 
 .trash:hover {

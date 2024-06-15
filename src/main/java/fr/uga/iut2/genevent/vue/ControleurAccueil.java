@@ -34,6 +34,26 @@ public class ControleurAccueil extends IHM {
 
     }
 
+    @FXML
+    protected void supprimerEvenement() throws Exception {
+        try {
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("event-delete-view.fxml"));
+
+            fxmlLoader.setController(this);
+
+            Parent sceneDialog = fxmlLoader.load();
+            Stage dialog = new Stage();
+            dialog.setScene(new Scene(sceneDialog));
+            dialog.show();
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
 //-----  Implémentation des méthodes abstraites  -------------------------------
 
     @Override
