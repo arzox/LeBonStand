@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -35,12 +36,7 @@ public class JavaFXGUI extends IHM {
     private final Controleur controleur;
     private final CountDownLatch eolBarrier;  // /!\ ne pas supprimer /!\ : suivi de la durée de vie de l'interface
 
-    // éléments vue nouvel·le utilisa·teur/trice
-    @FXML private TextField newUserForenameTextField;
-    @FXML private TextField newUserSurnameTextField;
-    @FXML private TextField newUserEmailTextField;
-    @FXML private Button newUserOkButton;
-    @FXML private Button newUserCancelButton;
+    @FXML private Button valider;
 
     public JavaFXGUI() {
         this.controleur = Controleur.getInstance(null);
@@ -59,7 +55,7 @@ public class JavaFXGUI extends IHM {
      * @see javafx.application.Application#start(Stage)
      */
     private void start(Stage primaryStage) throws IOException {
-        FXMLLoader mainViewLoader = new FXMLLoader(getClass().getResource("main-view.fxml"));
+        FXMLLoader mainViewLoader = new FXMLLoader(getClass().getResource("test.fxml"));
         mainViewLoader.setController(this);
         Scene mainScene = new Scene(mainViewLoader.load());
 
@@ -75,12 +71,6 @@ public class JavaFXGUI extends IHM {
         this.eolBarrier.countDown();
     }
 
-    // menu principal  -----
-
-//    @FXML
-//    private void newUserMenuItemAction() {
-//        this.controleur.saisirUtilisateur();
-//    }
 
     @FXML
     private void exitMenuItemAction() {
@@ -89,6 +79,13 @@ public class JavaFXGUI extends IHM {
     }
 
 //-----  Implémentation des méthodes abstraites  -------------------------------
+
+    @FXML
+    private void onValider(ActionEvent e) {
+        Stage stage = (Stage) valider.getScene().getWindow();
+        VueAccueil vueAccueil = new VueAccueil();
+        vueAccueil.changerFenetre(stage);
+    }
 
     public void demarrerInteraction() {
         // démarrage de l'interface JavaFX
@@ -111,5 +108,10 @@ public class JavaFXGUI extends IHM {
             System.err.println("Erreur d'exécution de l'interface.");
             System.err.flush();
         }
+    }
+
+    @Override
+    public void changerFenetre(Stage stage) {
+        // TODO Auto-generated method stub
     }
 }
