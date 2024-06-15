@@ -80,13 +80,13 @@ public final class Persisteur {
      *     erreur d'entrée/sortie survient.
      */
     public static final Application lireEtat() throws ClassNotFoundException, IOException {
-        Application genevent;
+        Application application;
 
         try (
             FileInputStream fis = new FileInputStream(Persisteur.NOM_BDD);
             ObjectInputStream ois = new ObjectInputStream(fis);
         ){
-            genevent = (Application) ois.readObject();
+            application = (Application) ois.readObject();
             System.out.println("Restauration de l'état réussie.");
             System.out.flush();
             // Les classes `FileInputStream` et `ObjectInputStream`
@@ -96,7 +96,7 @@ public final class Persisteur {
         catch (FileNotFoundException ignored) {
             System.out.println("Fichier de persistance inexistant : création d'une nouvelle instance.");
             System.out.flush();
-            genevent = new Application();
+            application = new Application();
         }
         catch (IOException ioe) {
             System.err.println("Erreur de lecture du fichier de persistance.");
@@ -109,6 +109,6 @@ public final class Persisteur {
             throw cnfe;
         }
 
-        return genevent;
+        return application;
     }
 }

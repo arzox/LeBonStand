@@ -2,14 +2,16 @@ package fr.uga.iut2.genevent.modele;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Application implements Serializable {
     private static final long serialVersionUID = 1L;  // nécessaire pour la sérialisation
+    private ArrayList<Evenement> evenements;
 
-    private List<Evenement> evenements = new ArrayList<>();
+    public Application() {
+        this.evenements = new ArrayList<>();
+    }
 
-    public List<Evenement> getEvenements() {
+    public ArrayList<Evenement> getEvenements() {
         return evenements;
     }
 

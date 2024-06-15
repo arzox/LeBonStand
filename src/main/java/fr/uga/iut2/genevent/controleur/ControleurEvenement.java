@@ -6,14 +6,12 @@ import fr.uga.iut2.genevent.modele.Fonctionnalite;
 import fr.uga.iut2.genevent.modele.TypeEvenement;
 import fr.uga.iut2.genevent.vue.IHM;
 
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 public class ControleurEvenement {
 
     private Application application;
+    private Evenement evenement;
 
     public ControleurEvenement(Application application) {
         this.application = application;
@@ -21,7 +19,7 @@ public class ControleurEvenement {
 
     public Evenement creerEvenement(String nom, TypeEvenement type, List<Fonctionnalite> fonctionnalites, IHM ihm) {
 
-        Evenement evenement = new Evenement(nom, null, null, type);
+        Evenement evenement = new Evenement(nom, null, null, type, new ArrayList<>(Arrays.asList(Fonctionnalite.values())));
         evenement.initieCommerce();
         modifierFonctionnalites(evenement, fonctionnalites);
         ihm.informerUtilisateur("Evenement créé avec succès", true);
@@ -105,4 +103,15 @@ public class ControleurEvenement {
         }
     }
 
+    public ArrayList<Fonctionnalite> getFonctionnalites() {
+        return evenement.getFonctionnalites();
+    }
+
+    public Evenement getEvenement() {
+        return evenement;
+    }
+
+    public void setEvenement(Evenement evenement) {
+        this.evenement = evenement;
+    }
 }

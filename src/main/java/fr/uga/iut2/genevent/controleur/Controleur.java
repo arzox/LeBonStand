@@ -2,8 +2,6 @@ package fr.uga.iut2.genevent.controleur;
 
 import fr.uga.iut2.genevent.modele.Application;
 import fr.uga.iut2.genevent.modele.Evenement;
-import fr.uga.iut2.genevent.vue.IHM;
-import fr.uga.iut2.genevent.vue.JavaFXGUI;
 
 
 public class Controleur {
@@ -28,6 +26,7 @@ public class Controleur {
     }
 
     public void setEvenementCourant(Evenement evenement) {
+        controleurEvenement.setEvenement(evenement);
         controleurAgentEntretient.setEvenement(evenement);
         controleurAgentSecu.setEvenement(evenement);
         controleurParticipant.setEvenement(evenement);
@@ -42,56 +41,27 @@ public class Controleur {
         return instance;
     }
 
-    /*
-    public void saisirUtilisateur() {
-        this.ihm.saisirUtilisateur();
+    public ControleurAgentSecu getControleurAgentSecu() {
+        return controleurAgentSecu;
     }
 
-    public void creerUtilisateur(IHM.InfosUtilisateur infos) {
-        boolean nouvelUtilisateur = this.genevent.ajouteUtilisateur(
-                infos.email,
-                infos.nom,
-                infos.prenom
-        );
-        if (nouvelUtilisateur) {
-            this.ihm.informerUtilisateur(
-                    "Nouvel·le utilisa·teur/trice : " + infos.prenom + " " + infos.nom + " <" + infos.email + ">",
-                    true
-            );
-        } else {
-            this.ihm.informerUtilisateur(
-                    "L'utilisa·teur/trice " + infos.email + " est déjà connu·e de GenEvent.",
-                    false
-            );
-        }
+    public ControleurAgentEntretient getControleurAgentEntretient() {
+        return controleurAgentEntretient;
     }
 
-    public void saisirEvenement() {
-        this.ihm.saisirNouvelEvenement(this.genevent.getEvenements().keySet());
+    public ControleurParticipant getControleurParticipant() {
+        return controleurParticipant;
     }
 
-    public void creerEvenement(IHM.InfosNouvelEvenement infos) {
-        // création d'un Utilisateur si nécessaire
-        boolean nouvelUtilisateur = this.genevent.ajouteUtilisateur(
-                infos.admin.email,
-                infos.admin.nom,
-                infos.admin.prenom
-        );
-        if (nouvelUtilisateur) {
-            this.ihm.informerUtilisateur("Nouvel·le utilisa·teur/trice : " + infos.admin.prenom + " " + infos.admin.nom + " <" + infos.admin.email + ">",
-                    true
-            );
-        }
+    public ControleurCommercant getControleurCommercant() {
+        return controleurCommercant;
+    }
 
-        this.genevent.nouvelEvenement(
-                infos.nom,
-                infos.dateDebut,
-                infos.dateFin,
-                infos.admin.email
-        );
-        this.ihm.informerUtilisateur(
-                "Nouvel évènement : " + infos.nom + ", administré par " + infos.admin.email,
-                true
-        );
-    }*/
+    public ControleurEvenement getControleurEvenement() {
+        return controleurEvenement;
+    }
+
+    public ControleurAnimation getControleurAnimation() {
+        return controleurAnimation;
+    }
 }
