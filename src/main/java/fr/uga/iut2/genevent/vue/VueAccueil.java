@@ -1,14 +1,13 @@
 package fr.uga.iut2.genevent.vue;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.util.Set;
 
 import fr.uga.iut2.genevent.util.Vues;
 
 public class VueAccueil extends IHM {
-
 
 //-----  Éléments de la page d'accueil  -------------------------------------------------
 
@@ -29,28 +28,24 @@ public class VueAccueil extends IHM {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
 //-----  Implémentation des méthodes abstraites  -------------------------------
 
     @Override
-    public void demarrerInteraction() {
-
+    public void changerFenetre(Stage stage) {
+        try {
+            FXMLLoader mainViewLoader = new FXMLLoader(getClass().getResource("Accueil.fxml"));
+            mainViewLoader.setController(this);
+            Scene mainScene = new Scene(mainViewLoader.load());
+            stage.setScene(mainScene);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void informerUtilisateur(String msg, boolean succes) {
-
-    }
-
-    @Override
-    public void saisirUtilisateur() {
-
-    }
-
-    @Override
-    public void saisirNouvelEvenement(Set<String> nomsExistants) {
-
+        System.out.println(msg);
     }
 }

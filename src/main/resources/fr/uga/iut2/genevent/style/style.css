@@ -73,3 +73,19 @@ HBox {
   cursor: pointer;
   -fx-cursor: hand;
 }
+
+.leftPanel {
+  background-color: rgb(194, 218, 229);
+  -fx-background-color: rgb(194, 218, 229);
+}
+
+.leftPanel > .button {
+  background-color: rgb(194, 218, 229);
+  -fx-background-color: rgb(194, 218, 229);
+  -fx-background-radius: 30;
+}
+
+.leftPanel > .button:hover {
+  background-color: rgba(255, 255, 255, 0.76);
+  -fx-background-color: rgba(255, 255, 255, 0.76);
+}
