@@ -1,5 +1,5 @@
 module genevent {
-    requires commons.validator;
+    // requires commons.validator;
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.graphics;

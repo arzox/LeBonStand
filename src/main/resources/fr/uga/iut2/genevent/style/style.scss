@@ -12,10 +12,12 @@ HBox {
 
 
 // Titres
-.h1, .h2, .h3 {
+.h1,
+.h2,
+.h3 {
     font-weight: bold;
     margin-bottom: 10px;
-    
+
     -fx-font-weight: bold;
     -fx-margin-bottom: 10px;
 }
@@ -54,7 +56,7 @@ HBox {
 .check-box:selected>.box {
     background-color: #f56b2a;
     border-color: #f56b2a;
-    
+
     -fx-background-color: #f56b2a;
     -fx-border-color: #f56b2a;
     -fx-text-fill: #ffffff;
@@ -72,12 +74,13 @@ HBox {
 
     -fx-opacity: 0.4;
     -fx-cursor: hand;
+
+    &:hover {
+        opacity: 1;
+        -fx-opacity: 1;
+    }
 }
 
-.trash:hover {
-    opacity: 1;
-    -fx-opacity: 1;
-}
 
 #buttonNewEvent {
     cursor: pointer;
@@ -88,15 +91,18 @@ HBox {
 .leftPanel {
     background-color: rgb(194, 218, 229);
     -fx-background-color: rgb(194, 218, 229);
-}
 
-.leftPanel > .button {
-    background-color: rgb(194, 218, 229);
-    -fx-background-color: rgb(194, 218, 229);
-    -fx-background-radius: 30;
-}
+    >.button {
+        background-color: rgb(194, 218, 229);
+        border-color: transparent;
 
-.leftPanel > .button:hover {
-    background-color: rgba(255, 255, 255, 0.76);
-    -fx-background-color: rgba(255, 255, 255, 0.76);
+        -fx-background-color: rgb(194, 218, 229);
+        -fx-background-radius: 30;
+        -fx-border-color: transparent;
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.76);
+            -fx-background-color: rgba(255, 255, 255, 0.76);
+        }
+    }
 }

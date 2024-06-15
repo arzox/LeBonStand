@@ -1,20 +1,16 @@
 package fr.uga.iut2.genevent.vue;
 
-import fr.uga.iut2.genevent.controleur.Controleur;
 import java.io.IOException;
-import java.util.Set;
 import java.util.concurrent.CountDownLatch;
+
+import fr.uga.iut2.genevent.util.Vues;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.stage.Modality;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import org.apache.commons.validator.routines.EmailValidator;
 
 
 /**
@@ -57,14 +53,11 @@ public class JavaFXGUI extends IHM {
      * @see javafx.application.Application#start(Stage)
      */
     private void start(Stage primaryStage) throws IOException {
+        Vues.loadViewIntoStage(primaryStage, "evenement.fxml", new VueEvenement());
+        
+        primaryStage.getIcons().add(new Image(getClass().getResource("/fr/uga/iut2/genevent/images/LBS-blanc-orange.png").toExternalForm()));
         primaryStage.setMaximized(true);
-        FXMLLoader mainViewLoader = new FXMLLoader(getClass().getResource("Evenement.fxml"));
-        mainViewLoader.setController(new VueEvenement());
-        Scene mainScene = new Scene(mainViewLoader.load());
-
         primaryStage.setTitle("LeBonStand");
-        primaryStage.setScene(mainScene);
-        primaryStage.show();
     }
 
 
