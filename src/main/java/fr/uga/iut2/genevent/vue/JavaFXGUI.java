@@ -1,6 +1,8 @@
 package fr.uga.iut2.genevent.vue;
 
 import fr.uga.iut2.genevent.controleur.Controleur;
+import fr.uga.iut2.genevent.util.Vues;
+
 import java.io.IOException;
 import java.util.Set;
 import java.util.concurrent.CountDownLatch;
@@ -59,13 +61,10 @@ public class JavaFXGUI extends IHM {
      * @see javafx.application.Application#start(Stage)
      */
     private void start(Stage primaryStage) throws IOException {
-        FXMLLoader mainViewLoader = new FXMLLoader(getClass().getResource("main-view.fxml"));
-        mainViewLoader.setController(this);
-        Scene mainScene = new Scene(mainViewLoader.load());
+        FXMLLoader mainViewLoader = Vues.loadViewIntoStage(primaryStage, "main-view.fxml");
 
+        mainViewLoader.setController(this);
         primaryStage.setTitle("GenEvent");
-        primaryStage.setScene(mainScene);
-        primaryStage.show();
     }
 
 //-----  Éléments du dialogue  -------------------------------------------------
