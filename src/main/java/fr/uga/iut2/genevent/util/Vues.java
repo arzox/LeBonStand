@@ -23,15 +23,25 @@ public class Vues {
      * 
      * @return l'objet FXMLLoader utilisé pour charger la vue
      */
-    public static FXMLLoader loadViewIntoStage(Stage stage, String fxmlName) throws IOException {
-        FXMLLoader loader = new FXMLLoader(Vues.class.getResource("/fr/uga/iut2/genevent/vue/" + fxmlName));
-        Scene newScene = new Scene(loader.load());
-        newScene.getStylesheets().clear();
-        newScene.getStylesheets().add(Vues.class.getResource("/fr/uga/iut2/genevent/style/style.css").toExternalForm());
+    public static FXMLLoader loadViewIntoStage(Stage stage, String fxmlName, Object controleur) {
+        try {
+            // Charger la scène dans le loader et lui affecter le controleur en argument
+            FXMLLoader loader = new FXMLLoader(Vues.class.getResource("/fr/uga/iut2/genevent/vue/" + fxmlName));
+            loader.setController(controleur);
+            Scene newScene = new Scene(loader.load());
 
-        stage.setScene(newScene);
-        stage.show();
-        return loader;
-
+            // Appliquer le css global
+            newScene.getStylesheets().clear();
+            newScene.getStylesheets().add(Vues.class.getResource("/fr/uga/iut2/genevent/style/style.css").toExternalForm());
+            
+            // Ajouter la scène au stage en argument
+            stage.setScene(newScene);
+            stage.show();
+            return loader;
+        } catch (Exception e) {
+            System.err.println("Erreur pendant le chargement de la vue :\n");
+            e.printStackTrace();
+            return null;
+        }
     }
 }

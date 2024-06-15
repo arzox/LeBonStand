@@ -35,7 +35,7 @@ public class VueEvenement extends IHM {
     }
 
     public void changerFenetre(Stage stage) {
-        FXMLLoader mainViewLoader = new FXMLLoader(getClass().getResource("Evenement.fxml"));
+        FXMLLoader mainViewLoader = new FXMLLoader(getClass().getResource("evenement.fxml"));
         mainViewLoader.setController(this);
         try {
             Scene mainScene = new Scene(mainViewLoader.load());

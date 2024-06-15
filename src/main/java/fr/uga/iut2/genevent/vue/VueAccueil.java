@@ -2,31 +2,19 @@ package fr.uga.iut2.genevent.vue;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-import java.util.Set;
+import fr.uga.iut2.genevent.util.Vues;
 
-public class ControleurAccueil extends IHM {
+public class VueAccueil extends IHM {
 
 //-----  Éléments de la page d'accueil  -------------------------------------------------
 
     @FXML
     protected void nouvelEvenementCliquer() throws Exception {
         try {
-
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("new-event-view.fxml"));
-
-            fxmlLoader.setController(this);
-
-            Parent sceneDialog = fxmlLoader.load();
-            Stage dialog = new Stage();
-            dialog.setScene(new Scene(sceneDialog));
-            dialog.show();
-
-
+            Vues.loadViewIntoStage(new Stage(), "new-event.fxml", this);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -36,17 +24,7 @@ public class ControleurAccueil extends IHM {
     @FXML
     protected void supprimerEvenement() throws Exception {
         try {
-
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("event-delete-view.fxml"));
-
-            fxmlLoader.setController(this);
-
-            Parent sceneDialog = fxmlLoader.load();
-            Stage dialog = new Stage();
-            dialog.setScene(new Scene(sceneDialog));
-            dialog.show();
-
-
+            Vues.loadViewIntoStage(new Stage(), "event-delete.fxml", this);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -56,9 +34,9 @@ public class ControleurAccueil extends IHM {
 
     @Override
     public void changerFenetre(Stage stage) {
-        FXMLLoader mainViewLoader = new FXMLLoader(getClass().getResource("Accueil.fxml"));
-        mainViewLoader.setController(this);
         try {
+            FXMLLoader mainViewLoader = new FXMLLoader(getClass().getResource("Accueil.fxml"));
+            mainViewLoader.setController(this);
             Scene mainScene = new Scene(mainViewLoader.load());
             stage.setScene(mainScene);
         } catch (Exception e) {
