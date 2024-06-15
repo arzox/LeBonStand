@@ -9,7 +9,6 @@ import java.util.concurrent.CountDownLatch;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -18,7 +17,6 @@ import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import org.apache.commons.validator.routines.EmailValidator;
 
 
 /**
@@ -63,11 +61,11 @@ public class JavaFXGUI extends IHM {
      * @see javafx.application.Application#start(Stage)
      */
     private void start(Stage primaryStage) throws IOException {
-        FXMLLoader mainViewLoader = Vues.loadViewIntoStage(primaryStage, "main-view.fxml");
-        mainViewLoader.setController(this);
+        Vues.loadViewIntoStage(primaryStage, "accueil.fxml", new VueAccueil());
+
         primaryStage.setMaximized(true);
         primaryStage.setTitle("LeBonStand");
-        primaryStage.getIcons().add(new Image(getClass().getResource("/fr/uga/iut2/genevent/images/lbs-blanc-orange.png").toExternalForm()));
+        primaryStage.getIcons().add(new Image(getClass().getResource("/fr/uga/iut2/genevent/images/LBS-blanc-orange.png").toExternalForm()));
     }
 
 
@@ -184,7 +182,7 @@ public class JavaFXGUI extends IHM {
     @Override
     public void saisirUtilisateur() {
         try {
-            FXMLLoader newUserViewLoader = new FXMLLoader(getClass().getResource("new-user-view.fxml"));
+            FXMLLoader newUserViewLoader = new FXMLLoader(getClass().getResource("new-user.fxml"));
             newUserViewLoader.setController(this);
             Scene newUserScene = new Scene(newUserViewLoader.load());
 

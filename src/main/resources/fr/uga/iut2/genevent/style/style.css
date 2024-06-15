@@ -56,3 +56,20 @@ HBox {
   background-color: #ffffff;
   -fx-background-color: #ffffff;
 }
+
+.trash {
+  opacity: 0.4;
+  cursor: pointer;
+  -fx-opacity: 0.4;
+  -fx-cursor: hand;
+}
+
+.trash:hover {
+  opacity: 1;
+  -fx-opacity: 1;
+}
+
+#buttonNewEvent {
+  cursor: pointer;
+  -fx-cursor: hand;
+}

@@ -2,8 +2,6 @@ package fr.uga.iut2.genevent.controleur;
 
 import fr.uga.iut2.genevent.modele.Application;
 import fr.uga.iut2.genevent.modele.Evenement;
-import fr.uga.iut2.genevent.vue.IHM;
-import fr.uga.iut2.genevent.vue.JavaFXGUI;
 
 
 public class Controleur {
