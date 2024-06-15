@@ -9,6 +9,7 @@ import java.util.concurrent.CountDownLatch;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -62,12 +63,13 @@ public class JavaFXGUI extends IHM {
      * @see javafx.application.Application#start(Stage)
      */
     private void start(Stage primaryStage) throws IOException {
-        FXMLLoader mainViewLoader = Vues.loadViewIntoStage(primaryStage, "new-event-view.fxml");
-
+        FXMLLoader mainViewLoader = Vues.loadViewIntoStage(primaryStage, "main-view.fxml");
         mainViewLoader.setController(this);
+        primaryStage.setMaximized(true);
         primaryStage.setTitle("LeBonStand");
         primaryStage.getIcons().add(new Image(getClass().getResource("/fr/uga/iut2/genevent/images/lbs-blanc-orange.png").toExternalForm()));
     }
+
 
 //-----  Éléments du dialogue  -------------------------------------------------
 
