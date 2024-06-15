@@ -11,7 +11,6 @@ import java.util.Set;
 
 public class ControleurAccueil extends IHM {
 
-
 //-----  Éléments de la page d'accueil  -------------------------------------------------
 
     @FXML
@@ -51,28 +50,24 @@ public class ControleurAccueil extends IHM {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
 //-----  Implémentation des méthodes abstraites  -------------------------------
 
     @Override
-    public void demarrerInteraction() {
-
+    public void changerFenetre(Stage stage) {
+        FXMLLoader mainViewLoader = new FXMLLoader(getClass().getResource("Accueil.fxml"));
+        mainViewLoader.setController(this);
+        try {
+            Scene mainScene = new Scene(mainViewLoader.load());
+            stage.setScene(mainScene);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void informerUtilisateur(String msg, boolean succes) {
-
-    }
-
-    @Override
-    public void saisirUtilisateur() {
-
-    }
-
-    @Override
-    public void saisirNouvelEvenement(Set<String> nomsExistants) {
-
+        System.out.println(msg);
     }
 }

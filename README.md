@@ -71,7 +71,7 @@ Le squelette d'interface JavaFX fourni consiste en deux vues au format FXML (`ma
 Ces vues ne définissent pas de contrôleur JavaFX: le contrôleur est injecté à l'exécution pour utiliser l'objet créé par le contrôleur.
 Le bout de code ci-après (extrait de l'implémentation fournie de la méthode `JavaFXGUI#start`) illustre cette différence.
 ```java
-FXMLLoader mainViewLoader = new FXMLLoader(getClass().getResource("accueil.fxml"));
+FXMLLoader mainViewLoader = new FXMLLoader(getClass().getResource("Evenement.fxml"));
 mainViewLoader.setController(this);  // injection du contrôleur à l'exécution
 Scene mainScene = new Scene(mainViewLoader.load());
 ```

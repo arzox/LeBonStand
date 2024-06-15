@@ -32,7 +32,6 @@ import org.apache.commons.validator.routines.EmailValidator;
  */
 public class JavaFXGUI extends IHM {
 
-    private final Controleur controleur;
     private final CountDownLatch eolBarrier;  // /!\ ne pas supprimer /!\ : suivi de la durée de vie de l'interface
 
     // éléments vue nouvel·le utilisa·teur/trice
@@ -43,8 +42,7 @@ public class JavaFXGUI extends IHM {
     @FXML private Button newUserCancelButton;
 
     public JavaFXGUI() {
-        this.controleur = Controleur.getInstance(null);
-
+        super();
         this.eolBarrier = new CountDownLatch(1);  // /!\ ne pas supprimer /!\
     }
 
@@ -64,7 +62,7 @@ public class JavaFXGUI extends IHM {
         mainViewLoader.setController(new ControleurAccueil());
         Scene mainScene = new Scene(mainViewLoader.load());
 
-        primaryStage.setTitle("GenEvent");
+        primaryStage.setTitle("LeBonStand");
         primaryStage.setScene(mainScene);
         primaryStage.show();
     }
@@ -118,5 +116,10 @@ public class JavaFXGUI extends IHM {
     @Override
     public void changerFenetre(Stage stage) {
         // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void informerUtilisateur(String message, boolean succes) {
+        System.out.println(message);
     }
 }

@@ -1,19 +1,17 @@
 package fr.uga.iut2.genevent.vue;
 
-import fr.uga.iut2.genevent.controleur.Controleur;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class VueAccueil extends IHM {
+public class VueEvenement extends IHM {
 
-
-    VueAccueil() {
+    VueEvenement() {
         super();
     }
 
-    void changerFenetre(Stage stage) {
-        FXMLLoader mainViewLoader = new FXMLLoader(getClass().getResource("accueil.fxml"));
+    public void changerFenetre(Stage stage) {
+        FXMLLoader mainViewLoader = new FXMLLoader(getClass().getResource("Evenement.fxml"));
         mainViewLoader.setController(this);
         try {
             Scene mainScene = new Scene(mainViewLoader.load());
@@ -21,5 +19,10 @@ public class VueAccueil extends IHM {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void informerUtilisateur(String message, boolean succes) {
+        System.out.println(message);
     }
 }

@@ -14,5 +14,7 @@ public abstract class IHM {
         this.controleur = Controleur.getInstance(null);
     }
 
-    abstract void changerFenetre(Stage stage);
+    public abstract void changerFenetre(Stage stage);
+
+    public abstract void informerUtilisateur(String message, boolean succes);
 }
