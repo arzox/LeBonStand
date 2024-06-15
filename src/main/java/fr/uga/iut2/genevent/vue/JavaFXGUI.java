@@ -7,6 +7,7 @@ import java.util.concurrent.CountDownLatch;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -28,6 +29,7 @@ import org.apache.commons.validator.routines.EmailValidator;
  * Le démarrage de l'application diffère des exemples classiques trouvés dans
  * la documentation de JavaFX : l'interface est démarrée à l'initiative du
  * {@link fr.uga.iut2.genevent.controleur.Controleur} via l'appel de la méthode
+ * {@link #demarrerInteraction()}.
  */
 public class JavaFXGUI extends IHM {
 
@@ -59,12 +61,14 @@ public class JavaFXGUI extends IHM {
      */
     private void start(Stage primaryStage) throws IOException {
         FXMLLoader mainViewLoader = new FXMLLoader(getClass().getResource("Accueil.fxml"));
-        mainViewLoader.setController(this);
+        mainViewLoader.setController(new ControleurAccueil());
         Scene mainScene = new Scene(mainViewLoader.load());
+
         primaryStage.setTitle("GenEvent");
         primaryStage.setScene(mainScene);
         primaryStage.show();
     }
+
 
 //-----  Éléments du dialogue  -------------------------------------------------
 
@@ -142,4 +146,59 @@ public class JavaFXGUI extends IHM {
 
 //-----  Implémentation des méthodes abstraites  -------------------------------
 
+    @Override
+    public void demarrerInteraction() {
+        // démarrage de l'interface JavaFX
+        Platform.startup(() -> {
+            Stage primaryStage = new Stage();
+            primaryStage.setOnCloseRequest((WindowEvent t) -> this.exitAction());
+            try {
+                this.start(primaryStage);
+            }
+            catch (IOException exc) {
+                throw new RuntimeException(exc);
+            }
+        });
+
+        // attente de la fin de vie de l'interface JavaFX
+        try {
+            this.eolBarrier.await();
+        }
+        catch (InterruptedException exc) {
+            System.err.println("Erreur d'exécution de l'interface.");
+            System.err.flush();
+        }
+    }
+
+    @Override
+    public void informerUtilisateur(String msg, boolean succes) {
+        final Alert alert = new Alert(
+                succes ? Alert.AlertType.INFORMATION : Alert.AlertType.WARNING
+        );
+        alert.setTitle("GenEvent");
+        alert.setContentText(msg);
+        alert.showAndWait();
+    }
+
+    @Override
+    public void saisirUtilisateur() {
+        try {
+            FXMLLoader newUserViewLoader = new FXMLLoader(getClass().getResource("new-user-view.fxml"));
+            newUserViewLoader.setController(this);
+            Scene newUserScene = new Scene(newUserViewLoader.load());
+
+            Stage newUserWindow = new Stage();
+            newUserWindow.setTitle("Créer un·e utilisa·teur/trice");
+            newUserWindow.initModality(Modality.APPLICATION_MODAL);
+            newUserWindow.setScene(newUserScene);
+            newUserWindow.showAndWait();
+        } catch (IOException exc) {
+            throw new RuntimeException(exc);
+        }
+    }
+
+    @Override
+    public void saisirNouvelEvenement(Set<String> nomsExistants) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

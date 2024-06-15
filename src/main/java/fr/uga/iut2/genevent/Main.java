@@ -27,6 +27,8 @@ public class Main {
         }
 
         Controleur controleur = Controleur.getInstance(application);
+        IHM startup = new JavaFXGUI();
+        startup.demarrerInteraction();
         // `Controleur.demarrer` garde le contrôle de l'exécution tant que
         // l'utilisa·teur/trice n'a pas saisi la commande QUITTER.
 

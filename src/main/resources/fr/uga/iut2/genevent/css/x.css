@@ -1,6 +1,11 @@
-.trash{
-    -fx-opacity:0;
+.trash {
+    -fx-opacity: 0;
 }
-.trash:hover{
+
+.trash:hover {
     -fx-opacity: 100;
+}
+
+#buttonNewEvent {
+    -fx-cursor: hand;
 }
