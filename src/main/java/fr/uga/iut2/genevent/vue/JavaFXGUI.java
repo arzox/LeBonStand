@@ -63,7 +63,7 @@ public class JavaFXGUI extends IHM {
         mainViewLoader.setController(this);
         Scene mainScene = new Scene(mainViewLoader.load());
 
-        primaryStage.setTitle("GenEvent");
+        primaryStage.setTitle("LeBonStand");
         primaryStage.setScene(mainScene);
         primaryStage.show();
     }
@@ -88,63 +88,8 @@ public class JavaFXGUI extends IHM {
         this.exitAction();
     }
 
-    // vue nouvel·le utilisa·teur/trice  -----
-
-//    @FXML
-//    private void createNewUserAction() {
-//        IHM.InfosUtilisateur data = new IHM.InfosUtilisateur(
-//                this.newUserEmailTextField.getText().strip().toLowerCase(),
-//                this.newUserSurnameTextField.getText().strip(),
-//                this.newUserForenameTextField.getText().strip()
-//        );
-//        this.controleur.creerUtilisateur(data);
-//        this.newUserOkButton.getScene().getWindow().hide();
-//    }
-//
-//    @FXML
-//    private void cancelNewUserAction() {
-//        this.newUserCancelButton.getScene().getWindow().hide();
-//    }
-//
-//    @FXML
-//    private void validateTextFields() {
-//        boolean isValid = true;
-//
-//        isValid &= validateNonEmptyTextField(this.newUserForenameTextField);
-//        isValid &= validateNonEmptyTextField(this.newUserSurnameTextField);
-//        isValid &= validateEmailTextField(this.newUserEmailTextField);
-//
-//        this.newUserOkButton.setDisable(!isValid);
-//    }
-//
-//    private static void markTextFieldErrorStatus(TextField textField, boolean isValid) {
-//        if (isValid) {
-//            textField.setStyle(null);
-//        } else {
-//            textField.setStyle("-fx-control-inner-background: f8d7da");
-//        }
-//    }
-//
-//    private static boolean validateNonEmptyTextField(TextField textField) {
-//        boolean isValid = textField.getText().strip().length() > 0;
-//
-//        markTextFieldErrorStatus(textField, isValid);
-//
-//        return isValid;
-//    }
-//
-//    private static boolean validateEmailTextField(TextField textField) {
-//        EmailValidator validator = EmailValidator.getInstance(false, false);
-//        boolean isValid = validator.isValid(textField.getText().strip().toLowerCase());
-//
-//        markTextFieldErrorStatus(textField, isValid);
-//
-//        return isValid;
-//    }
-
 //-----  Implémentation des méthodes abstraites  -------------------------------
 
-    @Override
     public void demarrerInteraction() {
         // démarrage de l'interface JavaFX
         Platform.startup(() -> {
@@ -166,37 +111,5 @@ public class JavaFXGUI extends IHM {
             System.err.println("Erreur d'exécution de l'interface.");
             System.err.flush();
         }
-    }
-
-    @Override
-    public void informerUtilisateur(String msg, boolean succes) {
-        final Alert alert = new Alert(
-                succes ? Alert.AlertType.INFORMATION : Alert.AlertType.WARNING
-        );
-        alert.setTitle("GenEvent");
-        alert.setContentText(msg);
-        alert.showAndWait();
-    }
-
-    @Override
-    public void saisirUtilisateur() {
-        try {
-            FXMLLoader newUserViewLoader = new FXMLLoader(getClass().getResource("new-user-view.fxml"));
-            newUserViewLoader.setController(this);
-            Scene newUserScene = new Scene(newUserViewLoader.load());
-
-            Stage newUserWindow = new Stage();
-            newUserWindow.setTitle("Créer un·e utilisa·teur/trice");
-            newUserWindow.initModality(Modality.APPLICATION_MODAL);
-            newUserWindow.setScene(newUserScene);
-            newUserWindow.showAndWait();
-        } catch (IOException exc) {
-            throw new RuntimeException(exc);
-        }
-    }
-
-    @Override
-    public void saisirNouvelEvenement(Set<String> nomsExistants) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
