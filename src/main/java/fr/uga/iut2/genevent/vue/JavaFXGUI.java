@@ -7,7 +7,6 @@ import java.util.concurrent.CountDownLatch;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -15,7 +14,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import org.apache.commons.validator.routines.EmailValidator;
 
 
 /**
@@ -62,7 +60,7 @@ public class JavaFXGUI extends IHM {
     private void start(Stage primaryStage) throws IOException {
         primaryStage.setMaximized(true);
         FXMLLoader mainViewLoader = new FXMLLoader(getClass().getResource("Accueil.fxml"));
-        mainViewLoader.setController(new ControleurAccueil());
+        mainViewLoader.setController(new VueAccueil());
         Scene mainScene = new Scene(mainViewLoader.load());
 
         primaryStage.setTitle("GenEvent");

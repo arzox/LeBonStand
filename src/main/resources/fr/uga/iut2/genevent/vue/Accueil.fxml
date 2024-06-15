@@ -18,29 +18,33 @@
       </ImageView>
       <FlowPane prefHeight="339.0" prefWidth="724.0" style="-fx-hgap: 20;" VBox.vgrow="ALWAYS">
          <children>
-            <VBox alignment="CENTER" minHeight="169.0" minWidth="160.0" prefHeight="169.0" prefWidth="160.0">
-               <children>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+            <Button mnemonicParsing="false" onMouseClicked="#afficherEvenement" prefHeight="51.0" prefWidth="179.0" style="-fx-background-color: white; -fx-border-color: black;">
+               <graphic>
+                  <VBox alignment="CENTER" minHeight="169.0" minWidth="160.0" prefHeight="169.0" prefWidth="160.0">
                      <children>
-                        <ImageView fitHeight="138.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Images/marche_noel.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="39.0" fitWidth="33.0" layoutX="6.0" layoutY="96.0" onMouseClicked="#supprimerEvenement" pickOnBounds="true" preserveRatio="true" styleClass="trash">
-                           <image>
-                              <Image url="@../Images/trash.png" />
-                           </image>
-                        </ImageView>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <ImageView fitHeight="138.0" fitWidth="169.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Images/marche_noel.jpg" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="39.0" fitWidth="33.0" layoutX="6.0" layoutY="96.0" onMouseClicked="#supprimerEvenement" pickOnBounds="true" preserveRatio="true" styleClass="trash">
+                                 <image>
+                                    <Image url="@../Images/trash.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </AnchorPane>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Marché de Noël" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Victor Hugo" />
                      </children>
-                  </AnchorPane>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Marché de Noël" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Victor Hugo" />
-               </children>
-            </VBox>
+                  </VBox>
+               </graphic>
+            </Button>
             <Button id="buttonNewEvent" mnemonicParsing="false" prefHeight="121.0" prefWidth="121.0" style="-fx-background-color: white; -fx-border-color: black;">
                <graphic>
-                  <VBox alignment="CENTER" minHeight="169.0" minWidth="160.0" onMouseClicked="#nouvelEvenementCliquer" prefHeight="169.0" prefWidth="160.0">
+                  <VBox alignment="CENTER" minHeight="169.0" minWidth="160.0" onMouseClicked="#nouvelEvenementCliquer" prefHeight="169.0" prefWidth="160.0" style="-fx-spacing: 20;">
                      <children>
                         <ImageView fitHeight="104.0" fitWidth="199.0" pickOnBounds="true" preserveRatio="true">
                            <image>
