@@ -60,6 +60,7 @@ public class JavaFXGUI extends IHM {
      * @see javafx.application.Application#start(Stage)
      */
     private void start(Stage primaryStage) throws IOException {
+        primaryStage.setMaximized(true);
         FXMLLoader mainViewLoader = new FXMLLoader(getClass().getResource("Accueil.fxml"));
         mainViewLoader.setController(new ControleurAccueil());
         Scene mainScene = new Scene(mainViewLoader.load());
