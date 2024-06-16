@@ -53,7 +53,7 @@ public class JavaFXGUI extends IHM {
      * @see javafx.application.Application#start(Stage)
      */
     private void start(Stage primaryStage) throws IOException {
-        Vues.loadViewIntoStage(primaryStage, "evenement.fxml", new VueEvenement());
+        Vues.loadViewIntoStage(primaryStage, "accueil.fxml", new VueAccueil());
         
         primaryStage.getIcons().add(new Image(getClass().getResource("/fr/uga/iut2/genevent/images/LBS-blanc-orange.png").toExternalForm()));
         primaryStage.setMaximized(true);
@@ -81,8 +81,7 @@ public class JavaFXGUI extends IHM {
         this.exitAction();
     }
 
-//-----  Implémentation des méthodes abstraites  -------------------------------
-
+    
     public void demarrerInteraction() {
         // démarrage de l'interface JavaFX
         Platform.startup(() -> {
@@ -95,7 +94,7 @@ public class JavaFXGUI extends IHM {
                 throw new RuntimeException(exc);
             }
         });
-
+        
         // attente de la fin de vie de l'interface JavaFX
         try {
             this.eolBarrier.await();
@@ -105,14 +104,11 @@ public class JavaFXGUI extends IHM {
             System.err.flush();
         }
     }
+    
+//-----  Implémentation des méthodes abstraites  -------------------------------
 
     @Override
     public void changerFenetre(Stage stage) {
         // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void informerUtilisateur(String message, boolean succes) {
-        System.out.println(message);
     }
 }

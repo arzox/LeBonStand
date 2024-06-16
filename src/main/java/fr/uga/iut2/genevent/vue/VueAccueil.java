@@ -3,6 +3,7 @@ package fr.uga.iut2.genevent.vue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import fr.uga.iut2.genevent.util.Vues;
@@ -10,6 +11,8 @@ import fr.uga.iut2.genevent.util.Vues;
 public class VueAccueil extends IHM {
 
 //-----  Éléments de la page d'accueil  -------------------------------------------------
+    @FXML Button supprimerEvenementOui;
+    @FXML Button supprimerEvenementNon;
 
     @FXML
     protected void nouvelEvenementCliquer() throws Exception {
@@ -42,10 +45,5 @@ public class VueAccueil extends IHM {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void informerUtilisateur(String msg, boolean succes) {
-        System.out.println(msg);
     }
 }

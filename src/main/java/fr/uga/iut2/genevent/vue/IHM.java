@@ -14,5 +14,7 @@ public abstract class IHM {
 
     public abstract void changerFenetre(Stage stage);
 
-    public abstract void informerUtilisateur(String message, boolean succes);
+    public void informerUtilisateur(String message, boolean succes) {
+        System.out.println(message);
+    }
 }

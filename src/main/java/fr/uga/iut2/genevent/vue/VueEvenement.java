@@ -15,11 +15,8 @@ import java.util.List;
 
 public class VueEvenement extends IHM {
 
-    @FXML
-    private Text nomEvenement;
-
-    @FXML
-    private VBox panel;
+    @FXML private Text nomEvenement;
+    @FXML private VBox panel;
 
     VueEvenement() {
         super();
@@ -54,10 +51,5 @@ public class VueEvenement extends IHM {
                 buttons.remove(i);
             }
         }
-    }
-
-    @Override
-    public void informerUtilisateur(String message, boolean succes) {
-        System.out.println(message);
     }
 }
