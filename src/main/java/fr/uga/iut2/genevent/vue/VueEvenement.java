@@ -13,10 +13,19 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
+/**
+ * La classe VueEvenement est responsable des interactions avec
+ * l'utilisa·teur/trice en mode graphique pour la vue accueil (liste des
+ * événements)
+ * <p>
+ * Contrôleur de tab-event.fxml (informations générales sur l'événement)
+ */
 public class VueEvenement extends IHM {
 
-    @FXML private Text nomEvenement;
-    @FXML private VBox panel;
+    @FXML
+    private Text nomEvenement;
+    @FXML
+    private VBox panel;
 
     VueEvenement() {
         super();
@@ -24,7 +33,8 @@ public class VueEvenement extends IHM {
 
     @FXML
     public void initialize() {
-        setupButton();
+        // setupButton();
+        // à remettre quand le problème de nomEvenement qui est null sera réglé
     }
 
     public void changerFenetre(Stage stage) {
@@ -41,7 +51,8 @@ public class VueEvenement extends IHM {
     private void setupButton() {
         nomEvenement.setText(controleur.getControleurEvenement().getEvenement().getNom());
         ArrayList<Fonctionnalite> allFonctionnalites = new ArrayList<>(EnumSet.allOf(Fonctionnalite.class));
-        ArrayList<Fonctionnalite> fonctionnalitesEvenement = controleur.getControleurEvenement().getEvenement().getFonctionnalites();
+        ArrayList<Fonctionnalite> fonctionnalitesEvenement = controleur.getControleurEvenement().getEvenement()
+                .getFonctionnalites();
 
         List<Node> buttons = panel.getChildren().subList(4, panel.getChildren().size());
 

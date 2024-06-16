@@ -1,6 +1,5 @@
 package fr.uga.iut2.genevent.vue;
 
-
 import fr.uga.iut2.genevent.controleur.Controleur;
 import javafx.stage.Stage;
 
