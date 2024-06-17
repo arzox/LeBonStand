@@ -2,12 +2,9 @@ package fr.uga.iut2.genevent.vue;
 
 import fr.uga.iut2.genevent.util.Vues;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -15,6 +12,14 @@ import javafx.stage.Stage;
 
 import java.util.List;
 
+/**
+ * La classe VueAccueil est responsable des interactions avec
+ * l'utilisa·teur/trice en mode graphique pour la vue accueil (liste des
+ * événements)
+ * <p>
+ * Contrôleur de : accueil.fxml, new-event.fxml, delete-event.fxml (boîte de
+ * confirmation pour supprimer un événement)
+ */
 public class VueAccueil extends IHM {
 
     @FXML
@@ -61,7 +66,7 @@ public class VueAccueil extends IHM {
         mainImage.setFitWidth(199.0);
         mainImage.setPickOnBounds(true);
         mainImage.setPreserveRatio(true);
-        mainImage.setImage(new Image(getClass().getResourceAsStream("/fr/uga/iut2/genevent/Images/marche_noel.jpg")));
+        mainImage.setImage(new Image(getClass().getResourceAsStream("/fr/uga/iut2/genevent/images/marche_noel.jpg")));
 
         Text text = new Text(eventName);
 
@@ -92,7 +97,7 @@ public class VueAccueil extends IHM {
         plusImage.setFitWidth(199.0);
         plusImage.setPickOnBounds(true);
         plusImage.setPreserveRatio(true);
-        plusImage.setImage(new Image(getClass().getResourceAsStream("/fr/uga/iut2/genevent/Images/plus.png")));
+        plusImage.setImage(new Image(getClass().getResourceAsStream("/fr/uga/iut2/genevent/images/plus.png")));
 
         Text text = new Text("Nouvel Évènement");
 
@@ -116,7 +121,7 @@ public class VueAccueil extends IHM {
     @FXML
     protected void supprimerEvenement() {
         try {
-            Vues.loadViewIntoStage(new Stage(), "event-delete.fxml", this);
+            Vues.loadViewIntoStage(new Stage(), "delete-event.fxml", this);
             // Reload events after deleting one
             loadEvents();
         } catch (Exception e) {
@@ -126,18 +131,6 @@ public class VueAccueil extends IHM {
 
     @Override
     public void changerFenetre(Stage stage) {
-        try {
-            FXMLLoader mainViewLoader = new FXMLLoader(getClass().getResource("Accueil.fxml"));
-            mainViewLoader.setController(this);
-            Scene mainScene = new Scene(mainViewLoader.load());
-            stage.setScene(mainScene);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void informerUtilisateur(String msg, boolean succes) {
-        System.out.println(msg);
+        Vues.loadViewIntoStage(stage, "accueil.fxml", this);
     }
 }
