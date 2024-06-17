@@ -26,7 +26,7 @@ public class VueEvenement extends IHM {
     @Override
     public void changerFenetre(Stage stage) {
         vueOnglets.load();
-        Parent parent = Vues.loadViewIntoStage(stage, "tab-event.fxml", this);
+        Parent parent = Vues.loadViewIntoStage(stage, "tab-emplacement.fxml", this);
         
         ((HBox) parent).getChildren().add(0, vueOnglets.getOngletsRoot());
     }
