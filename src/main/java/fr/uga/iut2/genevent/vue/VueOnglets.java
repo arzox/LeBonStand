@@ -16,6 +16,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * La classe VueEvenement est responsable des interactions avec
+ * l'utilisa·teur/trice en mode graphique pour la vue accueil (liste des
+ * événements)
+ * <p>
+ * Contrôleur de tab-event.fxml (informations générales sur l'événement)
+ */
 public class VueOnglets extends IHM {
 
     private Parent ongletsRoot;
@@ -34,10 +41,13 @@ public class VueOnglets extends IHM {
         setupButton();
     }
 
-    public void changerFenetre(Stage stage) {
-
-    }
-
+    /**
+     * Initialise le panneau de navigation :
+     * <p>
+     * - Applique le nom de l'événement pour le bouton "Événement"
+     * <p>
+     * - Met à jour les boutons selon les fonctionnalités activées pour cet événement
+     */
     private void setupButton() {
         nomEvenement.setText(controleur.getControleurEvenement().getEvenement().getNom());
         ArrayList<Fonctionnalite> allFonctionnalites = new ArrayList<>(EnumSet.allOf(Fonctionnalite.class));
@@ -54,20 +64,15 @@ public class VueOnglets extends IHM {
         }
     }
 
-    public void setOngletsRoot(Parent ongletsRoot) {
-        this.ongletsRoot = ongletsRoot;
-    }
-
-    public Parent getOngletsRoot() {
-        return ongletsRoot;
-    }
-
+    /**
+     * Charge la vue tabs.fxml et crée l'objet Parent correspondant afin qu'il
+     * puisse être utilisé par les classes utilisant les onglets sur le côté
+     * (panneau de navigation)
+     */
     public void load() {
-        // Charger le panneau du côté (onglets)
         try {
             // Charger la scène dans le loader et lui affecter le controleur en argument
-            URL temp = getClass().getResource("/fr/uga/iut2/genevent/vue/tabs.fxml");
-            FXMLLoader loader = new FXMLLoader(temp);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/uga/iut2/genevent/vue/tabs.fxml"));
             loader.setController(this);
             Parent parent = loader.load();
             Scene newScene = new Scene(parent);
@@ -83,5 +88,20 @@ public class VueOnglets extends IHM {
             System.err.println("Erreur pendant le chargement de la vue :\n");
             e.printStackTrace();
         }
+    }
+
+    // Implémentations et redéfinitions
+
+    public void changerFenetre(Stage stage) {
+    }
+
+    // Getters et setters
+
+    public void setOngletsRoot(Parent ongletsRoot) {
+        this.ongletsRoot = ongletsRoot;
+    }
+
+    public Parent getOngletsRoot() {
+        return ongletsRoot;
     }
 }

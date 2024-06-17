@@ -21,15 +21,19 @@ public class VueEvenement extends IHM {
         this.vueOnglets = vueOnglets;
     }
 
-    public VueOnglets getVueOnglets() {
-        return vueOnglets;
-    }
-
+    // Implémentations et surcharges
+    
     @Override
     public void changerFenetre(Stage stage) {
         vueOnglets.load();
         Parent parent = Vues.loadViewIntoStage(stage, "tab-event.fxml", this);
-
+        
         ((HBox) parent).getChildren().add(0, vueOnglets.getOngletsRoot());
+    }
+
+    // Getters et setters
+
+    public VueOnglets getVueOnglets() {
+        return vueOnglets;
     }
 }

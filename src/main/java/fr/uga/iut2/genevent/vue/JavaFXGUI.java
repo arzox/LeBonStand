@@ -1,7 +1,5 @@
 package fr.uga.iut2.genevent.vue;
 
-import fr.uga.iut2.genevent.util.Vues;
-
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
 
@@ -14,13 +12,13 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 /**
- * La classe JavaFXGUI délègue les interactions graphiques aux classes "VueXXX".
+ * La classe JavaFXGUI délègue les interactions graphiques aux classes {@code VueXXX}.
  * du même package. Elle constitue l'intermédiaire entre la classe
  * {@link fr.uga.iut2.genevent.controleur.Controleur} et les classes de la forme
- * "VueXXX", qui elles sont les contrôleurs des vues fxml.
+ * {@code VueXXX}, qui elles sont les contrôleurs des vues {@code .fxml}.
  * <p>
  * Attention, pour pouvoir faire le lien avec le
- * {@link fr.uga.iut2.genevent.controleur.Controleur}, JavaFXGUI n'est pas une
+ * {@link fr.uga.iut2.genevent.controleur.Controleur}, {@code JavaFXGUI} n'est pas une
  * sous-classe de {@link javafx.application.Application} !
  * <p>
  * Le démarrage de l'application diffère des exemples classiques trouvés dans
@@ -93,7 +91,7 @@ public class JavaFXGUI extends IHM {
         // démarrage de l'interface JavaFX
         Platform.startup(() -> {
             Stage primaryStage = new Stage();
-            primaryStage.setOnCloseRequest((WindowEvent t) -> this.exitAction());
+            primaryStage.setOnCloseRequest((WindowEvent t) -> exitAction());
             try {
                 this.start(primaryStage);
             } catch (IOException exc) {
@@ -110,7 +108,7 @@ public class JavaFXGUI extends IHM {
         }
     }
 
-    // ----- Implémentation des méthodes abstraites -------------------------------
+    // Implémentation et redéfinitions
 
     @Override
     public void changerFenetre(Stage stage) {

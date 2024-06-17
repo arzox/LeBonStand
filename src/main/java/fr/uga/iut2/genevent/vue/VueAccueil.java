@@ -32,8 +32,15 @@ public class VueAccueil extends IHM {
         loadEvents();
     }
 
+    /**
+     * Met à jour les éléments de l'accueil pour correspondre aux événements déjà
+     * créés. En d'autres termes, ajoute les événements enregistrés dans la liste
+     * des événements affichés par l'accueil.
+     */
     private void loadEvents() {
-        // Exemple de liste d'événements. Remplacez ceci par votre propre logique pour récupérer les événements.
+        // TODO : récupérer les événements depuis le contrôleur
+        // Exemple de liste d'événements. Remplacez ceci par votre propre logique pour
+        // récupérer les événements.
         List<String> eventNames = List.of("Event 1", "Event 2", "Event 3");
 
         // Clear the current children before adding new events
@@ -107,6 +114,15 @@ public class VueAccueil extends IHM {
         return button;
     }
 
+    // Implémentations et redéfinitions
+    
+    @Override
+    public void changerFenetre(Stage stage) {
+        Vues.loadViewIntoStage(stage, "accueil.fxml", this);
+    }
+
+    // Triggers référencés par le fichier .fxml
+
     @FXML
     protected void nouvelEvenementCliquer() {
         try {
@@ -127,10 +143,5 @@ public class VueAccueil extends IHM {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void changerFenetre(Stage stage) {
-        Vues.loadViewIntoStage(stage, "accueil.fxml", this);
     }
 }

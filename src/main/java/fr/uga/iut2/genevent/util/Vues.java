@@ -1,9 +1,5 @@
 package fr.uga.iut2.genevent.util;
 
-import java.io.IOException;
-import java.net.URL;
-
-import fr.uga.iut2.genevent.vue.VueEvenement;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -29,8 +25,7 @@ public class Vues {
     public static Parent loadViewIntoStage(Stage stage, String fxmlName, Object controleur) {
         try {
             // Charger la scène dans le loader et lui affecter le controleur en argument
-            URL temp = Vues.class.getResource("/fr/uga/iut2/genevent/vue/" + fxmlName);
-            FXMLLoader loader = new FXMLLoader(temp);
+            FXMLLoader loader = new FXMLLoader(Vues.class.getResource("/fr/uga/iut2/genevent/vue/" + fxmlName));
             loader.setController(controleur);
             Parent parent = loader.load();
             Scene newScene = new Scene(parent);

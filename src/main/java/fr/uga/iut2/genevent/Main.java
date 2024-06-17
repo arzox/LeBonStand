@@ -12,22 +12,26 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-
 public class Main {
 
     public static final int EXIT_ERR_LOAD = 2;
     public static final int EXIT_ERR_SAVE = 3;
 
     public static void main(String[] args) {
+        // Créer une instance du modèle (application correspond à la racine du modèle)
         Application application = new Application();
+
+        // Ajout d'événements pour tester l'affichage sur l'accueil
         application.addEvenement(new Evenement("Marche Noel", "2021-06-01", "2021-06-02", TypeEvenement.MARCHE_NOEL, new ArrayList<>(Arrays.asList(Fonctionnalite.AGENT_ENTRETIEN, Fonctionnalite.PARTICIPANT))));
+        
         application.addEvenement(new Evenement("Brocante", "2022-07-02", "2022-07-03", TypeEvenement.BROCANTE, new ArrayList<>(Arrays.asList(Fonctionnalite.AGENT_ENTRETIEN, Fonctionnalite.PARTICIPANT))));
+
+        // Sauvegarde d'état (on sauvegarde uniquement les deux événements ci-dessus, donc)
         try {
             Persisteur.sauverEtat(application);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
 
         try {
             application = Persisteur.lireEtat();
@@ -39,7 +43,6 @@ public class Main {
         }
 
         System.out.println(application.getEvenements());
-
 
         Controleur controleur = Controleur.getInstance(application);
 
