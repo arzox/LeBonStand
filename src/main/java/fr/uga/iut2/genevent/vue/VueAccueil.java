@@ -148,7 +148,7 @@ public class VueAccueil extends IHM {
         e.consume();
         try {
             toDelete = event;
-            Vues.loadViewIntoStage(new Stage(), "event-delete.fxml", this);
+            Vues.loadViewIntoStage(new Stage(), "delete-event.fxml", this);
             // Reload events after deleting one
             loadEvents();
         } catch (Exception exception) {
