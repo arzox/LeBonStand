@@ -83,8 +83,8 @@ public class VueAccueil extends IHM {
         mainImage.setImage(new Image(getClass().getResourceAsStream("/fr/uga/iut2/genevent/images/marche_noel.jpg")));
 
         ImageView trash = new ImageView();
-        trash.setFitHeight(50);
-        trash.setFitWidth(50);
+        trash.setFitHeight(30);
+        trash.setFitWidth(30);
         trash.setImage(new Image(getClass().getResourceAsStream("/fr/uga/iut2/genevent/images/trash.png")));
         trash.getStyleClass().add("trash");
         trash.setOnMouseClicked(e -> supprimerEvenement(e, event));
