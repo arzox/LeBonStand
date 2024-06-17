@@ -2,7 +2,6 @@ package fr.uga.iut2.genevent.vue;
 
 
 import fr.uga.iut2.genevent.controleur.Controleur;
-import javafx.stage.Stage;
 
 /**
  * La classe abstraite IHM fournit un cadre aux classes faisant office de
