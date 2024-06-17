@@ -4,6 +4,9 @@ import fr.uga.iut2.genevent.modele.*;
 
 import java.util.Optional;
 
+/**
+ * Sous-contrôleur pour la catégorie "Commerçants"
+ */
 public class ControleurCommercant {
 
     private Application application;
@@ -11,10 +14,6 @@ public class ControleurCommercant {
 
     public ControleurCommercant(Application application) {
         this.application = application;
-    }
-
-    public void setEvenement(Evenement evenement) {
-        this.evenement = evenement;
     }
 
     public void inscrireCommercant(String nom, String prenom, String email, String tel, String horaires,
@@ -50,4 +49,9 @@ public class ControleurCommercant {
         }
     }
 
+    // Setters
+
+    public void setEvenement(Evenement evenement) {
+        this.evenement = evenement;
+    }
 }

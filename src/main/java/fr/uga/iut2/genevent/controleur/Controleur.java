@@ -3,7 +3,10 @@ package fr.uga.iut2.genevent.controleur;
 import fr.uga.iut2.genevent.modele.Application;
 import fr.uga.iut2.genevent.modele.Evenement;
 
-
+/**
+ * La classe Controleur fournit une structure de base pour gérer le modèle en
+ * faisant l'intermédiaire entre celui-ci et le package vue (partie IHM)
+ */
 public class Controleur {
 
     private static Controleur instance;
@@ -25,6 +28,13 @@ public class Controleur {
         controleurAnimation = new ControleurAnimation(application);
     }
 
+    /**
+     * Permet de changer d'événement courant : cette méthode est appelée lorsqu'on
+     * choisit un événement sur la page d'accueil, depuis les classes du package
+     * {@code vue}
+     * 
+     * @param evenement - L'événement qui doit devenir l'événement courant
+     */
     public void setEvenementCourant(Evenement evenement) {
         controleurEvenement.setEvenement(evenement);
         controleurAgentEntretient.setEvenement(evenement);
@@ -33,13 +43,15 @@ public class Controleur {
         controleurCommercant.setEvenement(evenement);
         controleurAnimation.setEvenement(evenement);
     }
-    
+
     public static Controleur getInstance(Application application) {
         if (instance == null) {
             instance = new Controleur(application);
         }
         return instance;
     }
+
+    // Getters
 
     public ControleurAgentSecu getControleurAgentSecu() {
         return controleurAgentSecu;

@@ -6,6 +6,9 @@ import fr.uga.iut2.genevent.modele.Participant;
 
 import java.util.Optional;
 
+/**
+ * Sous-contrôleur pour la catégorie "Participants"
+ */
 public class ControleurParticipant {
 
     private Application application;
