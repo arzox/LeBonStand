@@ -1,6 +1,5 @@
 package fr.uga.iut2.genevent.vue;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;

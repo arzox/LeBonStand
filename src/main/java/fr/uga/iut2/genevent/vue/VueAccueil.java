@@ -25,8 +25,6 @@ public class VueAccueil extends IHM {
     @FXML
     private FlowPane eventsFlowPane;
 
-    private boolean isInitialized = false;
-
     @FXML
     public void initialize() {
         loadEvents();
