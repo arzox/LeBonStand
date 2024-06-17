@@ -71,7 +71,10 @@ public class JavaFXGUI extends IHM {
 
     private void exitAction() {
         // fermeture de l'interface JavaFX : on notifie sa fin de vie
-        Platform.runLater(this.eolBarrier::countDown);
+        Platform.runLater(() -> {
+            this.eolBarrier.countDown();
+            Platform.exit();
+        });
     }
 
     // menu principal

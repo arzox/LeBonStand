@@ -41,8 +41,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<VBox fx:id="panel" alignment="TOP_CENTER" prefHeight="1080.0" prefWidth="384.0" spacing="30.0" styleClass="leftPanel" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="panel" alignment="TOP_CENTER" prefHeight="1080.0" prefWidth="384.0" spacing="25.0" styleClass="leftPanel" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fitHeight="123.0" fitWidth="287.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -53,9 +52,29 @@
          </VBox.margin>
       </ImageView>
       <Line endX="100.0" startX="-218.41421508789062" startY="-0.9142136573791504" />
+      <HBox alignment="CENTER_LEFT" layoutX="40.0" layoutY="226.0" onMouseClicked="#onAccueil" prefHeight="100.0" prefWidth="315.0" spacing="20.0" styleClass="button">
+         <children>
+            <ImageView fitHeight="85.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/accueil.png" />
+               </image>
+            </ImageView>
+            <Text fx:id="nomEvenement1" fill="#363a4a" strokeType="OUTSIDE" strokeWidth="0.0" text="Accueil" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </Text>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+         </padding>
+         <VBox.margin>
+            <Insets left="30.0" right="30.0" />
+         </VBox.margin>
+      </HBox>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="300.0" spacing="20.0" styleClass="button">
          <children>
-            <ImageView fitHeight="85.0" fitWidth="93.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="85.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/calendrier.png" />
                </image>
@@ -75,7 +94,7 @@
       </HBox>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="300.0" spacing="20.0" styleClass="button">
          <children>
-            <ImageView fitHeight="85.0" fitWidth="93.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="95.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/vendeur.png" />
                </image>
@@ -96,7 +115,7 @@
       </HBox>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="300.0" spacing="20.0" styleClass="button">
          <children>
-            <ImageView fitHeight="85.0" fitWidth="93.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="85.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/garde.png" />
                </image>
@@ -116,7 +135,7 @@
       </HBox>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="300.0" spacing="20.0" styleClass="button">
          <children>
-            <ImageView fitHeight="85.0" fitWidth="93.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="85.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/balais.png" />
                </image>
@@ -136,7 +155,7 @@
       </HBox>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="300.0" spacing="20.0" styleClass="button">
          <children>
-            <ImageView fitHeight="85.0" fitWidth="93.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="85.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/faire-la-fete.png" />
                </image>
@@ -156,7 +175,7 @@
       </HBox>
       <HBox alignment="CENTER_LEFT" layoutX="40.0" layoutY="870.0" prefHeight="100.0" prefWidth="300.0" spacing="20.0" styleClass="button">
          <children>
-            <ImageView fitHeight="85.0" fitWidth="93.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="85.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/equipe.png" />
                </image>
