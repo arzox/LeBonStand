@@ -1,10 +1,8 @@
 package fr.uga.iut2.genevent.util;
 
 import java.io.IOException;
-import java.net.URL;
 
 import fr.uga.iut2.genevent.vue.IHM;
-import fr.uga.iut2.genevent.vue.VueOnglets;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

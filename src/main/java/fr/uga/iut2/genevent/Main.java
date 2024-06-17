@@ -2,15 +2,10 @@ package fr.uga.iut2.genevent;
 
 import fr.uga.iut2.genevent.controleur.Controleur;
 import fr.uga.iut2.genevent.modele.Application;
-import fr.uga.iut2.genevent.modele.Evenement;
-import fr.uga.iut2.genevent.modele.Fonctionnalite;
-import fr.uga.iut2.genevent.modele.TypeEvenement;
 import fr.uga.iut2.genevent.util.Persisteur;
 import fr.uga.iut2.genevent.vue.JavaFXGUI;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 
 public class Main {
