@@ -1,13 +1,16 @@
 package fr.uga.iut2.genevent.modele;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Evenement {
+public class Evenement implements Serializable {
     private String nom;
     private int maxParticipants;
     private String debut;
     private String fin;
+    private ArrayList<Fonctionnalite> fonctionnalites;
+
     private TypeEvenement type;
     private Lieu lieu;
 
@@ -29,11 +32,13 @@ public class Evenement {
     // Module Animation
     private ArrayList<Animation> animations = null;
 
-    public Evenement(String nom, String debut, String fin, TypeEvenement typeEvenement) {
+    public Evenement(String nom, String debut, String fin, TypeEvenement typeEvenement, ArrayList<Fonctionnalite> fonctionnalites) {
         this.nom = nom;
         this.debut = debut;
         this.fin = fin;
         this.type = typeEvenement;
+        this.fonctionnalites = fonctionnalites;
+
         initieCommerce();
     }
 
@@ -133,16 +138,33 @@ public class Evenement {
         this.zones = new ArrayList<>();
     }
 
+    public void supprimerSecurite() {
+        this.agentsSecurite = null;
+        this.zones = null;
+    }
+
     public void initieEntretien() {
         this.agentsEntretien = new ArrayList<>();
+    }
+
+    public void supprimerEntretien() {
+        this.agentsEntretien = null;
     }
 
     public void initieParticipant() {
         this.participants = new ArrayList<>();
     }
 
+    public void supprimerParticipant() {
+        this.participants = null;
+    }
+
     public void initieAnimation() {
         this.animations = new ArrayList<>();
+    }
+
+    public void supprimerAnimation() {
+        this.animations = null;
     }
 
     public String getNom() {
@@ -167,6 +189,10 @@ public class Evenement {
 
     public void setFin(String fin) {
         this.fin = fin;
+    }
+
+    public ArrayList<Fonctionnalite> getFonctionnalites() {
+        return fonctionnalites;
     }
 
     public int getMaxParticipants() {
@@ -223,5 +249,10 @@ public class Evenement {
 
     public ArrayList<Animation> getAnimations() {
         return animations;
+    }
+
+    @Override
+    public String toString() {
+        return this.nom + "\n" + this.debut + " - " + this.fin + "\n" + this.type + "\n" + this.fonctionnalites + "\n";
     }
 }

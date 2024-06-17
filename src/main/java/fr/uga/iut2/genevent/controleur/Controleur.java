@@ -12,6 +12,7 @@ public class Controleur {
     ControleurParticipant controleurParticipant;
     ControleurCommercant controleurCommercant;
     ControleurEvenement controleurEvenement;
+    ControleurAnimation controleurAnimation;
 
     private Controleur(Application application) {
         this.application = application;
@@ -20,13 +21,16 @@ public class Controleur {
         controleurParticipant = new ControleurParticipant(application);
         controleurCommercant = new ControleurCommercant(application);
         controleurEvenement = new ControleurEvenement(application);
+        controleurAnimation = new ControleurAnimation(application);
     }
 
     public void setEvenementCourant(Evenement evenement) {
+        controleurEvenement.setEvenement(evenement);
         controleurAgentEntretient.setEvenement(evenement);
         controleurAgentSecu.setEvenement(evenement);
         controleurParticipant.setEvenement(evenement);
         controleurCommercant.setEvenement(evenement);
+        controleurAnimation.setEvenement(evenement);
     }
     
     public static Controleur getInstance(Application application) {
@@ -56,32 +60,15 @@ public class Controleur {
         }
     }
 
-    public void saisirEvenement() {
-        this.ihm.saisirNouvelEvenement(this.genevent.getEvenements().keySet());
+    public ControleurCommercant getControleurCommercant() {
+        return controleurCommercant;
     }
 
-    public void creerEvenement(IHM.InfosNouvelEvenement infos) {
-        // création d'un Utilisateur si nécessaire
-        boolean nouvelUtilisateur = this.genevent.ajouteUtilisateur(
-                infos.admin.email,
-                infos.admin.nom,
-                infos.admin.prenom
-        );
-        if (nouvelUtilisateur) {
-            this.ihm.informerUtilisateur("Nouvel·le utilisa·teur/trice : " + infos.admin.prenom + " " + infos.admin.nom + " <" + infos.admin.email + ">",
-                    true
-            );
-        }
+    public ControleurEvenement getControleurEvenement() {
+        return controleurEvenement;
+    }
 
-        this.genevent.nouvelEvenement(
-                infos.nom,
-                infos.dateDebut,
-                infos.dateFin,
-                infos.admin.email
-        );
-        this.ihm.informerUtilisateur(
-                "Nouvel évènement : " + infos.nom + ", administré par " + infos.admin.email,
-                true
-        );
-    }*/
+    public ControleurAnimation getControleurAnimation() {
+        return controleurAnimation;
+    }
 }
