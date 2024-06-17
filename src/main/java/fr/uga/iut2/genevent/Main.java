@@ -20,13 +20,13 @@ public class Main {
 
     public static void main(String[] args) {
         Application application = new Application();
-        application.addEvenement(new Evenement("Marche Noel", "2021-06-01", "2021-06-02", TypeEvenement.MARCHE_NOEL, new ArrayList<>(Arrays.asList(Fonctionnalite.AGENT_ENTRETIEN, Fonctionnalite.PARTICIPANT))));
-        application.addEvenement(new Evenement("Brocante", "2022-07-02", "2022-07-03", TypeEvenement.BROCANTE, new ArrayList<>(Arrays.asList(Fonctionnalite.AGENT_ENTRETIEN, Fonctionnalite.PARTICIPANT))));
-        try {
-            Persisteur.sauverEtat(application);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+//        application.addEvenement(new Evenement("Marche Noel", "2021-06-01", "2021-06-02", TypeEvenement.MARCHE_NOEL, new ArrayList<>(Arrays.asList(Fonctionnalite.AGENT_ENTRETIEN, Fonctionnalite.PARTICIPANT))));
+//        application.addEvenement(new Evenement("Brocante", "2022-07-02", "2022-07-03", TypeEvenement.BROCANTE, new ArrayList<>(Arrays.asList(Fonctionnalite.AGENT_ENTRETIEN, Fonctionnalite.PARTICIPANT))));
+//        try {
+//            Persisteur.sauverEtat(application);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
 
 
         try {

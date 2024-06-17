@@ -2,6 +2,7 @@ package fr.uga.iut2.genevent.util;
 
 import java.net.URL;
 
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -29,15 +30,25 @@ public class Vues {
             URL temp = Vues.class.getResource("/fr/uga/iut2/genevent/vue/" + fxmlName);
             FXMLLoader loader = new FXMLLoader(temp);
             loader.setController(controleur);
-            Scene newScene = new Scene(loader.load());
 
-            // Appliquer le css global
-            newScene.getStylesheets().clear();
-            newScene.getStylesheets().add(Vues.class.getResource("/fr/uga/iut2/genevent/style/style.css").toExternalForm());
-            
-            // Ajouter la scène au stage en argument
-            stage.setScene(newScene);
-            stage.show();
+            Platform.runLater(() -> {
+                try {
+                    Scene newScene = new Scene(loader.load());
+                    stage.setScene(newScene);
+                    stage.show();
+
+                    // Appliquer le css global
+                    newScene.getStylesheets().clear();
+                    newScene.getStylesheets().add(Vues.class.getResource("/fr/uga/iut2/genevent/style/style.css").toExternalForm());
+
+                    // Ajouter la scène au stage en argument
+                    stage.setScene(newScene);
+                    stage.show();
+                } catch (Exception e) {
+                    System.err.println("Erreur pendant le chargement de la vue :\n");
+                    e.printStackTrace();
+                }
+            });
             return loader;
         } catch (Exception e) {
             System.err.println("Erreur pendant le chargement de la vue :\n");

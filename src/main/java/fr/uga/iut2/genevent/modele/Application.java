@@ -22,5 +22,4 @@ public class Application implements Serializable {
     public void removeEvenement(Evenement evenement) {
         this.evenements.remove(evenement);
     }
-
 }

@@ -54,9 +54,9 @@ public class JavaFXGUI extends IHM {
      */
     private void start(Stage primaryStage) throws IOException {
         Vues.loadViewIntoStage(primaryStage, "accueil.fxml", new VueAccueil());
-        
+
         primaryStage.getIcons().add(new Image(getClass().getResource("/fr/uga/iut2/genevent/images/LBS-blanc-orange.png").toExternalForm()));
-        primaryStage.setMaximized(true);
+        primaryStage.setMaximized(false);
         primaryStage.setTitle("LeBonStand");
     }
 
@@ -65,7 +65,7 @@ public class JavaFXGUI extends IHM {
 
     private void exitAction() {
         // fermeture de l'interface JavaFX : on notifie sa fin de vie
-        this.eolBarrier.countDown();
+        Platform.runLater(this.eolBarrier::countDown);
     }
 
     // menu principal  -----
@@ -104,11 +104,6 @@ public class JavaFXGUI extends IHM {
             System.err.println("Erreur d'exécution de l'interface.");
             System.err.flush();
         }
-    }
-
-    @Override
-    public void changerFenetre(Stage stage) {
-        // TODO Auto-generated method stub
     }
 
     @Override

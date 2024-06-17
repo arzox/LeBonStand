@@ -3,10 +3,13 @@ package fr.uga.iut2.genevent.controleur;
 import fr.uga.iut2.genevent.modele.Application;
 import fr.uga.iut2.genevent.modele.Evenement;
 
+import java.util.ArrayList;
+
 
 public class Controleur {
 
     private static Controleur instance;
+
     private Application application;
     ControleurAgentSecu controleurAgentSecu;
     ControleurAgentEntretient controleurAgentEntretient;
@@ -14,6 +17,13 @@ public class Controleur {
     ControleurCommercant controleurCommercant;
     ControleurEvenement controleurEvenement;
     ControleurAnimation controleurAnimation;
+
+    public static Controleur getInstance(Application application) {
+        if (instance == null) {
+            instance = new Controleur(application);
+        }
+        return instance;
+    }
 
     private Controleur(Application application) {
         this.application = application;
@@ -33,13 +43,7 @@ public class Controleur {
         controleurCommercant.setEvenement(evenement);
         controleurAnimation.setEvenement(evenement);
     }
-    
-    public static Controleur getInstance(Application application) {
-        if (instance == null) {
-            instance = new Controleur(application);
-        }
-        return instance;
-    }
+
 
     public ControleurAgentSecu getControleurAgentSecu() {
         return controleurAgentSecu;
@@ -63,5 +67,13 @@ public class Controleur {
 
     public ControleurAnimation getControleurAnimation() {
         return controleurAnimation;
+    }
+
+    public ArrayList<Evenement> getEvents() {
+        return application.getEvenements();
+    }
+
+    public void supprimerEvenement(Evenement evenement) {
+        application.removeEvenement(evenement);
     }
 }
