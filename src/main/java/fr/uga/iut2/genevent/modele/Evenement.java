@@ -72,11 +72,11 @@ public class Evenement {
 
     // ---------Module Securite---------
 
-    public void inscireAgentSecurite(AgentSecurite agentSecurite) {
+    public void ajouterAgentSecurite(AgentSecurite agentSecurite) {
         this.agentsSecurite.add(agentSecurite);
     }
 
-    public void desinscrireAgentSecurite(AgentSecurite agentSecurite) {
+    public void supprimerAgentSecurite(AgentSecurite agentSecurite) {
         agentSecurite.setZone(null);
         this.agentsSecurite.remove(agentSecurite);
     }

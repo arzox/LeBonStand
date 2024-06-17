@@ -2,9 +2,6 @@ package fr.uga.iut2.genevent.controleur;
 
 import fr.uga.iut2.genevent.modele.Application;
 import fr.uga.iut2.genevent.modele.Evenement;
-import fr.uga.iut2.genevent.vue.IHM;
-import fr.uga.iut2.genevent.vue.JavaFXGUI;
-
 
 public class Controleur {
 
@@ -40,10 +37,6 @@ public class Controleur {
     }
 
     /*
-    public void saisirUtilisateur() {
-        this.ihm.saisirUtilisateur();
-    }
-
     public void creerUtilisateur(IHM.InfosUtilisateur infos) {
         boolean nouvelUtilisateur = this.genevent.ajouteUtilisateur(
                 infos.email,
@@ -52,7 +45,7 @@ public class Controleur {
         );
         if (nouvelUtilisateur) {
             this.ihm.informerUtilisateur(
-                    "Nouvel·le utilisa·teur/trice : " + infos.prenom + " " + infos.nom + " <" + infos.email + ">",
+                    "Nouvel·le utilisa·teur/trice: " + infos.prenom + " " + infos.nom + " <" + infos.email + ">",
                     true
             );
         } else {
