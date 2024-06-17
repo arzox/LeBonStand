@@ -6,6 +6,9 @@ import fr.uga.iut2.genevent.modele.Evenement;
 
 import java.util.Optional;
 
+/**
+ * Sous-contrôleur pour la catégorie "Animations"
+ */
 public class ControleurAnimation {
 
     private Application application;
@@ -13,10 +16,6 @@ public class ControleurAnimation {
 
     public ControleurAnimation(Application application) {
         this.application = application;
-    }
-
-    public void setEvenement(Evenement evenement) {
-        this.evenement = evenement;
     }
 
     public void ajouterAnimation(String nom, float prix, String debut, String fin) {
@@ -34,9 +33,9 @@ public class ControleurAnimation {
 
     public void modifierAnimation(Animation animation,
                                   Optional<String> nom,
-                                    Optional<Float> prix,
-                                    Optional<String> debut,
-                                    Optional<String> fin) {
+                                  Optional<Float> prix,
+                                  Optional<String> debut,
+                                  Optional<String> fin) {
         if (evenement != null){
             nom.ifPresent(animation::setNom);
             prix.ifPresent(animation::setPrix);
@@ -45,5 +44,9 @@ public class ControleurAnimation {
         }
     }
 
+    // Setters
 
+    public void setEvenement(Evenement evenement) {
+        this.evenement = evenement;
+    }
 }

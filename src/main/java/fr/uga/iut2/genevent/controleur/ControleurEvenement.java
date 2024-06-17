@@ -8,6 +8,9 @@ import fr.uga.iut2.genevent.vue.IHM;
 
 import java.util.*;
 
+/**
+ * Sous-contrôleur pour les événements
+ */
 public class ControleurEvenement {
 
     private Application application;
@@ -106,6 +109,8 @@ public class ControleurEvenement {
     public ArrayList<Fonctionnalite> getFonctionnalites() {
         return evenement.getFonctionnalites();
     }
+
+    // Getters et setters
 
     public Evenement getEvenement() {
         return evenement;

@@ -16,6 +16,14 @@ import javafx.stage.Stage;
 
 import java.util.List;
 
+/**
+ * La classe VueAccueil est responsable des interactions avec
+ * l'utilisa·teur/trice en mode graphique pour la vue accueil (liste des
+ * événements)
+ * <p>
+ * Contrôleur de : accueil.fxml, new-event.fxml, delete-event.fxml (boîte de
+ * confirmation pour supprimer un événement)
+ */
 public class VueAccueil extends IHM {
 
     @FXML
@@ -31,6 +39,11 @@ public class VueAccueil extends IHM {
         loadEvents();
     }
 
+    /**
+     * Met à jour les éléments de l'accueil pour correspondre aux événements déjà
+     * créés. En d'autres termes, ajoute les événements enregistrés dans la liste
+     * des événements affichés par l'accueil.
+     */
     private void loadEvents() {
         // Exemple de liste d'événements. Remplacez ceci par votre propre logique pour récupérer les événements.
         List<Evenement> eventNames = controleur.getEvents();

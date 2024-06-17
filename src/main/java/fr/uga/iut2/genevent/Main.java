@@ -19,6 +19,7 @@ public class Main {
     public static final int EXIT_ERR_SAVE = 3;
 
     public static void main(String[] args) {
+        // Créer une instance du modèle (application correspond à la racine du modèle)
         Application application = new Application();
 //        application.addEvenement(new Evenement("Marche Noel", "2021-06-01", "2021-06-02", TypeEvenement.MARCHE_NOEL, new ArrayList<>(Arrays.asList(Fonctionnalite.AGENT_ENTRETIEN, Fonctionnalite.PARTICIPANT))));
 //        application.addEvenement(new Evenement("Brocante", "2022-07-02", "2022-07-03", TypeEvenement.BROCANTE, new ArrayList<>(Arrays.asList(Fonctionnalite.AGENT_ENTRETIEN, Fonctionnalite.PARTICIPANT))));
@@ -27,7 +28,6 @@ public class Main {
 //        } catch (IOException e) {
 //            throw new RuntimeException(e);
 //        }
-
 
         try {
             application = Persisteur.lireEtat();
@@ -39,7 +39,6 @@ public class Main {
         }
 
         System.out.println(application.getEvenements());
-
 
         Controleur controleur = Controleur.getInstance(application);
 

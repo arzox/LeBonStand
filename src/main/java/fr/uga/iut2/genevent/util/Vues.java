@@ -4,6 +4,7 @@ import java.net.URL;
 
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -22,13 +23,12 @@ public class Vues {
      *                 alors le chemin relatif à partir du dossier racine pour les
      *                 ressources
      * 
-     * @return l'objet FXMLLoader utilisé pour charger la vue
+     * @return l'objet Parent utilisé pour charger la vue
      */
-    public static FXMLLoader loadViewIntoStage(Stage stage, String fxmlName, Object controleur) {
+    public static Parent loadViewIntoStage(Stage stage, String fxmlName, Object controleur) {
         try {
             // Charger la scène dans le loader et lui affecter le controleur en argument
-            URL temp = Vues.class.getResource("/fr/uga/iut2/genevent/vue/" + fxmlName);
-            FXMLLoader loader = new FXMLLoader(temp);
+            FXMLLoader loader = new FXMLLoader(Vues.class.getResource("/fr/uga/iut2/genevent/vue/" + fxmlName));
             loader.setController(controleur);
 
             Platform.runLater(() -> {
