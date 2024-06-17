@@ -128,7 +128,7 @@ public class VueAccueil extends IHM {
     private void openEvent(Evenement event) {
         controleur.setEvenementCourant(event);
         try {
-            Vues.loadViewIntoStage((Stage) eventsFlowPane.getScene().getWindow(), "evenement.fxml", new VueEvenement());
+            Vues.loadViewIntoStage((Stage) eventsFlowPane.getScene().getWindow(), "tab-event.fxml", new VueEvenement(new VueOnglets()));
         } catch (Exception ex) {
             ex.printStackTrace();
         }

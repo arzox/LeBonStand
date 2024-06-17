@@ -36,6 +36,11 @@ public class VueOnglets extends IHM {
         super();
     }
 
+    @Override
+    public void informerUtilisateur(String message, boolean succes) {
+        System.out.println(message);
+    }
+
     @FXML
     public void initialize() {
         setupButton();
@@ -88,11 +93,6 @@ public class VueOnglets extends IHM {
             System.err.println("Erreur pendant le chargement de la vue :\n");
             e.printStackTrace();
         }
-    }
-
-    // Implémentations et redéfinitions
-
-    public void changerFenetre(Stage stage) {
     }
 
     // Getters et setters

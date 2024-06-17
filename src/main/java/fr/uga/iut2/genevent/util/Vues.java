@@ -1,7 +1,10 @@
 package fr.uga.iut2.genevent.util;
 
+import java.io.IOException;
 import java.net.URL;
 
+import fr.uga.iut2.genevent.vue.IHM;
+import fr.uga.iut2.genevent.vue.VueOnglets;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -31,9 +34,10 @@ public class Vues {
             FXMLLoader loader = new FXMLLoader(Vues.class.getResource("/fr/uga/iut2/genevent/vue/" + fxmlName));
             loader.setController(controleur);
 
+            Parent parent = loader.load();
             Platform.runLater(() -> {
                 try {
-                    Scene newScene = new Scene(loader.load());
+                    Scene newScene = new Scene(parent);
                     stage.setScene(newScene);
                     stage.show();
 
@@ -49,11 +53,17 @@ public class Vues {
                     e.printStackTrace();
                 }
             });
-            return loader;
+            return parent;
         } catch (Exception e) {
             System.err.println("Erreur pendant le chargement de la vue :\n");
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static Parent loadView(String fmxl, IHM controleur) throws IOException {
+        FXMLLoader loader = new FXMLLoader(Vues.class.getResource("/fr/uga/iut2/genevent/vue/" + fmxl));
+        loader.setController(controleur);
+        return loader.load();
     }
 }

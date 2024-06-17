@@ -1,6 +1,7 @@
 package fr.uga.iut2.genevent.vue;
 
 import fr.uga.iut2.genevent.util.Vues;
+import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -16,23 +17,30 @@ public class VueEvenement extends IHM {
 
     private final VueOnglets vueOnglets;
 
+    @FXML
+    HBox container;
+
     VueEvenement(VueOnglets vueOnglets) {
         super();
         this.vueOnglets = vueOnglets;
     }
 
-    // Implémentations et surcharges
-    
+    @FXML
+    private void initialize() {
+        try {
+            Parent ongletsRoot = Vues.loadView("tabs.fxml", vueOnglets);
+            container.getChildren().add(0,ongletsRoot);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
-    public void changerFenetre(Stage stage) {
-        vueOnglets.load();
-        Parent parent = Vues.loadViewIntoStage(stage, "tab-event.fxml", this);
-        
-        ((HBox) parent).getChildren().add(0, vueOnglets.getOngletsRoot());
+    public void informerUtilisateur(String message, boolean succes) {
+        System.out.println(message);
     }
 
     // Getters et setters
-
     public VueOnglets getVueOnglets() {
         return vueOnglets;
     }
