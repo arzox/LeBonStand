@@ -22,9 +22,7 @@ public class ControleurEvenement {
 
     public Evenement creerEvenement(String nom, TypeEvenement type, List<Fonctionnalite> fonctionnalites, IHM ihm) {
 
-        Evenement evenement = new Evenement(nom, null, null, type, new ArrayList<>(Arrays.asList(Fonctionnalite.values())));
-        evenement.initieCommerce();
-        modifierFonctionnalites(evenement, fonctionnalites);
+        Evenement evenement = new Evenement(nom, null, null, type, new ArrayList<>(fonctionnalites));
         ihm.informerUtilisateur("Evenement créé avec succès", true);
         application.addEvenement(evenement);
         return evenement;
@@ -54,56 +52,6 @@ public class ControleurEvenement {
         type.ifPresent(evenement::setType);
         dateDebut.ifPresent(evenement::setDebut);
         dateFin.ifPresent(evenement::setFin);
-    }
-
-    public void modifierFonctionnalites(Evenement evenement, List<Fonctionnalite> fonctionnalites) {
-        // Create a set of all Fonctionnalite values
-        Set<Fonctionnalite> allFonctionnalites = EnumSet.allOf(Fonctionnalite.class);
-
-        // Remove the Fonctionnalite values that are in the fonctionnalites list
-        allFonctionnalites.removeAll(fonctionnalites);
-
-        // Iterate over the Fonctionnalite values that are in the enum but not in the list
-        for (Fonctionnalite fonctionnalite : allFonctionnalites) {
-            switch (fonctionnalite) {
-                case AGENT_ENTRETIEN:
-                    evenement.supprimerEntretien();
-                    break;
-                case AGENT_SECURITE:
-                    evenement.supprimerSecurite();
-                    break;
-                case PARTICIPANT:
-                    evenement.supprimerParticipant();
-                    break;
-                case ANIMATION:
-                    evenement.supprimerAnimation();
-                    break;
-                default:
-                    // Handle unexpected case
-                    break;
-            }
-        }
-
-        // Iterate over the Fonctionnalite values that are in the list
-        for (Fonctionnalite fonctionnalite : fonctionnalites) {
-            switch (fonctionnalite) {
-                case AGENT_ENTRETIEN:
-                    evenement.initieEntretien();
-                    break;
-                case AGENT_SECURITE:
-                    evenement.initieSecurite();
-                    break;
-                case PARTICIPANT:
-                    evenement.initieParticipant();
-                    break;
-                case ANIMATION:
-                    evenement.initieAnimation();
-                    break;
-                default:
-                    // Handle unexpected case
-                    break;
-            }
-        }
     }
 
     public ArrayList<Fonctionnalite> getFonctionnalites() {
