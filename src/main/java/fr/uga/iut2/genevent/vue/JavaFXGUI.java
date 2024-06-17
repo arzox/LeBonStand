@@ -26,7 +26,7 @@ import javafx.stage.WindowEvent;
  * {@link fr.uga.iut2.genevent.controleur.Controleur} via l'appel de la méthode
  * {@link #demarrerInteraction()}.
  */
-public class JavaFXGUI extends IHM {
+public class JavaFXGUI {
 
     private final CountDownLatch eolBarrier; // /!\ ne pas supprimer /!\ : suivi de la durée de vie de l'interface
 
@@ -43,7 +43,6 @@ public class JavaFXGUI extends IHM {
     private Button newUserCancelButton;
 
     public JavaFXGUI() {
-        super();
         this.eolBarrier = new CountDownLatch(1); // /!\ ne pas supprimer /!\
     }
 
@@ -106,12 +105,5 @@ public class JavaFXGUI extends IHM {
             System.err.println("Erreur d'exécution de l'interface.");
             System.err.flush();
         }
-    }
-
-    // Implémentation et redéfinitions
-
-    @Override
-    public void changerFenetre(Stage stage) {
-        // TODO Auto-generated method stub
     }
 }
