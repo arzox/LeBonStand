@@ -69,6 +69,19 @@ public class VueOnglets extends IHM {
         }
     }
 
+    public void setCurrentOnglet(int i) {
+        if (i < 0 || i >= panel.getChildren().size()) {
+            throw new RuntimeException("Bouton hors de la liste");
+        }
+
+    }
+
+    @FXML
+    private void onAccueil() {
+        Stage stage = (Stage) panel.getScene().getWindow();
+        Vues.loadViewIntoStage(stage, "accueil.fxml", new VueAccueil());
+    }
+
     /**
      * Charge la vue tabs.fxml et crée l'objet Parent correspondant afin qu'il
      * puisse être utilisé par les classes utilisant les onglets sur le côté

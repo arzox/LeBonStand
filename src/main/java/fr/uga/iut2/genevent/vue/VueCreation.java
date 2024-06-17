@@ -48,7 +48,12 @@ public class VueCreation extends IHM {
     @FXML
     private void onAnnuler(ActionEvent event) {
         Stage stage = (Stage) typeMarche.getScene().getWindow();
-        stage.close();
+        stage.fireEvent(
+                new javafx.stage.WindowEvent(
+                        stage,
+                        javafx.stage.WindowEvent.WINDOW_CLOSE_REQUEST
+                )
+        );
     }
 
     private ArrayList<Fonctionnalite> getFonctionnalitesSelected() {

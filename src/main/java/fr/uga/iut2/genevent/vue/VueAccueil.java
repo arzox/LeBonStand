@@ -33,6 +33,7 @@ public class VueAccueil extends IHM {
     private Button annulerBouton;
 
     private Evenement toDelete;
+    private Stage otherVue;
 
     @FXML
     public void initialize() {
@@ -127,6 +128,9 @@ public class VueAccueil extends IHM {
 
     private void openEvent(Evenement event) {
         controleur.setEvenementCourant(event);
+        if (otherVue != null) {
+            otherVue.close();
+        }
         try {
             Vues.loadViewIntoStage((Stage) eventsFlowPane.getScene().getWindow(), "tab-event.fxml", new VueEvenement(new VueOnglets()));
         } catch (Exception ex) {
@@ -136,19 +140,32 @@ public class VueAccueil extends IHM {
 
     @FXML
     protected void nouvelEvenementCliquer() {
+        if (isAlreadyOpened()) return;
         try {
-            Vues.loadViewIntoStage(new Stage(), "new-event.fxml", new VueCreation((Stage) eventsFlowPane.getScene().getWindow()));
+            Vues.loadViewIntoStage(otherVue, "new-event.fxml", new VueCreation((Stage) eventsFlowPane.getScene().getWindow()));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    private boolean isAlreadyOpened() {
+        if (otherVue != null) {
+            return true;
+        }
+        otherVue = new Stage();
+        otherVue.setOnCloseRequest(_e -> {
+            otherVue = null;
+        });
+        return false;
+    }
+
     @FXML
     protected void supprimerEvenement(MouseEvent e, Evenement event) {
         e.consume();
+        if (isAlreadyOpened()) return;
         try {
             toDelete = event;
-            Vues.loadViewIntoStage(new Stage(), "delete-event.fxml", this);
+            Vues.loadViewIntoStage(otherVue, "delete-event.fxml", this);
             // Reload events after deleting one
             loadEvents();
         } catch (Exception exception) {
@@ -159,7 +176,12 @@ public class VueAccueil extends IHM {
     @FXML
     private void onCancel() {
         Stage stage = (Stage) annulerBouton.getScene().getWindow();
-        stage.close();
+        stage.fireEvent(
+                new javafx.stage.WindowEvent(
+                        stage,
+                        javafx.stage.WindowEvent.WINDOW_CLOSE_REQUEST
+                )
+        );
     }
 
     @FXML

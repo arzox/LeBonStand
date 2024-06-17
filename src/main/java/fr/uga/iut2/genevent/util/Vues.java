@@ -44,10 +44,6 @@ public class Vues {
                     // Appliquer le css global
                     newScene.getStylesheets().clear();
                     newScene.getStylesheets().add(Vues.class.getResource("/fr/uga/iut2/genevent/style/style.css").toExternalForm());
-
-                    // Ajouter la scène au stage en argument
-                    stage.setScene(newScene);
-                    stage.show();
                 } catch (Exception e) {
                     System.err.println("Erreur pendant le chargement de la vue :\n");
                     e.printStackTrace();
