@@ -74,9 +74,7 @@ HBox {
 }
 
 .trash {
-  opacity: 0.4;
-  cursor: pointer;
-  -fx-opacity: 0.4;
+  -fx-opacity: 0.5;
   -fx-cursor: hand;
 }
 .trash:hover {
@@ -104,12 +102,4 @@ HBox {
   background-color: rgba(255, 255, 255, 0.76);
   -fx-background-color: rgba(255, 255, 255, 0.76);
   -fx-cursor: hand;
-}
-
-.trash {
-  -fx-opacity: 0.3;
-}
-
-.trash:hover {
-  -fx-opacity: 1;
 }
