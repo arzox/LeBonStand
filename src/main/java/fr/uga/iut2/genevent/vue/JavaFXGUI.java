@@ -60,7 +60,8 @@ public class JavaFXGUI extends IHM {
      * @see javafx.application.Application#start(Stage)
      */
     private void start(Stage primaryStage) throws IOException {
-        Vues.loadViewIntoStage(primaryStage, "tab-event.fxml", new VueEvenement());
+        VueEvenement vueEvenement = new VueEvenement(new VueOnglets());
+        vueEvenement.changerFenetre(primaryStage);
 
         primaryStage.getIcons().add(new Image(
                 getClass().getResource("/fr/uga/iut2/genevent/images/LBS-blanc-orange.png").toExternalForm()));
