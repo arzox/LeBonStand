@@ -44,6 +44,8 @@ public class VueCommercants extends IHM {
         this.controleurCommercant = controleur.getControleurCommercant();
     }
 
+    // Implémentations et redéfinitions
+
     @Override
     public void informerUtilisateur(String message, boolean succes) {
         System.out.println(message);

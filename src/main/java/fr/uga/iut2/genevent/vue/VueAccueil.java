@@ -13,6 +13,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.util.List;
 
@@ -46,7 +47,6 @@ public class VueAccueil extends IHM {
      * des événements affichés par l'accueil.
      */
     private void loadEvents() {
-        // Exemple de liste d'événements. Remplacez ceci par votre propre logique pour récupérer les événements.
         List<Evenement> eventNames = controleur.getEvents();
 
         // Clear the current children before adding new events
@@ -140,9 +140,11 @@ public class VueAccueil extends IHM {
 
     @FXML
     protected void nouvelEvenementCliquer() {
-        if (isAlreadyOpened()) return;
+        if (isAlreadyOpened())
+            return;
         try {
-            Vues.loadViewIntoStage(otherVue, "new-event.fxml", new VueCreation((Stage) eventsFlowPane.getScene().getWindow()));
+            Vues.loadViewIntoStage(otherVue, "new-event.fxml",
+                    new VueCreation((Stage) eventsFlowPane.getScene().getWindow()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -177,11 +179,9 @@ public class VueAccueil extends IHM {
     private void onCancel() {
         Stage stage = (Stage) annulerBouton.getScene().getWindow();
         stage.fireEvent(
-                new javafx.stage.WindowEvent(
+                new WindowEvent(
                         stage,
-                        javafx.stage.WindowEvent.WINDOW_CLOSE_REQUEST
-                )
-        );
+                        WindowEvent.WINDOW_CLOSE_REQUEST));
     }
 
     @FXML
@@ -190,6 +190,8 @@ public class VueAccueil extends IHM {
         ((Stage) annulerBouton.getScene().getWindow()).close();
         loadEvents();
     }
+
+    // Implémentations et redéfinitions
 
     @Override
     public void informerUtilisateur(String msg, boolean succes) {
