@@ -49,6 +49,11 @@ public class JavaFXGUI extends IHM {
         this.eolBarrier = new CountDownLatch(1);  // /!\ ne pas supprimer /!\
     }
 
+    @Override
+    public void informerUtilisateur(String message, boolean succes) {
+
+    }
+
     @FXML
     private void exitMenuItemAction() {
         Platform.exit();
@@ -90,11 +95,7 @@ public class JavaFXGUI extends IHM {
     // this.controleur.saisirUtilisateur();
     // }
 
-    @FXML
-    private void exitMenuItemAction() {
-        Platform.exit();
-        this.exitAction();
-    }
+
 
 //-----  Implémentation des méthodes abstraites  -------------------------------
 
