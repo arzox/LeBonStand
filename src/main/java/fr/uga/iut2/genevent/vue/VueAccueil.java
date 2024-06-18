@@ -2,6 +2,7 @@ package fr.uga.iut2.genevent.vue;
 
 import fr.uga.iut2.genevent.modele.Evenement;
 import fr.uga.iut2.genevent.util.Vues;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -12,8 +13,10 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -65,7 +68,7 @@ public class VueAccueil extends IHM {
     private VBox createEventButton(Evenement event) {
         VBox vBox = new VBox();
         vBox.getStyleClass().add("eventIcon");
-        vBox.setAlignment(javafx.geometry.Pos.CENTER);
+        vBox.setAlignment(Pos.CENTER);
         vBox.setMinHeight(169.0);
         vBox.setMinWidth(160.0);
         vBox.setPrefHeight(169.0);
@@ -90,16 +93,20 @@ public class VueAccueil extends IHM {
         trash.getStyleClass().add("trash");
         trash.setOnMouseClicked(e -> supprimerEvenement(e, event));
 
+        Button changeImageButton = new Button("Changer l'image");
+        changeImageButton.setOnAction(e -> changerImage(e, mainImage)); // Ajouter la logique pour changer l'image
+
         stackPane.getChildren().addAll(mainImage, trash);
         StackPane.setAlignment(trash, Pos.BOTTOM_LEFT);
 
         Text text = new Text(event.getNom());
 
-        vBox.getChildren().addAll(stackPane, text);
+        vBox.getChildren().addAll(stackPane, text, changeImageButton);
         vBox.setOnMouseClicked(e -> openEvent(event));
 
         return vBox;
     }
+
 
     private VBox createNewEventButton() {
         VBox vBox = new VBox();
@@ -190,6 +197,17 @@ public class VueAccueil extends IHM {
         controleur.supprimerEvenement(toDelete);
         ((Stage) annulerBouton.getScene().getWindow()).close();
         loadEvents();
+    }
+
+    private void changerImage(ActionEvent event, ImageView mainImage) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choisir une image");
+        File file = fileChooser.showOpenDialog(null);
+        if (file != null) {
+            Image newImage = new Image(file.toURI().toString());
+            mainImage.setImage(newImage);
+            // Ici, vous pouvez enregistrer la nouvelle image dans votre modèle ou faire d'autres opérations nécessaires
+        }
     }
 
     @Override

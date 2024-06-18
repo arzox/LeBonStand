@@ -63,7 +63,7 @@ public class JavaFXGUI extends IHM {
         Vues.loadViewIntoStage(primaryStage, "accueil.fxml", new VueAccueil());
 
         primaryStage.getIcons().add(new Image(getClass().getResource("/fr/uga/iut2/genevent/images/LBS-blanc-orange.png").toExternalForm()));
-        primaryStage.setMaximized(false);
+        primaryStage.setMaximized(true);
         primaryStage.setTitle("LeBonStand");
     }
 
