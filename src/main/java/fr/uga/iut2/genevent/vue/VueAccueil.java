@@ -2,7 +2,6 @@ package fr.uga.iut2.genevent.vue;
 
 import fr.uga.iut2.genevent.modele.Evenement;
 import fr.uga.iut2.genevent.util.Vues;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -13,10 +12,9 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
-import java.io.File;
 import java.util.List;
 
 /**
@@ -28,6 +26,9 @@ import java.util.List;
  * confirmation pour supprimer un événement)
  */
 public class VueAccueil extends IHM {
+
+    public static final String FXML_NAME = "accueil.fxml";
+    public static final String DELETE = "delete-event.fxml";
 
     @FXML
     private FlowPane eventsFlowPane;
@@ -49,7 +50,6 @@ public class VueAccueil extends IHM {
      * des événements affichés par l'accueil.
      */
     private void loadEvents() {
-        // Exemple de liste d'événements. Remplacez ceci par votre propre logique pour récupérer les événements.
         List<Evenement> eventNames = controleur.getEvents();
 
         // Clear the current children before adding new events
@@ -68,7 +68,7 @@ public class VueAccueil extends IHM {
     private VBox createEventButton(Evenement event) {
         VBox vBox = new VBox();
         vBox.getStyleClass().add("eventIcon");
-        vBox.setAlignment(Pos.CENTER);
+        vBox.setAlignment(javafx.geometry.Pos.CENTER);
         vBox.setMinHeight(169.0);
         vBox.setMinWidth(160.0);
         vBox.setPrefHeight(169.0);
@@ -93,20 +93,16 @@ public class VueAccueil extends IHM {
         trash.getStyleClass().add("trash");
         trash.setOnMouseClicked(e -> supprimerEvenement(e, event));
 
-        Button changeImageButton = new Button("Changer l'image");
-        changeImageButton.setOnAction(e -> changerImage(e, mainImage)); // Ajouter la logique pour changer l'image
-
         stackPane.getChildren().addAll(mainImage, trash);
         StackPane.setAlignment(trash, Pos.BOTTOM_LEFT);
 
         Text text = new Text(event.getNom());
 
-        vBox.getChildren().addAll(stackPane, text, changeImageButton);
+        vBox.getChildren().addAll(stackPane, text);
         vBox.setOnMouseClicked(e -> openEvent(event));
 
         return vBox;
     }
-
 
     private VBox createNewEventButton() {
         VBox vBox = new VBox();
@@ -139,7 +135,8 @@ public class VueAccueil extends IHM {
             otherVue.close();
         }
         try {
-            Vues.loadViewIntoStage((Stage) eventsFlowPane.getScene().getWindow(), "tab-event.fxml", new VueEvenement(new VueOnglets()));
+            VueOnglets vueOnglets = new VueOnglets(new VueEvenement());
+            vueOnglets.changerFenetre((Stage) eventsFlowPane.getScene().getWindow());
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -147,9 +144,11 @@ public class VueAccueil extends IHM {
 
     @FXML
     protected void nouvelEvenementCliquer() {
-        if (isAlreadyOpened()) return;
+        if (isAlreadyOpened())
+            return;
         try {
-            Vues.loadViewIntoStage(otherVue, "new-event.fxml", new VueCreation((Stage) eventsFlowPane.getScene().getWindow()));
+            VueCreation vueCreation = new VueCreation((Stage) eventsFlowPane.getScene().getWindow());
+            vueCreation.changerFenetre(otherVue);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -157,7 +156,6 @@ public class VueAccueil extends IHM {
 
     private boolean isAlreadyOpened() {
         if (otherVue != null) {
-
             return true;
         }
         otherVue = new Stage();
@@ -173,7 +171,7 @@ public class VueAccueil extends IHM {
         if (isAlreadyOpened()) return;
         try {
             toDelete = event;
-            Vues.loadViewIntoStage(otherVue, "delete-event.fxml", this);
+            Vues.loadViewIntoStage(otherVue, DELETE, this);
             // Reload events after deleting one
             loadEvents();
         } catch (Exception exception) {
@@ -185,11 +183,9 @@ public class VueAccueil extends IHM {
     private void onCancel() {
         Stage stage = (Stage) annulerBouton.getScene().getWindow();
         stage.fireEvent(
-                new javafx.stage.WindowEvent(
+                new WindowEvent(
                         stage,
-                        javafx.stage.WindowEvent.WINDOW_CLOSE_REQUEST
-                )
-        );
+                        WindowEvent.WINDOW_CLOSE_REQUEST));
     }
 
     @FXML
@@ -199,19 +195,15 @@ public class VueAccueil extends IHM {
         loadEvents();
     }
 
-    private void changerImage(ActionEvent event, ImageView mainImage) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Choisir une image");
-        File file = fileChooser.showOpenDialog(null);
-        if (file != null) {
-            Image newImage = new Image(file.toURI().toString());
-            mainImage.setImage(newImage);
-            // Ici, vous pouvez enregistrer la nouvelle image dans votre modèle ou faire d'autres opérations nécessaires
-        }
-    }
+    // Implémentations et redéfinitions
 
     @Override
     public void informerUtilisateur(String msg, boolean succes) {
         System.out.println(msg);
+    }
+
+    @Override
+    public String getFxmlName() {
+        return FXML_NAME;
     }
 }
