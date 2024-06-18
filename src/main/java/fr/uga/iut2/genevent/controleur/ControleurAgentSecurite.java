@@ -8,22 +8,21 @@ import java.util.Arrays;
 import java.util.Collections;
 
 /**
- * Sous-contrôleur pour la catégorie "Agents de sécurité"
+ * Contrôleur pour la catégorie "Agents de sécurité"
  */
-public class ControleurAgentSecu {
+public class ControleurAgentSecurite {
     private Application application;
     private Evenement evenement;
 
-    public ControleurAgentSecu(Application application) {
+    public ControleurAgentSecurite(Application application) {
         this.application = application;
     }
-
-    // Setters
 
     public void setEvenement(Evenement evenement) {
         this.evenement = evenement;
     }
 
+    // Agent de sécurité
     public AgentSecurite ajouterAgentSecurite(String nom, String prenom, String email, String telephone, int heureDebut,
             int heureFin, Zone zone) throws Exception {
         if (evenement != null) {
@@ -36,13 +35,13 @@ public class ControleurAgentSecu {
                 String prenomCourant = agent.getPrenom();
                 String emailCourant = agent.getEmail();
                 String telephoneCourant = agent.getTelephone();
-                boolean isNotUnique = nom.equals(nomCourant) & prenom.equals(prenomCourant) & email.equals(emailCourant)
-                        & telephone.equals(telephoneCourant);
+                boolean isNotUnique = nom.equals(nomCourant) & prenom.equals(prenomCourant)
+                        & email.equals(emailCourant) & telephone.equals(telephoneCourant);
 
                 if (isNotUnique & isStartAfterEnd) {
 
-                    throw new MauvaisChampsException(
-                            "L'agent de sécurité que vous souhaitez ajouter existe déjà et l'heure de début est ultérieure à l'heure de fin",
+                    throw new MauvaisChampsException("L'agent de sécurité que vous souhaitez ajouter existe déjà et " +
+                            "l'heure de début est ultérieure à l'heure de fin",
                             new ArrayList<>(Arrays.asList(false, false, false, false, false, false, true)));
 
                 } else if (isNotUnique) {
@@ -65,21 +64,27 @@ public class ControleurAgentSecu {
             throw new Exception("L'agent de sécurité ne peut être ajouté car l'événement du controleur est nul");
     }
 
-    public AgentSecurite getAgentSecurite(String nom, String prenom, String email, String telephone) {
-        for (AgentSecurite agentSecurite : evenement.getAgentsSecurite()) {
+    public AgentSecurite getAgentSecurite(String nom, String prenom, String email, String telephone) throws Exception {
+        if (evenement != null) {
 
-            String nomCourant = agentSecurite.getNom();
-            String prenomCourant = agentSecurite.getPrenom();
-            String emailCourant = agentSecurite.getEmail();
-            String telephoneCourant = agentSecurite.getTelephone();
+            for (AgentSecurite agentSecurite : evenement.getAgentsSecurite()) {
 
-            if (nom.equals(nomCourant) & prenom.equals(prenomCourant) & email.equals(emailCourant)
-                    & telephone.equals(telephoneCourant)) {
+                String nomCourant = agentSecurite.getNom();
+                String prenomCourant = agentSecurite.getPrenom();
+                String emailCourant = agentSecurite.getEmail();
+                String telephoneCourant = agentSecurite.getTelephone();
+                boolean agentFound = nom.equals(nomCourant) & prenom.equals(prenomCourant)
+                        & email.equals(emailCourant) & telephone.equals(telephoneCourant);
 
-                return agentSecurite;
+                if (agentFound) {
+
+                    return agentSecurite;
+                }
             }
-        }
-        return null;
+            return null;
+
+        } else
+            throw new Exception("L'agent de sécurité ne peut être récupéré car l'événement du controleur est nul");
     }
 
     public void supprimerAgentSecurite(AgentSecurite agentSecurite) throws Exception {
@@ -101,21 +106,19 @@ public class ControleurAgentSecu {
                 String emailCourant = agent.getEmail();
                 String telephoneCourant = agent.getTelephone();
                 boolean isNotUnique = nom.equals(nomCourant) & agentSecurite.getPrenom().equals(prenomCourant)
-                        & agentSecurite.getEmail().equals(emailCourant)
-                        & agentSecurite.getTelephone().equals(telephoneCourant);
+                        & agentSecurite.getEmail().equals(emailCourant) & agentSecurite.getTelephone().equals(telephoneCourant);
 
                 if (isNotUnique) {
 
-                    throw new MauvaisChampsException(
-                            "En changeant le nom de l'agent de sécurité, celui-ci devient identique à un autre agent de sécurité",
+                    throw new MauvaisChampsException("En changeant le nom de l'agent de sécurité, " +
+                            "celui-ci devient identique à un autre agent de sécurité",
                             new ArrayList<>(Collections.singleton(false)));
                 }
             }
             agentSecurite.setNom(nom);
 
         } else
-            throw new Exception(
-                    "Le nom de l'agent de sécurité ne peut être modifié car l'événement du controleur est nul");
+            throw new Exception("Le nom de l'agent de sécurité ne peut être modifié car l'événement du controleur est nul");
     }
 
     public void modifierPrenomAgentSecurite(AgentSecurite agentSecurite, String prenom) throws Exception {
@@ -128,21 +131,19 @@ public class ControleurAgentSecu {
                 String emailCourant = agent.getEmail();
                 String telephoneCourant = agent.getTelephone();
                 boolean isNotUnique = agentSecurite.getNom().equals(nomCourant) & prenom.equals(prenomCourant)
-                        & agentSecurite.getEmail().equals(emailCourant)
-                        & agentSecurite.getTelephone().equals(telephoneCourant);
+                        & agentSecurite.getEmail().equals(emailCourant) & agentSecurite.getTelephone().equals(telephoneCourant);
 
                 if (isNotUnique) {
 
-                    throw new MauvaisChampsException(
-                            "En changeant le prénom de l'agent de sécurité, celui-ci devient identique à un autre agent de sécurité",
+                    throw new MauvaisChampsException("En changeant le prénom de l'agent de sécurité, " +
+                            "celui-ci devient identique à un autre agent de sécurité",
                             new ArrayList<>(Collections.singleton(false)));
                 }
             }
             agentSecurite.setPrenom(prenom);
 
         } else
-            throw new Exception(
-                    "Le prénom de l'agent de sécurité ne peut être modifié car l'événement du controleur est nul");
+            throw new Exception("Le prénom de l'agent de sécurité ne peut être modifié car l'événement du controleur est nul");
     }
 
     public void modifierEmailAgentSecurite(AgentSecurite agentSecurite, String email) throws Exception {
@@ -154,22 +155,20 @@ public class ControleurAgentSecu {
                 String prenomCourant = agent.getPrenom();
                 String emailCourant = agent.getEmail();
                 String telephoneCourant = agent.getTelephone();
-                boolean isNotUnique = agentSecurite.getNom().equals(nomCourant)
-                        & agentSecurite.getPrenom().equals(prenomCourant)
+                boolean isNotUnique = agentSecurite.getNom().equals(nomCourant) & agentSecurite.getPrenom().equals(prenomCourant)
                         & email.equals(emailCourant) & agentSecurite.getTelephone().equals(telephoneCourant);
 
                 if (isNotUnique) {
 
-                    throw new MauvaisChampsException(
-                            "En changeant l'adresse email de l'agent de sécurité, celui-ci devient identique à un autre agent de sécurité",
+                    throw new MauvaisChampsException("En changeant l'adresse email de l'agent de sécurité, " +
+                            "celui-ci devient identique à un autre agent de sécurité",
                             new ArrayList<>(Collections.singleton(false)));
                 }
             }
             agentSecurite.setEmail(email);
 
         } else
-            throw new Exception(
-                    "L'email de l'agent de sécurité ne peut être modifié car l'événement du controleur est nul");
+            throw new Exception("L'email de l'agent de sécurité ne peut être modifié car l'événement du controleur est nul");
     }
 
     public void modifierTelephoneAgentSecurite(AgentSecurite agentSecurite, String telephone) throws Exception {
@@ -181,22 +180,20 @@ public class ControleurAgentSecu {
                 String prenomCourant = agent.getPrenom();
                 String emailCourant = agent.getEmail();
                 String telephoneCourant = agent.getTelephone();
-                boolean isNotUnique = agentSecurite.getNom().equals(nomCourant)
-                        & agentSecurite.getPrenom().equals(prenomCourant)
+                boolean isNotUnique = agentSecurite.getNom().equals(nomCourant) & agentSecurite.getPrenom().equals(prenomCourant)
                         & agentSecurite.getEmail().equals(emailCourant) & telephone.equals(telephoneCourant);
 
                 if (isNotUnique) {
 
-                    throw new MauvaisChampsException(
-                            "En changeant le numéro de téléphone de l'agent de sécurité, celui-ci devient identique à un autre agent de sécurité",
+                    throw new MauvaisChampsException("En changeant le numéro de téléphone de l'agent de sécurité, " +
+                            "celui-ci devient identique à un autre agent de sécurité",
                             new ArrayList<>(Collections.singleton(false)));
                 }
             }
             agentSecurite.setTelephone(telephone);
 
         } else
-            throw new Exception(
-                    "Le numéro de téléphone de l'agent de sécurité ne peut être modifié car l'événement du controleur est nul");
+            throw new Exception("Le numéro de téléphone de l'agent de sécurité ne peut être modifié car l'événement du controleur est nul");
     }
 
     public void modifierHeureDebutAgentSecurite(AgentSecurite agentSecurite, int heureDebut) throws Exception {
@@ -212,8 +209,7 @@ public class ControleurAgentSecu {
             agentSecurite.setHeureDebut(heureDebut);
 
         } else
-            throw new Exception(
-                    "L'heure de début de l'agent de sécurité ne peut être modifié car l'événement du controleur est nul");
+            throw new Exception("L'heure de début de l'agent de sécurité ne peut être modifié car l'événement du controleur est nul");
     }
 
     public void modifierHeureFinAgentSecurite(AgentSecurite agentSecurite, int heureFin) throws Exception {
@@ -229,8 +225,7 @@ public class ControleurAgentSecu {
             agentSecurite.setHeureFin(heureFin);
 
         } else
-            throw new Exception(
-                    "L'heure de fin de l'agent de sécurité ne peut être modifié car l'événement du controleur est nul");
+            throw new Exception("L'heure de fin de l'agent de sécurité ne peut être modifié car l'événement du controleur est nul");
     }
 
     public void modifierZoneAgentSecurite(AgentSecurite agentSecurite, Zone zone) throws Exception {
@@ -239,7 +234,78 @@ public class ControleurAgentSecu {
             agentSecurite.setZone(zone);
 
         } else
-            throw new Exception(
-                    "La zone de l'agent de sécurité ne peut être modifié car l'événement du controleur est nul");
+            throw new Exception("La zone de l'agent de sécurité ne peut être modifié car l'événement du controleur est nul");
+    }
+
+    // Zone
+    public Zone creerZone(String nom) throws Exception {
+        if (evenement != null) {
+
+            for (Zone zone : evenement.getZones()) {
+
+                String nomCourant = zone.getNom();
+                boolean isNotUnique = nom.equals(nomCourant);
+
+                if (isNotUnique) {
+
+                    throw new MauvaisChampsException("La zone que vous souhaitez créer existe déjà",
+                            new ArrayList<>(Collections.singleton(false)));
+                }
+            }
+            Zone nouvelleZone = new Zone(nom);
+            evenement.ajouterZone(nouvelleZone);
+
+            return nouvelleZone;
+
+        } else
+            throw new Exception("La zone ne peut être créée car l'événement du controleur est nul");
+    }
+
+    public Zone getZone(String nom) throws Exception {
+        if (evenement != null) {
+
+            for (Zone zone : evenement.getZones()) {
+
+                String nomCourant = zone.getNom();
+                boolean zoneFound = nom.equals(nomCourant);
+
+                if (zoneFound) {
+
+                    return zone;
+                }
+            }
+            return null;
+
+        } else
+            throw new Exception("La zone ne peut être récupérée car l'événement du controleur est nul");
+    }
+
+    public void supprimerZone(Zone zone) throws Exception {
+        if (evenement != null) {
+
+            evenement.supprimerZone(zone);
+
+        } else
+            throw new Exception("La zone ne peut être supprimé car l'événement du controleur est nul");
+    }
+
+    public void modifierNomZone(Zone zone, String nom) throws Exception {
+        if (evenement != null) {
+
+            for (Zone zoneCourante : evenement.getZones()) {
+
+                String nomCourant = zoneCourante.getNom();
+                boolean isNotUnique = nom.equals(nomCourant);
+
+                if (isNotUnique) {
+
+                    throw new MauvaisChampsException("En changeant le nom de la zone, celle-ci devient identique à un autre zone",
+                            new ArrayList<>(Collections.singleton(false)));
+                }
+            }
+            zone.setNom(nom);
+
+        } else
+            throw new Exception("Le nom de la zone ne peut être modifié car l'événement du controleur est nul");
     }
 }
