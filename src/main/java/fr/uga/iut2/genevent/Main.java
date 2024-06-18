@@ -11,6 +11,7 @@ import fr.uga.iut2.genevent.vue.JavaFXGUI;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.time.LocalDate;
 
 
 public class Main {

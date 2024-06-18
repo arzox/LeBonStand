@@ -3,20 +3,19 @@ package fr.uga.iut2.genevent.controleur;
 import fr.uga.iut2.genevent.modele.Application;
 import fr.uga.iut2.genevent.modele.Evenement;
 
+import java.util.ArrayList;
+
 /**
  * La classe Controleur fournit une structure de base pour gérer le modèle en
  * faisant l'intermédiaire entre celui-ci et le package vue (partie IHM)
  */
-import java.util.ArrayList;
-
-
 public class Controleur {
 
     private static Controleur instance;
 
     private Application application;
     ControleurAgentSecu controleurAgentSecu;
-    ControleurAgentEntretient controleurAgentEntretient;
+    ControleurAgentEntretien controleurAgentEntretien;
     ControleurParticipant controleurParticipant;
     ControleurCommercant controleurCommercant;
     ControleurEvenement controleurEvenement;
@@ -32,7 +31,7 @@ public class Controleur {
     private Controleur(Application application) {
         this.application = application;
         controleurAgentSecu = new ControleurAgentSecu(application);
-        controleurAgentEntretient = new ControleurAgentEntretient(application);
+        controleurAgentEntretien = new ControleurAgentEntretien(application);
         controleurParticipant = new ControleurParticipant(application);
         controleurCommercant = new ControleurCommercant(application);
         controleurEvenement = new ControleurEvenement(application);
@@ -48,22 +47,19 @@ public class Controleur {
      */
     public void setEvenementCourant(Evenement evenement) {
         controleurEvenement.setEvenement(evenement);
-        controleurAgentEntretient.setEvenement(evenement);
+        controleurAgentEntretien.setEvenement(evenement);
         controleurAgentSecu.setEvenement(evenement);
         controleurParticipant.setEvenement(evenement);
         controleurCommercant.setEvenement(evenement);
         controleurAnimation.setEvenement(evenement);
     }
 
-
-    // Getters
-
     public ControleurAgentSecu getControleurAgentSecu() {
         return controleurAgentSecu;
     }
 
-    public ControleurAgentEntretient getControleurAgentEntretient() {
-        return controleurAgentEntretient;
+    public ControleurAgentEntretien getControleurAgentEntretien() {
+        return controleurAgentEntretien;
     }
 
     public ControleurParticipant getControleurParticipant() {
