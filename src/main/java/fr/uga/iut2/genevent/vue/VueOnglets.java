@@ -58,9 +58,9 @@ public class VueOnglets extends IHM {
         ArrayList<Fonctionnalite> fonctionnalitesEvenement = controleur.getControleurEvenement().getEvenement()
                 .getFonctionnalites();
 
-        List<Node> buttons = panel.getChildren().subList(4, panel.getChildren().size());
+        List<Node> buttons = panel.getChildren().subList(5, panel.getChildren().size());
 
-        for (int i = allFonctionnalites.size() - 1; i >= 0; i--) {
+        for (int i = buttons.size() - 1; i >= 0; i--) {
             Fonctionnalite fonctionnalite = allFonctionnalites.get(i);
             if (!fonctionnalitesEvenement.contains(fonctionnalite)) {
                 buttons.remove(i);
