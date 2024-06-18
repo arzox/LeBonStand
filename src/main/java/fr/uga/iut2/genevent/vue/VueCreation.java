@@ -1,8 +1,10 @@
 package fr.uga.iut2.genevent.vue;
 
+import fr.uga.iut2.genevent.exception.MauvaisChampsException;
 import fr.uga.iut2.genevent.modele.Evenement;
 import fr.uga.iut2.genevent.modele.Fonctionnalite;
 import fr.uga.iut2.genevent.modele.TypeEvenement;
+
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -49,13 +51,17 @@ public class VueCreation extends IHM {
 
     @FXML
     private void onCreer(ActionEvent event) {
-        Evenement evenement = controleur.getControleurEvenement().creerEvenement(nom.getText(), getTypeEvenement(),
-                getFonctionnalitesSelected(), this);
-        controleur.setEvenementCourant(evenement);
-        ((Stage) typeMarche.getScene().getWindow()).close();
+        try {
+            Evenement evenement = controleur.getControleurEvenement().creerEvenement(nom.getText(), getTypeEvenement(), getFonctionnalitesSelected());
+            controleur.setEvenementCourant(evenement);
+            ((Stage) typeMarche.getScene().getWindow()).close();
 
-        VueOnglets vueOnglets = new VueOnglets(new VueEvenement());
-        vueOnglets.changerFenetre(previousStage);
+            VueOnglets vueOnglets = new VueOnglets(new VueEvenement());
+            vueOnglets.changerFenetre(previousStage);
+        } catch (MauvaisChampsException e) {
+            e.printStackTrace();
+        }
+        
     }
 
     private ArrayList<Fonctionnalite> getFonctionnalitesSelected() {
@@ -85,6 +91,5 @@ public class VueCreation extends IHM {
     @Override
     public void changerFenetre(Stage stage) {
         // TODO Auto-generated method stub
-
     }
 }
