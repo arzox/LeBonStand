@@ -156,6 +156,7 @@ public class VueAccueil extends IHM {
 
     private boolean isAlreadyOpened() {
         if (otherVue != null) {
+
             return true;
         }
         otherVue = new Stage();
