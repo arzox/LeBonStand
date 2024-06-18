@@ -3,10 +3,12 @@ package fr.uga.iut2.genevent.modele;
 public class Lieu {
     private String nom;
     private String adresse;
+    private String codePostal;
 
-    public Lieu(String nom, String adresse) {
+    public Lieu(String nom, String adresse, String codePostal) {
         this.nom = nom;
         this.adresse = adresse;
+        this.codePostal = codePostal;
     }
 
     public String getNom() {
@@ -23,5 +25,12 @@ public class Lieu {
 
     public void setAdresse(String adresse) {
         this.adresse = adresse;
+    }
+
+    public void setCodePostal(String codePostal) {
+        this.codePostal = codePostal;
+    }
+    public String getCodePostal() {
+        return this.codePostal;
     }
 }
