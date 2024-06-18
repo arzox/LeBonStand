@@ -24,7 +24,7 @@ public class ControleurParticipant {
         this.evenement = evenement;
     }
 
-    public void inscrireParticipant(String nom, String prenom, String email) throws Exception {
+    public Participant inscrireParticipant(String nom, String prenom, String email) throws Exception {
         if (evenement != null) {
 
             for (Participant participantCourant : evenement.getParticipants()) {
@@ -40,10 +40,28 @@ public class ControleurParticipant {
                             new ArrayList<>(Arrays.asList(false, false, false)));
                 }
             }
-            evenement.inscrireParticipant(new Participant(nom, prenom, email));
+            Participant nouveauParticipant = new Participant(nom, prenom, email);
+            evenement.inscrireParticipant(nouveauParticipant);
+
+            return nouveauParticipant;
 
         } else
             throw new Exception("Le participant ne peut être inscrit car l'événement du controleur est nul");
+    }
+
+    public Participant getParticipant(String nom, String prenom, String email) {
+        for (Participant participant : evenement.getParticipants()) {
+
+            String nomCourant = participant.getNom();
+            String prenomCourant = participant.getPrenom();
+            String emailCourant = participant.getEmail();
+
+            if (nom.equals(nomCourant) & prenom.equals(prenomCourant) & email.equals(emailCourant)) {
+
+                return participant;
+            }
+        }
+        return null;
     }
 
     public void desinscrireParticipant(Participant participant) throws Exception {

@@ -24,6 +24,14 @@ public class ControleurEvenement {
         this.application = application;
     }
 
+    public Evenement getEvenement() {
+        return evenement;
+    }
+
+    public void setEvenement(Evenement evenement) {
+        this.evenement = evenement;
+    }
+
     public Evenement creerEvenement(String nom, TypeEvenement type, ArrayList<Fonctionnalite> fonctionnalites) throws MauvaisChampsException {
 
         // Création d'un événement
@@ -122,14 +130,5 @@ public class ControleurEvenement {
 
     public ArrayList<Fonctionnalite> getFonctionnalites() {
         return evenement.getFonctionnalites();
-    }
-
-    // Getters et setters
-    public Evenement getEvenement() {
-        return evenement;
-    }
-
-    public void setEvenement(Evenement evenement) {
-        this.evenement = evenement;
     }
 }

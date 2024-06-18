@@ -23,7 +23,7 @@ public class ControleurCommercant {
         this.evenement = evenement;
     }
 
-    public void inscrireCommercant(String nom, String prenom, String email, String telephone, int heureDebut, int heureFin,
+    public Commercant inscrireCommercant(String nom, String prenom, String email, String telephone, int heureDebut, int heureFin,
                                 Emplacement emplacement, TypeCommerce typeCommerce) throws Exception {
         if (evenement != null) {
 
@@ -53,10 +53,29 @@ public class ControleurCommercant {
                 throw new MauvaisChampsException("L'heure de début est ultérieure à l'heure de fin",
                         new ArrayList<>(Arrays.asList(true, true, true, true, false, false, true, true)));
             }
-            evenement.inscrireCommercant(new Commercant(nom, prenom, email, telephone, heureDebut, heureFin, emplacement, typeCommerce));
+            Commercant nouveauCommercant = new Commercant(nom, prenom, email, telephone, heureDebut, heureFin, emplacement, typeCommerce);
+            evenement.inscrireCommercant(nouveauCommercant);
+
+            return nouveauCommercant;
 
         } else
             throw new Exception("Le commerçant ne peut être inscrit car l'événement du controleur est nul");
+    }
+
+    public Commercant getCommercant(String nom, String prenom, String email, String telephone) {
+        for (Commercant commercant : evenement.getCommercants()) {
+
+            String nomCourant = commercant.getNom();
+            String prenomCourant = commercant.getPrenom();
+            String emailCourant = commercant.getEmail();
+            String telephoneCourant = commercant.getTelephone();
+
+            if (nom.equals(nomCourant) & prenom.equals(prenomCourant) & email.equals(emailCourant) & telephone.equals(telephoneCourant)) {
+
+                return commercant;
+            }
+        }
+        return null;
     }
 
     public void desinscrireCommercant(Commercant commercant) throws Exception {
