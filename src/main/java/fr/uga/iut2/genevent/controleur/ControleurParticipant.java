@@ -31,7 +31,8 @@ public class ControleurParticipant {
                 String nomCourant = participantCourant.getNom();
                 String prenomCourant = participantCourant.getPrenom();
                 String emailCourant = participantCourant.getEmail();
-                boolean isNotUnique = nom.equals(nomCourant) & prenom.equals(prenomCourant) & email.equals(emailCourant);
+                boolean isNotUnique = nom.equals(nomCourant) & prenom.equals(prenomCourant)
+                        & email.equals(emailCourant);
 
                 if (isNotUnique) {
 
@@ -90,7 +91,8 @@ public class ControleurParticipant {
 
                 if (isNotUnique) {
 
-                    throw new MauvaisChampsException("En changeant le nom du participant, celui-ci devient identique à un autre participant",
+                    throw new MauvaisChampsException(
+                            "En changeant le nom du participant, celui-ci devient identique à un autre participant",
                             new ArrayList<>(Collections.singleton(false)));
                 }
             }
@@ -113,7 +115,8 @@ public class ControleurParticipant {
 
                 if (isNotUnique) {
 
-                    throw new MauvaisChampsException("En changeant le prénom du participant, celui-ci devient identique à un autre participant",
+                    throw new MauvaisChampsException(
+                            "En changeant le prénom du participant, celui-ci devient identique à un autre participant",
                             new ArrayList<>(Collections.singleton(false)));
                 }
             }
@@ -131,12 +134,14 @@ public class ControleurParticipant {
                 String nomCourant = agent.getNom();
                 String prenomCourant = agent.getPrenom();
                 String emailCourant = agent.getEmail();
-                boolean isNotUnique = participant.getNom().equals(nomCourant) & participant.getPrenom().equals(prenomCourant)
+                boolean isNotUnique = participant.getNom().equals(nomCourant)
+                        & participant.getPrenom().equals(prenomCourant)
                         & email.equals(emailCourant);
 
                 if (isNotUnique) {
 
-                    throw new MauvaisChampsException("En changeant l'adresse email du participant, celui-ci devient identique à un autre participant",
+                    throw new MauvaisChampsException(
+                            "En changeant l'adresse email du participant, celui-ci devient identique à un autre participant",
                             new ArrayList<>(Collections.singleton(false)));
                 }
             }

@@ -6,7 +6,8 @@ import java.util.HashMap;
 import java.time.LocalDate;
 
 /**
- * La classe Evenement représente un événement avec ses différentes caractéristiques et modules.
+ * La classe Evenement représente un événement avec ses différentes
+ * caractéristiques et modules.
  */
 public class Evenement implements Serializable {
     private String nom;
@@ -44,12 +45,13 @@ public class Evenement implements Serializable {
      * @param typeEvenement Le type de l'événement.
      * @param fonctionnalites La liste des fonctionnalités de l'événement.
      */
-    public Evenement(String nom, LocalDate dateDebut, LocalDate dateFin, TypeEvenement typeEvenement, ArrayList<Fonctionnalite> fonctionnalites) {
-        this.nom = nom;
-        this.dateDebut = dateDebut;
-        this.dateFin = dateFin;
-        this.type = typeEvenement;
-        this.fonctionnalites = fonctionnalites;
+    public Evenement(String nom, LocalDate dateDebut, LocalDate dateFin, TypeEvenement typeEvenement,
+            ArrayList<Fonctionnalite> fonctionnalites) {
+        setNom(nom);
+        setDateDebut(dateDebut);
+        setDateFin(dateFin);
+        setType(typeEvenement);
+        setFonctionnalites(fonctionnalites);
     }
 
     // ---------Module Commercants---------

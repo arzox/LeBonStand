@@ -1,11 +1,11 @@
 package fr.uga.iut2.genevent.modele;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
- * La classe Animation représente une animation avec un nom, un prix et des dates de début et de fin.
+ * La classe Animation représente une animation avec un nom, un prix et des
+ * dates de début et de fin.
  */
 public class Animation implements Serializable {
     private String nom;
@@ -16,16 +16,16 @@ public class Animation implements Serializable {
     /**
      * Constructeur de la classe Animation.
      *
-     * @param nom Le nom de l'animation.
-     * @param prix Le prix de l'animation.
+     * @param nom       Le nom de l'animation.
+     * @param prix      Le prix de l'animation.
      * @param dateDebut La date et l'heure de début de l'animation.
-     * @param dateFin La date et l'heure de fin de l'animation.
+     * @param dateFin   La date et l'heure de fin de l'animation.
      */
     public Animation(String nom, float prix, LocalDateTime dateDebut, LocalDateTime dateFin) {
-        this.nom = nom;
-        this.prix = prix;
-        this.dateHeureDebut = dateDebut;
-        this.dateHeureFin = dateFin;
+        setNom(nom);
+        setPrix(prix);
+        setDateHeureDebut(dateDebut);
+        setDateHeureFin(dateFin);
     }
 
     /**
@@ -43,7 +43,11 @@ public class Animation implements Serializable {
      * @param nom Le nouveau nom de l'animation.
      */
     public void setNom(String nom) {
-        this.nom = nom;
+        if (nom == null){
+            throw new IllegalArgumentException("Le nom ne peut pas être nul.");
+        } else {
+            this.nom = nom;
+        }
     }
 
     /**
@@ -61,7 +65,11 @@ public class Animation implements Serializable {
      * @param prix Le nouveau prix de l'animation.
      */
     public void setPrix(float prix) {
-        this.prix = prix;
+        if (prix < 0){
+            throw new IllegalArgumentException("Le prix ne peut pas être négatif.");
+        }else{
+            this.prix = prix;
+        }
     }
 
     /**

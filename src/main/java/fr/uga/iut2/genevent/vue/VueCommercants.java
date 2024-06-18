@@ -11,6 +11,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.CheckBoxTableCell;
@@ -23,7 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class VueCommercants extends IHM {
-    private VueOnglets vueOnglets;
+    public static final String FXML_NAME = "tab-commercants.fxml";
     private ControleurCommercant controleurCommercant;
 
     @FXML
@@ -50,9 +51,8 @@ public class VueCommercants extends IHM {
     @FXML TableColumn<Object, String> idAnnex;
     @FXML TableColumn<Object, String> valueAnnex;
 
-    public VueCommercants(VueOnglets vueOnglets) {
+    public VueCommercants() {
         super();
-        this.vueOnglets = vueOnglets;
         this.controleurCommercant = controleur.getControleurCommercant();
     }
 
@@ -65,13 +65,6 @@ public class VueCommercants extends IHM {
 
     @FXML
     private void initialize() {
-        try {
-            Parent ongletsRoot = Vues.loadViewAsParent("tabs.fxml", vueOnglets);
-            container.getChildren().add(0, ongletsRoot);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         setupTable();
         setupAnnex();
         System.out.println(controleur.getControleurCommercant().getCommercants());
@@ -273,5 +266,10 @@ public class VueCommercants extends IHM {
                 }
             });
         }
+    }
+
+    @Override
+    public String getFxmlName() {
+        return FXML_NAME;
     }
 }

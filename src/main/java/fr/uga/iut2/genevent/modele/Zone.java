@@ -4,7 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * La classe Zone représente une zone avec un nom et une liste d'agents de sécurité assignés.
+ * La classe Zone représente une zone avec un nom et une liste d'agents de
+ * sécurité assignés.
  */
 public class Zone implements Serializable {
     private String nom;
@@ -25,8 +26,12 @@ public class Zone implements Serializable {
      * @param agentSecurite L'agent de sécurité à ajouter.
      */
     public void addAgentSecurite(AgentSecurite agentSecurite) {
-        this.agentsSecurites.add(agentSecurite);
-        agentSecurite.setZone(this);
+        if (agentSecurite != null) {
+            this.agentsSecurites.add(agentSecurite);
+            if (agentSecurite.getZone() == null || !agentSecurite.getZone().equals(this)) {
+                agentSecurite.setZone(this);
+            }
+        }
     }
 
     /**
@@ -35,8 +40,16 @@ public class Zone implements Serializable {
      * @param agentSecurite L'agent de sécurité à retirer.
      */
     public void removeAgentSecurite(AgentSecurite agentSecurite) {
-        this.agentsSecurites.remove(agentSecurite);
-        agentSecurite.setZone(null);
+        if (agentSecurite != null) {
+            if (
+                    agentSecurite.getZone() != null
+            ) {
+                this.agentsSecurites.remove(agentSecurite);
+                if (agentSecurite.getZone().equals(this)) {
+                    agentSecurite.setZone(null);
+                }
+            }
+        }
     }
 
     /**

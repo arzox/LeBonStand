@@ -27,6 +27,9 @@ import java.util.List;
  */
 public class VueAccueil extends IHM {
 
+    public static final String FXML_NAME = "accueil.fxml";
+    public static final String DELETE = "delete-event.fxml";
+
     @FXML
     private FlowPane eventsFlowPane;
 
@@ -132,7 +135,8 @@ public class VueAccueil extends IHM {
             otherVue.close();
         }
         try {
-            Vues.loadViewIntoStage((Stage) eventsFlowPane.getScene().getWindow(), "tab-commercants.fxml", new VueCommercants(new VueOnglets()));
+            VueOnglets vueOnglets = new VueOnglets(new VueCommercants());
+            vueOnglets.changerFenetre((Stage) eventsFlowPane.getScene().getWindow());
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -143,8 +147,8 @@ public class VueAccueil extends IHM {
         if (isAlreadyOpened())
             return;
         try {
-            Vues.loadViewIntoStage(otherVue, "new-event.fxml",
-                    new VueCreation((Stage) eventsFlowPane.getScene().getWindow()));
+            VueCreation vueCreation = new VueCreation((Stage) eventsFlowPane.getScene().getWindow());
+            vueCreation.changerFenetre(otherVue);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -167,7 +171,7 @@ public class VueAccueil extends IHM {
         if (isAlreadyOpened()) return;
         try {
             toDelete = event;
-            Vues.loadViewIntoStage(otherVue, "delete-event.fxml", this);
+            Vues.loadViewIntoStage(otherVue, DELETE, this);
             // Reload events after deleting one
             loadEvents();
         } catch (Exception exception) {
@@ -196,5 +200,10 @@ public class VueAccueil extends IHM {
     @Override
     public void informerUtilisateur(String msg, boolean succes) {
         System.out.println(msg);
+    }
+
+    @Override
+    public String getFxmlName() {
+        return FXML_NAME;
     }
 }

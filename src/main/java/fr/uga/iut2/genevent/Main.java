@@ -28,12 +28,12 @@ public class Main {
     // Configuration du logger
     // EditConfiguration > Modify options > add VM options :
     // -Djava.util.logging.config.file=conf/debug-logging.properties
-    static{
+    static {
         try {
-            logManager.readConfiguration( new FileInputStream("conf/debug-logging.properties") );
-        } catch ( IOException exception ) {
-            LOGGER.log( Level.SEVERE, "Cannot read configuration file",
-                    exception );
+            logManager.readConfiguration(new FileInputStream("conf/debug-lbs.properties"));
+        } catch (IOException exception) {
+            LOGGER.log(Level.SEVERE, "Cannot read configuration file",
+                    exception);
         }
     }
 
@@ -57,8 +57,7 @@ public class Main {
         try {
             LOGGER.log(Level.INFO, "Chargement de l'état initial");
             application = Persisteur.lireEtat();
-        }
-        catch (ClassNotFoundException | IOException ignored) {
+        } catch (ClassNotFoundException | IOException ignored) {
             LOGGER.log(Level.SEVERE, "Erreur irrécupérable pendant le chargement de l'état : fin d'exécution !");
             System.err.println("Erreur irrécupérable pendant le chargement de l'état : fin d'exécution !");
             System.err.flush();
@@ -77,7 +76,8 @@ public class Main {
             JavaFXGUI startup = new JavaFXGUI();
             startup.demarrerInteraction();
         } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "Erreur irrécupérable pendant l'interaction avec l'utilisateur·trice : fin d'exécution !");
+            LOGGER.log(Level.SEVERE,
+                    "Erreur irrécupérable pendant l'interaction avec l'utilisateur·trice : fin d'exécution !");
             e.printStackTrace();
         }
         // `Controleur.demarrer` garde le contrôle de l'exécution tant que
@@ -86,8 +86,7 @@ public class Main {
         try {
             LOGGER.log(Level.INFO, "Sauvegarde de l'état final");
             Persisteur.sauverEtat(application);
-        }
-        catch (IOException ignored) {
+        } catch (IOException ignored) {
             LOGGER.log(Level.SEVERE, "Erreur irrécupérable pendant la sauvegarde de l'état : fin d'exécution !");
             System.err.println("Erreur irrécupérable pendant la sauvegarde de l'état : fin d'exécution !");
             System.err.flush();

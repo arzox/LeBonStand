@@ -11,7 +11,6 @@ import javafx.stage.Stage;
  */
 public abstract class IHM {
     private Parent parent;
-    public static final String FXML_NAME = "";
 
     /**
      * Référence au contrôleur principal de l'application
@@ -36,7 +35,22 @@ public abstract class IHM {
      * @param stage
      */
     public void changerFenetre(Stage stage) {
-        Vues.loadViewIntoStage(stage, FXML_NAME, this);
+        Vues.loadViewIntoStage(stage, getFxmlName(), this);
+    }
+
+    /**
+     * Charge la vue et crée l'objet Parent correspondant afin qu'il
+     * puisse être utilisé par les classes utilisant les onglets sur le côté
+     * (panneau de navigation)
+     */
+    public void load() {
+        try {
+            // Charger la scène dans le loader et lui affecter le controleur en argument
+            setParent(Vues.loadViewAsParent(getFxmlName(), this));
+        } catch (Exception e) {
+            System.err.println("Erreur pendant le chargement de la vue :\n");
+            e.printStackTrace();
+        }
     }
 
     // Getters et setters
@@ -48,4 +62,6 @@ public abstract class IHM {
     public void setParent(Parent parent) {
         this.parent = parent;
     }
+
+    public abstract String getFxmlName();
 }
