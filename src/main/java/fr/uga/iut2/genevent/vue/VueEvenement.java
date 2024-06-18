@@ -11,7 +11,6 @@ import fr.uga.iut2.genevent.modele.TypeEvenement;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-
 import java.util.ArrayList;
 
 
@@ -112,21 +111,21 @@ public class VueEvenement extends IHM {
 
         adresseField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (controleurEvenement.getEvenement().getLieu() == null) {
-                controleurEvenement.getEvenement().setLieu(new Lieu());
+                controleurEvenement.getEvenement().setLieu(new Lieu("","",""));
             }
             controleurEvenement.getEvenement().getLieu().setAdresse(newValue);
         });
 
         villeField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (controleurEvenement.getEvenement().getLieu() == null) {
-                controleurEvenement.getEvenement().setLieu(new Lieu());
+                controleurEvenement.getEvenement().setLieu(new Lieu("","",""));
             }
             controleurEvenement.getEvenement().getLieu().setNom(newValue);
         });
 
         codePostalField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (controleurEvenement.getEvenement().getLieu() == null) {
-                controleurEvenement.getEvenement().setLieu(new Lieu());
+                controleurEvenement.getEvenement().setLieu(new Lieu("","",""));
             }
             controleurEvenement.getEvenement().getLieu().setCodePostal(newValue);
         });
