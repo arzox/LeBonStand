@@ -16,11 +16,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
- * La classe VueEvenement est responsable des interactions avec
- * l'utilisa·teur/trice en mode graphique pour la vue accueil (liste des
- * événements)
- * <p>
- * Contrôleur de tab-event.fxml (informations générales sur l'événement)
+ * La classe VueOnglets est responsable des interactions avec
+ * l'utilisa·teur/trice en mode graphique pour la vue des onglets.
  */
 public class VueOnglets extends IHM {
 
@@ -31,7 +28,7 @@ public class VueOnglets extends IHM {
     @FXML
     private VBox panel;
 
-    VueOnglets() {
+    public VueOnglets() {
         super();
     }
 
@@ -53,14 +50,19 @@ public class VueOnglets extends IHM {
      * - Met à jour les boutons selon les fonctionnalités activées pour cet événement
      */
     private void setupButton() {
+        // Définir le nom de l'événement dans le texte
         nomEvenement.setText(controleur.getControleurEvenement().getEvenement().getNom());
-        ArrayList<Fonctionnalite> allFonctionnalites = new ArrayList<>(EnumSet.allOf(Fonctionnalite.class));
-        ArrayList<Fonctionnalite> fonctionnalitesEvenement = controleur.getControleurEvenement().getEvenement()
-                .getFonctionnalites();
 
+        // Obtenir toutes les fonctionnalités disponibles
+        ArrayList<Fonctionnalite> allFonctionnalites = new ArrayList<>(EnumSet.allOf(Fonctionnalite.class));
+
+        // Obtenir les fonctionnalités activées pour cet événement
+        ArrayList<Fonctionnalite> fonctionnalitesEvenement = controleur.getControleurEvenement().getEvenement().getFonctionnalites();
+
+        // Obtenir la liste des boutons dans le panneau après le cinquième élément
         List<Node> buttons = panel.getChildren().subList(5, panel.getChildren().size());
 
-        // remove buttons that fonctionnality don't have
+        // Supprimer les boutons pour les fonctionnalités non activées
         for (int i = buttons.size() - 1; i >= 0; i--) {
             Fonctionnalite fonctionnalite = allFonctionnalites.get(i);
             if (!fonctionnalitesEvenement.contains(fonctionnalite)) {
@@ -68,15 +70,18 @@ public class VueOnglets extends IHM {
             }
         }
 
-        // add clicked section
+        // Ajouter des écouteurs d'événements pour les clics sur les sections
         panel.getChildren().forEach(node -> node.setOnMouseClicked(event -> {
             int index = panel.getChildren().indexOf(node);
-            if (index > 0) {
+            if (index >= 0 && index < panel.getChildren().size()) {
                 setCurrentOnglet(index);
             }
         }));
     }
 
+    /**
+     * Définit l'onglet courant et met à jour le style des boutons pour refléter la sélection.
+     */
     public void setCurrentOnglet(int i) {
         if (i < 0 || i >= panel.getChildren().size()) {
             return;
@@ -106,8 +111,7 @@ public class VueOnglets extends IHM {
 
             // Appliquer le css global
             newScene.getStylesheets().clear();
-            newScene.getStylesheets()
-                    .add(Vues.class.getResource("/fr/uga/iut2/genevent/style/style.css").toExternalForm());
+            newScene.getStylesheets().add(Vues.class.getResource("/fr/uga/iut2/genevent/style/style.css").toExternalForm());
 
             setOngletsRoot(parent);
         } catch (Exception e) {
