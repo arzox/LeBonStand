@@ -8,6 +8,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Optional;
 
+/**
+ * Sous-contrôleur pour la catégorie "Agents de sécurité"
+ */
 public class ControleurAgentSecu {
     private Application application;
     private Evenement evenement;
@@ -15,6 +18,8 @@ public class ControleurAgentSecu {
     public ControleurAgentSecu(Application application) {
         this.application = application;
     }
+
+    // Setters
 
     public void setEvenement(Evenement evenement) {
         this.evenement = evenement;

@@ -1,7 +1,9 @@
 package fr.uga.iut2.genevent.controleur;
 
-import fr.uga.iut2.genevent.exception.MauvaisChampsException;
-import fr.uga.iut2.genevent.modele.*;
+import fr.uga.iut2.genevent.modele.Application;
+import fr.uga.iut2.genevent.modele.Evenement;
+import fr.uga.iut2.genevent.modele.Fonctionnalite;
+import fr.uga.iut2.genevent.modele.TypeEvenement;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -9,6 +11,9 @@ import java.util.EnumSet;
 import java.util.Arrays;
 import java.util.Collections;
 
+/**
+ * Sous-contrôleur pour les événements
+ */
 public class ControleurEvenement {
 
     private Application application;
@@ -118,60 +123,11 @@ public class ControleurEvenement {
         evenement.setDateFin(dateFin);
     }
 
-    public void initieFonctionnalites(Evenement evenement, ArrayList<Fonctionnalite> fonctionnalites) {
-        // Create a set of all Fonctionnalite values
-        EnumSet<Fonctionnalite> allFonctionnalites = EnumSet.allOf(Fonctionnalite.class);
-
-        // Remove the Fonctionnalite values that are in the fonctionnalites list
-        allFonctionnalites.removeAll(fonctionnalites);
-
-        // Iterate over the Fonctionnalite values that are in the enum but not in the list
-        for (Fonctionnalite fonctionnalite : allFonctionnalites) {
-            switch (fonctionnalite) {
-                case AGENT_ENTRETIEN:
-                    evenement.supprimerEntretien();
-                    break;
-                case AGENT_SECURITE:
-                    evenement.supprimerSecurite();
-                    break;
-                case PARTICIPANT:
-                    evenement.supprimerParticipant();
-                    break;
-                case ANIMATION:
-                    evenement.supprimerAnimation();
-                    break;
-                default:
-                    // Handle unexpected case
-                    break;
-            }
-        }
-
-        // Iterate over the Fonctionnalite values that are in the list
-        for (Fonctionnalite fonctionnalite : fonctionnalites) {
-            switch (fonctionnalite) {
-                case AGENT_ENTRETIEN:
-                    evenement.initieEntretien();
-                    break;
-                case AGENT_SECURITE:
-                    evenement.initieSecurite();
-                    break;
-                case PARTICIPANT:
-                    evenement.initieParticipant();
-                    break;
-                case ANIMATION:
-                    evenement.initieAnimation();
-                    break;
-                default:
-                    // Handle unexpected case
-                    break;
-            }
-        }
-    }
-
     public ArrayList<Fonctionnalite> getFonctionnalites() {
         return evenement.getFonctionnalites();
     }
 
+    // Getters et setters
     public Evenement getEvenement() {
         return evenement;
     }

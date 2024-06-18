@@ -8,6 +8,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Optional;
 
+/**
+ * Sous-contrôleur pour la catégorie "Participants"
+ */
 public class ControleurParticipant {
 
     private Application application;

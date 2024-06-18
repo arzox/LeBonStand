@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+/**
+ * Sous-contrôleur pour la catégorie "Animations"
+ */
 public class ControleurAnimation {
 
     private Application application;

@@ -3,9 +3,16 @@ package fr.uga.iut2.genevent.controleur;
 import fr.uga.iut2.genevent.modele.Application;
 import fr.uga.iut2.genevent.modele.Evenement;
 
+import java.util.ArrayList;
+
+/**
+ * La classe Controleur fournit une structure de base pour gérer le modèle en
+ * faisant l'intermédiaire entre celui-ci et le package vue (partie IHM)
+ */
 public class Controleur {
 
     private static Controleur instance;
+
     private Application application;
     ControleurAgentSecu controleurAgentSecu;
     ControleurAgentEntretien controleurAgentEntretien;
@@ -13,6 +20,13 @@ public class Controleur {
     ControleurCommercant controleurCommercant;
     ControleurEvenement controleurEvenement;
     ControleurAnimation controleurAnimation;
+
+    public static Controleur getInstance(Application application) {
+        if (instance == null) {
+            instance = new Controleur(application);
+        }
+        return instance;
+    }
 
     private Controleur(Application application) {
         this.application = application;
@@ -24,10 +38,13 @@ public class Controleur {
         controleurAnimation = new ControleurAnimation(application);
     }
 
-    public ControleurEvenement getControleurEvenement() {
-        return controleurEvenement;
-    }
-
+    /**
+     * Permet de changer d'événement courant : cette méthode est appelée lorsqu'on
+     * choisit un événement sur la page d'accueil, depuis les classes du package
+     * {@code vue}
+     *
+     * @param evenement - L'événement qui doit devenir l'événement courant
+     */
     public void setEvenementCourant(Evenement evenement) {
         controleurEvenement.setEvenement(evenement);
         controleurAgentEntretien.setEvenement(evenement);
@@ -36,32 +53,17 @@ public class Controleur {
         controleurCommercant.setEvenement(evenement);
         controleurAnimation.setEvenement(evenement);
     }
-    
-    public static Controleur getInstance(Application application) {
-        if (instance == null) {
-            instance = new Controleur(application);
-        }
-        return instance;
+
+    public ControleurAgentSecu getControleurAgentSecu() {
+        return controleurAgentSecu;
     }
 
-    /*
-    public void creerUtilisateur(IHM.InfosUtilisateur infos) {
-        boolean nouvelUtilisateur = this.genevent.ajouteUtilisateur(
-                infos.email,
-                infos.nom,
-                infos.prenom
-        );
-        if (nouvelUtilisateur) {
-            this.ihm.informerUtilisateur(
-                    "Nouvel·le utilisa·teur/trice: " + infos.prenom + " " + infos.nom + " <" + infos.email + ">",
-                    true
-            );
-        } else {
-            this.ihm.informerUtilisateur(
-                    "L'utilisa·teur/trice " + infos.email + " est déjà connu·e de GenEvent.",
-                    false
-            );
-        }
+    public ControleurAgentEntretient getControleurAgentEntretien() {
+        return controleurAgentEntretient;
+    }
+
+    public ControleurParticipant getControleurParticipant() {
+        return controleurParticipant;
     }
 
     public ControleurCommercant getControleurCommercant() {
@@ -74,5 +76,13 @@ public class Controleur {
 
     public ControleurAnimation getControleurAnimation() {
         return controleurAnimation;
-    }*/
+    }
+
+    public ArrayList<Evenement> getEvents() {
+        return application.getEvenements();
+    }
+
+    public void supprimerEvenement(Evenement evenement) {
+        application.removeEvenement(evenement);
+    }
 }

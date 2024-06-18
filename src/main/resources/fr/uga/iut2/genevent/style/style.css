@@ -1,7 +1,7 @@
 VBox,
 HBox {
-  background-color: #ffffff;
-  -fx-background-color: #ffffff;
+  /*Remove border*/
+  -fx-border-width: 0;
 }
 
 .label {
@@ -13,9 +13,9 @@ HBox {
 .h2,
 .h3 {
   font-weight: bold;
-  margin-bottom: 10px;
+  padding: 20px 0 10px 0;
   -fx-font-weight: bold;
-  -fx-margin-bottom: 10px;
+  -fx-padding: 20px 0 10px 0;
 }
 
 .h1 {
@@ -37,6 +37,20 @@ HBox {
 .check-box > .box,
 .combo-box,
 .text-field {
+  -fx-border-width: 0;
+}
+
+.eventIcon {
+  -fx-background-color: #BFCFDB;
+  -fx-background-radius: 10px;
+}
+
+.eventIcon:hover {
+  -fx-cursor: hand;
+  -fx-background-color: white;
+}
+
+.newEvent > .text-field {
   background-color: #ffffff;
   border-color: gray;
   border-radius: 3px;
@@ -60,9 +74,7 @@ HBox {
 }
 
 .trash {
-  opacity: 0.4;
-  cursor: pointer;
-  -fx-opacity: 0.4;
+  -fx-opacity: 0.5;
   -fx-cursor: hand;
 }
 .trash:hover {
@@ -76,17 +88,18 @@ HBox {
 }
 
 .leftPanel {
-  background-color: rgb(194, 218, 229);
-  -fx-background-color: rgb(194, 218, 229);
+  background-color: rgb(191, 207, 219);
+  -fx-background-color: #BFCFDB;
 }
 .leftPanel > .button {
   background-color: rgb(194, 218, 229);
   border-color: transparent;
-  -fx-background-color: rgb(194, 218, 229);
+  -fx-background-color: #BFCFDB;
   -fx-background-radius: 30;
   -fx-border-color: transparent;
 }
 .leftPanel > .button:hover {
   background-color: rgba(255, 255, 255, 0.76);
   -fx-background-color: rgba(255, 255, 255, 0.76);
+  -fx-cursor: hand;
 }

@@ -1,6 +1,5 @@
 package fr.uga.iut2.genevent.controleur;
 
-import fr.uga.iut2.genevent.exception.MauvaisChampsException;
 import fr.uga.iut2.genevent.modele.*;
 
 import java.util.ArrayList;
@@ -8,6 +7,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Optional;
 
+/**
+ * Sous-contrôleur pour la catégorie "Commerçants"
+ */
 public class ControleurCommercant {
 
     private Application application;
@@ -210,5 +212,10 @@ public class ControleurCommercant {
 
         } else
             throw new Exception("Le type de commerce du commerçant ne peut être mofifié car l'événement du controleur est nul");
+    }
+
+    // Setters
+    public void setEvenement(Evenement evenement) {
+        this.evenement = evenement;
     }
 }

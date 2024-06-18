@@ -1,63 +1,65 @@
 package fr.uga.iut2.genevent.vue;
 
-import fr.uga.iut2.genevent.modele.Fonctionnalite;
+import fr.uga.iut2.genevent.util.Vues;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
+import javafx.scene.Parent;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.List;
-
+/**
+ * La classe VueEvenement est responsable des interactions avec
+ * l'utilisa·teur/trice en mode graphique pour la vue accueil (liste des
+ * événements)
+ * <p>
+ * Contrôleur de tab-event.fxml (informations générales sur l'événement)
+ */
 public class VueEvenement extends IHM {
 
-    @FXML
-    private Text nomEvenement;
+    private final VueOnglets vueOnglets;
 
     @FXML
-    private VBox panel;
+    HBox container;
 
-    VueEvenement() {
+    VueEvenement(VueOnglets vueOnglets) {
         super();
+        this.vueOnglets = vueOnglets;
     }
+
+    // Implémentations et redéfinitions
 
     @FXML
-    public void initialize() {
-        setupButton();
-    }
-
-    public void changerFenetre(Stage stage) {
-        FXMLLoader mainViewLoader = new FXMLLoader(getClass().getResource("evenement.fxml"));
-        mainViewLoader.setController(this);
+    private void initialize() {
         try {
-            Scene mainScene = new Scene(mainViewLoader.load());
-            stage.setScene(mainScene);
+            Parent ongletsRoot = Vues.loadView("tabs.fxml", vueOnglets);
+            container.getChildren().add(0,ongletsRoot);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void setupButton() {
-        nomEvenement.setText(controleur.getControleurEvenement().getEvenement().getNom());
-        ArrayList<Fonctionnalite> allFonctionnalites = new ArrayList<>(EnumSet.allOf(Fonctionnalite.class));
-        ArrayList<Fonctionnalite> fonctionnalitesEvenement = controleur.getControleurEvenement().getEvenement().getFonctionnalites();
+    // Signature alternative de changerFenetre
 
-        List<Node> buttons = panel.getChildren().subList(4, panel.getChildren().size());
-
-        for (int i = allFonctionnalites.size() - 1; i >= 0; i--) {
-            Fonctionnalite fonctionnalite = allFonctionnalites.get(i);
-            if (!fonctionnalitesEvenement.contains(fonctionnalite)) {
-                buttons.remove(i);
-            }
-        }
+    /**
+     * Modifie l'état de la fenêtre en argument pour lui appliquer l'onglet spécifié par l'argument {@code fxmlName}, puis ajoute le panneau de navigation vertical pour compléter.
+     * 
+     * @param stage - Le stage dont la vue doit être changée
+     * @param fxmlName - Vue à appliquer au stage
+     */
+    public void changerFenetre(Stage stage, String fxmlName) {
+        // tab-X.fxml = onglet de la vue principale
+        // tabs.fxml = panneau de navigation sur le côté
+        vueOnglets.load();
+        Parent parent = Vues.loadViewIntoStage(stage, fxmlName, this);
+        
+        ((HBox) parent).getChildren().add(0, vueOnglets.getOngletsRoot());
     }
 
-    @Override
     public void informerUtilisateur(String message, boolean succes) {
         System.out.println(message);
+    }
+
+    // Getters et setters
+    public VueOnglets getVueOnglets() {
+        return vueOnglets;
     }
 }

@@ -1,8 +1,11 @@
 package fr.uga.iut2.genevent.util;
 
-import java.net.URL;
+import java.io.IOException;
 
+import fr.uga.iut2.genevent.vue.IHM;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -21,28 +24,40 @@ public class Vues {
      *                 alors le chemin relatif à partir du dossier racine pour les
      *                 ressources
      * 
-     * @return l'objet FXMLLoader utilisé pour charger la vue
+     * @return l'objet Parent utilisé pour charger la vue
      */
-    public static FXMLLoader loadViewIntoStage(Stage stage, String fxmlName, Object controleur) {
+    public static Parent loadViewIntoStage(Stage stage, String fxmlName, Object controleur) {
         try {
             // Charger la scène dans le loader et lui affecter le controleur en argument
-            URL temp = Vues.class.getResource("/fr/uga/iut2/genevent/vue/" + fxmlName);
-            FXMLLoader loader = new FXMLLoader(temp);
+            FXMLLoader loader = new FXMLLoader(Vues.class.getResource("/fr/uga/iut2/genevent/vue/" + fxmlName));
             loader.setController(controleur);
-            Scene newScene = new Scene(loader.load());
 
-            // Appliquer le css global
-            newScene.getStylesheets().clear();
-            newScene.getStylesheets().add(Vues.class.getResource("/fr/uga/iut2/genevent/style/style.css").toExternalForm());
-            
-            // Ajouter la scène au stage en argument
-            stage.setScene(newScene);
-            stage.show();
-            return loader;
+            Parent parent = loader.load();
+            Platform.runLater(() -> {
+                try {
+                    Scene newScene = new Scene(parent);
+                    stage.setScene(newScene);
+                    stage.show();
+
+                    // Appliquer le css global
+                    newScene.getStylesheets().clear();
+                    newScene.getStylesheets().add(Vues.class.getResource("/fr/uga/iut2/genevent/style/style.css").toExternalForm());
+                } catch (Exception e) {
+                    System.err.println("Erreur pendant le chargement de la vue :\n");
+                    e.printStackTrace();
+                }
+            });
+            return parent;
         } catch (Exception e) {
             System.err.println("Erreur pendant le chargement de la vue :\n");
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static Parent loadView(String fmxl, IHM controleur) throws IOException {
+        FXMLLoader loader = new FXMLLoader(Vues.class.getResource("/fr/uga/iut2/genevent/vue/" + fmxl));
+        loader.setController(controleur);
+        return loader.load();
     }
 }
