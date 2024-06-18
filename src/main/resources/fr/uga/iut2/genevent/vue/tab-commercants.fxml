@@ -40,7 +40,7 @@
                                  <graphic>
                                     <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/trash1.png" />
+                                          <Image url="@../images/poubelle.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -52,7 +52,7 @@
                                  <graphic>
                                     <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/avion-en-papier.png" />
+                                          <Image url="@../images/envoyer.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -133,7 +133,7 @@
                            <graphic>
                               <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/trash1.png" />
+                                    <Image url="@../images/poubelle.png" />
                                  </image>
                               </ImageView>
                            </graphic>
