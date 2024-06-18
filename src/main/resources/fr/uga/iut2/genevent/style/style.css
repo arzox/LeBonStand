@@ -103,3 +103,6 @@ HBox {
   -fx-background-color: rgba(255, 255, 255, 0.76);
   -fx-cursor: hand;
 }
+.leftPanel > .button-selected {
+  -fx-background-color: white;
+}

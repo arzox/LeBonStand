@@ -4,7 +4,7 @@ import fr.uga.iut2.genevent.exception.MauvaisChampsException;
 import fr.uga.iut2.genevent.modele.Evenement;
 import fr.uga.iut2.genevent.modele.Fonctionnalite;
 import fr.uga.iut2.genevent.modele.TypeEvenement;
-import fr.uga.iut2.genevent.util.Vues;
+
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -46,20 +46,28 @@ public class VueCreation extends IHM {
         typeMarche.setItems(FXCollections.observableList(TypeEvenement.getTypesEvenement()));
     }
 
-    @Override
-    public void informerUtilisateur(String message, boolean succes) {
-        System.out.println(message);
-    }
-
     @FXML
     private void onAnnuler(ActionEvent event) {
         Stage stage = (Stage) typeMarche.getScene().getWindow();
         stage.fireEvent(
                 new javafx.stage.WindowEvent(
                         stage,
-                        javafx.stage.WindowEvent.WINDOW_CLOSE_REQUEST
-                )
-        );
+                        javafx.stage.WindowEvent.WINDOW_CLOSE_REQUEST));
+    }
+
+    @FXML
+    private void onCreer(ActionEvent event) {
+        try {
+            Evenement evenement = controleur.getControleurEvenement().creerEvenement(nom.getText(), getTypeEvenement(), getFonctionnalitesSelected());
+            controleur.setEvenementCourant(evenement);
+            ((Stage) typeMarche.getScene().getWindow()).close();
+
+            VueOnglets vueOnglets = new VueOnglets(new VueEvenement());
+            vueOnglets.changerFenetre(previousStage);
+        } catch (MauvaisChampsException e) {
+            e.printStackTrace();
+        }
+        
     }
 
     private ArrayList<Fonctionnalite> getFonctionnalitesSelected() {
@@ -79,16 +87,15 @@ public class VueCreation extends IHM {
         return TypeEvenement.fromString(typeMarche.getValue());
     }
 
+    // Implémentations et redéfinitions
 
-    @FXML
-    private void onCreer(ActionEvent event) {
-        try {
-            Evenement evenement = controleur.getControleurEvenement().creerEvenement(nom.getText(), getTypeEvenement(), getFonctionnalitesSelected());
-            controleur.setEvenementCourant(evenement);
-            ((Stage) typeMarche.getScene().getWindow()).close();
-            Vues.loadViewIntoStage(previousStage, "tab-event.fxml", new VueEvenement(new VueOnglets()));
-        } catch (MauvaisChampsException e) {
-            e.printStackTrace();
-        }
+    @Override
+    public void informerUtilisateur(String message, boolean succes) {
+        System.out.println(message);
+    }
+
+    @Override
+    public void changerFenetre(Stage stage) {
+        // TODO Auto-generated method stub
     }
 }

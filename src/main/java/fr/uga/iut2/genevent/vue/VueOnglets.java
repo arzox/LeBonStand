@@ -7,10 +7,8 @@ import java.util.List;
 import fr.uga.iut2.genevent.modele.Fonctionnalite;
 import fr.uga.iut2.genevent.util.Vues;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -23,21 +21,17 @@ import javafx.stage.Stage;
  * Contrôleur de tab-event.fxml (informations générales sur l'événement)
  */
 public class VueOnglets extends IHM {
-
-    private Parent ongletsRoot;
+    private IHM currentOnglet;
+    public static final String FXML_NAME = "tabs.fxml";
 
     @FXML
     private Text nomEvenement;
     @FXML
     private VBox panel;
 
-    VueOnglets() {
+    VueOnglets(IHM onglet) {
         super();
-    }
-
-    @Override
-    public void informerUtilisateur(String message, boolean succes) {
-        System.out.println(message);
+        setCurrentOnglet(onglet);
     }
 
     @FXML
@@ -50,7 +44,8 @@ public class VueOnglets extends IHM {
      * <p>
      * - Applique le nom de l'événement pour le bouton "Événement"
      * <p>
-     * - Met à jour les boutons selon les fonctionnalités activées pour cet événement
+     * - Met à jour les boutons selon les fonctionnalités activées pour cet
+     * événement
      */
     private void setupButton() {
         nomEvenement.setText(controleur.getControleurEvenement().getEvenement().getNom());
@@ -60,24 +55,35 @@ public class VueOnglets extends IHM {
 
         List<Node> buttons = panel.getChildren().subList(5, panel.getChildren().size());
 
+        // remove buttons that fonctionnality don't have
         for (int i = buttons.size() - 1; i >= 0; i--) {
             Fonctionnalite fonctionnalite = allFonctionnalites.get(i);
             if (!fonctionnalitesEvenement.contains(fonctionnalite)) {
                 buttons.remove(i);
             }
         }
+
+        // add clicked section
+        panel.getChildren().forEach(node -> node.setOnMouseClicked(event -> {
+            int index = panel.getChildren().indexOf(node);
+            if (index > 0) {
+                setCurrentOnglet(index);
+            }
+        }));
     }
 
     public void setCurrentOnglet(int i) {
         if (i < 0 || i >= panel.getChildren().size()) {
-            throw new RuntimeException("Bouton hors de la liste");
+            return;
         }
-
+        panel.getChildren().forEach(node -> node.getStyleClass().remove("button-selected"));
+        panel.getChildren().get(i).getStyleClass().add("button-selected");
     }
 
     @FXML
     private void onAccueil() {
         Stage stage = (Stage) panel.getScene().getWindow();
+        new VueAccueil().changerFenetre(stage);
         Vues.loadViewIntoStage(stage, "accueil.fxml", new VueAccueil());
     }
 
@@ -89,31 +95,39 @@ public class VueOnglets extends IHM {
     public void load() {
         try {
             // Charger la scène dans le loader et lui affecter le controleur en argument
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/uga/iut2/genevent/vue/tabs.fxml"));
-            loader.setController(this);
-            Parent parent = loader.load();
-            Scene newScene = new Scene(parent);
-
-            // Appliquer le css global
-            newScene.getStylesheets().clear();
-            newScene.getStylesheets()
-                    .add(Vues.class.getResource("/fr/uga/iut2/genevent/style/style.css").toExternalForm());
-
-            setOngletsRoot(parent);
-
+            setParent(Vues.loadViewAsParent(FXML_NAME, this));
         } catch (Exception e) {
             System.err.println("Erreur pendant le chargement de la vue :\n");
             e.printStackTrace();
         }
     }
 
-    // Getters et setters
-
-    public void setOngletsRoot(Parent ongletsRoot) {
-        this.ongletsRoot = ongletsRoot;
+    /**
+     * Modifie l'état de la fenêtre en argument pour lui appliquer l'onglet spécifié
+     * par l'argument {@code fxmlName}, puis ajoute le panneau de navigation
+     * vertical pour compléter.
+     * 
+     * @param stage    - Le stage dont la vue doit être changée
+     * @param fxmlName - Vue à appliquer au stage
+     */
+    @Override
+    public void changerFenetre(Stage stage) {
+        load();
+        ((HBox) getCurrentOnglet().getParent()).getChildren().add(0, getParent());
     }
 
-    public Parent getOngletsRoot() {
-        return ongletsRoot;
+    @Override
+    public void informerUtilisateur(String message, boolean succes) {
+        System.out.println(message);
+    }
+
+    // Getters et setters
+
+    public void setCurrentOnglet(IHM currentOnglet) {
+        this.currentOnglet = currentOnglet;
+    }
+
+    public IHM getCurrentOnglet() {
+        return currentOnglet;
     }
 }

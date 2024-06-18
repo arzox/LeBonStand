@@ -8,7 +8,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -28,7 +27,7 @@ import javafx.stage.WindowEvent;
  * {@link fr.uga.iut2.genevent.controleur.Controleur} via l'appel de la méthode
  * {@link #demarrerInteraction()}.
  */
-public class JavaFXGUI extends IHM {
+public class JavaFXGUI {
 
     private final CountDownLatch eolBarrier;  // /!\ ne pas supprimer /!\ : suivi de la durée de vie de l'interface
 
@@ -49,6 +48,12 @@ public class JavaFXGUI extends IHM {
         this.eolBarrier = new CountDownLatch(1);  // /!\ ne pas supprimer /!\
     }
 
+    @FXML
+    private void exitMenuItemAction() {
+        Platform.exit();
+        this.exitAction();
+    }
+
     /**
      * Point d'entrée principal pour le code de l'interface JavaFX.
      *
@@ -62,7 +67,6 @@ public class JavaFXGUI extends IHM {
     private void start(Stage primaryStage) throws IOException {
         Vues.loadViewIntoStage(primaryStage, "accueil.fxml", new VueAccueil());
 
-        primaryStage.getIcons().add(new Image(getClass().getResource("/fr/uga/iut2/genevent/images/LBS-blanc-orange.png").toExternalForm()));
         primaryStage.setMaximized(false);
         primaryStage.setTitle("LeBonStand");
     }
@@ -77,20 +81,7 @@ public class JavaFXGUI extends IHM {
         });
     }
 
-    // menu principal
-
-    // @FXML
-    // private void newUserMenuItemAction() {
-    // this.controleur.saisirUtilisateur();
-    // }
-
-    @FXML
-    private void exitMenuItemAction() {
-        Platform.exit();
-        this.exitAction();
-    }
-
-//-----  Implémentation des méthodes abstraites  -------------------------------
+    // Implémentation des méthodes abstraites
 
     public void demarrerInteraction() {
         // démarrage de l'interface JavaFX
@@ -111,10 +102,5 @@ public class JavaFXGUI extends IHM {
             System.err.println("Erreur d'exécution de l'interface.");
             System.err.flush();
         }
-    }
-
-    @Override
-    public void informerUtilisateur(String message, boolean succes) {
-        System.out.println(message);
     }
 }
