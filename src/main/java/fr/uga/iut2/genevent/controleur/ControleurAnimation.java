@@ -43,7 +43,7 @@ public class ControleurAnimation {
      * @param dateHeureFin Date et heure de fin de l'animation
      * @throws Exception si il est impossible d'ajouter l'animation
      */
-    public void ajouterAnimation(String nom, float prix, LocalDateTime dateHeureDebut, LocalDateTime dateHeureFin) throws Exception {
+    public Animation ajouterAnimation(String nom, float prix, LocalDateTime dateHeureDebut, LocalDateTime dateHeureFin) throws Exception {
         if (evenement != null) {
 
             LocalDate dateDebut = dateHeureDebut.toLocalDate();

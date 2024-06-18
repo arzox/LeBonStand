@@ -7,15 +7,20 @@ import fr.uga.iut2.genevent.modele.TypeCommerce;
 import fr.uga.iut2.genevent.util.EmplacementStringConverter;
 import fr.uga.iut2.genevent.util.TypeCommerceStringConverter;
 import fr.uga.iut2.genevent.util.Vues;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.HBox;
 import javafx.util.converter.IntegerStringConverter;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class VueCommercants extends IHM {
     private VueOnglets vueOnglets;
@@ -27,7 +32,9 @@ public class VueCommercants extends IHM {
     @FXML
     TableView<Commercant> commercantsTable;
 
-    @FXML TableColumn<CheckBox, Boolean> checkBoxColumn;
+    private Map<Commercant, BooleanProperty> checkedMap = new HashMap<>();
+
+    @FXML TableColumn<Commercant, Boolean> checkBoxColumn;
     @FXML TableColumn<Commercant, String> nomColumn;
     @FXML TableColumn<Commercant, String> prenomColumn;
     @FXML TableColumn<Commercant, String> emailColumn;
@@ -37,6 +44,11 @@ public class VueCommercants extends IHM {
     @FXML TableColumn<Commercant, Emplacement> emplacementColumn;
     @FXML TableColumn<Commercant, TypeCommerce> typeColumn;
 
+    @FXML
+    TableView<Object> annexTable;
+
+    @FXML TableColumn<Object, String> idAnnex;
+    @FXML TableColumn<Object, String> valueAnnex;
 
     public VueCommercants(VueOnglets vueOnglets) {
         super();
@@ -61,11 +73,47 @@ public class VueCommercants extends IHM {
         }
 
         setupTable();
+        setupAnnex();
         System.out.println(controleur.getControleurCommercant().getCommercants());
         commercantsTable.getItems().addAll(controleur.getControleurCommercant().getCommercants());
+        annexTable.getItems().addAll(controleur.getControleurCommercant().getEmplacements());
+    }
+
+    private void setupAnnex() {
+        idAnnex.setCellFactory(TextFieldTableCell.forTableColumn());
+        idAnnex.setCellValueFactory(new PropertyValueFactory<>("numero"));
+        idAnnex.setEditable(false);
+
+        valueAnnex.setCellFactory(TextFieldTableCell.forTableColumn());
+        valueAnnex.setCellValueFactory(new PropertyValueFactory<>("taille"));
+        valueAnnex.setOnEditCommit(event -> {
+            try {
+                Emplacement emplacement = controleurCommercant.getEmplacement(Integer.parseInt(event.getNewValue()));
+                controleurCommercant.modifierEmplacement(emplacement.getNumero(), emplacement.getTaille());
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                try {
+                    controleurCommercant.creerEmplacement(Integer.parseInt(event.getNewValue()), 0);
+                } catch (Exception ex) {
+                    System.out.println(ex.getMessage());
+                    annexTable.refresh();
+                }
+            }
+        });
     }
 
     private void setupTable() {
+        checkBoxColumn.setCellValueFactory(cellData -> {
+            Commercant commercant = cellData.getValue();
+            BooleanProperty checkedProperty = checkedMap.get(commercant);
+            if (checkedProperty == null) {
+                checkedProperty = new SimpleBooleanProperty(false);
+                checkedMap.put(commercant, checkedProperty);
+            }
+            return checkedProperty;
+        });
+        checkBoxColumn.setCellFactory(CheckBoxTableCell.forTableColumn(checkBoxColumn));
+
         commercantsTable.setEditable(true);
         nomColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         nomColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
@@ -141,9 +189,40 @@ public class VueCommercants extends IHM {
 
         emplacementColumn.setCellFactory(TextFieldTableCell.forTableColumn(new EmplacementStringConverter()));
         emplacementColumn.setCellValueFactory(new PropertyValueFactory<>("emplacement"));
+        emplacementColumn.setOnEditCommit(event -> {
+            try {
+                Emplacement emplacement = controleurCommercant.getEmplacement(event.getNewValue().getNumero());
+                controleurCommercant.modifierEmplacementCommercant(event.getRowValue(), emplacement);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                try {
+                    Emplacement emplacement = controleurCommercant.creerEmplacement(event.getNewValue().getNumero(), 0);
+                    controleurCommercant.modifierEmplacementCommercant(event.getRowValue(), emplacement);
+                } catch (Exception ex) {
+                    System.out.println(ex.getMessage());
+                    event.getRowValue().setEmplacement(event.getOldValue());
+                    commercantsTable.refresh();
+                }
+            }
+        });
 
         typeColumn.setCellFactory(TextFieldTableCell.forTableColumn(new TypeCommerceStringConverter()));
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("typeCommerce"));
+        typeColumn.setOnEditCommit(event -> {
+            try {
+                TypeCommerce typeCommerce = controleurCommercant.getTypeCommerce(event.getNewValue().getNom());
+                controleurCommercant.modifierTypeCommerceCommercant(event.getRowValue(), typeCommerce);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                try {
+                    controleurCommercant.creerTypeCommerce(event.getNewValue().getNom(), 0);
+                } catch (Exception ex) {
+                    System.out.println(ex.getMessage());
+                    event.getRowValue().setTypeCommerce(event.getOldValue());
+                    commercantsTable.refresh();
+                }
+            }
+        });
 
         nomColumn.setMinWidth(100); // Replace 100 with the minimum width you want
         prenomColumn.setMinWidth(100); // Replace 100 with the minimum width you want
@@ -159,11 +238,40 @@ public class VueCommercants extends IHM {
 
     @FXML
     private void onNewRow() {
-        try {
-            commercantsTable.getItems().add(controleurCommercant.inscrireCommercant("Nom", "Prenom", "Mail", "06010203", 8, 20, null, null));
-            System.out.println(controleurCommercant.getCommercants());
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        int i = (commercantsTable.getItems().size() + 1);
+        while (true) {
+            try {
+                addLine(i);
+                break;
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                i++;
+            }
+        }
+    }
+
+    private void addLine(int i) throws Exception {
+        commercantsTable.getItems().add(controleurCommercant.inscrireCommercant(("Nom" + i), "Prenom", "Mail", "06010203", 8, 20, null, null));
+    }
+
+    @FXML
+    private void onSupprimer() {
+        if (commercantsTable.getSelectionModel().getSelectedItem() == null) {
+            try {
+                controleurCommercant.desinscrireCommercant(commercantsTable.getSelectionModel().getSelectedItem());
+                commercantsTable.getItems().remove(commercantsTable.getSelectionModel().getSelectedItem());
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        } else {
+            commercantsTable.getSelectionModel().getSelectedItems().forEach(commercant -> {
+                try {
+                    controleurCommercant.desinscrireCommercant(commercant);
+                    commercantsTable.getItems().remove(commercant);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            });
         }
     }
 }

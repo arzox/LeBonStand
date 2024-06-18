@@ -32,7 +32,7 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Button layoutX="483.0" layoutY="43.0" mnemonicParsing="false">
+                              <Button layoutX="483.0" layoutY="43.0" onAction="#onSupprimer" mnemonicParsing="false">
                                  <graphic>
                                     <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -124,13 +124,13 @@
                         <Insets left="20.0" right="20.0" />
                      </padding>
                   </HBox>
-                  <TableView editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="999999.0" prefWidth="999999.0">
+                  <TableView editable="true" fx:id="annexTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="999999.0" prefWidth="999999.0">
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                      <columns>
-                        <TableColumn prefWidth="125.0" text="Numéro" />
-                        <TableColumn prefWidth="127.0" text="Taille" />
+                        <TableColumn fx:id="idAnnex" prefWidth="125.0" text="Numéro" />
+                        <TableColumn fx:id="valueAnnex" prefWidth="127.0" text="Taille" />
                      </columns>
                   </TableView>
                </children>

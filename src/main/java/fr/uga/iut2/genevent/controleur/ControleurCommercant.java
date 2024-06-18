@@ -102,6 +102,21 @@ public class ControleurCommercant {
             throw new Exception("L'emplacement ne peut être créé car l'événement du controleur est nul");
     }
 
+    public Emplacement creerEmplacement(int numero, int taille) throws Exception {
+        if (evenement != null) {
+            try {
+                getEmplacement(numero);
+            } catch (Exception e) {
+                Emplacement nouvelEmplacement = new Emplacement(numero, taille);
+                evenement.ajouterEmplacement(nouvelEmplacement);
+                return nouvelEmplacement;
+            }
+            throw new Exception("L'emplacement existe déjà");
+        } else {
+            throw new Exception("L'emplacement ne peut être créé car l'événement du controleur est nul");
+        }
+    }
+
     public Emplacement getEmplacement(int numero) throws Exception {
         if (evenement != null) {
 
@@ -114,7 +129,7 @@ public class ControleurCommercant {
                     return emplacement;
                 }
             }
-            return null;
+            throw new Exception("L'emplacement que vous souhaitez récupérer n'existe pas");
 
         } else
             throw new Exception("L'emplacement ne peut être récupéré car l'événement du controleur est nul");
@@ -300,9 +315,7 @@ public class ControleurCommercant {
 
     public void modifierEmplacementCommercant(Commercant commercant, Emplacement emplacement) throws Exception {
         if (evenement != null) {
-
             commercant.setEmplacement(emplacement);
-
         } else
             throw new Exception("L'emplacement du commerçant ne peut être mofifié car l'événement du controleur est nul");
     }
@@ -314,5 +327,17 @@ public class ControleurCommercant {
 
         } else
             throw new Exception("Le type de commerce du commerçant ne peut être mofifié car l'événement du controleur est nul");
+    }
+
+    public void modifierEmplacement(int numero, int taille) throws Exception {
+        Emplacement emplacement = getEmplacement(numero);
+        if (emplacement != null) {
+            emplacement.setTaille(taille);
+        } else
+            throw new Exception("L'emplacement ne peut être mofifié car il n'existe pas");
+    }
+
+    public ArrayList<Emplacement> getEmplacements() {
+        return evenement.getEmplacements();
     }
 }
