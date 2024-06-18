@@ -17,23 +17,21 @@ import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
-
 public class Main {
 
-    private static Logger LOGGER =
-            Logger.getLogger(Main.class.getPackageName());
+    private static Logger LOGGER = Logger.getLogger(Main.class.getPackageName());
 
     // Récupérarion du gestionnaire de logs.
     private static final LogManager logManager = LogManager.getLogManager();
     // Configuration du logger
     // EditConfiguration > Modify options > add VM options :
     // -Djava.util.logging.config.file=conf/debug-logging.properties
-    static{
+    static {
         try {
-            logManager.readConfiguration( new FileInputStream("conf/debug-logging.properties") );
-        } catch ( IOException exception ) {
-            LOGGER.log( Level.SEVERE, "Cannot read configuration file",
-                    exception );
+            logManager.readConfiguration(new FileInputStream("conf/debug-lbs.properties"));
+        } catch (IOException exception) {
+            LOGGER.log(Level.SEVERE, "Cannot read configuration file",
+                    exception);
         }
     }
 
@@ -44,21 +42,19 @@ public class Main {
         // Créer une instance du modèle (application correspond à la racine du modèle)
         Application application = new Application();
 
-        if (true) {
-            application.addEvenement(new Evenement("Marche Noel", LocalDate.of(2021, 6, 1), LocalDate.of(2021, 6, 2),
-                    TypeEvenement.MARCHE_NOEL,
-                    new ArrayList<>(Arrays.asList(Fonctionnalite.AGENT_ENTRETIEN, Fonctionnalite.PARTICIPANT))));
-            application.addEvenement(
-                    new Evenement("Brocante", LocalDate.of(2022, 7, 2), LocalDate.of(2022, 7, 3), TypeEvenement.BROCANTE,
-                            new ArrayList<>(Arrays.asList(Fonctionnalite.AGENT_ENTRETIEN, Fonctionnalite.PARTICIPANT))));
-            try {
-                LOGGER.log(Level.INFO, "Sauvegarde de l'état initial");
-                Persisteur.sauverEtat(application);
-            } catch (IOException e) {
-                LOGGER.log(Level.SEVERE, "Erreur irrécupérable pendant la sauvegarde de l'état : fin d'exécution !");
-                throw new RuntimeException(e);
-            }
-        }
+//        application.addEvenement(new Evenement("Marche Noel", LocalDate.of(2021, 6, 1), LocalDate.of(2021, 6, 2),
+//                TypeEvenement.MARCHE_NOEL,
+//                new ArrayList<>(Arrays.asList(Fonctionnalite.AGENT_ENTRETIEN, Fonctionnalite.PARTICIPANT))));
+//        application.addEvenement(
+//                new Evenement("Brocante", LocalDate.of(2022, 7, 2), LocalDate.of(2022, 7, 3), TypeEvenement.BROCANTE,
+//                        new ArrayList<>(Arrays.asList(Fonctionnalite.AGENT_ENTRETIEN, Fonctionnalite.PARTICIPANT))));
+//        try {
+//            LOGGER.log(Level.INFO, "Sauvegarde de l'état initial");
+//            Persisteur.sauverEtat(application);
+//        } catch (IOException e) {
+//            LOGGER.log(Level.SEVERE, "Erreur irrécupérable pendant la sauvegarde de l'état : fin d'exécution !");
+//            throw new RuntimeException(e);
+//        }
 
         try {
             LOGGER.log(Level.INFO, "Chargement de l'état initial");
