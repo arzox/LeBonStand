@@ -59,7 +59,7 @@
                   <Image url="@../images/accueil.png" />
                </image>
             </ImageView>
-            <Text fx:id="nomEvenement1" fill="#363a4a" strokeType="OUTSIDE" strokeWidth="0.0" text="Accueil" HBox.hgrow="ALWAYS">
+            <Text fx:id="Accueil" fill="#363a4a" strokeType="OUTSIDE" strokeWidth="0.0" text="Accueil" HBox.hgrow="ALWAYS">
                <font>
                   <Font size="28.0" />
                </font>
