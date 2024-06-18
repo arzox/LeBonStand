@@ -1,7 +1,8 @@
 package fr.uga.iut2.genevent.modele;
 
 /**
- * La classe Lieu représente un lieu avec son nom, adresse, ville et code postal.
+ * La classe Lieu représente un lieu avec son nom, adresse, ville et code
+ * postal.
  */
 public class Lieu {
     private String nom;
@@ -12,7 +13,7 @@ public class Lieu {
     /**
      * Constructeur pour la classe Lieu.
      *
-     * @param nom Le nom du lieu.
+     * @param nom     Le nom du lieu.
      * @param adresse L'adresse du lieu.
      */
     public Lieu(String nom, String adresse) {

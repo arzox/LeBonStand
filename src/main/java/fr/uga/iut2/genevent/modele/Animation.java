@@ -1,10 +1,10 @@
 package fr.uga.iut2.genevent.modele;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
- * La classe Animation représente une animation avec un nom, un prix et des dates de début et de fin.
+ * La classe Animation représente une animation avec un nom, un prix et des
+ * dates de début et de fin.
  */
 public class Animation {
     private String nom;
@@ -15,10 +15,10 @@ public class Animation {
     /**
      * Constructeur de la classe Animation.
      *
-     * @param nom Le nom de l'animation.
-     * @param prix Le prix de l'animation.
+     * @param nom       Le nom de l'animation.
+     * @param prix      Le prix de l'animation.
      * @param dateDebut La date et l'heure de début de l'animation.
-     * @param dateFin La date et l'heure de fin de l'animation.
+     * @param dateFin   La date et l'heure de fin de l'animation.
      */
     public Animation(String nom, float prix, LocalDateTime dateDebut, LocalDateTime dateFin) {
         this.nom = nom;

@@ -3,7 +3,8 @@ package fr.uga.iut2.genevent.modele;
 import java.util.ArrayList;
 
 /**
- * La classe Emplacement représente un emplacement avec un numéro, une taille et une liste de commerçants.
+ * La classe Emplacement représente un emplacement avec un numéro, une taille et
+ * une liste de commerçants.
  */
 public class Emplacement {
     private int numero;

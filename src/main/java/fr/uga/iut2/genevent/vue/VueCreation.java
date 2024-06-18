@@ -58,7 +58,8 @@ public class VueCreation extends IHM {
     @FXML
     private void onCreer(ActionEvent event) {
         try {
-            Evenement evenement = controleur.getControleurEvenement().creerEvenement(nom.getText(), getTypeEvenement(), getFonctionnalitesSelected());
+            Evenement evenement = controleur.getControleurEvenement().creerEvenement(nom.getText(), getTypeEvenement(),
+                    getFonctionnalitesSelected());
             controleur.setEvenementCourant(evenement);
             ((Stage) typeMarche.getScene().getWindow()).close();
 
@@ -67,7 +68,7 @@ public class VueCreation extends IHM {
         } catch (MauvaisChampsException e) {
             e.printStackTrace();
         }
-        
+
     }
 
     private ArrayList<Fonctionnalite> getFonctionnalitesSelected() {

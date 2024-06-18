@@ -3,7 +3,8 @@ package fr.uga.iut2.genevent.modele;
 import java.util.ArrayList;
 
 /**
- * La classe TypeCommerce représente un type de commerce avec un nom et une liste de commerçants associés.
+ * La classe TypeCommerce représente un type de commerce avec un nom et une
+ * liste de commerçants associés.
  */
 public class TypeCommerce {
     private String nom;

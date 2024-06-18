@@ -11,15 +11,16 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-
 /**
- * La classe JavaFXGUI délègue les interactions graphiques aux classes {@code VueXXX}.
+ * La classe JavaFXGUI délègue les interactions graphiques aux classes
+ * {@code VueXXX}.
  * du même package. Elle constitue l'intermédiaire entre la classe
  * {@link fr.uga.iut2.genevent.controleur.Controleur} et les classes de la forme
  * {@code VueXXX}, qui elles sont les contrôleurs des vues {@code .fxml}.
  * <p>
  * Attention, pour pouvoir faire le lien avec le
- * {@link fr.uga.iut2.genevent.controleur.Controleur}, {@code JavaFXGUI} n'est pas une
+ * {@link fr.uga.iut2.genevent.controleur.Controleur}, {@code JavaFXGUI} n'est
+ * pas une
  * sous-classe de {@link javafx.application.Application} !
  * <p>
  * Le démarrage de l'application diffère des exemples classiques trouvés dans
@@ -29,7 +30,7 @@ import javafx.stage.WindowEvent;
  */
 public class JavaFXGUI {
 
-    private final CountDownLatch eolBarrier;  // /!\ ne pas supprimer /!\ : suivi de la durée de vie de l'interface
+    private final CountDownLatch eolBarrier; // /!\ ne pas supprimer /!\ : suivi de la durée de vie de l'interface
 
     // éléments vue nouvel·le utilisa·teur/trice
     @FXML
@@ -45,7 +46,7 @@ public class JavaFXGUI {
 
     public JavaFXGUI() {
         super();
-        this.eolBarrier = new CountDownLatch(1);  // /!\ ne pas supprimer /!\
+        this.eolBarrier = new CountDownLatch(1); // /!\ ne pas supprimer /!\
     }
 
     @FXML

@@ -3,7 +3,8 @@ package fr.uga.iut2.genevent.modele;
 import java.util.ArrayList;
 
 /**
- * La classe Zone représente une zone avec un nom et une liste d'agents de sécurité assignés.
+ * La classe Zone représente une zone avec un nom et une liste d'agents de
+ * sécurité assignés.
  */
 public class Zone {
     private String nom;

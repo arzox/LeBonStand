@@ -7,11 +7,11 @@ import java.util.ArrayList;
  */
 public enum TypeEvenement {
 
-    MARCHE_PRODUCTEUR ("Marché de producteurs"),
-    MARCHE_NOEL ("Marché de Noël"),
-    VIDE_GRENIER ("Vide-grenier"),
-    BROCANTE ("Brocante"),
-    AUTRE ("Autre");
+    MARCHE_PRODUCTEUR("Marché de producteurs"),
+    MARCHE_NOEL("Marché de Noël"),
+    VIDE_GRENIER("Vide-grenier"),
+    BROCANTE("Brocante"),
+    AUTRE("Autre");
 
     private final String type;
 
@@ -41,7 +41,8 @@ public enum TypeEvenement {
      * Récupère le type d'événement à partir d'une chaîne de caractères.
      *
      * @param type La chaîne de caractères représentant le type d'événement.
-     * @return Le type d'événement correspondant, ou null si aucun type d'événement ne correspond.
+     * @return Le type d'événement correspondant, ou null si aucun type d'événement
+     *         ne correspond.
      */
     public static TypeEvenement fromString(String type) {
         for (TypeEvenement typeEvenement : TypeEvenement.values()) {
