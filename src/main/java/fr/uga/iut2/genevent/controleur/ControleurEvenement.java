@@ -131,4 +131,6 @@ public class ControleurEvenement {
     public ArrayList<Fonctionnalite> getFonctionnalites() {
         return evenement.getFonctionnalites();
     }
+
+
 }

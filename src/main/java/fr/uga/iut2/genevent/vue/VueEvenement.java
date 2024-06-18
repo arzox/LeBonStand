@@ -1,6 +1,9 @@
 package fr.uga.iut2.genevent.vue;
 
-import fr.uga.iut2.genevent.controleur.Controleur;
+
+import fr.uga.iut2.genevent.controleur.ControleurEvenement;
+import fr.uga.iut2.genevent.exception.MauvaisChampsException;
+
 import fr.uga.iut2.genevent.modele.Evenement;
 import fr.uga.iut2.genevent.modele.Fonctionnalite;
 import fr.uga.iut2.genevent.modele.Lieu;
@@ -8,7 +11,9 @@ import fr.uga.iut2.genevent.modele.TypeEvenement;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
+
+import java.util.ArrayList;
+
 
 public class VueEvenement extends IHM {
 
@@ -35,39 +40,36 @@ public class VueEvenement extends IHM {
     @FXML
     private DatePicker dateFinPicker;
 
-    private final Evenement evenement;
+    private ControleurEvenement controleurEvenement;
 
-    public VueEvenement(Evenement evenement) {
-        this.evenement = evenement;
+    public VueEvenement() {
+        super();
     }
 
     @FXML
     private void initialize() {
-        // Initialize the typeEvenementComboBox with the list of event types
-        typeEvenementComboBox.setItems(FXCollections.observableArrayList(TypeEvenement.getTypesEvenement()));
+        typeEvenementComboBox.setItems(FXCollections.observableArrayList(controleurEvenement.getEvenement().getType().toString()));
 
-        // Load event data into the fields
         loadEventData();
 
-        // Add listeners to update event data when fields are modified
         addFieldListeners();
     }
 
     private void loadEventData() {
-        nomEvenementField.setText(evenement.getNom());
-        typeEvenementComboBox.setValue(evenement.getType().toString());
-        dateDebutPicker.setValue(evenement.getDateDebut());
-        dateFinPicker.setValue(evenement.getDateFin());
+        nomEvenementField.setText(controleurEvenement.getEvenement().getNom());
+        typeEvenementComboBox.setValue(controleurEvenement.getEvenement().getType().toString());
+        dateDebutPicker.setValue(controleurEvenement.getEvenement().getDateDebut());
+        dateFinPicker.setValue(controleurEvenement.getEvenement().getDateFin());
 
-        securiteCheckBox.setSelected(evenement.getFonctionnalites().contains(Fonctionnalite.AGENT_SECURITE));
-        entretienCheckBox.setSelected(evenement.getFonctionnalites().contains(Fonctionnalite.AGENT_ENTRETIEN));
-        animationsCheckBox.setSelected(evenement.getFonctionnalites().contains(Fonctionnalite.ANIMATION));
-        participantsCheckBox.setSelected(evenement.getFonctionnalites().contains(Fonctionnalite.PARTICIPANT));
+        securiteCheckBox.setSelected(controleurEvenement.getEvenement().getFonctionnalites().contains(Fonctionnalite.AGENT_SECURITE));
+        entretienCheckBox.setSelected(controleurEvenement.getEvenement().getFonctionnalites().contains(Fonctionnalite.AGENT_ENTRETIEN));
+        animationsCheckBox.setSelected(controleurEvenement.getEvenement().getFonctionnalites().contains(Fonctionnalite.ANIMATION));
+        participantsCheckBox.setSelected(controleurEvenement.getEvenement().getFonctionnalites().contains(Fonctionnalite.PARTICIPANT));
 
-        if (evenement.getLieu() != null) {
-            adresseField.setText(evenement.getLieu().getAdresse());
-            villeField.setText(evenement.getLieu().getNom());
-            codePostalField.setText(evenement.getLieu().getCodePostal());
+        if (controleurEvenement.getEvenement().getLieu() != null) {
+            adresseField.setText(controleurEvenement.getEvenement().getLieu().getAdresse());
+            villeField.setText(controleurEvenement.getEvenement().getLieu().getNom());
+            codePostalField.setText(controleurEvenement.getEvenement().getLieu().getCodePostal());
         } else {
             adresseField.setText("");
             villeField.setText("");
@@ -76,30 +78,57 @@ public class VueEvenement extends IHM {
     }
 
     private void addFieldListeners() {
-        nomEvenementField.textProperty().addListener((observable, oldValue, newValue) -> evenement.setNom(newValue));
-        typeEvenementComboBox.valueProperty().addListener((observable, oldValue, newValue) -> evenement.setType(TypeEvenement.fromString(newValue)));
-        dateDebutPicker.valueProperty().addListener((observable, oldValue, newValue) -> evenement.setDateDebut(newValue));
-        dateFinPicker.valueProperty().addListener((observable, oldValue, newValue) -> evenement.setDateFin(newValue));
+        nomEvenementField.textProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                controleurEvenement.modifierNomEvenement(controleurEvenement.getEvenement(), newValue);
+            } catch (MauvaisChampsException e) {
+                informerUtilisateur(e.getMessage(), false);
+            }
+        });
+
+        typeEvenementComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                controleurEvenement.modifierTypeEvenement(controleurEvenement.getEvenement(), TypeEvenement.fromString(newValue));
+            } catch (MauvaisChampsException e) {
+                informerUtilisateur(e.getMessage(), false);
+            }
+        });
+
+        dateDebutPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                controleurEvenement.modifierDebutEvenement(controleurEvenement.getEvenement(), newValue);
+            } catch (MauvaisChampsException e) {
+                informerUtilisateur(e.getMessage(), false);
+            }
+        });
+
+        dateFinPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                controleurEvenement.modifierFinEvenement(controleurEvenement.getEvenement(), newValue);
+            } catch (MauvaisChampsException e) {
+                informerUtilisateur(e.getMessage(), false);
+            }
+        });
 
         adresseField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (evenement.getLieu() == null) {
-                evenement.setLieu(new Lieu());
+            if (controleurEvenement.getEvenement().getLieu() == null) {
+                controleurEvenement.getEvenement().setLieu(new Lieu());
             }
-            evenement.getLieu().setAdresse(newValue);
+            controleurEvenement.getEvenement().getLieu().setAdresse(newValue);
         });
 
         villeField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (evenement.getLieu() == null) {
-                evenement.setLieu(new Lieu());
+            if (controleurEvenement.getEvenement().getLieu() == null) {
+                controleurEvenement.getEvenement().setLieu(new Lieu());
             }
-            evenement.getLieu().setNom(newValue);
+            controleurEvenement.getEvenement().getLieu().setNom(newValue);
         });
 
         codePostalField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (evenement.getLieu() == null) {
-                evenement.setLieu(new Lieu());
+            if (controleurEvenement.getEvenement().getLieu() == null) {
+                controleurEvenement.getEvenement().setLieu(new Lieu());
             }
-            evenement.getLieu().setCodePostal(newValue);
+            controleurEvenement.getEvenement().getLieu().setCodePostal(newValue);
         });
 
         securiteCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.AGENT_SECURITE, newValue));
@@ -108,14 +137,20 @@ public class VueEvenement extends IHM {
         participantsCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.PARTICIPANT, newValue));
     }
 
-    private void updateFonctionnalite(Fonctionnalite fonctionnalite, boolean add) {
-        if (add) {
-            evenement.addFonctionnalite(fonctionnalite);
-        } else {
-            evenement.removeFonctionnalite(fonctionnalite);
-        }
-    }
 
+    private void updateFonctionnalite(Fonctionnalite fonctionnalite, boolean add) {
+        Evenement evenement = controleurEvenement.getEvenement();
+        ArrayList<Fonctionnalite> fonctionnalites = new ArrayList<>(evenement.getFonctionnalites());
+
+        if (add) {
+            if (!fonctionnalites.contains(fonctionnalite)) {
+                fonctionnalites.add(fonctionnalite);
+            }
+        } else {
+            fonctionnalites.remove(fonctionnalite);
+        }
+        controleurEvenement.modifierFonctionnalitesEvenement(evenement, fonctionnalites);
+    }
 
     @Override
     public void informerUtilisateur(String message, boolean succes) {

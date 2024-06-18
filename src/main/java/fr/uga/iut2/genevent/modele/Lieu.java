@@ -13,9 +13,6 @@ public class Lieu implements Serializable {
 
     /**
      * Constructeur pour la classe Lieu.
-     *
-     * @param nom Le nom du lieu.
-     * @param adresse L'adresse du lieu.
      */
     public Lieu(String nom, String adresse, String codePostal) {
         this.nom = nom;
@@ -55,7 +52,7 @@ public class Lieu implements Serializable {
      *
      * @return Le code postal du lieu.
      */
-    public int getCodePostal() {
+    public String getCodePostal() {
         return codePostal;
     }
 

@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
-<HBox prefHeight="1028.0" prefWidth="1332.0" xmlns="http://javafx.com/javafx/8" fx:id="container" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.layout.Pane?>
+<HBox prefHeight="1028.0" prefWidth="1332.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="1028.0" prefWidth="932.0" spacing="50.0">
          <children>
@@ -13,7 +19,7 @@
                <children>
                   <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="162.0" style="-fx-background-color: #F5D0C3;">
                      <children>
-                        <Text layoutX="41.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h2" text="Informations" />
+                        <Text fx:id="informationsText" layoutX="41.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h2" text="Informations" />
                      </children>
                   </Pane>
                   <HBox alignment="CENTER" prefHeight="73.0" prefWidth="506.0" style="-fx-spacing: 50;">
@@ -38,7 +44,7 @@
                <children>
                   <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="162.0" style="-fx-background-color: #F5D0C3;">
                      <children>
-                        <Text layoutX="41.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h2" text="Fonctionnalités" />
+                        <Text fx:id="fonctionnalitesText" layoutX="41.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h2" text="Fonctionnalités" />
                      </children>
                   </Pane>
                   <HBox alignment="CENTER" prefHeight="90.0" prefWidth="506.0" style="-fx-spacing: 10;">
@@ -55,7 +61,7 @@
                <children>
                   <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="162.0" style="-fx-background-color: #F5D0C3;">
                      <children>
-                        <Text layoutX="45.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h2" text="Localisation" />
+                        <Text fx:id="localisationText" layoutX="45.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h2" text="Localisation" />
                      </children>
                   </Pane>
                   <HBox alignment="CENTER" prefHeight="90.0" prefWidth="506.0" style="-fx-spacing: 50;">
@@ -86,7 +92,7 @@
                <children>
                   <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="162.0" style="-fx-background-color: #F5D0C3;">
                      <children>
-                        <Text layoutX="63.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h2" text="Dates" />
+                        <Text fx:id="datesText" layoutX="63.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h2" text="Dates" />
                      </children>
                   </Pane>
                   <HBox alignment="CENTER" prefHeight="90.0" prefWidth="506.0" style="-fx-spacing: 50;">
