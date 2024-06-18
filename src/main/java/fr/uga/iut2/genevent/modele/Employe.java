@@ -1,9 +1,11 @@
 package fr.uga.iut2.genevent.modele;
 
+import java.io.Serializable;
+
 /**
  * La classe Employe représente un employé avec un nom, un prénom, un email, un numéro de téléphone, une heure de début et une heure de fin.
  */
-public abstract class Employe {
+public abstract class Employe implements Serializable {
     private String nom;
     private String prenom;
     private String email;

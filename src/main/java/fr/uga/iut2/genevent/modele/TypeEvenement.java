@@ -1,11 +1,12 @@
 package fr.uga.iut2.genevent.modele;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * L'énumération TypeEvenement représente les différents types d'événements.
  */
-public enum TypeEvenement {
+public enum TypeEvenement implements Serializable {
 
     MARCHE_PRODUCTEUR ("Marché de producteurs"),
     MARCHE_NOEL ("Marché de Noël"),

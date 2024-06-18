@@ -1,9 +1,11 @@
 package fr.uga.iut2.genevent.modele;
 
+import java.io.Serializable;
+
 /**
  * La classe Participant représente un participant avec un nom, un prénom et un email.
  */
-public class Participant {
+public class Participant implements Serializable {
     private String nom;
     private String prenom;
     private String email;

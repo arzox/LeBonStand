@@ -30,7 +30,7 @@ public class VueEvenement extends IHM {
     @FXML
     private void initialize() {
         try {
-            Parent ongletsRoot = Vues.loadView("tabs.fxml", vueOnglets);
+            Parent ongletsRoot = Vues.loadViewAsParent("tabs.fxml", vueOnglets);
             container.getChildren().add(0,ongletsRoot);
         } catch (Exception e) {
             e.printStackTrace();
