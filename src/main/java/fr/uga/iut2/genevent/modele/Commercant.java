@@ -26,7 +26,7 @@ public class Commercant extends Employe implements Serializable {
             Emplacement emplacement, TypeCommerce typeCommerce) {
         super(nom, prenom, email, telephone, heureDebut, heureFin);
         setEmplacement(emplacement);
-        this.typeCommerce = typeCommerce;
+        setTypeCommerce(typeCommerce);
     }
 
     /**
@@ -44,11 +44,11 @@ public class Commercant extends Employe implements Serializable {
      * @param emplacement Le nouvel emplacement du commerce du commerçant.
      */
     public void setEmplacement(Emplacement emplacement) {
-        if (this.emplacement != null) {
+        if (this.emplacement != null && this.emplacement.getCommercants().contains(this)) {
             this.emplacement.removeCommercant(this);
         }
         this.emplacement = emplacement;
-        if (emplacement != null) {
+        if (this.emplacement != null && !this.emplacement.getCommercants().contains(this)) {
             emplacement.addCommercant(this);
         }
     }
@@ -59,11 +59,11 @@ public class Commercant extends Employe implements Serializable {
      * @param typeCommerce Le nouveau type de commerce du commerçant.
      */
     public void setTypeCommerce(TypeCommerce typeCommerce) {
-        if (this.typeCommerce != null) {
+        if (this.typeCommerce != null && this.typeCommerce.getCommercants().contains(this)) {
             this.typeCommerce.removeCommercant(this);
         }
         this.typeCommerce = typeCommerce;
-        if (typeCommerce != null) {
+        if (this.typeCommerce != null && !typeCommerce.getCommercants().contains(this)) {
             typeCommerce.addCommercant(this);
         }
     }

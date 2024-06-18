@@ -17,9 +17,11 @@ import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
+
 public class Main {
 
-    private static Logger LOGGER = Logger.getLogger(Main.class.getPackageName());
+    private static Logger LOGGER =
+            Logger.getLogger(Main.class.getPackageName());
 
     // Récupérarion du gestionnaire de logs.
     private static final LogManager logManager = LogManager.getLogManager();
@@ -28,7 +30,7 @@ public class Main {
     // -Djava.util.logging.config.file=conf/debug-logging.properties
     static {
         try {
-            logManager.readConfiguration(new FileInputStream("conf/debug-logging.properties"));
+            logManager.readConfiguration(new FileInputStream("conf/debug-lbs.properties"));
         } catch (IOException exception) {
             LOGGER.log(Level.SEVERE, "Cannot read configuration file",
                     exception);

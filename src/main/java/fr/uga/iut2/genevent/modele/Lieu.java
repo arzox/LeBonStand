@@ -19,8 +19,8 @@ public class Lieu implements Serializable {
      * @param adresse L'adresse du lieu.
      */
     public Lieu(String nom, String adresse) {
-        this.nom = nom;
-        this.adresse = adresse;
+        setNom(nom);
+        setAdresse(adresse);
     }
 
     /**

@@ -22,8 +22,7 @@ public class AgentSecurite extends Employe implements Serializable {
     public AgentSecurite(String nom, String prenom, String email, String telephone, int heureDebut, int heureFin,
             Zone zone) {
         super(nom, prenom, email, telephone, heureDebut, heureFin);
-        this.zone = zone;
-        this.zone.addAgentSecurite(this);
+        setZone(zone);
     }
 
     /**
@@ -41,12 +40,12 @@ public class AgentSecurite extends Employe implements Serializable {
      * @param zone La nouvelle zone de travail de l'agent de sécurité.
      */
     public void setZone(Zone zone) {
-        if (this.zone != null) {
+        if (this.zone != null && this.zone.getAgentsSecurites().contains(this)) {
             this.zone.removeAgentSecurite(this);
         }
         this.zone = zone;
-        if (zone != null) {
-            zone.addAgentSecurite(this);
+        if (this.zone != null && !this.zone.getAgentsSecurites().contains(this)) {
+            this.zone.addAgentSecurite(this);
         }
     }
 }
