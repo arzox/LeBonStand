@@ -63,20 +63,25 @@ public class ControleurAgentEntretien {
             throw new Exception("L'agent d'entretien ne peut être ajouté car l'événement du controleur est nul");
     }
 
-    public AgentEntretien getAgentEntretien(String nom, String prenom, String email, String telephone) {
-        for (AgentEntretien agentEntretien : evenement.getAgentsEntretien()) {
+    public AgentEntretien getAgentEntretien(String nom, String prenom, String email, String telephone) throws Exception {
+        if (evenement != null) {
 
-            String nomCourant = agentEntretien.getNom();
-            String prenomCourant = agentEntretien.getPrenom();
-            String emailCourant = agentEntretien.getEmail();
-            String telephoneCourant = agentEntretien.getTelephone();
+            for (AgentEntretien agentEntretien : evenement.getAgentsEntretien()) {
 
-            if (nom.equals(nomCourant) & prenom.equals(prenomCourant) & email.equals(emailCourant) & telephone.equals(telephoneCourant)) {
+                String nomCourant = agentEntretien.getNom();
+                String prenomCourant = agentEntretien.getPrenom();
+                String emailCourant = agentEntretien.getEmail();
+                String telephoneCourant = agentEntretien.getTelephone();
 
-                return agentEntretien;
+                if (nom.equals(nomCourant) & prenom.equals(prenomCourant) & email.equals(emailCourant) & telephone.equals(telephoneCourant)) {
+
+                    return agentEntretien;
+                }
             }
-        }
-        return null;
+            return null;
+
+        } else
+            throw new Exception("L'agent d'entretien ne peut être récupéré car l'événement du controleur est nul");
     }
 
     public void supprimerAgentEntretien(AgentEntretien agentEntretien) throws Exception {

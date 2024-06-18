@@ -6,7 +6,6 @@ import fr.uga.iut2.genevent.modele.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Optional;
 
 /**
  * Sous-contrôleur pour la catégorie "Participants"
@@ -49,19 +48,24 @@ public class ControleurParticipant {
             throw new Exception("Le participant ne peut être inscrit car l'événement du controleur est nul");
     }
 
-    public Participant getParticipant(String nom, String prenom, String email) {
-        for (Participant participant : evenement.getParticipants()) {
+    public Participant getParticipant(String nom, String prenom, String email) throws Exception {
+        if (evenement != null) {
 
-            String nomCourant = participant.getNom();
-            String prenomCourant = participant.getPrenom();
-            String emailCourant = participant.getEmail();
+            for (Participant participant : evenement.getParticipants()) {
 
-            if (nom.equals(nomCourant) & prenom.equals(prenomCourant) & email.equals(emailCourant)) {
+                String nomCourant = participant.getNom();
+                String prenomCourant = participant.getPrenom();
+                String emailCourant = participant.getEmail();
 
-                return participant;
+                if (nom.equals(nomCourant) & prenom.equals(prenomCourant) & email.equals(emailCourant)) {
+
+                    return participant;
+                }
             }
-        }
-        return null;
+            return null;
+
+        } else
+            throw new Exception("Le participant ne peut être récupéré car l'événement du controleur est nul");
     }
 
     public void desinscrireParticipant(Participant participant) throws Exception {

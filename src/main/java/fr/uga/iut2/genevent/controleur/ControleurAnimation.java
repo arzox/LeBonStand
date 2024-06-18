@@ -103,17 +103,22 @@ public class ControleurAnimation {
             throw new Exception("L'animation ne peut être ajoutée car l'événement du controleur est nul");
     }
 
-    public Animation getAnimation(String nom) {
-        for (Animation animation : evenement.getAnimations()) {
+    public Animation getAnimation(String nom) throws Exception {
+        if (evenement != null) {
 
-            String nomCourant = animation.getNom();
+            for (Animation animation : evenement.getAnimations()) {
 
-            if (nom.equals(nomCourant)) {
+                String nomCourant = animation.getNom();
 
-                return animation;
+                if (nom.equals(nomCourant)) {
+
+                    return animation;
+                }
             }
-        }
-        return null;
+            return null;
+
+        } else
+            throw new Exception("L'animation ne peut être récupéré car l'événement du controleur est nul");
     }
 
     public void supprimerAnimation(Animation animation) throws Exception {
