@@ -28,7 +28,7 @@ import javafx.stage.WindowEvent;
  * {@link fr.uga.iut2.genevent.controleur.Controleur} via l'appel de la méthode
  * {@link #demarrerInteraction()}.
  */
-public class JavaFXGUI extends IHM {
+public class JavaFXGUI {
 
     private final CountDownLatch eolBarrier; // /!\ ne pas supprimer /!\ : suivi de la durée de vie de l'interface
 
@@ -47,11 +47,6 @@ public class JavaFXGUI extends IHM {
     public JavaFXGUI() {
         super();
         this.eolBarrier = new CountDownLatch(1); // /!\ ne pas supprimer /!\
-    }
-
-    @Override
-    public void informerUtilisateur(String message, boolean succes) {
-
     }
 
     @FXML

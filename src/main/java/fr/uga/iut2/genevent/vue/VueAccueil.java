@@ -29,6 +29,7 @@ import java.util.List;
  * confirmation pour supprimer un événement)
  */
 public class VueAccueil extends IHM {
+    public static final String FXML_NAME = "accueil.fxml";
 
     @FXML
     private FlowPane eventsFlowPane;
@@ -140,7 +141,9 @@ public class VueAccueil extends IHM {
             otherVue.close();
         }
         try {
-            Vues.loadViewIntoStage((Stage) eventsFlowPane.getScene().getWindow(), "tab-commercants.fxml", new VueCommercants(new VueOnglets()));
+            VueCommercants vueCommercants = new VueCommercants();
+            VueOnglets vueOnglets = new VueOnglets(vueCommercants);
+            vueOnglets.changerFenetre(new Stage());
         } catch (Exception ex) {
             ex.printStackTrace();
         }
