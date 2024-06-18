@@ -41,4 +41,9 @@ public class Emplacement {
     public void setTaille(int taille) {
         this.taille = taille;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(numero);
+    }
 }

@@ -132,7 +132,7 @@ public class VueAccueil extends IHM {
             otherVue.close();
         }
         try {
-            Vues.loadViewIntoStage((Stage) eventsFlowPane.getScene().getWindow(), "tab-event.fxml", new VueEvenement(new VueOnglets()));
+            Vues.loadViewIntoStage((Stage) eventsFlowPane.getScene().getWindow(), "tab-commercants.fxml", new VueCommercants(new VueOnglets()));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
