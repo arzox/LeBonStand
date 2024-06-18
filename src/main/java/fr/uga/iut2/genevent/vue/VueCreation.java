@@ -80,7 +80,7 @@ public class VueCreation extends IHM {
             Evenement evenement = controleur.getControleurEvenement().creerEvenement(nom.getText(), getTypeEvenement(), getFonctionnalitesSelected());
             controleur.setEvenementCourant(evenement);
             ((Stage) typeMarche.getScene().getWindow()).close();
-            Vues.loadViewIntoStage(previousStage, "tab-event.fxml", new VueEvenement(new VueOnglets()));
+            Vues.loadViewIntoStage(previousStage, "tab-event.fxml", new VueEvenement(evenement));
         } catch (MauvaisChampsException e) {
             e.printStackTrace();
         }

@@ -5,6 +5,10 @@ public class Lieu {
     private String adresse;
     private String codePostal;
 
+    public Lieu() {
+        // Constructeur par défaut vide
+    }
+
     public Lieu(String nom, String adresse, String codePostal) {
         this.nom = nom;
         this.adresse = adresse;
@@ -30,6 +34,7 @@ public class Lieu {
     public void setCodePostal(String codePostal) {
         this.codePostal = codePostal;
     }
+
     public String getCodePostal() {
         return this.codePostal;
     }

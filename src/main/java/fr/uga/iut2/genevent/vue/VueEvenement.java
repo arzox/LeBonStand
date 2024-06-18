@@ -1,59 +1,21 @@
 package fr.uga.iut2.genevent.vue;
 
-import fr.uga.iut2.genevent.controleur.ControleurEvenement;
+import fr.uga.iut2.genevent.controleur.Controleur;
+import fr.uga.iut2.genevent.modele.Evenement;
 import fr.uga.iut2.genevent.modele.Fonctionnalite;
+import fr.uga.iut2.genevent.modele.Lieu;
 import fr.uga.iut2.genevent.modele.TypeEvenement;
-import fr.uga.iut2.genevent.util.Vues;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.List;
-
-/**
- * La classe VueEvenement est responsable des interactions avec
- * l'utilisa·teur/trice en mode graphique pour la vue d'un événement
- * <p>
- * Contrôleur de : tab-event.fxml
- */
 public class VueEvenement extends IHM {
 
     @FXML
-    private Text nomEvenement; // Affiche le nom de l'événement
-
+    private TextField nomEvenementField;
     @FXML
-    private TextField nomEvenementField; // Champ de saisie pour le nom de l'événement
-
-    @FXML
-    private ComboBox<TypeEvenement> typeEvenementComboBox; // Sélecteur du type d'événement
-
-    @FXML
-    private VBox panel; // Panneau pour les fonctionnalités
-
-    @FXML
-    private TextField adresseField; // Champ de saisie pour l'adresse
-
-    @FXML
-    private TextField villeField; // Champ de saisie pour la ville
-
-    @FXML
-    private TextField codePostalField; // Champ de saisie pour le code postal
-
-    @FXML
-    private DatePicker dateDebutPicker; // Sélecteur de date pour la date de début
-
-    @FXML
-    private DatePicker dateFinPicker; // Sélecteur de date pour la date de fin
-
+    private ComboBox<String> typeEvenementComboBox;
     @FXML
     private CheckBox securiteCheckBox;
     @FXML
@@ -62,132 +24,103 @@ public class VueEvenement extends IHM {
     private CheckBox animationsCheckBox;
     @FXML
     private CheckBox participantsCheckBox;
-
-    private ControleurEvenement controleurEvenement;
-
-    public VueEvenement() {
-        super();
-    }
-
-    /**
-     * Méthode d'initialisation appelée automatiquement après le chargement de la vue.
-     */
     @FXML
-    public void initialize() {
-        // Charger les éléments de la ComboBox avec les valeurs de l'enum TypeEvenement
-        typeEvenementComboBox.getItems().setAll(TypeEvenement.values());
+    private TextField adresseField;
+    @FXML
+    private TextField villeField;
+    @FXML
+    private TextField codePostalField;
+    @FXML
+    private DatePicker dateDebutPicker;
+    @FXML
+    private DatePicker dateFinPicker;
 
-        // Charger les détails de l'événement seulement si le contrôleur est défini
-        if (controleurEvenement != null) {
-            loadEventDetails();
-        }
+    private final Evenement evenement;
 
-        // Ajouter des listeners pour les CheckBoxes
-        securiteCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> handleFonctionnaliteChange(Fonctionnalite.AGENT_SECURITE, newValue));
-        entretienCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> handleFonctionnaliteChange(Fonctionnalite.AGENT_ENTRETIEN, newValue));
-        animationsCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> handleFonctionnaliteChange(Fonctionnalite.ANIMATION, newValue));
-        participantsCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> handleFonctionnaliteChange(Fonctionnalite.PARTICIPANT, newValue));
+    public VueEvenement(Evenement evenement) {
+        this.evenement = evenement;
     }
 
-    /**
-     * Charge les détails de l'événement.
-     */
-    private void loadEventDetails() {
-        if (controleurEvenement.getEvenement() != null) {
-            // Initialiser les champs avec les détails de l'événement
-            nomEvenement.setText(controleurEvenement.getEvenement().getNom());
-            nomEvenementField.setText(controleurEvenement.getEvenement().getNom());
-            typeEvenementComboBox.setValue(controleurEvenement.getEvenement().getType());
-            adresseField.setText(controleurEvenement.getEvenement().getLieu().getAdresse());
-            villeField.setText(controleurEvenement.getEvenement().getLieu().getNom());
-            codePostalField.setText(controleurEvenement.getEvenement().getLieu().getCodePostal());
+    @FXML
+    private void initialize() {
+        // Initialize the typeEvenementComboBox with the list of event types
+        typeEvenementComboBox.setItems(FXCollections.observableArrayList(TypeEvenement.getTypesEvenement()));
 
-            // Convertir les dates en LocalDate pour les DatePickers
-            dateDebutPicker.setValue(LocalDate.parse(controleurEvenement.getEvenement().getDebut(), DateTimeFormatter.ISO_DATE));
-            dateFinPicker.setValue(LocalDate.parse(controleurEvenement.getEvenement().getFin(), DateTimeFormatter.ISO_DATE));
+        // Load event data into the fields
+        loadEventData();
 
-            // Charger les fonctionnalités
-            loadFunctionalities();
+        // Add listeners to update event data when fields are modified
+        addFieldListeners();
+    }
+
+    private void loadEventData() {
+        nomEvenementField.setText(evenement.getNom());
+        typeEvenementComboBox.setValue(evenement.getType().toString());
+        dateDebutPicker.setValue(evenement.getDateDebut());
+        dateFinPicker.setValue(evenement.getDateFin());
+
+        securiteCheckBox.setSelected(evenement.getFonctionnalites().contains(Fonctionnalite.AGENT_SECURITE));
+        entretienCheckBox.setSelected(evenement.getFonctionnalites().contains(Fonctionnalite.AGENT_ENTRETIEN));
+        animationsCheckBox.setSelected(evenement.getFonctionnalites().contains(Fonctionnalite.ANIMATION));
+        participantsCheckBox.setSelected(evenement.getFonctionnalites().contains(Fonctionnalite.PARTICIPANT));
+
+        if (evenement.getLieu() != null) {
+            adresseField.setText(evenement.getLieu().getAdresse());
+            villeField.setText(evenement.getLieu().getNom());
+            codePostalField.setText(evenement.getLieu().getCodePostal());
         } else {
-            System.err.println("Aucun événement trouvé dans le contrôleur.");
+            adresseField.setText("");
+            villeField.setText("");
+            codePostalField.setText("");
         }
     }
 
-    /**
-     * Charge les fonctionnalités de l'événement.
-     */
-    private void loadFunctionalities() {
-        List<Fonctionnalite> fonctionnalitesEvenement = controleurEvenement.getEvenement().getFonctionnalites();
+    private void addFieldListeners() {
+        nomEvenementField.textProperty().addListener((observable, oldValue, newValue) -> evenement.setNom(newValue));
+        typeEvenementComboBox.valueProperty().addListener((observable, oldValue, newValue) -> evenement.setType(TypeEvenement.fromString(newValue)));
+        dateDebutPicker.valueProperty().addListener((observable, oldValue, newValue) -> evenement.setDateDebut(newValue));
+        dateFinPicker.valueProperty().addListener((observable, oldValue, newValue) -> evenement.setDateFin(newValue));
 
-        securiteCheckBox.setSelected(fonctionnalitesEvenement.contains(Fonctionnalite.AGENT_SECURITE));
-        entretienCheckBox.setSelected(fonctionnalitesEvenement.contains(Fonctionnalite.AGENT_ENTRETIEN));
-        animationsCheckBox.setSelected(fonctionnalitesEvenement.contains(Fonctionnalite.ANIMATION));
-        participantsCheckBox.setSelected(fonctionnalitesEvenement.contains(Fonctionnalite.PARTICIPANT));
+        adresseField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (evenement.getLieu() == null) {
+                evenement.setLieu(new Lieu());
+            }
+            evenement.getLieu().setAdresse(newValue);
+        });
+
+        villeField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (evenement.getLieu() == null) {
+                evenement.setLieu(new Lieu());
+            }
+            evenement.getLieu().setNom(newValue);
+        });
+
+        codePostalField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (evenement.getLieu() == null) {
+                evenement.setLieu(new Lieu());
+            }
+            evenement.getLieu().setCodePostal(newValue);
+        });
+
+        securiteCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.AGENT_SECURITE, newValue));
+        entretienCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.AGENT_ENTRETIEN, newValue));
+        animationsCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.ANIMATION, newValue));
+        participantsCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.PARTICIPANT, newValue));
     }
 
-    /**
-     * Gère le changement de fonctionnalité.
-     */
-    private void handleFonctionnaliteChange(Fonctionnalite fonctionnalite, boolean isSelected) {
-        if (isSelected) {
-            controleurEvenement.getEvenement().getFonctionnalites().add(fonctionnalite);
-        } else {
-            controleurEvenement.getEvenement().getFonctionnalites().remove(fonctionnalite);
-        }
-        updateTabsPanel(fonctionnalite, isSelected);
-    }
-
-    /**
-     * Met à jour le panneau des onglets de gauche.
-     */
-    private void updateTabsPanel(Fonctionnalite fonctionnalite, boolean add) {
-        // Implémentez la logique pour mettre à jour les onglets de gauche
+    private void updateFonctionnalite(Fonctionnalite fonctionnalite, boolean add) {
         if (add) {
-            System.out.println("Ajouter la fonctionnalité: " + fonctionnalite);
+            evenement.addFonctionnalite(fonctionnalite);
         } else {
-            System.out.println("Retirer la fonctionnalité: " + fonctionnalite);
+            evenement.removeFonctionnalite(fonctionnalite);
         }
     }
 
-    /**
-     * Définit le contrôleur d'événement pour cette vue.
-     *
-     * @param controleurEvenement Le contrôleur d'événement à utiliser.
-     */
-    public void setControleurEvenement(ControleurEvenement controleurEvenement) {
-        this.controleurEvenement = controleurEvenement;
-        // Charger les détails de l'événement après avoir défini le contrôleur
-        if (controleurEvenement != null) {
-            loadEventDetails();
-        }
-    }
-
-    // Implémentations et redéfinitions
 
     @Override
-    public void changerFenetre(Stage stage) {
-        Vues.loadViewIntoStage(stage, "tab-event.fxml", this);
-    }
-
-    @FXML
-    protected void ajouterDetail() {
-        try {
-            Vues.loadViewIntoStage(new Stage(), "new-detail.fxml", this);
-            // Recharger les détails de l'événement après l'ajout d'un nouveau détail
-            loadEventDetails();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    protected void supprimerDetail() {
-        try {
-            Vues.loadViewIntoStage(new Stage(), "delete-detail.fxml", this);
-            // Recharger les détails de l'événement après la suppression d'un détail
-            loadEventDetails();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void informerUtilisateur(String message, boolean succes) {
+        Alert alert = new Alert(succes ? Alert.AlertType.INFORMATION : Alert.AlertType.ERROR);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

@@ -155,6 +155,17 @@ public class Evenement implements Serializable {
         this.fonctionnalites = fonctionnalites;
     }
 
+    public void addFonctionnalite(Fonctionnalite fonctionnalite) {
+        if (!this.fonctionnalites.contains(fonctionnalite)) {
+            this.fonctionnalites.add(fonctionnalite);
+        }
+    }
+
+    public void removeFonctionnalite(Fonctionnalite fonctionnalite) {
+        this.fonctionnalites.remove(fonctionnalite);
+    }
+
+
     public int getMaxParticipants() {
         return maxParticipants;
     }

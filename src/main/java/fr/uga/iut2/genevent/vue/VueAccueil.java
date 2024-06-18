@@ -16,14 +16,6 @@ import javafx.stage.Stage;
 
 import java.util.List;
 
-/**
- * La classe VueAccueil est responsable des interactions avec
- * l'utilisa·teur/trice en mode graphique pour la vue accueil (liste des
- * événements)
- * <p>
- * Contrôleur de : accueil.fxml, new-event.fxml, delete-event.fxml (boîte de
- * confirmation pour supprimer un événement)
- */
 public class VueAccueil extends IHM {
 
     @FXML
@@ -40,16 +32,8 @@ public class VueAccueil extends IHM {
         loadEvents();
     }
 
-    /**
-     * Met à jour les éléments de l'accueil pour correspondre aux événements déjà
-     * créés. En d'autres termes, ajoute les événements enregistrés dans la liste
-     * des événements affichés par l'accueil.
-     */
     private void loadEvents() {
-        // Exemple de liste d'événements. Remplacez ceci par votre propre logique pour récupérer les événements.
         List<Evenement> eventNames = controleur.getEvents();
-
-        // Clear the current children before adding new events
         eventsFlowPane.getChildren().clear();
 
         for (Evenement event : eventNames) {
@@ -57,7 +41,6 @@ public class VueAccueil extends IHM {
             eventsFlowPane.getChildren().add(0, eventButton);
         }
 
-        // Ensure the new event button is always the last child
         VBox newEventButton = createNewEventButton();
         eventsFlowPane.getChildren().add(newEventButton);
     }
@@ -65,7 +48,7 @@ public class VueAccueil extends IHM {
     private VBox createEventButton(Evenement event) {
         VBox vBox = new VBox();
         vBox.getStyleClass().add("eventIcon");
-        vBox.setAlignment(javafx.geometry.Pos.CENTER);
+        vBox.setAlignment(Pos.CENTER);
         vBox.setMinHeight(169.0);
         vBox.setMinWidth(160.0);
         vBox.setPrefHeight(169.0);
@@ -104,7 +87,7 @@ public class VueAccueil extends IHM {
     private VBox createNewEventButton() {
         VBox vBox = new VBox();
         vBox.getStyleClass().add("eventIcon");
-        vBox.setAlignment(javafx.geometry.Pos.CENTER);
+        vBox.setAlignment(Pos.CENTER);
         vBox.setMinHeight(169.0);
         vBox.setMinWidth(160.0);
         vBox.setPrefHeight(169.0);
@@ -132,7 +115,7 @@ public class VueAccueil extends IHM {
             otherVue.close();
         }
         try {
-            Vues.loadViewIntoStage((Stage) eventsFlowPane.getScene().getWindow(), "tab-event.fxml", new VueEvenement(new VueOnglets()));
+            Vues.loadViewIntoStage((Stage) eventsFlowPane.getScene().getWindow(), "tab-event.fxml", new VueEvenement(event));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -166,7 +149,6 @@ public class VueAccueil extends IHM {
         try {
             toDelete = event;
             Vues.loadViewIntoStage(otherVue, "delete-event.fxml", this);
-            // Reload events after deleting one
             loadEvents();
         } catch (Exception exception) {
             exception.printStackTrace();
