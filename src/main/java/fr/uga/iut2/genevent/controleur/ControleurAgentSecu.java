@@ -25,7 +25,7 @@ public class ControleurAgentSecu {
         this.evenement = evenement;
     }
 
-    public void ajouterAgentSecurite(String nom, String prenom, String email, String telephone, int heureDebut, int heureFin, Zone zone) throws Exception {
+    public AgentSecurite ajouterAgentSecurite(String nom, String prenom, String email, String telephone, int heureDebut, int heureFin, Zone zone) throws Exception {
         if (evenement != null) {
 
             boolean isStartAfterEnd = heureDebut > heureFin;
@@ -54,10 +54,29 @@ public class ControleurAgentSecu {
                 throw new MauvaisChampsException("L'heure de début est ultérieure à l'heure de fin",
                         new ArrayList<>(Arrays.asList(true, true, true, true, false, false, true)));
             }
-            evenement.ajouterAgentSecurite(new AgentSecurite(nom, prenom, email, telephone, heureDebut, heureFin, zone));
+            AgentSecurite nouvelAgent = new AgentSecurite(nom, prenom, email, telephone, heureDebut, heureFin, zone);
+            evenement.ajouterAgentSecurite(nouvelAgent);
+
+            return nouvelAgent;
 
         } else
             throw new Exception("L'agent de sécurité ne peut être ajouté car l'événement du controleur est nul");
+    }
+
+    public AgentSecurite getAgentSecurite(String nom, String prenom, String email, String telephone) {
+        for (AgentSecurite agentSecurite : evenement.getAgentsSecurite()) {
+
+            String nomCourant = agentSecurite.getNom();
+            String prenomCourant = agentSecurite.getPrenom();
+            String emailCourant = agentSecurite.getEmail();
+            String telephoneCourant = agentSecurite.getTelephone();
+
+            if (nom.equals(nomCourant) & prenom.equals(prenomCourant) & email.equals(emailCourant) & telephone.equals(telephoneCourant)) {
+
+                return agentSecurite;
+            }
+        }
+        return null;
     }
 
     public void supprimerAgentSecurite(AgentSecurite agentSecurite) throws Exception {
