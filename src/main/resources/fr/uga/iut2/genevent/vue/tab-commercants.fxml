@@ -9,8 +9,9 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Tooltip?>
 
-<HBox fx:id="container" prefHeight="1028.0" prefWidth="1332.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="container" prefHeight="1028.0" prefWidth="1332.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox spacing="20.0">
          <HBox.margin>
@@ -23,52 +24,67 @@
                      <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="69.0" prefWidth="973.0" spacing="30.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#onNewRow">
+                              <Button mnemonicParsing="false" onAction="#onNewRow" style="-fx-background-color: #f4f4f4;">
                                  <graphic>
-                                    <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView id="buttonNewRow" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../images/plus.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
+                                 <tooltip>
+                                    <Tooltip text="Ajouter une nouvelle ligne" />
+                                 </tooltip>
                               </Button>
-                              <Button layoutX="483.0" layoutY="43.0" onAction="#onSupprimer" mnemonicParsing="false">
+                              <Button layoutX="483.0" layoutY="43.0" mnemonicParsing="false" style="-fx-background-color: #f4f4f4;">
                                  <graphic>
                                     <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/plus.png" />
+                                          <Image url="@../images/trash1.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
+                                 <tooltip>
+                                    <Tooltip text="Supprimer la ligne" />
+                                 </tooltip>
                               </Button>
-                              <Button layoutX="507.0" layoutY="43.0" mnemonicParsing="false">
+                              <Button layoutX="507.0" layoutY="43.0" mnemonicParsing="false" style="-fx-background-color: #f4f4f4;">
                                  <graphic>
                                     <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/plus.png" />
+                                          <Image url="@../images/avion-en-papier.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
+                                 <tooltip>
+                                    <Tooltip text="Send" />
+                                 </tooltip>
                               </Button>
-                              <Button layoutX="531.0" layoutY="43.0" mnemonicParsing="false">
+                              <Button layoutX="531.0" layoutY="43.0" mnemonicParsing="false" style="-fx-background-color: #f4f4f4;">
                                  <graphic>
                                     <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/plus.png" />
+                                          <Image url="@../images/imprimante.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
+                                 <tooltip>
+                                    <Tooltip text="Imprimer" />
+                                 </tooltip>
                               </Button>
                            </children>
                         </HBox>
-                        <Button mnemonicParsing="false"  onMouseClicked="#onSave" >
+                        <Button mnemonicParsing="false" style="-fx-background-color: #F4F4F4;">
                            <graphic>
                               <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/plus.png" />
+                                    <Image url="@../images/sauvegarder.png" />
                                  </image>
                               </ImageView>
                            </graphic>
+                           <tooltip>
+                              <Tooltip text="Sauvegarder" />
+                           </tooltip>
                         </Button>
                      </children>
                      <padding>
@@ -101,7 +117,7 @@
                <children>
                   <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="71.0" prefWidth="0.0" spacing="20.0" style="-fx-border-color: lightgrey;">
                      <children>
-                        <Button mnemonicParsing="false">
+                        <Button mnemonicParsing="false" style="-fx-background-color: #f4f4f4;">
                            <graphic>
                               <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -109,28 +125,34 @@
                                  </image>
                               </ImageView>
                            </graphic>
+                           <tooltip>
+                              <Tooltip text="Ajouter une ligne" />
+                           </tooltip>
                         </Button>
-                        <Button mnemonicParsing="false">
+                        <Button mnemonicParsing="false" style="-fx-background-color: #f4f4f4;">
                            <graphic>
                               <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/plus.png" />
+                                    <Image url="@../images/trash1.png" />
                                  </image>
                               </ImageView>
                            </graphic>
+                           <tooltip>
+                              <Tooltip text="Supprimer la ligne" />
+                           </tooltip>
                         </Button>
                      </children>
                      <padding>
                         <Insets left="20.0" right="20.0" />
                      </padding>
                   </HBox>
-                  <TableView editable="true" fx:id="annexTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="999999.0" prefWidth="999999.0">
+                  <TableView editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="999999.0" prefWidth="999999.0">
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                      <columns>
-                        <TableColumn fx:id="idAnnex" prefWidth="125.0" text="Numéro" />
-                        <TableColumn fx:id="valueAnnex" prefWidth="127.0" text="Taille" />
+                        <TableColumn prefWidth="125.0" text="Numéro" />
+                        <TableColumn prefWidth="127.0" text="Taille" />
                      </columns>
                   </TableView>
                </children>
