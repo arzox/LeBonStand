@@ -1,11 +1,13 @@
 package fr.uga.iut2.genevent.modele;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * La classe Zone représente une zone avec un nom et une liste d'agents de sécurité assignés.
+ * La classe Zone représente une zone avec un nom et une liste d'agents de
+ * sécurité assignés.
  */
-public class Zone {
+public class Zone implements Serializable {
     private String nom;
     private ArrayList<AgentSecurite> agentsSecurites = new ArrayList<>();
 

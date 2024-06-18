@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-
 /**
  * La classe Persisteur est responsable de l'enregistrement et de la
  * restauration de l'état du modèle.
@@ -35,29 +34,27 @@ public final class Persisteur {
      * @param application L'application dont l'état est persisté.
      *
      * @throws FileNotFoundException si le fichier de persistance est un
-     *     dossier, ne peut pas être créé ou ne peut pas être ouvert.
+     *                               dossier, ne peut pas être créé ou ne peut pas
+     *                               être ouvert.
      *
-     * @throws IOException si une erreur d'entrée/sortie survient pendant
-     *     l'enregistrement.
+     * @throws IOException           si une erreur d'entrée/sortie survient pendant
+     *                               l'enregistrement.
      */
     public static final void sauverEtat(final Application application) throws FileNotFoundException, IOException {
         try (
-            FileOutputStream fos = new FileOutputStream(Persisteur.NOM_BDD);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-        ){
+                FileOutputStream fos = new FileOutputStream(Persisteur.NOM_BDD);
+                ObjectOutputStream oos = new ObjectOutputStream(fos);) {
             oos.writeObject(application);
             // Les classes `FileOutputStream` et `ObjectOutputStream`
             // implémentent l'interface `AutoCloseable` : pas besoin de faire
             // un appel explicite à `.close()`.
             System.out.println("Sauvegarde de l'état réussie.");
             System.out.flush();
-        }
-        catch (FileNotFoundException fnfe) {
+        } catch (FileNotFoundException fnfe) {
             System.err.println("Erreur à la création/ouverture du fichier de persistance.");
             System.err.flush();
             throw fnfe;
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             System.err.println("Erreur lors de l'écriture du fichier de persistance.");
             System.err.flush();
             throw ioe;
@@ -71,39 +68,36 @@ public final class Persisteur {
      * Le fichier de persistance est le fichier "{@value Persisteur#NOM_BDD}".
      *
      * @return Une nouvelle instance vierge d'application si le fichier de
-     *     persistance n'existe pas, une instance dans l'état enregistré sinon.
+     *         persistance n'existe pas, une instance dans l'état enregistré sinon.
      *
      * @throws ClassNotFoundException si le fichier de persistance contient une
-     *     classe inconnue (fichier corrompu).
+     *                                classe inconnue (fichier corrompu).
      *
-     * @throws IOException si le fichier de persistance est corrompu ou qu'une
-     *     erreur d'entrée/sortie survient.
+     * @throws IOException            si le fichier de persistance est corrompu ou
+     *                                qu'une
+     *                                erreur d'entrée/sortie survient.
      */
     public static final Application lireEtat() throws ClassNotFoundException, IOException {
         Application application;
 
         try (
-            FileInputStream fis = new FileInputStream(Persisteur.NOM_BDD);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-        ){
+                FileInputStream fis = new FileInputStream(Persisteur.NOM_BDD);
+                ObjectInputStream ois = new ObjectInputStream(fis);) {
             application = (Application) ois.readObject();
             System.out.println("Restauration de l'état réussie.");
             System.out.flush();
             // Les classes `FileInputStream` et `ObjectInputStream`
             // implémentent l'interface `AutoCloseable` : pas besoin de faire
             // un appel explicite à `.close()`.
-        }
-        catch (FileNotFoundException ignored) {
+        } catch (FileNotFoundException ignored) {
             System.out.println("Fichier de persistance inexistant : création d'une nouvelle instance.");
             System.out.flush();
             application = new Application();
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             System.err.println("Erreur de lecture du fichier de persistance.");
             System.err.flush();
             throw ioe;
-        }
-        catch (ClassNotFoundException cnfe) {
+        } catch (ClassNotFoundException cnfe) {
             System.err.println("Fichier de persistance corrompu.");
             System.err.flush();
             throw cnfe;

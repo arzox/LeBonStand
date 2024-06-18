@@ -3,24 +3,23 @@ package fr.uga.iut2.genevent.vue;
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
 
-import fr.uga.iut2.genevent.util.Vues;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-
 /**
- * La classe JavaFXGUI délègue les interactions graphiques aux classes {@code VueXXX}.
- * du même package. Elle constitue l'intermédiaire entre la classe
+ * La classe JavaFXGUI délègue les interactions graphiques aux classes
+ * {@code VueXXX} du même package. Elle constitue l'intermédiaire entre la
+ * classe
  * {@link fr.uga.iut2.genevent.controleur.Controleur} et les classes de la forme
  * {@code VueXXX}, qui elles sont les contrôleurs des vues {@code .fxml}.
  * <p>
  * Attention, pour pouvoir faire le lien avec le
- * {@link fr.uga.iut2.genevent.controleur.Controleur}, {@code JavaFXGUI} n'est pas une
+ * {@link fr.uga.iut2.genevent.controleur.Controleur}, {@code JavaFXGUI} n'est
+ * pas une
  * sous-classe de {@link javafx.application.Application} !
  * <p>
  * Le démarrage de l'application diffère des exemples classiques trouvés dans
@@ -28,9 +27,9 @@ import javafx.stage.WindowEvent;
  * {@link fr.uga.iut2.genevent.controleur.Controleur} via l'appel de la méthode
  * {@link #demarrerInteraction()}.
  */
-public class JavaFXGUI extends IHM {
+public class JavaFXGUI {
 
-    private final CountDownLatch eolBarrier;  // /!\ ne pas supprimer /!\ : suivi de la durée de vie de l'interface
+    private final CountDownLatch eolBarrier; // /!\ ne pas supprimer /!\ : suivi de la durée de vie de l'interface
 
     // éléments vue nouvel·le utilisa·teur/trice
     @FXML
@@ -46,7 +45,13 @@ public class JavaFXGUI extends IHM {
 
     public JavaFXGUI() {
         super();
-        this.eolBarrier = new CountDownLatch(1);  // /!\ ne pas supprimer /!\
+        this.eolBarrier = new CountDownLatch(1); // /!\ ne pas supprimer /!\
+    }
+
+    @FXML
+    private void exitMenuItemAction() {
+        Platform.exit();
+        this.exitAction();
     }
 
     /**
@@ -60,9 +65,9 @@ public class JavaFXGUI extends IHM {
      * @see javafx.application.Application#start(Stage)
      */
     private void start(Stage primaryStage) throws IOException {
-        Vues.loadViewIntoStage(primaryStage, "accueil.fxml", new VueAccueil());
+        VueAccueil accueil = new VueAccueil();
+        accueil.changerFenetre(primaryStage);
 
-        primaryStage.getIcons().add(new Image(getClass().getResource("/fr/uga/iut2/genevent/images/LBS-blanc-orange.png").toExternalForm()));
         primaryStage.setMaximized(false);
         primaryStage.setTitle("LeBonStand");
     }
@@ -77,20 +82,7 @@ public class JavaFXGUI extends IHM {
         });
     }
 
-    // menu principal
-
-    // @FXML
-    // private void newUserMenuItemAction() {
-    // this.controleur.saisirUtilisateur();
-    // }
-
-    @FXML
-    private void exitMenuItemAction() {
-        Platform.exit();
-        this.exitAction();
-    }
-
-//-----  Implémentation des méthodes abstraites  -------------------------------
+    // Implémentation des méthodes abstraites
 
     public void demarrerInteraction() {
         // démarrage de l'interface JavaFX
@@ -111,10 +103,5 @@ public class JavaFXGUI extends IHM {
             System.err.println("Erreur d'exécution de l'interface.");
             System.err.flush();
         }
-    }
-
-    @Override
-    public void informerUtilisateur(String message, boolean succes) {
-        System.out.println(message);
     }
 }
