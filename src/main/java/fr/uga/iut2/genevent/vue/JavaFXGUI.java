@@ -68,7 +68,7 @@ public class JavaFXGUI {
         VueAccueil accueil = new VueAccueil();
         accueil.changerFenetre(primaryStage);
 
-        primaryStage.setMaximized(false);
+        primaryStage.setMaximized(true);
         primaryStage.setTitle("LeBonStand");
     }
 
