@@ -25,6 +25,8 @@ import java.util.ArrayList;
  */
 public class VueCreation extends IHM {
 
+    public static final String FXML_NAME = "new-event.fxml";
+
     @FXML
     private TextField nom;
 
@@ -59,10 +61,12 @@ public class VueCreation extends IHM {
     @FXML
     private void onCreer(ActionEvent event) {
         try {
-            Evenement evenement = controleur.getControleurEvenement().creerEvenement(nom.getText(), getTypeEvenement(), getFonctionnalitesSelected());
+            Evenement evenement = controleur.getControleurEvenement().creerEvenement(nom.getText(), getTypeEvenement(),
+                    getFonctionnalitesSelected());
             controleur.setEvenementCourant(evenement);
             ((Stage) typeMarche.getScene().getWindow()).close();
-            Vues.loadViewIntoStage(previousStage, "tab-event.fxml", new VueOnglets());
+            VueOnglets vueOnglets = new VueOnglets(new VueEvenement());
+            vueOnglets.changerFenetre(previousStage);
         } catch (MauvaisChampsException e) {
             e.printStackTrace();
         }
@@ -94,7 +98,7 @@ public class VueCreation extends IHM {
     }
 
     @Override
-    public void changerFenetre(Stage stage) {
-        // TODO Auto-generated method stub
+    public String getFxmlName() {
+        return FXML_NAME;
     }
 }

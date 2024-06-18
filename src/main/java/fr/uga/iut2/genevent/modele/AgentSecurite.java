@@ -11,15 +11,16 @@ public class AgentSecurite extends Employe implements Serializable {
     /**
      * Constructeur de la classe AgentSecurite.
      *
-     * @param nom Le nom de l'agent de sécurité.
-     * @param prenom Le prénom de l'agent de sécurité.
-     * @param email L'email de l'agent de sécurité.
-     * @param telephone Le numéro de téléphone de l'agent de sécurité.
+     * @param nom        Le nom de l'agent de sécurité.
+     * @param prenom     Le prénom de l'agent de sécurité.
+     * @param email      L'email de l'agent de sécurité.
+     * @param telephone  Le numéro de téléphone de l'agent de sécurité.
      * @param heureDebut L'heure de début du travail de l'agent de sécurité.
-     * @param heureFin L'heure de fin du travail de l'agent de sécurité.
-     * @param zone La zone de travail de l'agent de sécurité.
+     * @param heureFin   L'heure de fin du travail de l'agent de sécurité.
+     * @param zone       La zone de travail de l'agent de sécurité.
      */
-    public AgentSecurite(String nom, String prenom, String email, String telephone, int heureDebut, int heureFin, Zone zone) {
+    public AgentSecurite(String nom, String prenom, String email, String telephone, int heureDebut, int heureFin,
+            Zone zone) {
         super(nom, prenom, email, telephone, heureDebut, heureFin);
         this.zone = zone;
         this.zone.addAgentSecurite(this);

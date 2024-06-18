@@ -32,7 +32,8 @@ public class ControleurEvenement {
         this.evenement = evenement;
     }
 
-    public Evenement creerEvenement(String nom, TypeEvenement type, ArrayList<Fonctionnalite> fonctionnalites) throws MauvaisChampsException {
+    public Evenement creerEvenement(String nom, TypeEvenement type, ArrayList<Fonctionnalite> fonctionnalites)
+            throws MauvaisChampsException {
 
         // Création d'un événement
         for (Evenement evenementCourant : application.getEvenements()) {
@@ -52,7 +53,8 @@ public class ControleurEvenement {
         // Ajout de l'événement à la liste des événements
         application.addEvenement(evenement);
 
-        // Renvoi de l'événement afin d'y attribuer les controleurs dans le controleur FXML dans la vue
+        // Renvoi de l'événement afin d'y attribuer les controleurs dans le controleur
+        // FXML dans la vue
         return evenement;
     }
 
@@ -70,7 +72,8 @@ public class ControleurEvenement {
 
             if (isNotUnique) {
 
-                throw new MauvaisChampsException("En changeant le nom de l'événement, celui-ci devient identique à un autre événement",
+                throw new MauvaisChampsException(
+                        "En changeant le nom de l'événement, celui-ci devient identique à un autre événement",
                         new ArrayList<>(Collections.singleton(false)));
             }
         }
@@ -87,7 +90,8 @@ public class ControleurEvenement {
 
             if (isNotUnique) {
 
-                throw new MauvaisChampsException("En changeant le type de l'événement, celui-ci devient identique à un autre événement",
+                throw new MauvaisChampsException(
+                        "En changeant le type de l'événement, celui-ci devient identique à un autre événement",
                         new ArrayList<>(Collections.singleton(false)));
             }
         }

@@ -6,7 +6,8 @@ import java.util.HashMap;
 import java.time.LocalDate;
 
 /**
- * La classe Evenement représente un événement avec ses différentes caractéristiques et modules.
+ * La classe Evenement représente un événement avec ses différentes
+ * caractéristiques et modules.
  */
 public class Evenement implements Serializable {
     private String nom;
@@ -38,13 +39,14 @@ public class Evenement implements Serializable {
     /**
      * Constructeur pour la classe Evenement.
      *
-     * @param nom Le nom de l'événement.
-     * @param dateDebut La date de début de l'événement.
-     * @param dateFin La date de fin de l'événement.
-     * @param typeEvenement Le type de l'événement.
+     * @param nom             Le nom de l'événement.
+     * @param dateDebut       La date de début de l'événement.
+     * @param dateFin         La date de fin de l'événement.
+     * @param typeEvenement   Le type de l'événement.
      * @param fonctionnalites La liste des fonctionnalités de l'événement.
      */
-    public Evenement(String nom, LocalDate dateDebut, LocalDate dateFin, TypeEvenement typeEvenement, ArrayList<Fonctionnalite> fonctionnalites) {
+    public Evenement(String nom, LocalDate dateDebut, LocalDate dateFin, TypeEvenement typeEvenement,
+            ArrayList<Fonctionnalite> fonctionnalites) {
         this.nom = nom;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
@@ -98,7 +100,7 @@ public class Evenement implements Serializable {
      * Ajoute un type de commerce à l'événement.
      *
      * @param typeCommerce Le type de commerce à ajouter.
-     * @param nombre Le nombre de ce type de commerce.
+     * @param nombre       Le nombre de ce type de commerce.
      */
     public void ajouterTypeCommerce(TypeCommerce typeCommerce, int nombre) {
         this.typeCommerces.put(typeCommerce, nombre);
@@ -429,6 +431,7 @@ public class Evenement implements Serializable {
      */
     @Override
     public String toString() {
-        return this.nom + "\n" + this.dateDebut + " - " + this.dateFin + "\n" + this.type + "\n" + this.fonctionnalites + "\n";
+        return this.nom + "\n" + this.dateDebut + " - " + this.dateFin + "\n" + this.type + "\n" + this.fonctionnalites
+                + "\n";
     }
 }

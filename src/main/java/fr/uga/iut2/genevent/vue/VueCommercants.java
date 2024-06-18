@@ -6,9 +6,7 @@ import fr.uga.iut2.genevent.modele.Emplacement;
 import fr.uga.iut2.genevent.modele.TypeCommerce;
 import fr.uga.iut2.genevent.util.EmplacementStringConverter;
 import fr.uga.iut2.genevent.util.TypeCommerceStringConverter;
-import fr.uga.iut2.genevent.util.Vues;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -18,7 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.util.converter.IntegerStringConverter;
 
 public class VueCommercants extends IHM {
-    private VueOnglets vueOnglets;
+    public static final String FXML_NAME = "tab-commercants.fxml";
     private ControleurCommercant controleurCommercant;
 
     @FXML
@@ -38,9 +36,8 @@ public class VueCommercants extends IHM {
     @FXML TableColumn<Commercant, TypeCommerce> typeColumn;
 
 
-    public VueCommercants(VueOnglets vueOnglets) {
+    public VueCommercants() {
         super();
-        this.vueOnglets = vueOnglets;
         this.controleurCommercant = controleur.getControleurCommercant();
     }
 
@@ -53,13 +50,6 @@ public class VueCommercants extends IHM {
 
     @FXML
     private void initialize() {
-        try {
-            Parent ongletsRoot = Vues.loadViewAsParent("tabs.fxml", vueOnglets);
-            container.getChildren().add(0, ongletsRoot);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         setupTable();
         System.out.println(controleur.getControleurCommercant().getCommercants());
         commercantsTable.getItems().addAll(controleur.getControleurCommercant().getCommercants());
@@ -165,5 +155,10 @@ public class VueCommercants extends IHM {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    @Override
+    public String getFxmlName() {
+        return FXML_NAME;
     }
 }
