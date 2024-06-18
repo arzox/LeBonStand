@@ -24,6 +24,8 @@ import java.util.ArrayList;
  */
 public class VueCreation extends IHM {
 
+    public static final String FXML_NAME = "new-event.fxml";
+
     @FXML
     private TextField nom;
 
@@ -93,10 +95,5 @@ public class VueCreation extends IHM {
     @Override
     public void informerUtilisateur(String message, boolean succes) {
         System.out.println(message);
-    }
-
-    @Override
-    public void changerFenetre(Stage stage) {
-        // TODO Auto-generated method stub
     }
 }

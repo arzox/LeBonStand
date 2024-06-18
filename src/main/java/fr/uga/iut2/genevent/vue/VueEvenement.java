@@ -2,7 +2,6 @@ package fr.uga.iut2.genevent.vue;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 
 /**
  * La classe VueEvenement est responsable des interactions avec
@@ -12,6 +11,8 @@ import javafx.stage.Stage;
  * Contrôleur de tab-event.fxml (informations générales sur l'événement)
  */
 public class VueEvenement extends IHM {
+
+    public static final String FXML_NAME = "tab-event.fxml";
 
     @FXML
     HBox container;
@@ -34,10 +35,5 @@ public class VueEvenement extends IHM {
 
     public void informerUtilisateur(String message, boolean succes) {
         System.out.println(message);
-    }
-
-    @Override
-    public void changerFenetre(Stage stage) {
-        // TODO Auto-generated method stub
     }
 }

@@ -84,7 +84,7 @@ public class VueOnglets extends IHM {
     private void onAccueil() {
         Stage stage = (Stage) panel.getScene().getWindow();
         new VueAccueil().changerFenetre(stage);
-        Vues.loadViewIntoStage(stage, "accueil.fxml", new VueAccueil());
+        Vues.loadViewIntoStage(stage, VueAccueil.FXML_NAME, new VueAccueil());
     }
 
     /**
