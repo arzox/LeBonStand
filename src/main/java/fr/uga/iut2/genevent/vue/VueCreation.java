@@ -16,6 +16,12 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
+/**
+ * La classe VueCreation est responsable des interactions avec
+ * l'utilisa·teur/trice en mode graphique pour la vue création d'événement
+ * <p>
+ * Contrôleur de : new-event.fxml
+ */
 public class VueCreation extends IHM {
 
     @FXML
