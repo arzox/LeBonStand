@@ -1,6 +1,8 @@
 package fr.uga.iut2.genevent.modele;
 
-public abstract class Employe {
+import java.io.Serializable;
+
+public abstract class Employe implements Serializable {
     private String nom;
     private String prenom;
     private String email;

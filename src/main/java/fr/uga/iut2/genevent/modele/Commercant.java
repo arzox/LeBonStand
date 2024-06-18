@@ -1,6 +1,8 @@
 package fr.uga.iut2.genevent.modele;
 
-public class Commercant extends Employe {
+import java.io.Serializable;
+
+public class Commercant extends Employe implements Serializable {
     private Emplacement emplacement = null;
     private TypeCommerce typeCommerce = null;
 

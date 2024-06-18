@@ -1,8 +1,9 @@
 package fr.uga.iut2.genevent.modele;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Emplacement {
+public class Emplacement implements Serializable {
     private int numero;
     private int taille;
     private ArrayList<Commercant> commercants = new ArrayList<>();

@@ -1,5 +1,6 @@
 package fr.uga.iut2.genevent.vue;
 
+import fr.uga.iut2.genevent.controleur.ControleurCommercant;
 import fr.uga.iut2.genevent.modele.Commercant;
 import fr.uga.iut2.genevent.modele.Emplacement;
 import fr.uga.iut2.genevent.modele.TypeCommerce;
@@ -18,6 +19,7 @@ import javafx.util.converter.IntegerStringConverter;
 
 public class VueCommercants extends IHM {
     private VueOnglets vueOnglets;
+    private ControleurCommercant controleurCommercant;
 
     @FXML
     HBox container;
@@ -39,6 +41,7 @@ public class VueCommercants extends IHM {
     public VueCommercants(VueOnglets vueOnglets) {
         super();
         this.vueOnglets = vueOnglets;
+        this.controleurCommercant = controleur.getControleurCommercant();
     }
 
     @Override
@@ -56,6 +59,8 @@ public class VueCommercants extends IHM {
         }
 
         setupTable();
+        System.out.println(controleur.getControleurCommercant().getCommercants());
+        commercantsTable.getItems().addAll(controleur.getControleurCommercant().getCommercants());
     }
 
     private void setupTable() {
@@ -63,23 +68,74 @@ public class VueCommercants extends IHM {
         nomColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         nomColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
         nomColumn.setOnEditCommit(event -> {
-            Commercant commercant = controleur.getControleurCommercant().
+            try {
+                controleur.getControleurCommercant().modifierNomCommercant(event.getRowValue(), event.getNewValue());
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                event.getRowValue().setNom(event.getOldValue());
+                commercantsTable.refresh();
+            }
         });
 
         prenomColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         prenomColumn.setCellValueFactory(new PropertyValueFactory<>("prenom"));
+        prenomColumn.setOnEditCommit(event -> {
+            try {
+                controleur.getControleurCommercant().modifierPrenomCommercant(event.getRowValue(), event.getNewValue());
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                event.getRowValue().setPrenom(event.getOldValue());
+                commercantsTable.refresh();
+            }
+        });
 
         emailColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+        emailColumn.setOnEditCommit(event -> {
+            try {
+                controleur.getControleurCommercant().modifierEmailCommercant(event.getRowValue(), event.getNewValue());
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                event.getRowValue().setEmail(event.getOldValue());
+                commercantsTable.refresh();
+            }
+        });
 
         telephoneColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         telephoneColumn.setCellValueFactory(new PropertyValueFactory<>("telephone"));
+        telephoneColumn.setOnEditCommit(event -> {
+            try {
+                controleur.getControleurCommercant().modifierTelephoneCommercant(event.getRowValue(), event.getNewValue());
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                event.getRowValue().setTelephone(event.getOldValue());
+                commercantsTable.refresh();
+            }
+        });
 
         heureDebutColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         heureDebutColumn.setCellValueFactory(new PropertyValueFactory<>("heureDebut"));
+        heureDebutColumn.setOnEditCommit(event -> {
+            try {
+                controleur.getControleurCommercant().modifierHeureDebutCommercant(event.getRowValue(), event.getNewValue());
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                event.getRowValue().setHeureDebut(event.getOldValue());
+                commercantsTable.refresh();
+            }
+        });
 
         heureFinColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         heureFinColumn.setCellValueFactory(new PropertyValueFactory<>("heureFin"));
+        heureFinColumn.setOnEditCommit(event -> {
+            try {
+                controleur.getControleurCommercant().modifierHeureFinCommercant(event.getRowValue(), event.getNewValue());
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                event.getRowValue().setHeureFin(event.getOldValue());
+                commercantsTable.refresh();
+            }
+        });
 
         emplacementColumn.setCellFactory(TextFieldTableCell.forTableColumn(new EmplacementStringConverter()));
         emplacementColumn.setCellValueFactory(new PropertyValueFactory<>("emplacement"));
@@ -101,6 +157,11 @@ public class VueCommercants extends IHM {
 
     @FXML
     private void onNewRow() {
-        commercantsTable.getItems().add(new Commercant("Nom", "Prenom", "Mail", "06010203", 8, 20, null, null));
+        try {
+            commercantsTable.getItems().add(controleurCommercant.inscrireCommercant("Nom", "Prenom", "Mail", "06010203", 8, 20, null, null));
+            System.out.println(controleurCommercant.getCommercants());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

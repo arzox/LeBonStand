@@ -1,8 +1,9 @@
 package fr.uga.iut2.genevent.modele;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class TypeCommerce {
+public class TypeCommerce implements Serializable {
     private String nom;
     private ArrayList<Commercant> commercants = new ArrayList<>();
 

@@ -1,9 +1,10 @@
 package fr.uga.iut2.genevent.modele;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class Animation {
+public class Animation implements Serializable {
     private String nom;
     private float prix;
     private LocalDateTime dateHeureDebut;

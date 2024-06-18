@@ -1,6 +1,8 @@
 package fr.uga.iut2.genevent.modele;
 
-public class AgentSecurite extends Employe {
+import java.io.Serializable;
+
+public class AgentSecurite extends Employe implements Serializable {
     private Zone zone;
 
     public AgentSecurite(String nom, String prenom, String email, String telephone, int heureDebut, int heureFin, Zone zone) {

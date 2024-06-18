@@ -1,8 +1,9 @@
 package fr.uga.iut2.genevent.modele;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Zone {
+public class Zone implements Serializable {
     private String nom;
     private ArrayList<AgentSecurite> agentsSecurites = new ArrayList<>();
 

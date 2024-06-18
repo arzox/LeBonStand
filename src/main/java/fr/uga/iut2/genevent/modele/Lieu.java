@@ -1,6 +1,8 @@
 package fr.uga.iut2.genevent.modele;
 
-public class Lieu {
+import java.io.Serializable;
+
+public class Lieu implements Serializable {
     private String nom;
     private String adresse;
     private String ville;

@@ -22,13 +22,13 @@ public class Main {
     public static void main(String[] args) {
         // Créer une instance du modèle (application correspond à la racine du modèle)
         Application application = new Application();
-        application.addEvenement(new Evenement("Marche Noel", LocalDate.of(2021, 6, 1), LocalDate.of(2021, 6 ,2), TypeEvenement.MARCHE_NOEL, new ArrayList<>(Arrays.asList(Fonctionnalite.AGENT_ENTRETIEN, Fonctionnalite.PARTICIPANT))));
-        application.addEvenement(new Evenement("Brocante", LocalDate.of(2022, 7, 2), LocalDate.of(2022, 7, 3), TypeEvenement.BROCANTE, new ArrayList<>(Arrays.asList(Fonctionnalite.AGENT_ENTRETIEN, Fonctionnalite.PARTICIPANT))));
-        try {
-            Persisteur.sauverEtat(application);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+//        application.addEvenement(new Evenement("Marche Noel", LocalDate.of(2021, 6, 1), LocalDate.of(2021, 6 ,2), TypeEvenement.MARCHE_NOEL, new ArrayList<>(Arrays.asList(Fonctionnalite.AGENT_ENTRETIEN, Fonctionnalite.PARTICIPANT))));
+//        application.addEvenement(new Evenement("Brocante", LocalDate.of(2022, 7, 2), LocalDate.of(2022, 7, 3), TypeEvenement.BROCANTE, new ArrayList<>(Arrays.asList(Fonctionnalite.AGENT_ENTRETIEN, Fonctionnalite.PARTICIPANT))));
+//        try {
+//            Persisteur.sauverEtat(application);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
 
         try {
             application = Persisteur.lireEtat();

@@ -1,8 +1,9 @@
 package fr.uga.iut2.genevent.modele;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public enum TypeEvenement {
+public enum TypeEvenement implements Serializable {
 
     MARCHE_PRODUCTEUR ("Marché de producteurs"),
     MARCHE_NOEL ("Marché de Noël"),
