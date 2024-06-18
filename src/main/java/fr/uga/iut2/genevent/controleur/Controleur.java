@@ -14,7 +14,7 @@ public class Controleur {
     private static Controleur instance;
 
     private Application application;
-    ControleurAgentSecu controleurAgentSecu;
+    ControleurAgentSecurite controleurAgentSecurite;
     ControleurAgentEntretien controleurAgentEntretien;
     ControleurParticipant controleurParticipant;
     ControleurCommercant controleurCommercant;
@@ -30,7 +30,7 @@ public class Controleur {
 
     private Controleur(Application application) {
         this.application = application;
-        controleurAgentSecu = new ControleurAgentSecu(application);
+        controleurAgentSecurite = new ControleurAgentSecurite(application);
         controleurAgentEntretien = new ControleurAgentEntretien(application);
         controleurParticipant = new ControleurParticipant(application);
         controleurCommercant = new ControleurCommercant(application);
@@ -48,14 +48,14 @@ public class Controleur {
     public void setEvenementCourant(Evenement evenement) {
         controleurEvenement.setEvenement(evenement);
         controleurAgentEntretien.setEvenement(evenement);
-        controleurAgentSecu.setEvenement(evenement);
+        controleurAgentSecurite.setEvenement(evenement);
         controleurParticipant.setEvenement(evenement);
         controleurCommercant.setEvenement(evenement);
         controleurAnimation.setEvenement(evenement);
     }
 
-    public ControleurAgentSecu getControleurAgentSecu() {
-        return controleurAgentSecu;
+    public ControleurAgentSecurite getControleurAgentSecurite() {
+        return controleurAgentSecurite;
     }
 
     public ControleurAgentEntretien getControleurAgentEntretien() {

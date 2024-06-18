@@ -17,7 +17,7 @@ public class TypeCommerce implements Serializable {
      * @param nom Le nom du type de commerce.
      */
     public TypeCommerce(String nom) {
-        this.nom = nom;
+        setNom(nom);
     }
 
     /**
@@ -26,8 +26,12 @@ public class TypeCommerce implements Serializable {
      * @param commercant Le commerçant à ajouter.
      */
     public void addCommercant(Commercant commercant) {
-        this.commercants.add(commercant);
-        commercant.setTypeCommerce(this);
+        if (commercant != null){
+            this.commercants.add(commercant);
+            if (commercant.getTypeCommerce() == null || !commercant.getTypeCommerce().equals(this)) {
+                commercant.setTypeCommerce(this);
+            }
+        }
     }
 
     /**
@@ -36,8 +40,14 @@ public class TypeCommerce implements Serializable {
      * @param commercant Le commerçant à retirer.
      */
     public void removeCommercant(Commercant commercant) {
-        this.commercants.remove(commercant);
-        commercant.setTypeCommerce(null);
+        if (commercant != null) {
+            if (commercant.getTypeCommerce() != null) {
+                this.commercants.remove(commercant);
+                if (commercant.getTypeCommerce().equals(this)) {
+                    commercant.setTypeCommerce(null);
+                }
+            }
+        }
     }
 
     /**
