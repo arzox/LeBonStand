@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 /**
- * Sous-contrôleur pour la catégorie "Participants"
+ * Contrôleur pour la catégorie "Participants"
  */
 public class ControleurParticipant {
 
@@ -23,6 +23,7 @@ public class ControleurParticipant {
         this.evenement = evenement;
     }
 
+    // Participant
     public Participant inscrireParticipant(String nom, String prenom, String email) throws Exception {
         if (evenement != null) {
 
@@ -90,7 +91,8 @@ public class ControleurParticipant {
 
                 if (isNotUnique) {
 
-                    throw new MauvaisChampsException("En changeant le nom du participant, celui-ci devient identique à un autre participant",
+                    throw new MauvaisChampsException("En changeant le nom du participant, " +
+                            "celui-ci devient identique à un autre participant",
                             new ArrayList<>(Collections.singleton(false)));
                 }
             }
@@ -113,7 +115,8 @@ public class ControleurParticipant {
 
                 if (isNotUnique) {
 
-                    throw new MauvaisChampsException("En changeant le prénom du participant, celui-ci devient identique à un autre participant",
+                    throw new MauvaisChampsException("En changeant le prénom du participant, " +
+                            "celui-ci devient identique à un autre participant",
                             new ArrayList<>(Collections.singleton(false)));
                 }
             }
@@ -136,7 +139,8 @@ public class ControleurParticipant {
 
                 if (isNotUnique) {
 
-                    throw new MauvaisChampsException("En changeant l'adresse email du participant, celui-ci devient identique à un autre participant",
+                    throw new MauvaisChampsException("En changeant l'adresse email du participant, " +
+                            "celui-ci devient identique à un autre participant",
                             new ArrayList<>(Collections.singleton(false)));
                 }
             }

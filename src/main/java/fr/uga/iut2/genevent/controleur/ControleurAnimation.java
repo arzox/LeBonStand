@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 /**
- * Sous-contrôleur pour la catégorie "Animations"
+ * Contrôleur pour la catégorie "Animations"
  */
 public class ControleurAnimation {
 
@@ -27,6 +27,7 @@ public class ControleurAnimation {
         this.evenement = evenement;
     }
 
+    // Animation
     public Animation ajouterAnimation(String nom, float prix, LocalDateTime dateHeureDebut, LocalDateTime dateHeureFin) throws Exception {
         if (evenement != null) {
 
@@ -109,8 +110,9 @@ public class ControleurAnimation {
             for (Animation animation : evenement.getAnimations()) {
 
                 String nomCourant = animation.getNom();
+                boolean animationFound = nom.equals(nomCourant);
 
-                if (nom.equals(nomCourant)) {
+                if (animationFound) {
 
                     return animation;
                 }
@@ -124,7 +126,7 @@ public class ControleurAnimation {
     public void supprimerAnimation(Animation animation) throws Exception {
         if (evenement != null) {
 
-            evenement.retirerAnimation(animation);
+            evenement.supprimerAnimation(animation);
 
         } else
             throw new Exception("L'animation ne peut être supprimée car l'événement du controleur est nul");

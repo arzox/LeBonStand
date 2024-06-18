@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 /**
- * Sous-contrôleur pour la catégorie "Agents d'entretien"
+ * Contrôleur pour la catégorie "Agents d'entretien"
  */
 public class ControleurAgentEntretien {
 
@@ -25,6 +25,7 @@ public class ControleurAgentEntretien {
         this.evenement = evenement;
     }
 
+    // Agent d'entretien
     public AgentEntretien ajouterAgentEntretien(String nom, String prenom, String email, String telephone, int heureDebut, int heureFin) throws Exception {
         if (evenement != null) {
 
@@ -72,8 +73,10 @@ public class ControleurAgentEntretien {
                 String prenomCourant = agentEntretien.getPrenom();
                 String emailCourant = agentEntretien.getEmail();
                 String telephoneCourant = agentEntretien.getTelephone();
+                boolean agentFound = nom.equals(nomCourant) & prenom.equals(prenomCourant)
+                        & email.equals(emailCourant) & telephone.equals(telephoneCourant);
 
-                if (nom.equals(nomCourant) & prenom.equals(prenomCourant) & email.equals(emailCourant) & telephone.equals(telephoneCourant)) {
+                if (agentFound) {
 
                     return agentEntretien;
                 }
@@ -100,12 +103,13 @@ public class ControleurAgentEntretien {
                 String prenomCourant = agent.getPrenom();
                 String emailCourant = agent.getEmail();
                 String telephoneCourant = agent.getTelephone();
-                boolean isNotUnique = nom.equals(nomCourant) & agentEntretien.getPrenom().equals(prenomCourant) & agentEntretien.getEmail().equals(emailCourant)
-                        & agentEntretien.getTelephone().equals(telephoneCourant);
+                boolean isNotUnique = nom.equals(nomCourant) & agentEntretien.getPrenom().equals(prenomCourant)
+                        & agentEntretien.getEmail().equals(emailCourant) & agentEntretien.getTelephone().equals(telephoneCourant);
 
                 if (isNotUnique) {
 
-                    throw new MauvaisChampsException("En changeant le nom de l'agent d'entretien, celui-ci devient identique à un autre agent d'entretien",
+                    throw new MauvaisChampsException("En changeant le nom de l'agent d'entretien, " +
+                            "celui-ci devient identique à un autre agent d'entretien",
                             new ArrayList<>(Collections.singleton(false)));
                 }
             }
@@ -124,12 +128,13 @@ public class ControleurAgentEntretien {
                 String prenomCourant = agent.getPrenom();
                 String emailCourant = agent.getEmail();
                 String telephoneCourant = agent.getTelephone();
-                boolean isNotUnique = agentEntretien.getNom().equals(nomCourant) & prenom.equals(prenomCourant) & agentEntretien.getEmail().equals(emailCourant)
-                        & agentEntretien.getTelephone().equals(telephoneCourant);
+                boolean isNotUnique = agentEntretien.getNom().equals(nomCourant) & prenom.equals(prenomCourant)
+                        & agentEntretien.getEmail().equals(emailCourant) & agentEntretien.getTelephone().equals(telephoneCourant);
 
                 if (isNotUnique) {
 
-                    throw new MauvaisChampsException("En changeant le prénom de l'agent d'entretien, celui-ci devient identique à un autre agent d'entretien",
+                    throw new MauvaisChampsException("En changeant le prénom de l'agent d'entretien, " +
+                            "celui-ci devient identique à un autre agent d'entretien",
                             new ArrayList<>(Collections.singleton(false)));
                 }
             }
@@ -153,7 +158,8 @@ public class ControleurAgentEntretien {
 
                 if (isNotUnique) {
 
-                    throw new MauvaisChampsException("En changeant l'adresse email de l'agent d'entretien, celui-ci devient identique à un autre agent d'entretien",
+                    throw new MauvaisChampsException("En changeant l'adresse email de l'agent d'entretien, " +
+                            "celui-ci devient identique à un autre agent d'entretien",
                             new ArrayList<>(Collections.singleton(false)));
                 }
             }
@@ -177,7 +183,8 @@ public class ControleurAgentEntretien {
 
                 if (isNotUnique) {
 
-                    throw new MauvaisChampsException("En changeant le numéro de téléphone de l'agent d'entretien, celui-ci devient identique à un autre agent d'entretien",
+                    throw new MauvaisChampsException("En changeant le numéro de téléphone de l'agent d'entretien, " +
+                            "celui-ci devient identique à un autre agent d'entretien",
                             new ArrayList<>(Collections.singleton(false)));
                 }
             }

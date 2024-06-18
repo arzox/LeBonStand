@@ -46,6 +46,10 @@ public class Evenement implements Serializable {
         this.commercants.add(commercant);
     }
 
+    public ArrayList<Commercant> getCommercants() {
+        return commercants;
+    }
+
     public void desinscrireCommercant(Commercant commercant) {
         commercant.setEmplacement(null);
         this.commercants.remove(commercant);
@@ -53,6 +57,10 @@ public class Evenement implements Serializable {
 
     public void ajouterEmplacement(Emplacement emplacement) {
         this.emplacements.add(emplacement);
+    }
+
+    public ArrayList<Emplacement> getEmplacements() {
+        return emplacements;
     }
 
     public void retirerEmplacement(Emplacement emplacement) {
@@ -64,6 +72,10 @@ public class Evenement implements Serializable {
 
     public void ajouterTypeCommerce(TypeCommerce typeCommerce, int nombre) {
         this.typeCommerces.put(typeCommerce, nombre);
+    }
+
+    public HashMap<TypeCommerce, Integer> getTypeCommerces() {
+        return typeCommerces;
     }
 
     public void retirerTypeCommerce(TypeCommerce typeCommerce) {
@@ -79,12 +91,24 @@ public class Evenement implements Serializable {
         this.agentsSecurite.add(agentSecurite);
     }
 
+    public ArrayList<AgentSecurite> getAgentsSecurite() {
+        return agentsSecurite;
+    }
+
     public void supprimerAgentSecurite(AgentSecurite agentSecurite) {
         agentSecurite.setZone(null);
         this.agentsSecurite.remove(agentSecurite);
     }
 
-    public void removeZone(Zone zone) {
+    public void ajouterZone(Zone zone) {
+        zones.add(zone);
+    }
+
+    public ArrayList<Zone> getZones() {
+        return zones;
+    }
+
+    public void supprimerZone(Zone zone) {
         for (AgentSecurite agent : agentsSecurite) {
             if (agent.getZone().equals(zone)) {
                 agent.setZone(null);
@@ -99,6 +123,10 @@ public class Evenement implements Serializable {
         this.agentsEntretien.add(agentEntretien);
     }
 
+    public ArrayList<AgentEntretien> getAgentsEntretien() {
+        return agentsEntretien;
+    }
+
     public void supprimerAgentEntretien(AgentEntretien agentEntretien) {
         this.agentsEntretien.remove(agentEntretien);
     }
@@ -107,6 +135,10 @@ public class Evenement implements Serializable {
 
     public void inscrireParticipant(Participant participant) {
         this.participants.add(participant);
+    }
+
+    public ArrayList<Participant> getParticipants() {
+        return participants;
     }
 
     public void desinscrireParticipant(Participant participant) {
@@ -119,9 +151,15 @@ public class Evenement implements Serializable {
         this.animations.add(animation);
     }
 
-    public void retirerAnimation(Animation animation) {
+    public ArrayList<Animation> getAnimations() {
+        return animations;
+    }
+
+    public void supprimerAnimation(Animation animation) {
         this.animations.remove(animation);
     }
+
+    // Getters et Setters
 
     public String getNom() {
         return nom;
@@ -155,14 +193,6 @@ public class Evenement implements Serializable {
         this.fonctionnalites = fonctionnalites;
     }
 
-    public int getMaxParticipants() {
-        return maxParticipants;
-    }
-
-    public void setMaxParticipants(int maxParticipants) {
-        this.maxParticipants = maxParticipants;
-    }
-
     public TypeEvenement getType() {
         return type;
     }
@@ -179,36 +209,12 @@ public class Evenement implements Serializable {
         this.lieu = lieu;
     }
 
-    public HashMap<TypeCommerce, Integer> getTypeCommerces() {
-        return typeCommerces;
+    public int getMaxParticipants() {
+        return maxParticipants;
     }
 
-    public ArrayList<Commercant> getCommercants() {
-        return commercants;
-    }
-
-    public ArrayList<Emplacement> getEmplacements() {
-        return emplacements;
-    }
-
-    public ArrayList<AgentSecurite> getAgentsSecurite() {
-        return agentsSecurite;
-    }
-
-    public ArrayList<Zone> getZones() {
-        return zones;
-    }
-
-    public ArrayList<AgentEntretien> getAgentsEntretien() {
-        return agentsEntretien;
-    }
-
-    public ArrayList<Participant> getParticipants() {
-        return participants;
-    }
-
-    public ArrayList<Animation> getAnimations() {
-        return animations;
+    public void setMaxParticipants(int maxParticipants) {
+        this.maxParticipants = maxParticipants;
     }
 
     @Override

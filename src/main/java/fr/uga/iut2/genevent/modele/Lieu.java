@@ -6,9 +6,11 @@ public class Lieu {
     private String ville;
     private int codePostal;
 
-    public Lieu(String nom, String adresse) {
+    public Lieu(String nom, String adresse, String ville, int codePostal) {
         this.nom = nom;
         this.adresse = adresse;
+        this.ville = ville;
+        this.codePostal = codePostal;
     }
 
     public String getNom() {
