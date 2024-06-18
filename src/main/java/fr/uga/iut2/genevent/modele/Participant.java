@@ -16,9 +16,9 @@ public class Participant {
      * @param email L'email du participant.
      */
     public Participant(String nom, String prenom, String email) {
-        this.nom = nom;
-        this.prenom = prenom;
-        this.email = email;
+        setNom(nom);
+        setPrenom(prenom);
+        setEmail(email);
     }
 
     /**

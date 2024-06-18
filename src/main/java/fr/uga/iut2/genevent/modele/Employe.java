@@ -22,12 +22,12 @@ public abstract class Employe {
      * @param heureFin L'heure de fin du travail de l'employé.
      */
     public Employe(String nom, String prenom, String email, String telephone, int heureDebut, int heureFin) {
-        this.nom = nom;
-        this.prenom = prenom;
-        this.email = email;
-        this.telephone = telephone;
-        this.heureDebut = heureDebut;
-        this.heureFin = heureFin;
+        setNom(nom);
+        setPrenom(prenom);
+        setEmail(email);
+        setTelephone(telephone);
+        setHeureDebut(heureDebut);
+        setHeureFin(heureFin);
     }
 
     /**

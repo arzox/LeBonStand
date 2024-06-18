@@ -21,10 +21,10 @@ public class Animation {
      * @param dateFin La date et l'heure de fin de l'animation.
      */
     public Animation(String nom, float prix, LocalDateTime dateDebut, LocalDateTime dateFin) {
-        this.nom = nom;
-        this.prix = prix;
-        this.dateHeureDebut = dateDebut;
-        this.dateHeureFin = dateFin;
+        setNom(nom);
+        setPrix(prix);
+        setDateHeureDebut(dateDebut);
+        setDateHeureFin(dateFin);
     }
 
     /**
@@ -42,7 +42,11 @@ public class Animation {
      * @param nom Le nouveau nom de l'animation.
      */
     public void setNom(String nom) {
-        this.nom = nom;
+        if (nom == null){
+            throw new IllegalArgumentException("Le nom ne peut pas être nul.");
+        } else {
+            this.nom = nom;
+        }
     }
 
     /**
@@ -60,7 +64,11 @@ public class Animation {
      * @param prix Le nouveau prix de l'animation.
      */
     public void setPrix(float prix) {
-        this.prix = prix;
+        if (prix < 0){
+            throw new IllegalArgumentException("Le prix ne peut pas être négatif.");
+        }else{
+            this.prix = prix;
+        }
     }
 
     /**

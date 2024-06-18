@@ -45,11 +45,11 @@ public class Evenement implements Serializable {
      * @param fonctionnalites La liste des fonctionnalités de l'événement.
      */
     public Evenement(String nom, LocalDate dateDebut, LocalDate dateFin, TypeEvenement typeEvenement, ArrayList<Fonctionnalite> fonctionnalites) {
-        this.nom = nom;
-        this.dateDebut = dateDebut;
-        this.dateFin = dateFin;
-        this.type = typeEvenement;
-        this.fonctionnalites = fonctionnalites;
+        setNom(nom);
+        setDateDebut(dateDebut);
+        setDateFin(dateFin);
+        setType(typeEvenement);
+        setFonctionnalites(fonctionnalites);
     }
 
     // ---------Module Commercants---------

@@ -17,8 +17,8 @@ public class Emplacement {
      * @param taille La taille de l'emplacement.
      */
     public Emplacement(int numero, int taille) {
-        this.numero = numero;
-        this.taille = taille;
+        setNumero(numero);
+        setTaille(taille);
     }
 
     /**
@@ -36,8 +36,12 @@ public class Emplacement {
      * @param commercant Le commerçant à ajouter à l'emplacement.
      */
     public void addCommercant(Commercant commercant) {
-        this.commercants.add(commercant);
-        commercant.setEmplacement(this);
+        if (commercant != null) {
+            this.commercants.add(commercant);
+            if (commercant.getEmplacement() == null || !commercant.getEmplacement().equals(this)) {
+                commercant.setEmplacement(this);
+            }
+        }
     }
 
     /**
@@ -46,8 +50,14 @@ public class Emplacement {
      * @param commercant Le commerçant à supprimer de l'emplacement.
      */
     public void removeCommercant(Commercant commercant) {
-        this.commercants.remove(commercant);
-        commercant.setEmplacement(null);
+        if (commercant != null) {
+            if (commercant.getEmplacement() != null) {
+                this.commercants.remove(commercant);
+                if (commercant.getEmplacement().equals(this)) {
+                    commercant.setEmplacement(null);
+                }
+            }
+        }
     }
 
     /**
