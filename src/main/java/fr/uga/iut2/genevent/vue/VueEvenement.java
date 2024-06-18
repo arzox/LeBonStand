@@ -70,7 +70,7 @@ public class VueEvenement extends IHM {
         if (controleurEvenement.getEvenement().getLieu() != null) {
             adresseField.setText(controleurEvenement.getEvenement().getLieu().getAdresse());
             villeField.setText(controleurEvenement.getEvenement().getLieu().getNom());
-            codePostalField.setText(controleurEvenement.getEvenement().getLieu().getCodePostal());
+            codePostalField.setText(String.valueOf(controleurEvenement.getEvenement().getLieu().getCodePostal()));
         } else {
             adresseField.setText("");
             villeField.setText("");
@@ -113,23 +113,23 @@ public class VueEvenement extends IHM {
 
         adresseField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (controleurEvenement.getEvenement().getLieu() == null) {
-                controleurEvenement.getEvenement().setLieu(new Lieu("","","", ""));
+                controleurEvenement.getEvenement().setLieu(new Lieu("","","", 0));
             }
             controleurEvenement.getEvenement().getLieu().setAdresse(newValue);
         });
 
         villeField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (controleurEvenement.getEvenement().getLieu() == null) {
-                controleurEvenement.getEvenement().setLieu(new Lieu("","","", ""));
+                controleurEvenement.getEvenement().setLieu(controleurEvenement.creerLieu("","","",0));
             }
             controleurEvenement.getEvenement().getLieu().setNom(newValue);
         });
 
         codePostalField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (controleurEvenement.getEvenement().getLieu() == null) {
-                controleurEvenement.getEvenement().setLieu(new Lieu("","","", ""));
+                controleurEvenement.getEvenement().setLieu(controleurEvenement.creerLieu("","","",0));
             }
-            controleurEvenement.getEvenement().getLieu().setCodePostal(newValue);
+            controleurEvenement.modifierCodePostalLieu(controleurEvenement.getEvenement().getLieu(), controleurEvenement.getEvenement().getLieu().getCodePostal());
         });
 
         securiteCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.AGENT_SECURITE, newValue));

@@ -378,25 +378,6 @@ public class Evenement implements Serializable {
     }
 
     /**
-     * Obtient le nombre maximum de participants à l'événement.
-     *
-     * @return Le nombre maximum de participants.
-     */
-
-    public int getMaxParticipants() {
-        return maxParticipants;
-    }
-
-    /**
-     * Définit le nombre maximum de participants à l'événement.
-     *
-     * @param maxParticipants Le nombre maximum de participants.
-     */
-    public void setMaxParticipants(int maxParticipants) {
-        this.maxParticipants = maxParticipants;
-    }
-
-    /**
      * Obtient le type de l'événement.
      *
      * @return Le type de l'événement.
