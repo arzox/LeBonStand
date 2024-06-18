@@ -7,7 +7,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -69,8 +68,7 @@ public class JavaFXGUI {
         VueAccueil accueil = new VueAccueil();
         accueil.changerFenetre(primaryStage);
 
-        primaryStage.getIcons().add(new Image(getClass().getResource("/fr/uga/iut2/genevent/images/LBS-blanc-orange.png").toExternalForm()));
-        primaryStage.setMaximized(true);
+        primaryStage.setMaximized(false);
         primaryStage.setTitle("LeBonStand");
     }
 
@@ -84,16 +82,7 @@ public class JavaFXGUI {
         });
     }
 
-    // menu principal
-
-    // @FXML
-    // private void newUserMenuItemAction() {
-    // this.controleur.saisirUtilisateur();
-    // }
-
-
-
-//-----  Implémentation des méthodes abstraites  -------------------------------
+    // Implémentation des méthodes abstraites
 
     public void demarrerInteraction() {
         // démarrage de l'interface JavaFX
