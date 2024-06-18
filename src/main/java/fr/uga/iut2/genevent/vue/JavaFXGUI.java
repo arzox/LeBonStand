@@ -3,7 +3,6 @@ package fr.uga.iut2.genevent.vue;
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
 
-import fr.uga.iut2.genevent.util.Vues;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -66,7 +65,8 @@ public class JavaFXGUI {
      * @see javafx.application.Application#start(Stage)
      */
     private void start(Stage primaryStage) throws IOException {
-        Vues.loadViewIntoStage(primaryStage, "accueil.fxml", new VueAccueil());
+        VueAccueil accueil = new VueAccueil();
+        accueil.changerFenetre(primaryStage);
 
         primaryStage.setMaximized(false);
         primaryStage.setTitle("LeBonStand");

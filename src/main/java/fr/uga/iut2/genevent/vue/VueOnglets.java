@@ -8,7 +8,7 @@ import fr.uga.iut2.genevent.modele.Fonctionnalite;
 import fr.uga.iut2.genevent.util.Vues;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -84,22 +84,6 @@ public class VueOnglets extends IHM {
     private void onAccueil() {
         Stage stage = (Stage) panel.getScene().getWindow();
         new VueAccueil().changerFenetre(stage);
-        Vues.loadViewIntoStage(stage, VueAccueil.FXML_NAME, new VueAccueil());
-    }
-
-    /**
-     * Charge la vue tabs.fxml et crée l'objet Parent correspondant afin qu'il
-     * puisse être utilisé par les classes utilisant les onglets sur le côté
-     * (panneau de navigation)
-     */
-    public void load() {
-        try {
-            // Charger la scène dans le loader et lui affecter le controleur en argument
-            setParent(Vues.loadViewAsParent(FXML_NAME, this));
-        } catch (Exception e) {
-            System.err.println("Erreur pendant le chargement de la vue :\n");
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -113,12 +97,19 @@ public class VueOnglets extends IHM {
     @Override
     public void changerFenetre(Stage stage) {
         load();
-        ((HBox) getCurrentOnglet().getParent()).getChildren().add(0, getParent());
+        getCurrentOnglet().load();
+        ((Pane) getCurrentOnglet().getParent()).getChildren().add(0, getParent());
+        Vues.showParentOnStage(getCurrentOnglet().getParent(), stage);
     }
 
     @Override
     public void informerUtilisateur(String message, boolean succes) {
         System.out.println(message);
+    }
+
+    @Override
+    public String getFxmlName() {
+        return FXML_NAME;
     }
 
     // Getters et setters

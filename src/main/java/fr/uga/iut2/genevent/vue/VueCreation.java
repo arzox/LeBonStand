@@ -96,4 +96,9 @@ public class VueCreation extends IHM {
     public void informerUtilisateur(String message, boolean succes) {
         System.out.println(message);
     }
+
+    @Override
+    public String getFxmlName() {
+        return FXML_NAME;
+    }
 }

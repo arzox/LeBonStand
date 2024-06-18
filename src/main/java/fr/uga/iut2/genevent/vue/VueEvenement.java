@@ -20,9 +20,7 @@ public class VueEvenement extends IHM {
     VueEvenement() {
         super();
     }
-
-    // Implémentations et redéfinitions
-
+    
     // @FXML
     // private void initialize() {
     //     try {
@@ -35,5 +33,12 @@ public class VueEvenement extends IHM {
 
     public void informerUtilisateur(String message, boolean succes) {
         System.out.println(message);
+    }
+
+    // Implémentations et redéfinitions
+
+    @Override
+    public String getFxmlName() {
+        return FXML_NAME;
     }
 }
