@@ -58,21 +58,31 @@ public class VueOnglets extends IHM {
         ArrayList<Fonctionnalite> fonctionnalitesEvenement = controleur.getControleurEvenement().getEvenement()
                 .getFonctionnalites();
 
-        List<Node> buttons = panel.getChildren().subList(4, panel.getChildren().size());
+        List<Node> buttons = panel.getChildren().subList(5, panel.getChildren().size());
 
-        for (int i = allFonctionnalites.size() - 1; i >= 0; i--) {
+        // remove buttons that fonctionnality don't have
+        for (int i = buttons.size() - 1; i >= 0; i--) {
             Fonctionnalite fonctionnalite = allFonctionnalites.get(i);
             if (!fonctionnalitesEvenement.contains(fonctionnalite)) {
                 buttons.remove(i);
             }
         }
+
+        // add clicked section
+        panel.getChildren().forEach(node -> node.setOnMouseClicked(event -> {
+            int index = panel.getChildren().indexOf(node);
+            if (index > 0) {
+                setCurrentOnglet(index);
+            }
+        }));
     }
 
     public void setCurrentOnglet(int i) {
         if (i < 0 || i >= panel.getChildren().size()) {
-            throw new RuntimeException("Bouton hors de la liste");
+            return;
         }
-
+        panel.getChildren().forEach(node -> node.getStyleClass().remove("button-selected"));
+        panel.getChildren().get(i).getStyleClass().add("button-selected");
     }
 
     @FXML
@@ -100,7 +110,6 @@ public class VueOnglets extends IHM {
                     .add(Vues.class.getResource("/fr/uga/iut2/genevent/style/style.css").toExternalForm());
 
             setOngletsRoot(parent);
-
         } catch (Exception e) {
             System.err.println("Erreur pendant le chargement de la vue :\n");
             e.printStackTrace();
