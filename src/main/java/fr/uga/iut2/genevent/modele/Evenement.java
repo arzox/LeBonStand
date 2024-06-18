@@ -66,6 +66,15 @@ public class Evenement implements Serializable {
     }
 
     /**
+     * Obtient la liste des commerçants inscrits à l'événement.
+     *
+     * @return La liste des commerçants.
+     */
+    public ArrayList<Commercant> getCommercants() {
+        return commercants;
+    }
+
+    /**
      * Désinscrit un commerçant de l'événement.
      *
      * @param commercant Le commerçant à désinscrire.
@@ -82,6 +91,15 @@ public class Evenement implements Serializable {
      */
     public void ajouterEmplacement(Emplacement emplacement) {
         this.emplacements.add(emplacement);
+    }
+
+    /**
+     * Obtient la liste des emplacements de l'événement.
+     *
+     * @return La liste des emplacements.
+     */
+    public ArrayList<Emplacement> getEmplacements() {
+        return emplacements;
     }
 
     /**
@@ -104,6 +122,15 @@ public class Evenement implements Serializable {
      */
     public void ajouterTypeCommerce(TypeCommerce typeCommerce, int nombre) {
         this.typeCommerces.put(typeCommerce, nombre);
+    }
+
+    /**
+     * Obtient les types de commerces présents à l'événement.
+     *
+     * @return Les types de commerces.
+     */
+    public HashMap<TypeCommerce, Integer> getTypeCommerces() {
+        return typeCommerces;
     }
 
     /**
@@ -130,6 +157,15 @@ public class Evenement implements Serializable {
     }
 
     /**
+     * Obtient la liste des agents de sécurité de l'événement.
+     *
+     * @return La liste des agents de sécurité.
+     */
+    public ArrayList<AgentSecurite> getAgentsSecurite() {
+        return agentsSecurite;
+    }
+
+    /**
      * Supprime un agent de sécurité de l'événement.
      *
      * @param agentSecurite L'agent de sécurité à supprimer.
@@ -140,11 +176,28 @@ public class Evenement implements Serializable {
     }
 
     /**
+     * Ajoute une zone donnée à la liste des zones.
+     * @param zone Zone ajoutée
+     */
+    public void ajouterZone(Zone zone) {
+        zones.add(zone);
+    }
+
+    /**
+     * Obtient la liste des zones de sécurité de l'événement.
+     *
+     * @return La liste des zones de sécurité.
+     */
+    public ArrayList<Zone> getZones() {
+        return zones;
+    }
+
+    /**
      * Retire une zone de l'événement.
      *
      * @param zone La zone à retirer.
      */
-    public void removeZone(Zone zone) {
+    public void supprimerZone(Zone zone) {
         for (AgentSecurite agent : agentsSecurite) {
             if (agent.getZone().equals(zone)) {
                 agent.setZone(null);
@@ -162,6 +215,15 @@ public class Evenement implements Serializable {
      */
     public void ajouterAgentEntretien(AgentEntretien agentEntretien) {
         this.agentsEntretien.add(agentEntretien);
+    }
+
+    /**
+     * Obtient la liste des agents d'entretien de l'événement.
+     *
+     * @return La liste des agents d'entretien.
+     */
+    public ArrayList<AgentEntretien> getAgentsEntretien() {
+        return agentsEntretien;
     }
 
     /**
@@ -185,6 +247,15 @@ public class Evenement implements Serializable {
     }
 
     /**
+     * Obtient la liste des participants de l'événement.
+     *
+     * @return La liste des participants.
+     */
+    public ArrayList<Participant> getParticipants() {
+        return participants;
+    }
+
+    /**
      * Désinscrit un participant de l'événement.
      *
      * @param participant Le participant à désinscrire.
@@ -205,11 +276,20 @@ public class Evenement implements Serializable {
     }
 
     /**
+     * Obtient la liste des animations de l'événement.
+     *
+     * @return La liste des animations.
+     */
+    public ArrayList<Animation> getAnimations() {
+        return animations;
+    }
+
+    /**
      * Retire une animation de l'événement.
      *
      * @param animation L'animation à retirer.
      */
-    public void retirerAnimation(Animation animation) {
+    public void supprimerAnimation(Animation animation) {
         this.animations.remove(animation);
     }
 
@@ -287,22 +367,14 @@ public class Evenement implements Serializable {
         this.fonctionnalites = fonctionnalites;
     }
 
-    /**
-     * Obtient le nombre maximum de participants à l'événement.
-     *
-     * @return Le nombre maximum de participants.
-     */
-    public int getMaxParticipants() {
-        return maxParticipants;
+    public void addFonctionnalite(Fonctionnalite fonctionnalite) {
+        if (!this.fonctionnalites.contains(fonctionnalite)) {
+            this.fonctionnalites.add(fonctionnalite);
+        }
     }
 
-    /**
-     * Définit le nombre maximum de participants à l'événement.
-     *
-     * @param maxParticipants Le nombre maximum de participants.
-     */
-    public void setMaxParticipants(int maxParticipants) {
-        this.maxParticipants = maxParticipants;
+    public void removeFonctionnalite(Fonctionnalite fonctionnalite) {
+        this.fonctionnalites.remove(fonctionnalite);
     }
 
     /**
@@ -342,75 +414,21 @@ public class Evenement implements Serializable {
     }
 
     /**
-     * Obtient les types de commerces présents à l'événement.
+     * Obtient le nombre maximum de participants à l'événement.
      *
-     * @return Les types de commerces.
+     * @return Le nombre maximum de participants.
      */
-    public HashMap<TypeCommerce, Integer> getTypeCommerces() {
-        return typeCommerces;
+    public int getMaxParticipants() {
+        return maxParticipants;
     }
 
     /**
-     * Obtient la liste des commerçants inscrits à l'événement.
+     * Définit le nombre maximum de participants à l'événement.
      *
-     * @return La liste des commerçants.
+     * @param maxParticipants Le nombre maximum de participants.
      */
-    public ArrayList<Commercant> getCommercants() {
-        return commercants;
-    }
-
-    /**
-     * Obtient la liste des emplacements de l'événement.
-     *
-     * @return La liste des emplacements.
-     */
-    public ArrayList<Emplacement> getEmplacements() {
-        return emplacements;
-    }
-
-    /**
-     * Obtient la liste des agents de sécurité de l'événement.
-     *
-     * @return La liste des agents de sécurité.
-     */
-    public ArrayList<AgentSecurite> getAgentsSecurite() {
-        return agentsSecurite;
-    }
-
-    /**
-     * Obtient la liste des zones de sécurité de l'événement.
-     *
-     * @return La liste des zones de sécurité.
-     */
-    public ArrayList<Zone> getZones() {
-        return zones;
-    }
-
-    /**
-     * Obtient la liste des agents d'entretien de l'événement.
-     *
-     * @return La liste des agents d'entretien.
-     */
-    public ArrayList<AgentEntretien> getAgentsEntretien() {
-        return agentsEntretien;
-    }
-
-    /**
-     * Obtient la liste des participants de l'événement.
-     *
-     * @return La liste des participants.
-     */
-    public ArrayList<Participant> getParticipants() {
-        return participants;
-    }
-
-    /**
-     * Obtient la liste des animations de l'événement.
-     *
-     * @return La liste des animations.
-     */
-    public ArrayList<Animation> getAnimations() {
-        return animations;
+    public void setMaxParticipants(int maxParticipants) {
+        this.maxParticipants = maxParticipants;
     }
 
     /**

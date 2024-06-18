@@ -18,9 +18,11 @@ public class Lieu implements Serializable {
      * @param nom     Le nom du lieu.
      * @param adresse L'adresse du lieu.
      */
-    public Lieu(String nom, String adresse) {
-        setNom(nom);
-        setAdresse(adresse);
+    public Lieu(String nom, String adresse, String ville, int codePostal) {
+        this.nom = nom;
+        this.adresse = adresse;
+        this.ville = ville;
+        this.codePostal = codePostal;
     }
 
     /**
