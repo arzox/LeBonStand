@@ -112,7 +112,7 @@ class EvenementTest {
         ));
         Zone z = new Zone("nom");
         e.getZones().add(z);
-        e.removeZone(z);
+        e.supprimerZone(z);
         assertEquals(0, e.getZones().size());
     }
 
@@ -179,7 +179,7 @@ class EvenementTest {
         Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, new ArrayList<Fonctionnalite>());
         Animation a = new Animation("nom", 10, date2, date2);
         e.ajouterAnimation(a);
-        e.retirerAnimation(a);
+        e.supprimerAnimation(a);
         assertEquals(0, e.getAnimations().size());
     }
 
@@ -282,7 +282,7 @@ class EvenementTest {
     @Test
     void getLieu() {
         LocalDate date = LocalDate.of(2021, 1, 1);
-        Lieu l = new Lieu("nom", "adresse");
+        Lieu l = new Lieu("nom", "adresse", "ville", 12345);
         Evenement e = new Evenement("nom", date, date, null, null);
         e.setLieu(l);
         assertEquals(l, e.getLieu());
@@ -291,7 +291,7 @@ class EvenementTest {
     @Test
     void setLieu() {
         LocalDate date = LocalDate.of(2021, 1, 1);
-        Lieu l = new Lieu("nom", "adresse");
+        Lieu l = new Lieu("nom", "adresse", "ville", 12345);
         Evenement e = new Evenement("nom", date, date, null, null);
         e.setLieu(l);
         assertEquals(l, e.getLieu());
