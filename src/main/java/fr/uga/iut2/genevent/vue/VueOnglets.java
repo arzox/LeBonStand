@@ -36,7 +36,22 @@ public class VueOnglets extends IHM {
     }
 
     @FXML
-    public void initialize() {
+    private void onAccueilClicked() {
+        switchOnglet(new VueAccueil());
+    }
+
+    @FXML
+    private void onEventClicked() {
+        switchOnglet(new VueEvenement());
+    }
+
+    @FXML
+    private void onCommercantsClicked() {
+        switchOnglet(new VueCommercants());
+    }
+
+    @FXML
+    private void initialize() {
         setupButton();
     }
 
@@ -72,18 +87,17 @@ public class VueOnglets extends IHM {
         }));
     }
 
+    private void switchOnglet(IHM nouvelleVue) {
+        setContent(nouvelleVue);
+        changerFenetre((Stage) nomEvenement.getScene().getWindow());
+    }
+
     public void setCurrentOnglet(int i) {
         if (i < 0 || i >= panel.getChildren().size()) {
             return;
         }
         panel.getChildren().forEach(node -> node.getStyleClass().remove("button-selected"));
         panel.getChildren().get(i).getStyleClass().add("button-selected");
-    }
-
-    @FXML
-    private void onAccueil() {
-        Stage stage = (Stage) panel.getScene().getWindow();
-        new VueAccueil().changerFenetre(stage);
     }
 
     /**
