@@ -30,28 +30,11 @@ public class VueEvenement extends IHM {
     @FXML
     private void initialize() {
         try {
-            Parent ongletsRoot = Vues.loadView("tabs.fxml", vueOnglets);
+            Parent ongletsRoot = Vues.loadViewAsParent("tabs.fxml", vueOnglets);
             container.getChildren().add(0,ongletsRoot);
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    // Signature alternative de changerFenetre
-
-    /**
-     * Modifie l'état de la fenêtre en argument pour lui appliquer l'onglet spécifié par l'argument {@code fxmlName}, puis ajoute le panneau de navigation vertical pour compléter.
-     * 
-     * @param stage - Le stage dont la vue doit être changée
-     * @param fxmlName - Vue à appliquer au stage
-     */
-    public void changerFenetre(Stage stage, String fxmlName) {
-        // tab-X.fxml = onglet de la vue principale
-        // tabs.fxml = panneau de navigation sur le côté
-        vueOnglets.load();
-        Parent parent = Vues.loadViewIntoStage(stage, fxmlName, this);
-        
-        ((HBox) parent).getChildren().add(0, vueOnglets.getOngletsRoot());
     }
 
     public void informerUtilisateur(String message, boolean succes) {

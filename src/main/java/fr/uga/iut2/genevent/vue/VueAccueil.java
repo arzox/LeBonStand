@@ -15,6 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.File;
 import java.util.List;
@@ -68,7 +69,7 @@ public class VueAccueil extends IHM {
     private VBox createEventButton(Evenement event) {
         VBox vBox = new VBox();
         vBox.getStyleClass().add("eventIcon");
-        vBox.setAlignment(Pos.CENTER);
+        vBox.setAlignment(javafx.geometry.Pos.CENTER);
         vBox.setMinHeight(169.0);
         vBox.setMinWidth(160.0);
         vBox.setPrefHeight(169.0);
@@ -101,7 +102,7 @@ public class VueAccueil extends IHM {
 
         Text text = new Text(event.getNom());
 
-        vBox.getChildren().addAll(stackPane, text, changeImageButton);
+        vBox.getChildren().addAll(stackPane, text);
         vBox.setOnMouseClicked(e -> openEvent(event));
 
         return vBox;
@@ -139,7 +140,7 @@ public class VueAccueil extends IHM {
             otherVue.close();
         }
         try {
-            Vues.loadViewIntoStage((Stage) eventsFlowPane.getScene().getWindow(), "tab-event.fxml", new VueEvenement(new VueOnglets()));
+            Vues.loadViewIntoStage((Stage) eventsFlowPane.getScene().getWindow(), "tab-commercants.fxml", new VueCommercants(new VueOnglets()));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -157,7 +158,6 @@ public class VueAccueil extends IHM {
 
     private boolean isAlreadyOpened() {
         if (otherVue != null) {
-
             return true;
         }
         otherVue = new Stage();

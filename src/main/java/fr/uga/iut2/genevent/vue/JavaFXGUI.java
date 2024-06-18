@@ -49,6 +49,12 @@ public class JavaFXGUI extends IHM {
         this.eolBarrier = new CountDownLatch(1);  // /!\ ne pas supprimer /!\
     }
 
+    @FXML
+    private void exitMenuItemAction() {
+        Platform.exit();
+        this.exitAction();
+    }
+
     /**
      * Point d'entrée principal pour le code de l'interface JavaFX.
      *
@@ -111,10 +117,5 @@ public class JavaFXGUI extends IHM {
             System.err.println("Erreur d'exécution de l'interface.");
             System.err.flush();
         }
-    }
-
-    @Override
-    public void informerUtilisateur(String message, boolean succes) {
-        System.out.println(message);
     }
 }

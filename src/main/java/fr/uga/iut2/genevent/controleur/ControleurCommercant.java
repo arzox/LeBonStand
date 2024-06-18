@@ -23,6 +23,10 @@ public class ControleurCommercant {
         this.evenement = evenement;
     }
 
+    public ArrayList<Commercant> getCommercants() {
+        return evenement.getCommercants();
+    }
+
     public Commercant inscrireCommercant(String nom, String prenom, String email, String telephone, int heureDebut, int heureFin,
                                 Emplacement emplacement, TypeCommerce typeCommerce) throws Exception {
         if (evenement != null) {
