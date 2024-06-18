@@ -10,7 +10,7 @@ public class Lieu implements Serializable {
     private String nom;
     private String adresse;
     private String ville;
-    private int codePostal;
+    private String codePostal;
 
     /**
      * Constructeur pour la classe Lieu.
@@ -18,9 +18,11 @@ public class Lieu implements Serializable {
      * @param nom     Le nom du lieu.
      * @param adresse L'adresse du lieu.
      */
-    public Lieu(String nom, String adresse) {
+    public Lieu(String nom,String ville, String adresse, String codePostal) {
         this.nom = nom;
+        this.ville = ville;
         this.adresse = adresse;
+        this.codePostal = codePostal;
     }
 
     /**
@@ -55,7 +57,7 @@ public class Lieu implements Serializable {
      *
      * @return Le code postal du lieu.
      */
-    public int getCodePostal() {
+    public String getCodePostal() {
         return codePostal;
     }
 
@@ -91,7 +93,8 @@ public class Lieu implements Serializable {
      *
      * @param codePostal Le code postal du lieu.
      */
-    public void setCodePostal(int codePostal) {
+    public void setCodePostal(String codePostal) {
         this.codePostal = codePostal;
     }
+
 }

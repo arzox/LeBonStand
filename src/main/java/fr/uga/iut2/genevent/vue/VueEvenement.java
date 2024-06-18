@@ -16,6 +16,8 @@ import java.util.ArrayList;
 
 public class VueEvenement extends IHM {
 
+    public static final String FXML_NAME = "tab-event.fxml";
+
     @FXML
     private TextField nomEvenementField;
     @FXML
@@ -39,7 +41,7 @@ public class VueEvenement extends IHM {
     @FXML
     private DatePicker dateFinPicker;
 
-    private ControleurEvenement controleurEvenement;
+    private ControleurEvenement controleurEvenement  = controleur.getControleurEvenement();
 
     public VueEvenement() {
         super();
@@ -111,21 +113,21 @@ public class VueEvenement extends IHM {
 
         adresseField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (controleurEvenement.getEvenement().getLieu() == null) {
-                controleurEvenement.getEvenement().setLieu(new Lieu("","",""));
+                controleurEvenement.getEvenement().setLieu(new Lieu("","","", ""));
             }
             controleurEvenement.getEvenement().getLieu().setAdresse(newValue);
         });
 
         villeField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (controleurEvenement.getEvenement().getLieu() == null) {
-                controleurEvenement.getEvenement().setLieu(new Lieu("","",""));
+                controleurEvenement.getEvenement().setLieu(new Lieu("","","", ""));
             }
             controleurEvenement.getEvenement().getLieu().setNom(newValue);
         });
 
         codePostalField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (controleurEvenement.getEvenement().getLieu() == null) {
-                controleurEvenement.getEvenement().setLieu(new Lieu("","",""));
+                controleurEvenement.getEvenement().setLieu(new Lieu("","","", ""));
             }
             controleurEvenement.getEvenement().getLieu().setCodePostal(newValue);
         });
@@ -156,5 +158,10 @@ public class VueEvenement extends IHM {
         Alert alert = new Alert(succes ? Alert.AlertType.INFORMATION : Alert.AlertType.ERROR);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    @Override
+    public String getFxmlName() {
+        return FXML_NAME;
     }
 }
