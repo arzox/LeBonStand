@@ -64,11 +64,9 @@ public class VueOnglets extends IHM {
         }
 
         // add clicked section
-        panel.getChildren().forEach(node -> node.setOnMouseClicked(event -> {
+        panel.getChildren().subList(3, panel.getChildren().size() - 1).forEach(node -> node.setOnMouseClicked(event -> {
             int index = panel.getChildren().indexOf(node);
-            if (index > 0) {
-                setCurrentOnglet(index);
-            }
+            setCurrentOnglet(index);
         }));
     }
 
