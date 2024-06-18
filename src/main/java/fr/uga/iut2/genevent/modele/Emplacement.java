@@ -1,11 +1,11 @@
 package fr.uga.iut2.genevent.modele;
 
 import java.io.Serializable;
-import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * La classe Emplacement représente un emplacement avec un numéro, une taille et une liste de commerçants.
+ * La classe Emplacement représente un emplacement avec un numéro, une taille et
+ * une liste de commerçants.
  */
 public class Emplacement implements Serializable {
     private int numero;
@@ -19,8 +19,8 @@ public class Emplacement implements Serializable {
      * @param taille La taille de l'emplacement.
      */
     public Emplacement(int numero, int taille) {
-        this.numero = numero;
-        this.taille = taille;
+        setNumero(numero);
+        setTaille(taille);
     }
 
     /**
@@ -38,8 +38,12 @@ public class Emplacement implements Serializable {
      * @param commercant Le commerçant à ajouter à l'emplacement.
      */
     public void addCommercant(Commercant commercant) {
-        this.commercants.add(commercant);
-        commercant.setEmplacement(this);
+        if (commercant != null) {
+            this.commercants.add(commercant);
+            if (commercant.getEmplacement() == null || !commercant.getEmplacement().equals(this)) {
+                commercant.setEmplacement(this);
+            }
+        }
     }
 
     /**
@@ -48,8 +52,14 @@ public class Emplacement implements Serializable {
      * @param commercant Le commerçant à supprimer de l'emplacement.
      */
     public void removeCommercant(Commercant commercant) {
-        this.commercants.remove(commercant);
-        commercant.setEmplacement(null);
+        if (commercant != null) {
+            if (commercant.getEmplacement() != null) {
+                this.commercants.remove(commercant);
+                if (commercant.getEmplacement().equals(this)) {
+                    commercant.setEmplacement(null);
+                }
+            }
+        }
     }
 
     /**

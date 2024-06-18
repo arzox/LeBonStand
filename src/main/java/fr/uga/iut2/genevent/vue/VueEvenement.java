@@ -1,10 +1,7 @@
 package fr.uga.iut2.genevent.vue;
 
-import fr.uga.iut2.genevent.util.Vues;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 
 /**
  * La classe VueEvenement est responsable des interactions avec
@@ -14,35 +11,23 @@ import javafx.stage.Stage;
  * Contrôleur de tab-event.fxml (informations générales sur l'événement)
  */
 public class VueEvenement extends IHM {
-
-    private final VueOnglets vueOnglets;
+    public static final String FXML_NAME = "tab-event.fxml";
 
     @FXML
     HBox container;
 
-    VueEvenement(VueOnglets vueOnglets) {
+    VueEvenement() {
         super();
-        this.vueOnglets = vueOnglets;
-    }
-
-    // Implémentations et redéfinitions
-
-    @FXML
-    private void initialize() {
-        try {
-            Parent ongletsRoot = Vues.loadViewAsParent("tabs.fxml", vueOnglets);
-            container.getChildren().add(0,ongletsRoot);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public void informerUtilisateur(String message, boolean succes) {
         System.out.println(message);
     }
 
-    // Getters et setters
-    public VueOnglets getVueOnglets() {
-        return vueOnglets;
+    // Implémentations et redéfinitions
+
+    @Override
+    public String getFxmlName() {
+        return FXML_NAME;
     }
 }

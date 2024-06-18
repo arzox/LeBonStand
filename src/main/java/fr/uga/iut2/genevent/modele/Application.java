@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * Classe représentant l'application Genevent
  */
 public class Application implements Serializable {
-    private static final long serialVersionUID = 1L;  // nécessaire pour la sérialisation
+    private static final long serialVersionUID = 1L; // nécessaire pour la sérialisation
     private ArrayList<Evenement> evenements;
 
     /**
@@ -19,6 +19,7 @@ public class Application implements Serializable {
 
     /**
      * Getter de la liste des événements
+     * 
      * @return liste des événements
      */
     public ArrayList<Evenement> getEvenements() {
@@ -27,6 +28,7 @@ public class Application implements Serializable {
 
     /**
      * Setter de la liste des événements
+     * 
      * @param evenement liste des événements
      */
     public void addEvenement(Evenement evenement) {
@@ -35,6 +37,7 @@ public class Application implements Serializable {
 
     /**
      * Supprime un événement de la liste des événements
+     * 
      * @param evenement événement à supprimer
      */
     public void removeEvenement(Evenement evenement) {

@@ -148,9 +148,11 @@ public class VueAccueil extends IHM {
 
     @FXML
     protected void nouvelEvenementCliquer() {
-        if (isAlreadyOpened()) return;
+        if (isAlreadyOpened())
+            return;
         try {
-            Vues.loadViewIntoStage(otherVue, "new-event.fxml", new VueCreation((Stage) eventsFlowPane.getScene().getWindow()));
+            VueCreation vueCreation = new VueCreation((Stage) eventsFlowPane.getScene().getWindow());
+            vueCreation.changerFenetre(otherVue);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -185,11 +187,9 @@ public class VueAccueil extends IHM {
     private void onCancel() {
         Stage stage = (Stage) annulerBouton.getScene().getWindow();
         stage.fireEvent(
-                new javafx.stage.WindowEvent(
+                new WindowEvent(
                         stage,
-                        javafx.stage.WindowEvent.WINDOW_CLOSE_REQUEST
-                )
-        );
+                        WindowEvent.WINDOW_CLOSE_REQUEST));
     }
 
     @FXML
@@ -213,5 +213,10 @@ public class VueAccueil extends IHM {
     @Override
     public void informerUtilisateur(String msg, boolean succes) {
         System.out.println(msg);
+    }
+
+    @Override
+    public String getFxmlName() {
+        return FXML_NAME;
     }
 }

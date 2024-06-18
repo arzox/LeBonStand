@@ -13,19 +13,20 @@ public class Commercant extends Employe implements Serializable {
     /**
      * Constructeur de la classe Commercant.
      *
-     * @param nom Le nom du commerçant.
-     * @param prenom Le prénom du commerçant.
-     * @param email L'email du commerçant.
-     * @param telephone Le numéro de téléphone du commerçant.
-     * @param heureDebut L'heure de début du travail du commerçant.
-     * @param heureFin L'heure de fin du travail du commerçant.
-     * @param emplacement L'emplacement du commerce du commerçant.
+     * @param nom          Le nom du commerçant.
+     * @param prenom       Le prénom du commerçant.
+     * @param email        L'email du commerçant.
+     * @param telephone    Le numéro de téléphone du commerçant.
+     * @param heureDebut   L'heure de début du travail du commerçant.
+     * @param heureFin     L'heure de fin du travail du commerçant.
+     * @param emplacement  L'emplacement du commerce du commerçant.
      * @param typeCommerce Le type de commerce du commerçant.
      */
-    public Commercant(String nom, String prenom, String email, String telephone, int heureDebut, int heureFin, Emplacement emplacement, TypeCommerce typeCommerce) {
+    public Commercant(String nom, String prenom, String email, String telephone, int heureDebut, int heureFin,
+            Emplacement emplacement, TypeCommerce typeCommerce) {
         super(nom, prenom, email, telephone, heureDebut, heureFin);
         setEmplacement(emplacement);
-        this.typeCommerce = typeCommerce;
+        setTypeCommerce(typeCommerce);
     }
 
     /**
@@ -43,11 +44,11 @@ public class Commercant extends Employe implements Serializable {
      * @param emplacement Le nouvel emplacement du commerce du commerçant.
      */
     public void setEmplacement(Emplacement emplacement) {
-        if (this.emplacement != null) {
+        if (this.emplacement != null && this.emplacement.getCommercants().contains(this)) {
             this.emplacement.removeCommercant(this);
         }
         this.emplacement = emplacement;
-        if (emplacement != null) {
+        if (this.emplacement != null && !this.emplacement.getCommercants().contains(this)) {
             emplacement.addCommercant(this);
         }
     }
@@ -58,11 +59,11 @@ public class Commercant extends Employe implements Serializable {
      * @param typeCommerce Le nouveau type de commerce du commerçant.
      */
     public void setTypeCommerce(TypeCommerce typeCommerce) {
-        if (this.typeCommerce != null) {
+        if (this.typeCommerce != null && this.typeCommerce.getCommercants().contains(this)) {
             this.typeCommerce.removeCommercant(this);
         }
         this.typeCommerce = typeCommerce;
-        if (typeCommerce != null) {
+        if (this.typeCommerce != null && !typeCommerce.getCommercants().contains(this)) {
             typeCommerce.addCommercant(this);
         }
     }
