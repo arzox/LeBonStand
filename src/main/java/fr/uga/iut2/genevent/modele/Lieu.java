@@ -3,7 +3,8 @@ package fr.uga.iut2.genevent.modele;
 import java.io.Serializable;
 
 /**
- * La classe Lieu représente un lieu avec son nom, adresse, ville et code postal.
+ * La classe Lieu représente un lieu avec son nom, adresse, ville et code
+ * postal.
  */
 public class Lieu implements Serializable {
     private String nom;
@@ -14,7 +15,7 @@ public class Lieu implements Serializable {
     /**
      * Constructeur pour la classe Lieu.
      *
-     * @param nom Le nom du lieu.
+     * @param nom     Le nom du lieu.
      * @param adresse L'adresse du lieu.
      */
     public Lieu(String nom, String adresse) {

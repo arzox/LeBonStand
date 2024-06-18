@@ -13,8 +13,9 @@ public class MauvaisChampsException extends Exception {
 
     /**
      * Constructeur de l'exception
+     * 
      * @param message Message d'erreur
-     * @param champs Liste de booléens indiquant si les champs sont valides ou non
+     * @param champs  Liste de booléens indiquant si les champs sont valides ou non
      */
     public MauvaisChampsException(String message, ArrayList<Boolean> champs) {
         super(message);
