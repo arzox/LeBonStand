@@ -17,23 +17,21 @@ import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
-
 public class Main {
 
-    private static Logger LOGGER =
-            Logger.getLogger(Main.class.getPackageName());
+    private static Logger LOGGER = Logger.getLogger(Main.class.getPackageName());
 
     // Récupérarion du gestionnaire de logs.
     private static final LogManager logManager = LogManager.getLogManager();
     // Configuration du logger
     // EditConfiguration > Modify options > add VM options :
     // -Djava.util.logging.config.file=conf/debug-logging.properties
-    static{
+    static {
         try {
-            logManager.readConfiguration( new FileInputStream("conf/debug-lbs.properties") );
-        } catch ( IOException exception ) {
-            LOGGER.log( Level.SEVERE, "Cannot read configuration file",
-                    exception );
+            logManager.readConfiguration(new FileInputStream("conf/debug-lbs.properties"));
+        } catch (IOException exception) {
+            LOGGER.log(Level.SEVERE, "Cannot read configuration file",
+                    exception);
         }
     }
 
@@ -44,23 +42,26 @@ public class Main {
         // Créer une instance du modèle (application correspond à la racine du modèle)
         Application application = new Application();
 
-        application.addEvenement(new Evenement("Marche Noel", LocalDate.of(2021, 6, 1), LocalDate.of(2021, 6 ,2), TypeEvenement.MARCHE_NOEL, new ArrayList<>(Arrays.asList(Fonctionnalite.AGENT_ENTRETIEN, Fonctionnalite.PARTICIPANT))));
-        application.addEvenement(new Evenement("Brocante", LocalDate.of(2022, 7, 2), LocalDate.of(2022, 7, 3), TypeEvenement.BROCANTE, new ArrayList<>(Arrays.asList(Fonctionnalite.AGENT_ENTRETIEN, Fonctionnalite.PARTICIPANT))));
-        try {
-            LOGGER.log(Level.INFO, "Sauvegarde de l'état initial");
-            Persisteur.sauverEtat(application);
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Erreur irrécupérable pendant la sauvegarde de l'état : fin d'exécution !");
-            throw new RuntimeException(e);
-        }
+//        application.addEvenement(new Evenement("Marche Noel", LocalDate.of(2021, 6, 1), LocalDate.of(2021, 6, 2),
+//                TypeEvenement.MARCHE_NOEL,
+//                new ArrayList<>(Arrays.asList(Fonctionnalite.AGENT_ENTRETIEN, Fonctionnalite.PARTICIPANT))));
+//        application.addEvenement(
+//                new Evenement("Brocante", LocalDate.of(2022, 7, 2), LocalDate.of(2022, 7, 3), TypeEvenement.BROCANTE,
+//                        new ArrayList<>(Arrays.asList(Fonctionnalite.AGENT_ENTRETIEN, Fonctionnalite.PARTICIPANT))));
+//        try {
+//            LOGGER.log(Level.INFO, "Sauvegarde de l'état initial");
+//            Persisteur.sauverEtat(application);
+//        } catch (IOException e) {
+//            LOGGER.log(Level.SEVERE, "Erreur irrécupérable pendant la sauvegarde de l'état : fin d'exécution !");
+//            throw new RuntimeException(e);
+//        }
 
         try {
             LOGGER.log(Level.INFO, "Chargement de l'état initial");
             application = Persisteur.lireEtat();
-        }
-        catch (ClassNotFoundException | IOException ignored) {
-            LOGGER.log(Level.SEVERE, "Erreur irrécupérable pendant le chargement de l'état : fin d'exécution !");
-            System.err.println("Erreur irrécupérable pendant le chargement de l'état : fin d'exécution !");
+        } catch (ClassNotFoundException | IOException ignored) {
+            LOGGER.log(Level.SEVERE, "Erreur irrécupérable pendant le chargement de l'état : fin d'exécution !");
+            System.err.println("Erreur irrécupérable pendant le chargement de l'état : fin d'exécution !");
             System.err.flush();
             System.exit(Main.EXIT_ERR_LOAD);
         }
@@ -77,7 +78,8 @@ public class Main {
             JavaFXGUI startup = new JavaFXGUI();
             startup.demarrerInteraction();
         } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "Erreur irrécupérable pendant l'interaction avec l'utilisateur·trice : fin d'exécution !");
+            LOGGER.log(Level.SEVERE,
+                    "Erreur irrécupérable pendant l'interaction avec l'utilisateur·trice : fin d'exécution !");
             e.printStackTrace();
         }
         // `Controleur.demarrer` garde le contrôle de l'exécution tant que
@@ -86,10 +88,9 @@ public class Main {
         try {
             LOGGER.log(Level.INFO, "Sauvegarde de l'état final");
             Persisteur.sauverEtat(application);
-        }
-        catch (IOException ignored) {
-            LOGGER.log(Level.SEVERE, "Erreur irrécupérable pendant la sauvegarde de l'état : fin d'exécution !");
-            System.err.println("Erreur irrécupérable pendant la sauvegarde de l'état : fin d'exécution !");
+        } catch (IOException ignored) {
+            LOGGER.log(Level.SEVERE, "Erreur irrécupérable pendant la sauvegarde de l'état : fin d'exécution !");
+            System.err.println("Erreur irrécupérable pendant la sauvegarde de l'état : fin d'exécution !");
             System.err.flush();
             System.exit(Main.EXIT_ERR_SAVE);
         }
