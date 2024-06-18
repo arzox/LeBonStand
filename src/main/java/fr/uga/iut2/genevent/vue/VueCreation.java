@@ -1,5 +1,6 @@
 package fr.uga.iut2.genevent.vue;
 
+import fr.uga.iut2.genevent.exception.MauvaisChampsException;
 import fr.uga.iut2.genevent.modele.Evenement;
 import fr.uga.iut2.genevent.modele.Fonctionnalite;
 import fr.uga.iut2.genevent.modele.TypeEvenement;
@@ -75,9 +76,14 @@ public class VueCreation extends IHM {
 
     @FXML
     private void onCreer(ActionEvent event) {
-        Evenement evenement = controleur.getControleurEvenement().creerEvenement(nom.getText(), getTypeEvenement(), getFonctionnalitesSelected(), this);
-        controleur.setEvenementCourant(evenement);
-        ((Stage) typeMarche.getScene().getWindow()).close();
-        Vues.loadViewIntoStage(previousStage, "tab-event.fxml", new VueEvenement(new VueOnglets()));
+        try {
+            Evenement evenement = controleur.getControleurEvenement().creerEvenement(nom.getText(), getTypeEvenement(), getFonctionnalitesSelected());
+            controleur.setEvenementCourant(evenement);
+            ((Stage) typeMarche.getScene().getWindow()).close();
+            Vues.loadViewIntoStage(previousStage, "tab-event.fxml", new VueEvenement(new VueOnglets()));
+
+        } catch (MauvaisChampsException e) {
+            e.printStackTrace();
+        }
     }
 }

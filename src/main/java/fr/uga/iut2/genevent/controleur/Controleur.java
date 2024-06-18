@@ -58,8 +58,8 @@ public class Controleur {
         return controleurAgentSecu;
     }
 
-    public ControleurAgentEntretient getControleurAgentEntretien() {
-        return controleurAgentEntretient;
+    public ControleurAgentEntretien getControleurAgentEntretien() {
+        return controleurAgentEntretien;
     }
 
     public ControleurParticipant getControleurParticipant() {

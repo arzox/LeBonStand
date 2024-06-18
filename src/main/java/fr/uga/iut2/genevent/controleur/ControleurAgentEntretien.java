@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+/**
+ * Sous-contrôleur pour la catégorie "Agents d'entretien"
+ */
 public class ControleurAgentEntretien {
 
     private Application application;

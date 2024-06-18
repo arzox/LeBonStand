@@ -1,13 +1,14 @@
 package fr.uga.iut2.genevent.controleur;
 
+import fr.uga.iut2.genevent.exception.MauvaisChampsException;
 import fr.uga.iut2.genevent.modele.Application;
 import fr.uga.iut2.genevent.modele.Evenement;
 import fr.uga.iut2.genevent.modele.Fonctionnalite;
 import fr.uga.iut2.genevent.modele.TypeEvenement;
+import fr.uga.iut2.genevent.modele.Lieu;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.EnumSet;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -39,10 +40,6 @@ public class ControleurEvenement {
             }
         }
         Evenement evenement = new Evenement(nom, null, null, type, fonctionnalites);
-
-        // Initialisation des fonctionnalités de l'événement
-        evenement.initieCommerce();
-        initieFonctionnalites(evenement, fonctionnalites);
 
         // Ajout de l'événement à la liste des événements
         application.addEvenement(evenement);
