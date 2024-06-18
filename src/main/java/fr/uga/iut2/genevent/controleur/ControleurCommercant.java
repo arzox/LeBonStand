@@ -6,6 +6,7 @@ import fr.uga.iut2.genevent.modele.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Map;
 
 /**
  * Sous-contrôleur pour la catégorie "Commerçants"
@@ -66,20 +67,98 @@ public class ControleurCommercant {
             throw new Exception("Le commerçant ne peut être inscrit car l'événement du controleur est nul");
     }
 
-    public Commercant getCommercant(String nom, String prenom, String email, String telephone) {
-        for (Commercant commercant : evenement.getCommercants()) {
+    public Commercant getCommercant(String nom, String prenom, String email, String telephone) throws Exception {
+        if (evenement != null) {
 
-            String nomCourant = commercant.getNom();
-            String prenomCourant = commercant.getPrenom();
-            String emailCourant = commercant.getEmail();
-            String telephoneCourant = commercant.getTelephone();
+            for (Commercant commercant : evenement.getCommercants()) {
 
-            if (nom.equals(nomCourant) & prenom.equals(prenomCourant) & email.equals(emailCourant) & telephone.equals(telephoneCourant)) {
+                String nomCourant = commercant.getNom();
+                String prenomCourant = commercant.getPrenom();
+                String emailCourant = commercant.getEmail();
+                String telephoneCourant = commercant.getTelephone();
 
-                return commercant;
+                if (nom.equals(nomCourant) & prenom.equals(prenomCourant) & email.equals(emailCourant) & telephone.equals(telephoneCourant)) {
+
+                    return commercant;
+                }
             }
-        }
-        return null;
+            return null;
+
+        } else
+            throw new Exception("Le commerçant ne peut être récupéré car l'événement du controleur est nul");
+    }
+
+    public Emplacement creerEmplacement(int taille) throws Exception {
+        if (evenement != null) {
+
+            int numero = evenement.getEmplacements().size() + 1;
+
+            Emplacement nouvelEmplacement = new Emplacement(numero, taille);
+            evenement.ajouterEmplacement(nouvelEmplacement);
+
+            return nouvelEmplacement;
+
+        } else
+            throw new Exception("L'emplacement ne peut être créé car l'événement du controleur est nul");
+    }
+
+    public Emplacement getEmplacement(int numero) throws Exception {
+        if (evenement != null) {
+
+            for (Emplacement emplacement : evenement.getEmplacements()) {
+
+                int numeroCourant = emplacement.getNumero();
+
+                if (numero == numeroCourant) {
+
+                    return emplacement;
+                }
+            }
+            return null;
+
+        } else
+            throw new Exception("L'emplacement ne peut être récupéré car l'événement du controleur est nul");
+    }
+
+    public TypeCommerce creerTypeCommerce(String nom, int quota) throws Exception {
+        if (evenement != null) {
+
+            for (Map.Entry<TypeCommerce, Integer> type : evenement.getTypeCommerces().entrySet()) {
+
+                String nomCourant = type.getKey().getNom();
+
+                if (nom.equals(nomCourant)) {
+
+                    throw new MauvaisChampsException("Le type de commerce que vous souhaitez créer existe déjà",
+                            new ArrayList<>(Arrays.asList(false, true)));
+                }
+            }
+            TypeCommerce nouveauTypeCommerce = new TypeCommerce(nom);
+            evenement.ajouterTypeCommerce(nouveauTypeCommerce, quota);
+
+            return nouveauTypeCommerce;
+
+        } else
+            throw new Exception("Le type de commerce ne peut être créé car l'événement du controleur est nul");
+    }
+
+    public TypeCommerce getTypeCommerce(String nom) throws Exception {
+        if (evenement != null) {
+
+            for (Map.Entry<TypeCommerce, Integer> dict : evenement.getTypeCommerces().entrySet()) {
+
+                TypeCommerce type = dict.getKey();
+                String nomCourant = type.getNom();
+
+                if (nom.equals(nomCourant)) {
+
+                    return type;
+                }
+            }
+            return null;
+
+        } else
+            throw new Exception("Le type de commerce ne peut être récupéré car l'événement du controleur est nul");
     }
 
     public void desinscrireCommercant(Commercant commercant) throws Exception {

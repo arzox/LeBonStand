@@ -63,20 +63,25 @@ public class ControleurAgentSecu {
             throw new Exception("L'agent de sécurité ne peut être ajouté car l'événement du controleur est nul");
     }
 
-    public AgentSecurite getAgentSecurite(String nom, String prenom, String email, String telephone) {
-        for (AgentSecurite agentSecurite : evenement.getAgentsSecurite()) {
+    public AgentSecurite getAgentSecurite(String nom, String prenom, String email, String telephone) throws Exception {
+        if (evenement != null) {
 
-            String nomCourant = agentSecurite.getNom();
-            String prenomCourant = agentSecurite.getPrenom();
-            String emailCourant = agentSecurite.getEmail();
-            String telephoneCourant = agentSecurite.getTelephone();
+            for (AgentSecurite agentSecurite : evenement.getAgentsSecurite()) {
 
-            if (nom.equals(nomCourant) & prenom.equals(prenomCourant) & email.equals(emailCourant) & telephone.equals(telephoneCourant)) {
+                String nomCourant = agentSecurite.getNom();
+                String prenomCourant = agentSecurite.getPrenom();
+                String emailCourant = agentSecurite.getEmail();
+                String telephoneCourant = agentSecurite.getTelephone();
 
-                return agentSecurite;
+                if (nom.equals(nomCourant) & prenom.equals(prenomCourant) & email.equals(emailCourant) & telephone.equals(telephoneCourant)) {
+
+                    return agentSecurite;
+                }
             }
-        }
-        return null;
+            return null;
+
+        } else
+            throw new Exception("L'agent de sécurité ne peut être récupéré car l'événement du controleur est nul");
     }
 
     public void supprimerAgentSecurite(AgentSecurite agentSecurite) throws Exception {

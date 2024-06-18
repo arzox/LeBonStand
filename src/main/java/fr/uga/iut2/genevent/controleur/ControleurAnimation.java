@@ -52,14 +52,57 @@ public class ControleurAnimation {
             boolean isStartBeforeEventStart = dateDebut.isBefore(evenement.getDateDebut());
             boolean isEndAfterEventEnd = dateFin.isAfter(evenement.getDateFin());
 
+            for (Animation animationCourante : evenement.getAnimations()) {
+
+                String nomCourant = animationCourante.getNom();
+                boolean isNotUnique = nom.equals(nomCourant);
+
+                if (isNotUnique & isStartAfterEnd) {
+
+                    throw new MauvaisChampsException("L'animation que vous souhaitez ajouter existe déjà et " +
+                            "la date et l'heure de début est ultérieure à sa date et son heure de fin",
+                            new ArrayList<>(Arrays.asList(false, true, false, false)));
+
+                } else if (isNotUnique & isStartBeforeEventStart & isEndAfterEventEnd) {
+
+                    throw new MauvaisChampsException("L'animation que vous souhaitez ajouter existe déjà, " +
+                            "la date de début de l'animation est antérieure à l'heure de début de l'événement et " +
+                            "la date de fin de l'animation est ultérieure à l'heure de fin de l'événement",
+                            new ArrayList<>(Arrays.asList(false, true, false, false)));
+
+                } else if (isNotUnique & isStartBeforeEventStart) {
+
+                    throw new MauvaisChampsException("L'animation que vous souhaitez ajouter existe déjà et " +
+                            "la date de début de l'animation est antérieure à l'heure de début de l'événement",
+                            new ArrayList<>(Arrays.asList(false, true, false, true)));
+
+                } else if (isNotUnique & isEndAfterEventEnd) {
+
+                    throw new MauvaisChampsException("L'animation que vous souhaitez ajouter existe déjà et " +
+                            "la date de fin de l'animation est ultérieure à l'heure de fin de l'événement",
+                            new ArrayList<>(Arrays.asList(false, true, true, false)));
+
+                } else if (isNotUnique) {
+
+                    throw new MauvaisChampsException("L'animation que vous souhaitez ajouter existe déjà",
+                            new ArrayList<>(Arrays.asList(false, true, true, true)));
+                }
+            }
+
             if (isStartAfterEnd) {
 
                 throw new MauvaisChampsException("La date et l'heure de début de l'animation est ultérieure à sa date et son heure de fin",
                         new ArrayList<>(Arrays.asList(true, true, false, false)));
 
+            } else if (isStartBeforeEventStart & isEndAfterEventEnd) {
+
+                throw new MauvaisChampsException("La date de début de l'animation est antérieure à l'heure de début de l'événement et " +
+                        "la date de fin de l'animation est ultérieure à l'heure de fin de l'événement",
+                        new ArrayList<>(Arrays.asList(true, true, false, false)));
+
             } else if (isStartBeforeEventStart) {
 
-                throw new MauvaisChampsException("La date de début de l'animation est antiérieure à la date de début de l'événement",
+                throw new MauvaisChampsException("La date de début de l'animation est antérieure à la date de début de l'événement",
                         new ArrayList<>(Arrays.asList(true, true, false, true)));
 
             } else if (isEndAfterEventEnd) {
@@ -67,17 +110,33 @@ public class ControleurAnimation {
                 throw new MauvaisChampsException("La date de fin de l'animation est ultérieure à la date de fin de l'événement",
                         new ArrayList<>(Arrays.asList(true, true, true, false)));
             }
-            evenement.ajouterAnimation(new Animation(nom, prix, dateHeureDebut, dateHeureFin));
+            Animation nouvelleAnimation = new Animation(nom, prix, dateHeureDebut, dateHeureFin);
+            evenement.ajouterAnimation(nouvelleAnimation);
+
+            return nouvelleAnimation;
 
         } else
             throw new Exception("L'animation ne peut être ajoutée car l'événement du controleur est nul");
     }
 
-    /**
-     * Supprime une animation de l'événement
-     * @param animation Animation
-     * @throws Exception si il est impossible de supprimer l'animation
-     */
+    public Animation getAnimation(String nom) throws Exception {
+        if (evenement != null) {
+
+            for (Animation animation : evenement.getAnimations()) {
+
+                String nomCourant = animation.getNom();
+
+                if (nom.equals(nomCourant)) {
+
+                    return animation;
+                }
+            }
+            return null;
+
+        } else
+            throw new Exception("L'animation ne peut être récupéré car l'événement du controleur est nul");
+    }
+
     public void supprimerAnimation(Animation animation) throws Exception {
         if (evenement != null) {
 
@@ -96,6 +155,17 @@ public class ControleurAnimation {
     public void modifierNomAnimation(Animation animation, String nom) throws Exception {
         if (evenement != null) {
 
+            for (Animation animationCourante : evenement.getAnimations()) {
+
+                String nomCourant = animationCourante.getNom();
+                boolean isNotUnique = nom.equals(nomCourant);
+
+                if (isNotUnique) {
+
+                    throw new MauvaisChampsException("En changeant le nom de l'animation, celle-ci devient identique à une autre animation",
+                            new ArrayList<>(Arrays.asList(false, true, true, true)));
+                }
+            }
             animation.setNom(nom);
 
         } else
