@@ -91,8 +91,7 @@ public class VueOnglets extends IHM {
      * par l'argument {@code fxmlName}, puis ajoute le panneau de navigation
      * vertical pour compléter.
      * 
-     * @param stage    - Le stage dont la vue doit être changée
-     * @param fxmlName - Vue à appliquer au stage
+     * @param stage Le stage dont la vue doit être changée
      */
     @Override
     public void changerFenetre(Stage stage) {
