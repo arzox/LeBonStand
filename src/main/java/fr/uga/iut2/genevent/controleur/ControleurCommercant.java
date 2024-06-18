@@ -420,4 +420,9 @@ public class ControleurCommercant {
         } else
             throw new Exception("Le quota du type de commerce ne peut être modifié car l'événement du controleur est nul");
     }
+
+    public ArrayList<Emplacement> getEmplacements() {
+        return evenement.getEmplacements();
+    }
 }
+

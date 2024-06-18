@@ -82,11 +82,11 @@ public class VueCommercants extends IHM {
         valueAnnex.setOnEditCommit(event -> {
             try {
                 Emplacement emplacement = controleurCommercant.getEmplacement(Integer.parseInt(event.getNewValue()));
-                controleurCommercant.modifierEmplacement(emplacement.getNumero(), emplacement.getTaille());
+                controleurCommercant.modifierTailleEmplacement(emplacement, Integer.parseInt(event.getNewValue()));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 try {
-                    controleurCommercant.creerEmplacement(Integer.parseInt(event.getNewValue()), 0);
+                    controleurCommercant.creerEmplacement(0);
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
                     annexTable.refresh();
@@ -189,7 +189,7 @@ public class VueCommercants extends IHM {
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 try {
-                    Emplacement emplacement = controleurCommercant.creerEmplacement(event.getNewValue().getNumero(), 0);
+                    Emplacement emplacement = controleurCommercant.creerEmplacement(0);
                     controleurCommercant.modifierEmplacementCommercant(event.getRowValue(), emplacement);
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
