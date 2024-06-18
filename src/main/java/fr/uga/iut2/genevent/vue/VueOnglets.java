@@ -1,6 +1,5 @@
 package fr.uga.iut2.genevent.vue;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
@@ -36,6 +35,11 @@ public class VueOnglets extends IHM {
         super();
     }
 
+    @Override
+    public void informerUtilisateur(String message, boolean succes) {
+        System.out.println(message);
+    }
+
     @FXML
     public void initialize() {
         setupButton();
@@ -54,14 +58,27 @@ public class VueOnglets extends IHM {
         ArrayList<Fonctionnalite> fonctionnalitesEvenement = controleur.getControleurEvenement().getEvenement()
                 .getFonctionnalites();
 
-        List<Node> buttons = panel.getChildren().subList(4, panel.getChildren().size());
+        List<Node> buttons = panel.getChildren().subList(5, panel.getChildren().size());
 
-        for (int i = allFonctionnalites.size() - 1; i >= 0; i--) {
+        for (int i = buttons.size() - 1; i >= 0; i--) {
             Fonctionnalite fonctionnalite = allFonctionnalites.get(i);
             if (!fonctionnalitesEvenement.contains(fonctionnalite)) {
                 buttons.remove(i);
             }
         }
+    }
+
+    public void setCurrentOnglet(int i) {
+        if (i < 0 || i >= panel.getChildren().size()) {
+            throw new RuntimeException("Bouton hors de la liste");
+        }
+
+    }
+
+    @FXML
+    private void onAccueil() {
+        Stage stage = (Stage) panel.getScene().getWindow();
+        Vues.loadViewIntoStage(stage, "accueil.fxml", new VueAccueil());
     }
 
     /**
@@ -88,11 +105,6 @@ public class VueOnglets extends IHM {
             System.err.println("Erreur pendant le chargement de la vue :\n");
             e.printStackTrace();
         }
-    }
-
-    // Implémentations et redéfinitions
-
-    public void changerFenetre(Stage stage) {
     }
 
     // Getters et setters

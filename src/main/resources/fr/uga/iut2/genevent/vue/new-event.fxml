@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="466.0" prefWidth="418.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="457.0" prefWidth="418.0" styleClass="newEvent" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="382.0" prefHeight="70.0" prefWidth="418.0">
+      <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="382.0" prefHeight="70.0" prefWidth="418.0" style="-fx-background-color: #F18653FF;">
          <children>
             <Label styleClass="h1" text="Nouvel événement" />
          </children>
@@ -29,22 +29,22 @@
          <children>
             <Label styleClass="h2" text="Informations">
                <VBox.margin>
-                  <Insets />
+                  <Insets bottom="10.0" />
                </VBox.margin></Label>
-            <GridPane hgap="10.0" prefHeight="88.0" prefWidth="600.0" vgap="10.0">
+            <GridPane hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="58.0" prefWidth="347.0" vgap="10.0">
               <columnConstraints>
                 <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="287.0" minWidth="10.0" prefWidth="56.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="493.0" minWidth="10.0" prefWidth="252.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="34.333343505859375" minHeight="10.0" prefHeight="26.333341598510742" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="52.33331489562988" minHeight="10.0" prefHeight="51.66665840148926" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <Label text="Nom" />
-                  <TextField prefHeight="29.0" prefWidth="258.0" promptText="Marché de Noël Saint-Martin d'Heres" GridPane.columnIndex="1" />
+                  <TextField fx:id="nom" prefHeight="49.0" prefWidth="247.0" promptText="Marché de Noël Saint-Martin d'Heres" GridPane.columnIndex="1" />
                   <Label text="Type" GridPane.rowIndex="1" />
-                  <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <ComboBox fx:id="typeMarche" prefHeight="26.0" prefWidth="253.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
                <padding>
                   <Insets left="20.0" right="20.0" />
@@ -52,13 +52,13 @@
             </GridPane>
          </children>
          <padding>
-            <Insets left="35.0" right="35.0" />
+            <Insets bottom="20.0" left="35.0" right="35.0" top="20.0" />
          </padding>
       </VBox>
-      <VBox layoutX="10.0" layoutY="210.0" prefHeight="116.0" prefWidth="418.0" spacing="10.0">
+      <VBox layoutX="10.0" layoutY="210.0" prefHeight="143.0" prefWidth="378.0" spacing="10.0">
          <children>
             <Label styleClass="h2" text="Fonctionnalités" />
-            <VBox prefHeight="94.0" prefWidth="348.0" spacing="5.0">
+            <VBox fx:id="checkBox" prefHeight="132.0" prefWidth="378.0" spacing="5.0">
                <children>
                   <CheckBox layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Sécurité" />
                   <CheckBox layoutX="10.0" layoutY="29.0" mnemonicParsing="false" text="Entretien" />
@@ -74,13 +74,13 @@
             </VBox>
          </children>
          <padding>
-            <Insets left="35.0" right="35.0" />
+            <Insets bottom="20.0" left="35.0" right="35.0" />
          </padding>
       </VBox>
       <HBox alignment="CENTER_RIGHT" prefHeight="53.0" prefWidth="378.0" spacing="20.0">
          <children>
-            <Button mnemonicParsing="false" text="Annuler" />
-            <Button mnemonicParsing="false" styleClass="orange" text="Créer" />
+            <Button fx:id="annulerButton" mnemonicParsing="false" onAction="#onAnnuler" text="Annuler" />
+            <Button mnemonicParsing="false" onAction="#onCreer" styleClass="orange" text="Créer" />
          </children>
          <padding>
             <Insets left="35.0" right="35.0" />

@@ -3,43 +3,41 @@ package fr.uga.iut2.genevent.modele;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.time.LocalDate;
 
 public class Evenement implements Serializable {
     private String nom;
-    private int maxParticipants;
-    private String debut;
-    private String fin;
-    private ArrayList<Fonctionnalite> fonctionnalites;
-
     private TypeEvenement type;
+    private ArrayList<Fonctionnalite> fonctionnalites;
     private Lieu lieu;
+    private LocalDate dateDebut;
+    private LocalDate dateFin;
+    private int maxParticipants;
 
     // Module Commerçants
-    private HashMap<TypeCommerce, Integer> typeCommerces = null;
-    private ArrayList<Commercant> commercants = null;
-    private ArrayList<Emplacement> emplacements = null;
+    private HashMap<TypeCommerce, Integer> typeCommerces = new HashMap<>();
+    private ArrayList<Commercant> commercants = new ArrayList<>();
+    private ArrayList<Emplacement> emplacements = new ArrayList<>();
 
     // Module AgentsSecurite
-    private ArrayList<AgentSecurite> agentsSecurite = null;
-    private ArrayList<Zone> zones = null;
+    private ArrayList<AgentSecurite> agentsSecurite = new ArrayList<>();
+    private ArrayList<Zone> zones = new ArrayList<>();
 
     // Module Entretien
-    private ArrayList<AgentEntretien> agentsEntretien = null;
+    private ArrayList<AgentEntretien> agentsEntretien = new ArrayList<>();
 
     // Module Participants
-    private ArrayList<Participant> participants = null;
+    private ArrayList<Participant> participants = new ArrayList<>();
 
     // Module Animation
-    private ArrayList<Animation> animations = null;
+    private ArrayList<Animation> animations = new ArrayList<>();
 
-    public Evenement(String nom, String debut, String fin, TypeEvenement typeEvenement, ArrayList<Fonctionnalite> fonctionnalites) {
+    public Evenement(String nom, LocalDate dateDebut, LocalDate dateFin, TypeEvenement typeEvenement, ArrayList<Fonctionnalite> fonctionnalites) {
         this.nom = nom;
-        this.debut = debut;
-        this.fin = fin;
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
         this.type = typeEvenement;
         this.fonctionnalites = fonctionnalites;
-
-        initieCommerce();
     }
 
     // ---------Module Commercants---------
@@ -77,11 +75,11 @@ public class Evenement implements Serializable {
 
     // ---------Module Securite---------
 
-    public void inscireAgentSecurite(AgentSecurite agentSecurite) {
+    public void ajouterAgentSecurite(AgentSecurite agentSecurite) {
         this.agentsSecurite.add(agentSecurite);
     }
 
-    public void desinscrireAgentSecurite(AgentSecurite agentSecurite) {
+    public void supprimerAgentSecurite(AgentSecurite agentSecurite) {
         agentSecurite.setZone(null);
         this.agentsSecurite.remove(agentSecurite);
     }
@@ -97,11 +95,11 @@ public class Evenement implements Serializable {
 
     // ---------Module Entretien---------
 
-    public void inscrireAgentEntretien(AgentEntretien agentEntretien) {
+    public void ajouterAgentEntretien(AgentEntretien agentEntretien) {
         this.agentsEntretien.add(agentEntretien);
     }
 
-    public void desinscrireAgentEntretien(AgentEntretien agentEntretien) {
+    public void supprimerAgentEntretien(AgentEntretien agentEntretien) {
         this.agentsEntretien.remove(agentEntretien);
     }
 
@@ -125,48 +123,6 @@ public class Evenement implements Serializable {
         this.animations.remove(animation);
     }
 
-
-
-    public void initieCommerce() {
-        this.commercants = new ArrayList<>();
-        this.emplacements = new ArrayList<>();
-        this.typeCommerces = new HashMap<>();
-    }
-
-    public void initieSecurite() {
-        this.agentsSecurite = new ArrayList<>();
-        this.zones = new ArrayList<>();
-    }
-
-    public void supprimerSecurite() {
-        this.agentsSecurite = null;
-        this.zones = null;
-    }
-
-    public void initieEntretien() {
-        this.agentsEntretien = new ArrayList<>();
-    }
-
-    public void supprimerEntretien() {
-        this.agentsEntretien = null;
-    }
-
-    public void initieParticipant() {
-        this.participants = new ArrayList<>();
-    }
-
-    public void supprimerParticipant() {
-        this.participants = null;
-    }
-
-    public void initieAnimation() {
-        this.animations = new ArrayList<>();
-    }
-
-    public void supprimerAnimation() {
-        this.animations = null;
-    }
-
     public String getNom() {
         return nom;
     }
@@ -175,24 +131,28 @@ public class Evenement implements Serializable {
         this.nom = nom;
     }
 
-    public String getDebut() {
-        return debut;
+    public LocalDate getDateDebut() {
+        return dateDebut;
     }
 
-    public void setDebut(String debut) {
-        this.debut = debut;
+    public void setDateDebut(LocalDate dateDebut) {
+        this.dateDebut = dateDebut;
     }
 
-    public String getFin() {
-        return fin;
+    public LocalDate getDateFin() {
+        return dateFin;
     }
 
-    public void setFin(String fin) {
-        this.fin = fin;
+    public void setDateFin(LocalDate dateFin) {
+        this.dateFin = dateFin;
     }
 
     public ArrayList<Fonctionnalite> getFonctionnalites() {
         return fonctionnalites;
+    }
+
+    public void setFonctionnalites(ArrayList<Fonctionnalite> fonctionnalites) {
+        this.fonctionnalites = fonctionnalites;
     }
 
     public int getMaxParticipants() {
@@ -253,6 +213,6 @@ public class Evenement implements Serializable {
 
     @Override
     public String toString() {
-        return this.nom + "\n" + this.debut + " - " + this.fin + "\n" + this.type + "\n" + this.fonctionnalites + "\n";
+        return this.nom + "\n" + this.dateDebut + " - " + this.dateFin + "\n" + this.type + "\n" + this.fonctionnalites + "\n";
     }
 }

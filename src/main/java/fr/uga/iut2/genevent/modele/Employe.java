@@ -5,22 +5,16 @@ public abstract class Employe {
     private String prenom;
     private String email;
     private String telephone;
-    private String horaires;
+    private int heureDebut;
+    private int heureFin;
 
-    public Employe(String nom, String prenom, String email, String telephone, String horaires) {
+    public Employe(String nom, String prenom, String email, String telephone, int heureDebut, int heureFin) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
         this.telephone = telephone;
-        this.horaires = horaires;
-    }
-
-    public String getHoraires() {
-        return this.horaires;
-    }
-
-    public void setHoraires(String horaires) {
-        this.horaires = horaires;
+        this.heureDebut = heureDebut;
+        this.heureFin = heureFin;
     }
 
     public String getNom() {
@@ -39,6 +33,14 @@ public abstract class Employe {
         return this.telephone;
     }
 
+    public int getHeureDebut() {
+        return this.heureDebut;
+    }
+
+    public int getHeureFin() {
+        return heureFin;
+    }
+
     public void setNom(String nom) {
         this.nom = nom;
     }
@@ -53,5 +55,13 @@ public abstract class Employe {
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
+    }
+
+    public void setHeureDebut(int heureDebut) {
+        this.heureDebut = heureDebut;
+    }
+
+    public void setHeureFin(int heureFin) {
+        this.heureFin = heureFin;
     }
 }

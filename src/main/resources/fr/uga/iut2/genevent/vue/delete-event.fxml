@@ -10,8 +10,8 @@
       <Label text="Etes-vous sur de vouloir supprimer cet événement ?" />
       <HBox alignment="CENTER" prefHeight="36.0" prefWidth="600.0" spacing="25.0">
          <children>
-            <Button fx:id="supprimerEvenementNon" mnemonicParsing="false" text="Non" />
-            <Button fx:id="supprimerEvenementOui" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" styleClass="orange" text="Oui" />
+            <Button fx:id="annulerBouton" mnemonicParsing="false" onAction="#onCancel" style="-fx-background-color: #f56b2a;" text="Non" />
+            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onValider" text="Oui" />
          </children>
       </HBox>
    </children>

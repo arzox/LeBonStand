@@ -3,8 +3,8 @@ package fr.uga.iut2.genevent.modele;
 public class AgentSecurite extends Employe {
     private Zone zone;
 
-    public AgentSecurite(String nom, String prenom, String email, String telephone, String horaires, Zone zone) {
-        super(nom, prenom, email, telephone, horaires);
+    public AgentSecurite(String nom, String prenom, String email, String telephone, int heureDebut, int heureFin, Zone zone) {
+        super(nom, prenom, email, telephone, heureDebut, heureFin);
         this.zone = zone;
         this.zone.addAgentSecurite(this);
     }

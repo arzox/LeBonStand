@@ -1,16 +1,19 @@
 package fr.uga.iut2.genevent.modele;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 public class Animation {
     private String nom;
     private float prix;
-    private String debut;
-    private String fin;
+    private LocalDateTime dateHeureDebut;
+    private LocalDateTime dateHeureFin;
 
-    public Animation(String nom, float prix, String debut, String fin) {
+    public Animation(String nom, float prix, LocalDateTime dateDebut, LocalDateTime dateFin) {
         this.nom = nom;
         this.prix = prix;
-        this.debut = debut;
-        this.fin = fin;
+        this.dateHeureDebut = dateDebut;
+        this.dateHeureFin = dateFin;
     }
 
     public String getNom() {
@@ -29,19 +32,19 @@ public class Animation {
         this.prix = prix;
     }
 
-    public String getDebut() {
-        return debut;
+    public LocalDateTime getDateHeureDebut() {
+        return dateHeureDebut;
     }
 
-    public void setDebut(String debut) {
-        this.debut = debut;
+    public void setDateHeureDebut(LocalDateTime dateHeureDebut) {
+        this.dateHeureDebut = dateHeureDebut;
     }
 
-    public String getFin() {
-        return fin;
+    public LocalDateTime getDateHeureFin() {
+        return dateHeureFin;
     }
 
-    public void setFin(String fin) {
-        this.fin = fin;
+    public void setDateHeureFin(LocalDateTime dateHeureFin) {
+        this.dateHeureFin = dateHeureFin;
     }
 }
