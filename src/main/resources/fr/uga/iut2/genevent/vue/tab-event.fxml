@@ -1,20 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
 
 <HBox prefHeight="1028.0" prefWidth="1332.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -32,13 +21,13 @@
                         <VBox alignment="CENTER_LEFT" prefHeight="90.0" prefWidth="205.0">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nom" />
-                              <TextField id="nomMarché" promptText="Marché de Noël Place Victor Hugo" />
+                              <TextField fx:id="nomEvenementField" promptText="Marché de Noël Place Victor Hugo" />
                            </children>
                         </VBox>
                         <VBox alignment="CENTER_LEFT" prefHeight="90.0" prefWidth="169.0">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Type" />
-                              <ComboBox prefHeight="25.0" prefWidth="174.0" />
+                              <ComboBox fx:id="typeEvenementComboBox" prefHeight="25.0" prefWidth="174.0" />
                            </children>
                         </VBox>
                      </children>
@@ -54,11 +43,10 @@
                   </Pane>
                   <HBox alignment="CENTER" prefHeight="90.0" prefWidth="506.0" style="-fx-spacing: 10;">
                      <children>
-                        <CheckBox mnemonicParsing="false" selected="true" text="Commerçants" />
-                        <CheckBox mnemonicParsing="false" selected="true" text="Sécurité" />
-                        <CheckBox mnemonicParsing="false" text="Entretien" />
-                        <CheckBox mnemonicParsing="false" text="Animations" />
-                        <CheckBox mnemonicParsing="false" text="Partictipants" />
+                        <CheckBox fx:id="securiteCheckBox" mnemonicParsing="false" selected="true" text="Sécurité" />
+                        <CheckBox fx:id="entretienCheckBox" mnemonicParsing="false" text="Entretien" />
+                        <CheckBox fx:id="animationsCheckBox" mnemonicParsing="false" text="Animations" />
+                        <CheckBox fx:id="participantsCheckBox" mnemonicParsing="false" text="Participants" />
                      </children>
                   </HBox>
                </children>
@@ -75,19 +63,19 @@
                         <VBox alignment="CENTER_LEFT" prefHeight="90.0" prefWidth="205.0">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Adresse" />
-                              <TextField promptText="Parc Jo Blanchon" />
+                              <TextField fx:id="adresseField" promptText="Parc Jo Blanchon" />
                            </children>
                         </VBox>
                         <VBox alignment="CENTER_LEFT" prefHeight="90.0" prefWidth="205.0">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ville" />
-                              <TextField promptText="Saint-Martin d'Heres" />
+                              <TextField fx:id="villeField" promptText="Saint-Martin d'Heres" />
                            </children>
                         </VBox>
                         <VBox alignment="CENTER_LEFT" prefHeight="90.0" prefWidth="205.0">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Code Postal" />
-                              <TextField promptText="38100" />
+                              <TextField fx:id="codePostalField" promptText="38100" />
                            </children>
                         </VBox>
                      </children>
@@ -106,23 +94,13 @@
                         <VBox alignment="CENTER_LEFT" prefHeight="90.0" prefWidth="205.0">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Début" />
-                              <HBox prefHeight="13.0" prefWidth="205.0">
-                                 <children>
-                                    <TextField id="dateDebut" promptText="29/04/2006" />
-                                    <ImageView fitHeight="23.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true" />
-                                 </children>
-                              </HBox>
+                              <DatePicker fx:id="dateDebutPicker" />
                            </children>
                         </VBox>
                         <VBox alignment="CENTER_LEFT" prefHeight="90.0" prefWidth="205.0">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Fin" />
-                              <HBox prefHeight="13.0" prefWidth="205.0">
-                                 <children>
-                                    <TextField id="dateFin" promptText="17/08/2024" />
-                                    <ImageView fitHeight="23.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true" />
-                                 </children>
-                              </HBox>
+                              <DatePicker fx:id="dateFinPicker" />
                            </children>
                         </VBox>
                      </children>

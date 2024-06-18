@@ -57,7 +57,7 @@ public class JavaFXGUI {
      * @see javafx.application.Application#start(Stage)
      */
     private void start(Stage primaryStage) throws IOException {
-        VueEvenement vueEvenement = new VueEvenement(new VueOnglets());
+        VueEvenement vueEvenement = new VueEvenement();
         vueEvenement.changerFenetre(primaryStage);
 
         primaryStage.getIcons().add(new Image(
