@@ -253,4 +253,60 @@ public class ControleurCommercant {
             throw new Exception(
                     "Le type de commerce du commerçant ne peut être mofifié car l'événement du controleur est nul");
     }
+
+    public ArrayList<Emplacement> getEmplacements() {
+        return evenement.getEmplacements();
+    }
+
+    public Emplacement getEmplacement(int numero) throws Exception {
+        for (Emplacement emplacement : evenement.getEmplacements()) {
+
+            int numeroCourant = emplacement.getNumero();
+
+            if (numero == numeroCourant) {
+
+                return emplacement;
+            }
+        }
+        throw new Exception("L'emplacement n'existe pas");
+    }
+
+    public void modifierEmplacement(int numero, int taille) throws Exception {
+        getEmplacement(numero).setTaille(taille);
+    }
+
+    public Emplacement creerEmplacement(int numero, int taille) {
+        try {
+            getEmplacement(numero);
+            throw new Exception("L'emplacement existe déjà");
+        } catch (Exception e) {
+            Emplacement emplacement = new Emplacement(numero, taille);
+            evenement.ajouterEmplacement(emplacement);
+            return emplacement;
+        }
+    }
+
+    public TypeCommerce getTypeCommerce(String nom) throws Exception {
+        if (evenement != null) {
+
+                for (TypeCommerce typeCommerce : evenement.getTypeCommerces().keySet()) {
+
+                    String nomCourant = typeCommerce.getNom();
+
+                    if (nom.equals(nomCourant)) {
+                        return typeCommerce;
+                    }
+                }
+        }
+        throw new IllegalArgumentException("Le type de commerce n'existe pas");
+    }
+
+    public void creerTypeCommerce(String nom, int quota) {
+        try {
+            getTypeCommerce(nom);
+        } catch (Exception e) {
+            TypeCommerce typeCommerce = new TypeCommerce(nom);
+            evenement.ajouterTypeCommerce(typeCommerce, quota);
+        }
+    }
 }

@@ -61,7 +61,7 @@
                               </Button>
                            </children>
                         </HBox>
-                        <Button mnemonicParsing="false">
+                        <Button mnemonicParsing="false"  onMouseClicked="#onSave" >
                            <graphic>
                               <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

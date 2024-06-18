@@ -16,6 +16,7 @@ public class EmplacementStringConverter extends StringConverter<Emplacement> {
 
     @Override
     public Emplacement fromString(String numero) {
+        if (numero == null) return new Emplacement(null, 0);
         return new Emplacement(Integer.parseInt(numero), 0);
     }
 }

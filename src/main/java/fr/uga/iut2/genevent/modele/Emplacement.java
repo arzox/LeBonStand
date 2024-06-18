@@ -18,7 +18,7 @@ public class Emplacement implements Serializable {
      * @param numero Le numéro de l'emplacement.
      * @param taille La taille de l'emplacement.
      */
-    public Emplacement(int numero, int taille) {
+    public Emplacement(Integer numero, int taille) {
         setNumero(numero);
         setTaille(taille);
     }

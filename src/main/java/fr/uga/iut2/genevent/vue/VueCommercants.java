@@ -268,6 +268,11 @@ public class VueCommercants extends IHM {
         }
     }
 
+    @FXML
+    private void onSave() {
+        commercantsTable.refresh();
+    }
+
     @Override
     public String getFxmlName() {
         return FXML_NAME;
