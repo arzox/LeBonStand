@@ -111,4 +111,55 @@ class CommercantTest {
         Commercant c = new Commercant("nom", "prenom", "email", "telephone", 8, 18, null, null);
         assertNull(c.getTypeCommerce());
     }
+
+    // tests avec des problèmes
+
+    @Test
+    void setHeureDebutFail() {
+        Commercant c = new Commercant("nom", "prenom", "email", "telephone", 8, 18, null, null);
+        assertThrows(IllegalArgumentException.class, () -> c.setHeureDebut(7));
+    }
+
+    @Test
+    void setHeureFinFail() {
+        Commercant c = new Commercant("nom", "prenom", "email", "telephone", 8, 18, null, null);
+        assertThrows(IllegalArgumentException.class, () -> c.setHeureFin(19));
+    }
+
+    @Test
+    void setNomFail() {
+        Commercant c = new Commercant("nom", "prenom", "email", "telephone", 8, 18, null, null);
+        assertThrows(IllegalArgumentException.class, () -> c.setNom(""));
+    }
+
+    @Test
+    void setPrenomFail() {
+        Commercant c = new Commercant("nom", "prenom", "email", "telephone", 8, 18, null, null);
+        assertThrows(IllegalArgumentException.class, () -> c.setPrenom(""));
+    }
+
+    @Test
+    void setEmailFail() {
+        Commercant c = new Commercant("nom", "prenom", "email", "telephone", 8, 18, null, null);
+        assertThrows(IllegalArgumentException.class, () -> c.setEmail(""));
+    }
+
+    @Test
+    void setTelephoneFail() {
+        Commercant c = new Commercant("nom", "prenom", "email", "telephone", 8, 18, null, null);
+        assertThrows(IllegalArgumentException.class, () -> c.setTelephone(""));
+    }
+
+    @Test
+    void setEmplacementFail() {
+        Commercant c = new Commercant("nom", "prenom", "email", "telephone", 8, 18, null, null);
+        assertThrows(IllegalArgumentException.class, () -> c.setEmplacement(null));
+    }
+
+    @Test
+    void setTypeCommerceFail() {
+        Commercant c = new Commercant("nom", "prenom", "email", "telephone", 8, 18, null, null);
+        assertThrows(IllegalArgumentException.class, () -> c.setTypeCommerce(null));
+    }
+
 }

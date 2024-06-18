@@ -51,7 +51,7 @@ public class TypeCommerce implements Serializable {
     }
 
     /**
-     * Obtient la liste des commerçants de ce type de commerce.
+     * Permet d'obtenir la liste des commerçants de ce type de commerce.
      *
      * @return La liste des commerçants.
      */
@@ -60,7 +60,7 @@ public class TypeCommerce implements Serializable {
     }
 
     /**
-     * Obtient le nom du type de commerce.
+     * Permet d'obtenir le nom du type de commerce.
      *
      * @return Le nom du type de commerce.
      */
