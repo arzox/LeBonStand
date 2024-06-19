@@ -1,16 +1,32 @@
-VBox,
-HBox {
-  /*Remove border*/
+/* Style pour les cases à cocher non sélectionnées */
+.check-box > .box {
+  -fx-background-color: white;
+  -fx-border-color: transparent;
   -fx-border-width: 0;
 }
 
+/* Style pour les cases à cocher sélectionnées */
+.check-box:selected > .box {
+  -fx-background-color: #f56b2a;
+  -fx-border-color: #f56b2a;
+  -fx-text-fill: #ffffff;
+}
+
+.check-box:selected .mark {
+  -fx-background-color: #ffffff;
+}
+
+/* Style pour enlever les bordures des HBox et VBox */
+VBox, HBox {
+  -fx-border-width: 0;
+}
+
+/* Styles existants */
 .label {
   -fx-font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
-.h1,
-.h2,
-.h3 {
+.h1, .h2, .h3 {
   -fx-font-weight: bold;
   -fx-padding: 20px 0 10px 0;
 }
@@ -32,10 +48,7 @@ HBox {
   -fx-font-size: 18px;
 }
 
-.button,
-.check-box > .box,
-.combo-box,
-.text-field {
+.button, .combo-box, .text-field {
   -fx-border-width: 0;
 }
 
@@ -55,15 +68,8 @@ HBox {
   -fx-border-radius: 3px;
 }
 
-.orange,
-.check-box:selected > .box {
+.orange {
   -fx-background-color: #f56b2a;
-  -fx-border-color: #f56b2a;
-  -fx-text-fill: #ffffff;
-}
-
-.check-box:selected .mark {
-  -fx-background-color: #ffffff;
 }
 
 .trash {
