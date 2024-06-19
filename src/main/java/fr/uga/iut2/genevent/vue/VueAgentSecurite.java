@@ -69,8 +69,8 @@ public class VueAgentSecurite extends IHM {
         setupTable();
         setupZone();
 
-        agentsTable.getItems().addAll(controleurAgentSecurite.getAgentSecurites());
-        zoneTable.getItems().addAll(controleurAgentSecurite.getZones());
+        agentsTable.getItems().addAll(controleurAgentSecurite.getEvenement().getAgentsSecurite());
+        zoneTable.getItems().addAll(controleurAgentSecurite.getEvenement().getZones());
     }
 
     private void setupZone() {
@@ -81,7 +81,7 @@ public class VueAgentSecurite extends IHM {
             try {
                 controleurAgentSecurite.modifierNomZone(event.getRowValue(), event.getNewValue());
                 agentsTable.getItems().clear();
-                agentsTable.getItems().addAll(controleurAgentSecurite.getAgentSecurites());
+                agentsTable.getItems().addAll(controleurAgentSecurite.getEvenement().getAgentsSecurite());
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 zoneTable.refresh();

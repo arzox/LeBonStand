@@ -77,7 +77,7 @@ public class VueCommercants extends IHM {
         setupEmplacement();
         setupTypeCommerce();
         showEmplacement();
-        commercantsTable.getItems().addAll(controleur.getControleurCommercant().getCommercants());
+        commercantsTable.getItems().addAll(controleur.getControleurCommercant().getEvenement().getCommercants());
         emplacementTable.getItems().addAll(controleur.getControleurCommercant().getEmplacements());
         typeTable.getItems().addAll(controleur.getControleurCommercant().getTypeCommerces());
     }
@@ -117,7 +117,7 @@ public class VueCommercants extends IHM {
             try {
                 controleurCommercant.modifierNomTypeCommerce(event.getRowValue(), event.getNewValue());
                 commercantsTable.getItems().clear();
-                commercantsTable.getItems().addAll(controleurCommercant.getCommercants());
+                commercantsTable.getItems().addAll(controleurCommercant.getEvenement().getCommercants());
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 event.getRowValue().setNom(event.getOldValue());

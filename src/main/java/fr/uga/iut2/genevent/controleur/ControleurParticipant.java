@@ -24,6 +24,14 @@ public class ControleurParticipant {
     }
 
     /**
+     * Récupère l'événement géré par le contrôleur.
+     * @return L'événement géré par le controleur.
+     */
+    public Evenement getEvenement() {
+        return evenement;
+    }
+
+    /**
      * Attribue un événement au contrôleur.
      * @param evenement L'événement à attribuer
      */

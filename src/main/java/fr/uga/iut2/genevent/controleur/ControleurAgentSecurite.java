@@ -23,8 +23,16 @@ public class ControleurAgentSecurite {
     }
 
     /**
-     * Permet d'attribuer un événement au controleur.
-     * @param evenement Evenement attribué au controleur
+     * Récupère l'événement géré par le contrôleur.
+     * @return L'événement géré par le controleur.
+     */
+    public Evenement getEvenement() {
+        return evenement;
+    }
+
+    /**
+     * Attribue un événement au contrôleur.
+     * @param evenement L'événement à attribuer
      */
     public void setEvenement(Evenement evenement) {
         this.evenement = evenement;

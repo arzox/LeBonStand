@@ -24,8 +24,16 @@ public class ControleurCommercant {
     }
 
     /**
-     * Définit l'événement associé au contrôleur.
-     * @param evenement L'événement à associer
+     * Récupère l'événement géré par le contrôleur.
+     * @return L'événement géré par le controleur.
+     */
+    public Evenement getEvenement() {
+        return evenement;
+    }
+
+    /**
+     * Attribue un événement au contrôleur.
+     * @param evenement L'événement à attribuer
      */
     public void setEvenement(Evenement evenement) {
         this.evenement = evenement;
