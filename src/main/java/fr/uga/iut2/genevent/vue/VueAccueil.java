@@ -136,10 +136,10 @@ public class VueAccueil extends IHM {
         }
         try {
             VueOnglets vueOnglets = new VueOnglets(new VueEvenement());
-            Stage la = (Stage) eventsFlowPane.getScene().getWindow();
-            vueOnglets.changerFenetre(la);
-            la.setMaximized(false);
-            la.setMaximized(true);
+            Stage onglet = (Stage) eventsFlowPane.getScene().getWindow();
+            vueOnglets.changerFenetre(onglet);
+            onglet.setMaximized(false);
+            onglet.setMaximized(true);
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -151,6 +151,7 @@ public class VueAccueil extends IHM {
         if (isAlreadyOpened())
             return;
         try {
+
             VueCreation vueCreation = new VueCreation((Stage) eventsFlowPane.getScene().getWindow());
             vueCreation.changerFenetre(otherVue);
         } catch (Exception e) {
