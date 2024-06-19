@@ -2,11 +2,17 @@ package fr.uga.iut2.genevent;
 
 import fr.uga.iut2.genevent.controleur.Controleur;
 import fr.uga.iut2.genevent.modele.Application;
+import fr.uga.iut2.genevent.modele.Evenement;
+import fr.uga.iut2.genevent.modele.Fonctionnalite;
+import fr.uga.iut2.genevent.modele.TypeEvenement;
 import fr.uga.iut2.genevent.util.Persisteur;
 import fr.uga.iut2.genevent.vue.JavaFXGUI;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
@@ -36,24 +42,19 @@ public class Main {
         // Créer une instance du modèle (application correspond à la racine du modèle)
         Application application = new Application();
 
-        // application.addEvenement(new Evenement("Marche Noel", LocalDate.of(2021, 6,
-        // 1), LocalDate.of(2021, 6, 2),
-        // TypeEvenement.MARCHE_NOEL,
-        // new ArrayList<>(Arrays.asList(Fonctionnalite.AGENT_ENTRETIEN,
-        // Fonctionnalite.PARTICIPANT))));
-        // application.addEvenement(
-        // new Evenement("Brocante", LocalDate.of(2022, 7, 2), LocalDate.of(2022, 7, 3),
-        // TypeEvenement.BROCANTE,
-        // new ArrayList<>(Arrays.asList(Fonctionnalite.AGENT_ENTRETIEN,
-        // Fonctionnalite.PARTICIPANT))));
-        // try {
-        // LOGGER.log(Level.INFO, "Sauvegarde de l'état initial");
-        // Persisteur.sauverEtat(application);
-        // } catch (IOException e) {
-        // LOGGER.log(Level.SEVERE, "Erreur irrécupérable pendant la sauvegarde de
-        // l'état : fin d'exécution !");
-        // throw new RuntimeException(e);
-        // }
+        application.addEvenement(new Evenement("Marche Noel", LocalDate.of(2021, 6, 1), LocalDate.of(2021, 6, 2),
+                TypeEvenement.MARCHE_NOEL,
+                new ArrayList<>(Arrays.asList(Fonctionnalite.AGENT_ENTRETIEN, Fonctionnalite.PARTICIPANT))));
+        application.addEvenement(
+                new Evenement("Brocante", LocalDate.of(2022, 7, 2), LocalDate.of(2022, 7, 3), TypeEvenement.BROCANTE,
+                        new ArrayList<>(Arrays.asList(Fonctionnalite.AGENT_ENTRETIEN, Fonctionnalite.PARTICIPANT))));
+        try {
+            LOGGER.log(Level.INFO, "Sauvegarde de l'état initial");
+            Persisteur.sauverEtat(application);
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "Erreur irrécupérable pendant la sauvegarde de l'état : fin d'exécution !");
+            throw new RuntimeException(e);
+        }
 
         try {
             LOGGER.log(Level.INFO, "Chargement de l'état initial");

@@ -320,4 +320,12 @@ public class ControleurAgentSecurite {
         } else
             throw new Exception("Le nom de la zone ne peut être modifié car l'événement du controleur est nul");
     }
+
+    public ArrayList<AgentSecurite> getAgentSecurites() {
+        return evenement.getAgentsSecurite();
+    }
+
+    public ArrayList<Zone> getZones() {
+        return evenement.getZones();
+    }
 }

@@ -10,13 +10,16 @@ public class EmplacementStringConverter extends StringConverter<Emplacement> {
 
     @Override
     public String toString(Emplacement emplacement) {
-        return emplacement != null ? emplacement.toString() : "";
+        if (emplacement == null) {
+            return "";
+        }
+        return Integer.toString(emplacement.getNumero());
     }
 
     @Override
     public Emplacement fromString(String numero) {
-        if (numero == null)
-            return new Emplacement(null, 0);
+        System.out.println(numero);
+        if (numero.isEmpty()) return new Emplacement(null, 0);
         return new Emplacement(Integer.parseInt(numero), 0);
     }
 }

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * Classe représentant l'application Genevent
+ * Classe représentant l'application Genevent, c'est elle qu'on sauvegarde avec serializable
  */
 public class Application implements Serializable {
     private static final long serialVersionUID = 1L; // nécessaire pour la sérialisation

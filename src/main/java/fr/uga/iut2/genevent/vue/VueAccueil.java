@@ -136,7 +136,11 @@ public class VueAccueil extends IHM {
         }
         try {
             VueOnglets vueOnglets = new VueOnglets(new VueEvenement());
-            vueOnglets.changerFenetre((Stage) eventsFlowPane.getScene().getWindow());
+            Stage la = (Stage) eventsFlowPane.getScene().getWindow();
+            vueOnglets.changerFenetre(la);
+            la.setMaximized(false);
+            la.setMaximized(true);
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -192,7 +196,11 @@ public class VueAccueil extends IHM {
     @FXML
     private void onValider() {
         controleur.supprimerEvenement(toDelete);
-        ((Stage) annulerBouton.getScene().getWindow()).close();
+        Stage stage = (Stage) annulerBouton.getScene().getWindow();
+        stage.fireEvent(
+                new WindowEvent(
+                        stage,
+                        WindowEvent.WINDOW_CLOSE_REQUEST));
         loadEvents();
     }
 
