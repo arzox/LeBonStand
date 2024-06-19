@@ -46,15 +46,35 @@ public class VueOnglets extends IHM {
 
     @FXML
     private void onEventClicked(MouseEvent event) {
-        Main.setLOGGER(Level.INFO, "L'utilisateur a cliqué sur \"" + nomEvenement.getText()
-                + "\" (le nom actuel de l'événement) : changement de vue");
-        switchOnglet(new VueEvenement(), (Node) event.getSource());
+        onTabClickedGeneric(new VueEvenement(), event);
     }
 
     @FXML
     private void onCommercantsClicked(MouseEvent event) {
-        Main.setLOGGER(Level.INFO, "L'utilisateur a cliqué sur \"Commerçants\" : changement de vue");
-        switchOnglet(new VueCommercants(), (Node) event.getSource());
+        onTabClickedGeneric(new VueCommercants(), event);
+    }
+
+    @FXML
+    private void onSecuriteClicked(MouseEvent event) {
+        onTabClickedGeneric(new VueAgentSecurite(), event);
+    }
+
+    @FXML
+    private void onEntretienClicked(MouseEvent event) {
+        // TODO : créer la vue et la classe correspondante
+        throw new UnsupportedOperationException("Vue et classe correspondante non crée.");
+    }
+
+    @FXML
+    private void onAnimationClicked(MouseEvent event) {
+        // TODO : créer la vue et la classe correspondante
+        throw new UnsupportedOperationException("Vue et classe correspondante non crée.");
+    }
+
+    @FXML
+    private void onParticipantsClicked(MouseEvent event) {
+        // TODO : créer la vue et la classe correspondante
+        throw new UnsupportedOperationException("Vue et classe correspondante non crée.");
     }
 
     @FXML
@@ -92,6 +112,18 @@ public class VueOnglets extends IHM {
         //     int index = panel.getChildren().indexOf(node);
         //     setCurrentOnglet(index);
         // }));
+    }
+
+    /**
+     * Factorisation des méthodes de la forme {@code onXXXClicked} de la classe
+     * {@code VueOnglets}
+     * 
+     * @param nouvelleVue
+     * @param event
+     */
+    private void onTabClickedGeneric(IHM nouvelleVue, MouseEvent event) {
+        Main.setLOGGER(Level.INFO, "Clic sur l'onglet correspondant à " + nouvelleVue.getClass().getSimpleName() + " : changement de vue");
+        switchOnglet(nouvelleVue, (Node) event.getSource());
     }
 
     private void switchOnglet(IHM nouvelleVue, Node button) {
