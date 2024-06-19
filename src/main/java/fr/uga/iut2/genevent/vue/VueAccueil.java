@@ -135,7 +135,7 @@ public class VueAccueil extends IHM {
             otherVue.close();
         }
         try {
-            VueOnglets vueOnglets = new VueOnglets(new VueCommercants());
+            VueOnglets vueOnglets = new VueOnglets(new VueEvenement());
             vueOnglets.changerFenetre((Stage) eventsFlowPane.getScene().getWindow());
         } catch (Exception ex) {
             ex.printStackTrace();

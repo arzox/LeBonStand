@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 /**
- * Sous-contrôleur pour les événements
+ * Contrôleur pour les événements
  */
 public class ControleurEvenement {
 
@@ -32,10 +32,17 @@ public class ControleurEvenement {
         this.evenement = evenement;
     }
 
+    // Événement
     public Evenement creerEvenement(String nom, TypeEvenement type, ArrayList<Fonctionnalite> fonctionnalites)
             throws MauvaisChampsException {
 
         // Création d'un événement
+        if (type == null) {
+
+            throw new MauvaisChampsException("Veuillez choisir un type pour l'événement",
+                    new ArrayList<>(Arrays.asList(true, false, true)));
+        }
+
         for (Evenement evenementCourant : application.getEvenements()) {
 
             String nomCourant = evenementCourant.getNom();
@@ -53,8 +60,7 @@ public class ControleurEvenement {
         // Ajout de l'événement à la liste des événements
         application.addEvenement(evenement);
 
-        // Renvoi de l'événement afin d'y attribuer les controleurs dans le controleur
-        // FXML dans la vue
+        // Renvoi de l'événement afin d'y attribuer les controleurs dans le controleur FXML dans la vue
         return evenement;
     }
 
@@ -72,8 +78,8 @@ public class ControleurEvenement {
 
             if (isNotUnique) {
 
-                throw new MauvaisChampsException(
-                        "En changeant le nom de l'événement, celui-ci devient identique à un autre événement",
+                throw new MauvaisChampsException("En changeant le nom de l'événement, " +
+                        "celui-ci devient identique à un autre événement",
                         new ArrayList<>(Collections.singleton(false)));
             }
         }
@@ -90,8 +96,8 @@ public class ControleurEvenement {
 
             if (isNotUnique) {
 
-                throw new MauvaisChampsException(
-                        "En changeant le type de l'événement, celui-ci devient identique à un autre événement",
+                throw new MauvaisChampsException("En changeant le type de l'événement, " +
+                        "celui-ci devient identique à un autre événement",
                         new ArrayList<>(Collections.singleton(false)));
             }
         }
@@ -132,7 +138,67 @@ public class ControleurEvenement {
         evenement.setDateFin(dateFin);
     }
 
+    // Lieu
+
+    /**
+     * Crée un nouveau lieu et l'associe à cet événement.
+     * @param nom Nom du lieu
+     * @param adresse Adresse du lieu
+     * @param ville Ville du lieu
+     * @param codePostal Code postal du lieu
+     * @return le lieu créé.
+     */
+    public Lieu creerLieu(String nom, String adresse, String ville, int codePostal) {
+
+        Lieu nouveauLieu = new Lieu(nom, adresse, ville, codePostal);
+        evenement.setLieu(nouveauLieu);
+
+        return nouveauLieu;
+    }
+
+    /**
+     * Modifie le nom du lieu donné par un nom donné
+     * @param lieu Lieu dont le nom est modifié
+     * @param nom Nouveau nom à donner
+     */
+    public void modifierNomLieu(Lieu lieu ,String nom) {
+
+        lieu.setNom(nom);
+    }
+
+    /**
+     * Modifie l'adresse du lieu donné par une adresse donnée
+     * @param lieu Lieu dont l'adresse est modifiée
+     * @param adresse Nouvelle adresse à donner
+     */
+    public void modifierAdresseLieu(Lieu lieu, String adresse) {
+
+        lieu.setAdresse(adresse);
+    }
+
+    /**
+     * Modifie la ville du lieu donné par une ville donnée
+     * @param lieu Lieu dont la ville est modifiée
+     * @param ville Nouvelle ville à donner
+     */
+    public void modifierVilleLieu(Lieu lieu, String ville) {
+
+        lieu.setVille(ville);
+    }
+
+    /**
+     * Modifie le code postal du lieu donné par un code postal donnée
+     * @param lieu Lieu dont le code postal est modifié
+     * @param codePostal Nouveau code postal à donner
+     */
+    public void modifierCodePostalLieu(Lieu lieu, int codePostal) {
+
+        lieu.setCodePostal(codePostal);
+    }
+
     public ArrayList<Fonctionnalite> getFonctionnalites() {
         return evenement.getFonctionnalites();
     }
+
+
 }

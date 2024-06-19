@@ -1,6 +1,7 @@
 package fr.uga.iut2.genevent.util;
 
 import fr.uga.iut2.genevent.controleur.Controleur;
+import fr.uga.iut2.genevent.controleur.ControleurCommercant;
 import javafx.util.StringConverter;
 import fr.uga.iut2.genevent.modele.Emplacement;
 
@@ -15,6 +16,7 @@ public class EmplacementStringConverter extends StringConverter<Emplacement> {
 
     @Override
     public Emplacement fromString(String numero) {
-        return new Emplacement(Integer.parseInt(numero), 5);
+        if (numero == null) return new Emplacement(null, 0);
+        return new Emplacement(Integer.parseInt(numero), 0);
     }
 }

@@ -76,4 +76,9 @@ public class Commercant extends Employe implements Serializable {
     public TypeCommerce getTypeCommerce() {
         return typeCommerce;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + " - " + typeCommerce + " - " + emplacement;
+    }
 }

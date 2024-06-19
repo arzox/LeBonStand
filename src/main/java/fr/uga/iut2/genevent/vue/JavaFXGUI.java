@@ -5,8 +5,10 @@ import java.util.concurrent.CountDownLatch;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+
 
 /**
  * La classe JavaFXGUI délègue les interactions graphiques aux classes
@@ -26,7 +28,7 @@ import javafx.stage.WindowEvent;
  */
 public class JavaFXGUI {
 
-    private final CountDownLatch eolBarrier; // /!\ ne pas supprimer /!\ : suivi de la durée de vie de l'interface
+    private final CountDownLatch eolBarrier;  // /!\ ne pas supprimer /!\ : suivi de la durée de vie de l'interface
 
     /**
      * Constructeur de la classe JavaFXGUI.
@@ -34,16 +36,9 @@ public class JavaFXGUI {
      * @see fr.uga.iut2.genevent.vue.JavaFXGUI
      */
     public JavaFXGUI() {
-        this.eolBarrier = new CountDownLatch(1); // /!\ ne pas supprimer /!\
+        super();
+        this.eolBarrier = new CountDownLatch(1);  // /!\ ne pas supprimer /!\
     }
-
-    // A confirmer, mais je crois bien que ce n'est plus nécessaire car JavaFXGUI
-    // n'est plus un contrôleur JavaFX...
-    // @FXML
-    // private void exitMenuItemAction() {
-    //     Platform.exit();
-    //     exitAction();
-    // }
 
     /**
      * Point d'entrée principal pour le code de l'interface JavaFX.
@@ -62,7 +57,8 @@ public class JavaFXGUI {
         accueil.changerFenetre(primaryStage);
 
         // On applique quelques propriétés supplémentaires
-        primaryStage.setMaximized(false);
+        primaryStage.getIcons().add(new Image(getClass().getResource("/fr/uga/iut2/genevent/images/LBS-blanc-orange.png").toExternalForm()));
+        primaryStage.setMaximized(true);
         primaryStage.setTitle("LeBonStand");
     }
 
@@ -75,6 +71,19 @@ public class JavaFXGUI {
             this.eolBarrier.countDown();
             Platform.exit();
         });
+    }
+
+    // menu principal
+
+    // @FXML
+    // private void newUserMenuItemAction() {
+    // this.controleur.saisirUtilisateur();
+    // }
+
+    @FXML
+    private void exitMenuItemAction() {
+        Platform.exit();
+        this.exitAction();
     }
 
     public void demarrerInteraction() {
@@ -97,4 +106,5 @@ public class JavaFXGUI {
             System.err.flush();
         }
     }
+
 }

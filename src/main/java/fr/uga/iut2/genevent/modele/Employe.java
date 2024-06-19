@@ -140,4 +140,9 @@ public abstract class Employe implements Serializable {
     public void setHeureFin(int heureFin) {
         this.heureFin = heureFin;
     }
+
+    @Override
+    public String toString() {
+        return this.nom + " " + this.prenom;
+    }
 }
