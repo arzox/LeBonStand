@@ -50,7 +50,8 @@ public class ControleurParticipant {
                 String nomCourant = participantCourant.getNom();
                 String prenomCourant = participantCourant.getPrenom();
                 String emailCourant = participantCourant.getEmail();
-                boolean isNotUnique = nom.equals(nomCourant) & prenom.equals(prenomCourant) & email.equals(emailCourant);
+                boolean isNotUnique = nom.equals(nomCourant) & prenom.equals(prenomCourant)
+                        & email.equals(emailCourant);
 
                 if (isNotUnique) {
 
@@ -186,7 +187,8 @@ public class ControleurParticipant {
                 String nomCourant = agent.getNom();
                 String prenomCourant = agent.getPrenom();
                 String emailCourant = agent.getEmail();
-                boolean isNotUnique = participant.getNom().equals(nomCourant) & participant.getPrenom().equals(prenomCourant)
+                boolean isNotUnique = participant.getNom().equals(nomCourant)
+                        & participant.getPrenom().equals(prenomCourant)
                         & email.equals(emailCourant);
 
                 if (isNotUnique) {

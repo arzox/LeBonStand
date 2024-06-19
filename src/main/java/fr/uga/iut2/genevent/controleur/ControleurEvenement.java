@@ -1,7 +1,11 @@
 package fr.uga.iut2.genevent.controleur;
 
 import fr.uga.iut2.genevent.exception.MauvaisChampsException;
-import fr.uga.iut2.genevent.modele.*;
+import fr.uga.iut2.genevent.modele.Application;
+import fr.uga.iut2.genevent.modele.Evenement;
+import fr.uga.iut2.genevent.modele.Fonctionnalite;
+import fr.uga.iut2.genevent.modele.TypeEvenement;
+import fr.uga.iut2.genevent.modele.Lieu;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -9,7 +13,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 /**
- * Contrôleur pour la catégorie "Evenement".
+ * Contrôleur pour le module "Evenement".
  */
 public class ControleurEvenement {
 
@@ -40,6 +44,8 @@ public class ControleurEvenement {
         this.evenement = evenement;
     }
 
+    // Événement
+
     /**
      * Crée un nouvel événement et l'ajoute à la liste des événements de cette application.
      * @param nom Nom de l'événement
@@ -48,7 +54,9 @@ public class ControleurEvenement {
      * @return L'événement créé.
      * @throws MauvaisChampsException Si un événement avec le même nom et type existe déjà.
      */
-    public Evenement creerEvenement(String nom, TypeEvenement type, ArrayList<Fonctionnalite> fonctionnalites) throws MauvaisChampsException {
+    public Evenement creerEvenement(String nom, TypeEvenement type,
+                                    ArrayList<Fonctionnalite> fonctionnalites) throws MauvaisChampsException {
+
         // Création d'un événement
         if (type == null) {
 
@@ -212,7 +220,7 @@ public class ControleurEvenement {
      * @param lieu Lieu à modifier
      * @param nom Nouveau nom
      */
-    public void modifierNomLieu(Lieu lieu ,String nom) {
+    public void modifierNomLieu(Lieu lieu, String nom) {
 
         lieu.setNom(nom);
     }

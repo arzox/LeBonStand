@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 /**
- * Contrôleur pour le module catégorie "Agent de sécurité"
+ * Contrôleur pour le module "Agent de sécurité"
  */
 public class ControleurAgentSecurite {
     private Application application;
@@ -45,7 +45,8 @@ public class ControleurAgentSecurite {
      * @throws MauvaisChampsException Si le nom, prénom, adresse email et numéro de téléphone sont identiques à ceux d'un autre agent de sécurité ou
      * si l'heure de début d'activité de l'agent est ultérieure à l'heure de fin d'activité de l'agent.
      */
-    public AgentSecurite ajouterAgentSecurite(String nom, String prenom, String email, String telephone, int heureDebut, int heureFin, Zone zone) throws Exception {
+    public AgentSecurite ajouterAgentSecurite(String nom, String prenom, String email, String telephone, int heureDebut,
+            int heureFin, Zone zone) throws Exception {
         if (evenement != null) {
 
             boolean isStartAfterEnd = heureDebut > heureFin;
@@ -56,7 +57,8 @@ public class ControleurAgentSecurite {
                 String prenomCourant = agent.getPrenom();
                 String emailCourant = agent.getEmail();
                 String telephoneCourant = agent.getTelephone();
-                boolean isNotUnique = nom.equals(nomCourant) & prenom.equals(prenomCourant) & email.equals(emailCourant) & telephone.equals(telephoneCourant);
+                boolean isNotUnique = nom.equals(nomCourant) & prenom.equals(prenomCourant)
+                        & email.equals(emailCourant) & telephone.equals(telephoneCourant);
 
                 if (isNotUnique & isStartAfterEnd) {
 

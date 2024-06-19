@@ -3,14 +3,15 @@ package fr.uga.iut2.genevent.vue;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.logging.Level;
 
+import fr.uga.iut2.genevent.Main;
 import fr.uga.iut2.genevent.modele.Fonctionnalite;
 import fr.uga.iut2.genevent.util.Vues;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -24,24 +25,60 @@ import javafx.stage.Stage;
  */
 public class VueOnglets extends IHM {
 
-    private Parent ongletsRoot;
+    public static final String FXML_NAME = "tabs.fxml";
+    public IHM content;
 
     @FXML
     private Text nomEvenement;
     @FXML
     private VBox panel;
 
-    VueOnglets() {
+    VueOnglets(IHM onglet) {
         super();
-    }
-
-    @Override
-    public void informerUtilisateur(String message, boolean succes) {
-        System.out.println(message);
+        setContent(onglet);
     }
 
     @FXML
-    public void initialize() {
+    private void onAccueilClicked() {
+        Main.setLOGGER(Level.INFO, "L'utilisateur a cliqué sur \"Accueil\" : changement de vue");
+        new VueAccueil().changerFenetre((Stage) nomEvenement.getScene().getWindow());
+    }
+
+    @FXML
+    private void onEventClicked(MouseEvent event) {
+        onTabClickedGeneric(new VueEvenement(), event);
+    }
+
+    @FXML
+    private void onCommercantsClicked(MouseEvent event) {
+        onTabClickedGeneric(new VueCommercants(), event);
+    }
+
+    @FXML
+    private void onSecuriteClicked(MouseEvent event) {
+        onTabClickedGeneric(new VueAgentSecurite(), event);
+    }
+
+    @FXML
+    private void onEntretienClicked(MouseEvent event) {
+        // TODO : créer la vue et la classe correspondante
+        throw new UnsupportedOperationException("Vue et classe correspondante non crée.");
+    }
+
+    @FXML
+    private void onAnimationClicked(MouseEvent event) {
+        // TODO : créer la vue et la classe correspondante
+        throw new UnsupportedOperationException("Vue et classe correspondante non crée.");
+    }
+
+    @FXML
+    private void onParticipantsClicked(MouseEvent event) {
+        // TODO : créer la vue et la classe correspondante
+        throw new UnsupportedOperationException("Vue et classe correspondante non crée.");
+    }
+
+    @FXML
+    private void initialize() {
         setupButton();
     }
 
@@ -50,7 +87,8 @@ public class VueOnglets extends IHM {
      * <p>
      * - Applique le nom de l'événement pour le bouton "Événement"
      * <p>
-     * - Met à jour les boutons selon les fonctionnalités activées pour cet événement
+     * - Met à jour les boutons selon les fonctionnalités activées pour cet
+     * événement
      */
     private void setupButton() {
         nomEvenement.setText(controleur.getControleurEvenement().getEvenement().getNom());
@@ -60,60 +98,82 @@ public class VueOnglets extends IHM {
 
         List<Node> buttons = panel.getChildren().subList(5, panel.getChildren().size());
 
+        // remove buttons that fonctionnality don't have
         for (int i = buttons.size() - 1; i >= 0; i--) {
             Fonctionnalite fonctionnalite = allFonctionnalites.get(i);
             if (!fonctionnalitesEvenement.contains(fonctionnalite)) {
                 buttons.remove(i);
             }
         }
+
+        // TODO : confirmer la suppression de ce bloc de code
+        // add clicked section
+        // panel.getChildren().subList(3, panel.getChildren().size() - 1).forEach(node -> node.setOnMouseClicked(event -> {
+        //     int index = panel.getChildren().indexOf(node);
+        //     setCurrentOnglet(index);
+        // }));
+    }
+
+    /**
+     * Factorisation des méthodes de la forme {@code onXXXClicked} de la classe
+     * {@code VueOnglets}
+     * 
+     * @param nouvelleVue
+     * @param event
+     */
+    private void onTabClickedGeneric(IHM nouvelleVue, MouseEvent event) {
+        Main.setLOGGER(Level.INFO, "Clic sur l'onglet correspondant à " + nouvelleVue.getClass().getSimpleName() + " : changement de vue");
+        switchOnglet(nouvelleVue, (Node) event.getSource());
+    }
+
+    private void switchOnglet(IHM nouvelleVue, Node button) {
+        panel.getChildren().forEach(node -> node.getStyleClass().remove("button-selected"));
+        button.getStyleClass().add("button-selected");
+        setContent(nouvelleVue);
+        changerFenetre((Stage) nomEvenement.getScene().getWindow());
+        // setCurrentOnglet(panel.getChildren().indexOf(button));
     }
 
     public void setCurrentOnglet(int i) {
         if (i < 0 || i >= panel.getChildren().size()) {
-            throw new RuntimeException("Bouton hors de la liste");
+            return;
         }
-
-    }
-
-    @FXML
-    private void onAccueil() {
-        Stage stage = (Stage) panel.getScene().getWindow();
-        Vues.loadViewIntoStage(stage, "accueil.fxml", new VueAccueil());
+        panel.getChildren().forEach(node -> node.getStyleClass().remove("button-selected"));
+        panel.getChildren().get(i).getStyleClass().add("button-selected");
     }
 
     /**
-     * Charge la vue tabs.fxml et crée l'objet Parent correspondant afin qu'il
-     * puisse être utilisé par les classes utilisant les onglets sur le côté
-     * (panneau de navigation)
+     * Modifie l'état de la fenêtre en argument pour lui appliquer l'onglet spécifié
+     * par l'argument {@code fxmlName}, puis ajoute le panneau de navigation
+     * vertical pour compléter.
+     * 
+     * @param stage Le stage dont la vue doit être changée
      */
-    public void load() {
-        try {
-            // Charger la scène dans le loader et lui affecter le controleur en argument
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/uga/iut2/genevent/vue/tabs.fxml"));
-            loader.setController(this);
-            Parent parent = loader.load();
-            Scene newScene = new Scene(parent);
+    @Override
+    public void changerFenetre(Stage stage) {
+        load();
+        getContent().load();
+        ((Pane) getContent().getParent()).getChildren().add(0, getParent());
+        Vues.showParentOnStage(getContent().getParent(), stage);
+    }
 
-            // Appliquer le css global
-            newScene.getStylesheets().clear();
-            newScene.getStylesheets()
-                    .add(Vues.class.getResource("/fr/uga/iut2/genevent/style/style.css").toExternalForm());
+    @Override
+    public void informerUtilisateur(String message, boolean succes) {
+        System.out.println(message);
+    }
 
-            setOngletsRoot(parent);
-
-        } catch (Exception e) {
-            System.err.println("Erreur pendant le chargement de la vue :\n");
-            e.printStackTrace();
-        }
+    @Override
+    public String getFxmlName() {
+        return FXML_NAME;
     }
 
     // Getters et setters
 
-    public void setOngletsRoot(Parent ongletsRoot) {
-        this.ongletsRoot = ongletsRoot;
+    public IHM getContent() {
+        return content;
     }
 
-    public Parent getOngletsRoot() {
-        return ongletsRoot;
+    public void setContent(IHM content) {
+        this.content = content;
     }
 }

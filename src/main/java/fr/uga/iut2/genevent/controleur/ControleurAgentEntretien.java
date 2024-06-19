@@ -59,7 +59,8 @@ public class ControleurAgentEntretien {
                 String prenomCourant = agent.getPrenom();
                 String emailCourant = agent.getEmail();
                 String telephoneCourant = agent.getTelephone();
-                boolean isNotUnique = nom.equals(nomCourant) & prenom.equals(prenomCourant) & email.equals(emailCourant) & telephone.equals(telephoneCourant);
+                boolean isNotUnique = nom.equals(nomCourant) & prenom.equals(prenomCourant)
+                        & email.equals(emailCourant) & telephone.equals(telephoneCourant);
 
                 if (isNotUnique & isStartAfterEnd) {
 

@@ -32,6 +32,12 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -41,25 +47,25 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox fx:id="panel" alignment="TOP_CENTER" prefHeight="1080.0" prefWidth="384.0" spacing="25.0" styleClass="leftPanel" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="panel" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="494.0" prefWidth="396.0" spacing="25.0" style="-fx-spacing: 20;" styleClass="leftPanel" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fitHeight="123.0" fitWidth="287.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="58.0" fitWidth="135.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/logo.png" />
          </image>
          <VBox.margin>
-            <Insets top="30.0" />
+            <Insets />
          </VBox.margin>
       </ImageView>
       <Line endX="100.0" startX="-218.41421508789062" startY="-0.9142136573791504" />
-      <HBox alignment="CENTER_LEFT" layoutX="40.0" layoutY="226.0" onMouseClicked="#onAccueil" prefHeight="100.0" prefWidth="315.0" spacing="20.0" styleClass="button">
+      <HBox alignment="CENTER_LEFT" layoutX="40.0" layoutY="226.0" onMouseClicked="#onAccueilClicked" prefHeight="67.0" prefWidth="336.0" spacing="20.0" styleClass="button">
          <children>
-            <ImageView fitHeight="85.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="39.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/accueil.png" />
                </image>
             </ImageView>
-            <Text fx:id="nomEvenement1" fill="#363a4a" strokeType="OUTSIDE" strokeWidth="0.0" text="Accueil" HBox.hgrow="ALWAYS">
+            <Text fx:id="Accueil" fill="#363a4a" strokeType="OUTSIDE" strokeWidth="0.0" text="Accueil" HBox.hgrow="ALWAYS">
                <font>
                   <Font size="28.0" />
                </font>
@@ -69,12 +75,12 @@
             <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
          </padding>
          <VBox.margin>
-            <Insets left="30.0" right="30.0" />
+            <Insets />
          </VBox.margin>
       </HBox>
-      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="300.0" spacing="20.0" styleClass="button">
+      <HBox alignment="CENTER_LEFT" onMouseClicked="#onEventClicked" prefHeight="100.0" prefWidth="300.0" spacing="20.0" styleClass="button">
          <children>
-            <ImageView fitHeight="85.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="39.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/calendrier.png" />
                </image>
@@ -86,15 +92,15 @@
             </Text>
          </children>
          <VBox.margin>
-            <Insets left="30.0" right="30.0" />
+            <Insets />
          </VBox.margin>
          <padding>
             <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
          </padding>
       </HBox>
-      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="300.0" spacing="20.0" styleClass="button">
+      <HBox alignment="CENTER_LEFT" onMouseClicked="#onCommercantsClicked" prefHeight="100.0" prefWidth="300.0" spacing="20.0" styleClass="button">
          <children>
-            <ImageView fitHeight="95.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="39.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/vendeur.png" />
                </image>
@@ -104,18 +110,17 @@
                   <Font size="28.0" />
                </font>
             </Text>
-            <VBox prefHeight="200.0" prefWidth="100.0" />
          </children>
          <VBox.margin>
-            <Insets left="30.0" right="30.0" />
+            <Insets />
          </VBox.margin>
          <padding>
             <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
          </padding>
       </HBox>
-      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="300.0" spacing="20.0" styleClass="button">
+      <HBox alignment="CENTER_LEFT" onMouseClicked="#onSecuriteClicked" prefHeight="100.0" prefWidth="300.0" spacing="20.0" styleClass="button">
          <children>
-            <ImageView fitHeight="85.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="39.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/garde.png" />
                </image>
@@ -127,15 +132,15 @@
             </Text>
          </children>
          <VBox.margin>
-            <Insets left="30.0" right="30.0" />
+            <Insets />
          </VBox.margin>
          <padding>
             <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
          </padding>
       </HBox>
-      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="300.0" spacing="20.0" styleClass="button">
+      <HBox alignment="CENTER_LEFT" onMouseClicked="#onEntretienClicked" prefHeight="100.0" prefWidth="300.0" spacing="20.0" styleClass="button">
          <children>
-            <ImageView fitHeight="85.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="39.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/balais.png" />
                </image>
@@ -147,15 +152,15 @@
             </Text>
          </children>
          <VBox.margin>
-            <Insets left="30.0" right="30.0" />
+            <Insets />
          </VBox.margin>
          <padding>
             <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
          </padding>
       </HBox>
-      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="300.0" spacing="20.0" styleClass="button">
+      <HBox alignment="CENTER_LEFT" onMouseClicked="#onAnimationClicked" prefHeight="100.0" prefWidth="300.0" spacing="20.0" styleClass="button">
          <children>
-            <ImageView fitHeight="85.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="39.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/faire-la-fete.png" />
                </image>
@@ -167,15 +172,15 @@
             </Text>
          </children>
          <VBox.margin>
-            <Insets left="30.0" right="30.0" />
+            <Insets />
          </VBox.margin>
          <padding>
             <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
          </padding>
       </HBox>
-      <HBox alignment="CENTER_LEFT" layoutX="40.0" layoutY="870.0" prefHeight="100.0" prefWidth="300.0" spacing="20.0" styleClass="button">
+      <HBox alignment="CENTER_LEFT" layoutX="40.0" layoutY="870.0" onMouseClicked="#onParticipantsClicked" prefHeight="100.0" prefWidth="300.0" spacing="20.0" styleClass="button">
          <children>
-            <ImageView fitHeight="85.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="39.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/equipe.png" />
                </image>
@@ -190,8 +195,11 @@
             <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
          </padding>
          <VBox.margin>
-            <Insets left="30.0" right="30.0" />
+            <Insets />
          </VBox.margin>
       </HBox>
    </children>
+   <padding>
+      <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+   </padding>
 </VBox>

@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 /**
- * Contrôleur pour la catégorie "Animation"
+ * Contrôleur pour le module "Animation"
  */
 public class ControleurAnimation {
 

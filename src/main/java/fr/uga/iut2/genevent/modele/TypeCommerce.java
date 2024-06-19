@@ -1,34 +1,98 @@
 package fr.uga.iut2.genevent.modele;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class TypeCommerce {
+/**
+ * La classe TypeCommerce représente un type de commerce avec un nom et une
+ * liste de commerçants associés.
+ */
+public class TypeCommerce implements Serializable {
     private String nom;
+    private int quota;
     private ArrayList<Commercant> commercants = new ArrayList<>();
 
-    public TypeCommerce(String nom) {
-        this.nom = nom;
+    /**
+     * Constructeur pour la classe TypeCommerce.
+     *
+     * @param nom Le nom du type de commerce.
+     */
+    public TypeCommerce(String nom, int quota) {
+        setNom(nom);
+        setQuota(quota);
     }
 
+    /**
+     * Ajoute un commerçant à la liste des commerçants de ce type de commerce.
+     *
+     * @param commercant Le commerçant à ajouter.
+     */
     public void addCommercant(Commercant commercant) {
-        this.commercants.add(commercant);
-        commercant.setTypeCommerce(this);
+        if (commercant != null) {
+            this.commercants.add(commercant);
+            if (commercant.getTypeCommerce() == null || !commercant.getTypeCommerce().equals(this)) {
+                commercant.setTypeCommerce(this);
+            }
+        }
     }
 
+    /**
+     * Retire un commerçant de la liste des commerçants de ce type de commerce.
+     *
+     * @param commercant Le commerçant à retirer.
+     */
     public void removeCommercant(Commercant commercant) {
-        this.commercants.remove(commercant);
-        commercant.setTypeCommerce(null);
+        if (commercant != null) {
+            if (commercant.getTypeCommerce() != null) {
+                this.commercants.remove(commercant);
+                if (commercant.getTypeCommerce().equals(this)) {
+                    commercant.setTypeCommerce(null);
+                }
+            }
+        }
     }
 
+    /**
+     * Permet d'obtenir la liste des commerçants de ce type de commerce.
+     *
+     * @return La liste des commerçants.
+     */
     public ArrayList<Commercant> getCommercants() {
         return commercants;
     }
 
+    /**
+     * Permet d'obtenir le nom du type de commerce.
+     *
+     * @return Le nom du type de commerce.
+     */
     public String getNom() {
         return this.nom;
     }
 
+    /**
+     * Définit le nom du type de commerce.
+     *
+     * @param nom Le nom du type de commerce.
+     */
     public void setNom(String nom) {
         this.nom = nom;
+    }
+
+    public int getQuota() {
+        return quota;
+    }
+
+    public void setQuota(int quota) {
+        this.quota = quota;
+    }
+
+    public void setCommercants(ArrayList<Commercant> commercants) {
+        this.commercants = commercants;
+    }
+
+    @Override
+    public String toString() {
+        return this.nom;
     }
 }
