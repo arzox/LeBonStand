@@ -26,7 +26,7 @@ public class Lieu implements Serializable {
     }
 
     /**
-     * Obtient le nom du lieu.
+     * Permet d'obtenir le nom du lieu.
      *
      * @return Le nom du lieu.
      */
@@ -35,7 +35,7 @@ public class Lieu implements Serializable {
     }
 
     /**
-     * Obtient l'adresse du lieu.
+     * Permet d'obtenir l'adresse du lieu.
      *
      * @return L'adresse du lieu.
      */
@@ -44,7 +44,7 @@ public class Lieu implements Serializable {
     }
 
     /**
-     * Obtient la ville du lieu.
+     * Permet d'obtenir la ville du lieu.
      *
      * @return La ville du lieu.
      */
@@ -53,7 +53,7 @@ public class Lieu implements Serializable {
     }
 
     /**
-     * Obtient le code postal du lieu.
+     * Permet d'obtenir le code postal du lieu.
      *
      * @return Le code postal du lieu.
      */
