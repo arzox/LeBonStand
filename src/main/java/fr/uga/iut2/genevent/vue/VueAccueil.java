@@ -173,7 +173,8 @@ public class VueAccueil extends IHM {
     @FXML
     protected void supprimerEvenement(MouseEvent e, Evenement event) {
         e.consume();
-        if (isAlreadyOpened()) return;
+        if (isAlreadyOpened())
+            return;
         try {
             toDelete = event;
             Vues.loadViewIntoStage(otherVue, DELETE, this);

@@ -43,7 +43,7 @@ public class Animation implements Serializable {
      * @param nom Le nouveau nom de l'animation.
      */
     public void setNom(String nom) {
-        if (nom == null){
+        if (nom == null) {
             throw new IllegalArgumentException("Le nom ne peut pas être nul.");
         } else {
             this.nom = nom;
@@ -65,9 +65,9 @@ public class Animation implements Serializable {
      * @param prix Le nouveau prix de l'animation.
      */
     public void setPrix(float prix) {
-        if (prix < 0){
+        if (prix < 0) {
             throw new IllegalArgumentException("Le prix ne peut pas être négatif.");
-        }else{
+        } else {
             this.prix = prix;
         }
     }

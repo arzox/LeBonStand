@@ -14,7 +14,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.layout.HBox;
 import javafx.util.converter.IntegerStringConverter;
 
 import java.util.HashMap;
@@ -29,15 +28,24 @@ public class VueCommercants extends IHM {
 
     private Map<Commercant, BooleanProperty> checkedMap = new HashMap<>();
 
-    @FXML TableColumn<Commercant, Boolean> checkBoxColumn;
-    @FXML TableColumn<Commercant, String> nomColumn;
-    @FXML TableColumn<Commercant, String> prenomColumn;
-    @FXML TableColumn<Commercant, String> emailColumn;
-    @FXML TableColumn<Commercant, String> telephoneColumn;
-    @FXML TableColumn<Commercant, Integer> heureDebutColumn;
-    @FXML TableColumn<Commercant, Integer> heureFinColumn;
-    @FXML TableColumn<Commercant, Emplacement> emplacementColumn;
-    @FXML TableColumn<Commercant, TypeCommerce> typeColumn;
+    @FXML
+    TableColumn<Commercant, Boolean> checkBoxColumn;
+    @FXML
+    TableColumn<Commercant, String> nomColumn;
+    @FXML
+    TableColumn<Commercant, String> prenomColumn;
+    @FXML
+    TableColumn<Commercant, String> emailColumn;
+    @FXML
+    TableColumn<Commercant, String> telephoneColumn;
+    @FXML
+    TableColumn<Commercant, Integer> heureDebutColumn;
+    @FXML
+    TableColumn<Commercant, Integer> heureFinColumn;
+    @FXML
+    TableColumn<Commercant, Emplacement> emplacementColumn;
+    @FXML
+    TableColumn<Commercant, TypeCommerce> typeColumn;
 
     @FXML
     TableView<Emplacement> emplacementTable;
@@ -182,7 +190,8 @@ public class VueCommercants extends IHM {
         telephoneColumn.setCellValueFactory(new PropertyValueFactory<>("telephone"));
         telephoneColumn.setOnEditCommit(event -> {
             try {
-                controleur.getControleurCommercant().modifierTelephoneCommercant(event.getRowValue(), event.getNewValue());
+                controleur.getControleurCommercant().modifierTelephoneCommercant(event.getRowValue(),
+                        event.getNewValue());
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 event.getRowValue().setTelephone(event.getOldValue());
@@ -194,7 +203,8 @@ public class VueCommercants extends IHM {
         heureDebutColumn.setCellValueFactory(new PropertyValueFactory<>("heureDebut"));
         heureDebutColumn.setOnEditCommit(event -> {
             try {
-                controleur.getControleurCommercant().modifierHeureDebutCommercant(event.getRowValue(), event.getNewValue());
+                controleur.getControleurCommercant().modifierHeureDebutCommercant(event.getRowValue(),
+                        event.getNewValue());
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 event.getRowValue().setHeureDebut(event.getOldValue());
@@ -206,7 +216,8 @@ public class VueCommercants extends IHM {
         heureFinColumn.setCellValueFactory(new PropertyValueFactory<>("heureFin"));
         heureFinColumn.setOnEditCommit(event -> {
             try {
-                controleur.getControleurCommercant().modifierHeureFinCommercant(event.getRowValue(), event.getNewValue());
+                controleur.getControleurCommercant().modifierHeureFinCommercant(event.getRowValue(),
+                        event.getNewValue());
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 event.getRowValue().setHeureFin(event.getOldValue());
@@ -305,7 +316,8 @@ public class VueCommercants extends IHM {
     }
 
     private void addLine(int i) throws Exception {
-        commercantsTable.getItems().add(controleurCommercant.inscrireCommercant(("Nom" + i), "Prenom", "Mail", "06010203", 8, 20, null, null));
+        commercantsTable.getItems().add(
+                controleurCommercant.inscrireCommercant(("Nom" + i), "Prenom", "Mail", "06010203", 8, 20, null, null));
     }
 
     @FXML

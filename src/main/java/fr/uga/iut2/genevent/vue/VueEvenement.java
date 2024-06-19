@@ -1,6 +1,5 @@
 package fr.uga.iut2.genevent.vue;
 
-
 import fr.uga.iut2.genevent.controleur.ControleurEvenement;
 import fr.uga.iut2.genevent.exception.MauvaisChampsException;
 
@@ -12,7 +11,6 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import java.util.ArrayList;
-
 
 public class VueEvenement extends IHM {
 
@@ -41,7 +39,7 @@ public class VueEvenement extends IHM {
     @FXML
     private DatePicker dateFinPicker;
 
-    private ControleurEvenement controleurEvenement  = controleur.getControleurEvenement();
+    private ControleurEvenement controleurEvenement = controleur.getControleurEvenement();
 
     public VueEvenement() {
         super();
@@ -49,7 +47,8 @@ public class VueEvenement extends IHM {
 
     @FXML
     private void initialize() {
-        typeEvenementComboBox.setItems(FXCollections.observableArrayList(controleurEvenement.getEvenement().getType().toString()));
+        typeEvenementComboBox
+                .setItems(FXCollections.observableArrayList(controleurEvenement.getEvenement().getType().toString()));
 
         loadEventData();
 
@@ -62,10 +61,14 @@ public class VueEvenement extends IHM {
         dateDebutPicker.setValue(controleurEvenement.getEvenement().getDateDebut());
         dateFinPicker.setValue(controleurEvenement.getEvenement().getDateFin());
 
-        securiteCheckBox.setSelected(controleurEvenement.getEvenement().getFonctionnalites().contains(Fonctionnalite.AGENT_SECURITE));
-        entretienCheckBox.setSelected(controleurEvenement.getEvenement().getFonctionnalites().contains(Fonctionnalite.AGENT_ENTRETIEN));
-        animationsCheckBox.setSelected(controleurEvenement.getEvenement().getFonctionnalites().contains(Fonctionnalite.ANIMATION));
-        participantsCheckBox.setSelected(controleurEvenement.getEvenement().getFonctionnalites().contains(Fonctionnalite.PARTICIPANT));
+        securiteCheckBox.setSelected(
+                controleurEvenement.getEvenement().getFonctionnalites().contains(Fonctionnalite.AGENT_SECURITE));
+        entretienCheckBox.setSelected(
+                controleurEvenement.getEvenement().getFonctionnalites().contains(Fonctionnalite.AGENT_ENTRETIEN));
+        animationsCheckBox.setSelected(
+                controleurEvenement.getEvenement().getFonctionnalites().contains(Fonctionnalite.ANIMATION));
+        participantsCheckBox.setSelected(
+                controleurEvenement.getEvenement().getFonctionnalites().contains(Fonctionnalite.PARTICIPANT));
 
         if (controleurEvenement.getEvenement().getLieu() != null) {
             adresseField.setText(controleurEvenement.getEvenement().getLieu().getAdresse());
@@ -89,7 +92,8 @@ public class VueEvenement extends IHM {
 
         typeEvenementComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             try {
-                controleurEvenement.modifierTypeEvenement(controleurEvenement.getEvenement(), TypeEvenement.fromString(newValue));
+                controleurEvenement.modifierTypeEvenement(controleurEvenement.getEvenement(),
+                        TypeEvenement.fromString(newValue));
             } catch (MauvaisChampsException e) {
                 informerUtilisateur(e.getMessage(), false);
             }
@@ -113,31 +117,35 @@ public class VueEvenement extends IHM {
 
         adresseField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (controleurEvenement.getEvenement().getLieu() == null) {
-                controleurEvenement.getEvenement().setLieu(new Lieu("","","", 0));
+                controleurEvenement.getEvenement().setLieu(new Lieu("", "", "", 0));
             }
             controleurEvenement.getEvenement().getLieu().setAdresse(newValue);
         });
 
         villeField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (controleurEvenement.getEvenement().getLieu() == null) {
-                controleurEvenement.getEvenement().setLieu(controleurEvenement.creerLieu("","","",0));
+                controleurEvenement.getEvenement().setLieu(controleurEvenement.creerLieu("", "", "", 0));
             }
             controleurEvenement.getEvenement().getLieu().setNom(newValue);
         });
 
         codePostalField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (controleurEvenement.getEvenement().getLieu() == null) {
-                controleurEvenement.getEvenement().setLieu(controleurEvenement.creerLieu("","","",0));
+                controleurEvenement.getEvenement().setLieu(controleurEvenement.creerLieu("", "", "", 0));
             }
-            controleurEvenement.modifierCodePostalLieu(controleurEvenement.getEvenement().getLieu(), controleurEvenement.getEvenement().getLieu().getCodePostal());
+            controleurEvenement.modifierCodePostalLieu(controleurEvenement.getEvenement().getLieu(),
+                    controleurEvenement.getEvenement().getLieu().getCodePostal());
         });
 
-        securiteCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.AGENT_SECURITE, newValue));
-        entretienCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.AGENT_ENTRETIEN, newValue));
-        animationsCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.ANIMATION, newValue));
-        participantsCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.PARTICIPANT, newValue));
+        securiteCheckBox.selectedProperty().addListener(
+                (observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.AGENT_SECURITE, newValue));
+        entretienCheckBox.selectedProperty().addListener(
+                (observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.AGENT_ENTRETIEN, newValue));
+        animationsCheckBox.selectedProperty().addListener(
+                (observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.ANIMATION, newValue));
+        participantsCheckBox.selectedProperty().addListener(
+                (observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.PARTICIPANT, newValue));
     }
-
 
     private void updateFonctionnalite(Fonctionnalite fonctionnalite, boolean add) {
         Evenement evenement = controleurEvenement.getEvenement();

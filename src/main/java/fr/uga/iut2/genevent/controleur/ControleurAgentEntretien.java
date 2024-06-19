@@ -101,7 +101,8 @@ public class ControleurAgentEntretien {
      * @return L'agent d'entretien correspondant aux informations fournies, ou null
      *         si aucun agent d'entretien ne correspond.
      */
-    public AgentEntretien getAgentEntretien(String nom, String prenom, String email, String telephone) throws Exception {
+    public AgentEntretien getAgentEntretien(String nom, String prenom, String email, String telephone)
+            throws Exception {
         if (evenement != null) {
 
             for (AgentEntretien agentEntretien : evenement.getAgentsEntretien()) {
@@ -155,7 +156,8 @@ public class ControleurAgentEntretien {
                 String emailCourant = agent.getEmail();
                 String telephoneCourant = agent.getTelephone();
                 boolean isNotUnique = nom.equals(nomCourant) & agentEntretien.getPrenom().equals(prenomCourant)
-                        & agentEntretien.getEmail().equals(emailCourant) & agentEntretien.getTelephone().equals(telephoneCourant);
+                        & agentEntretien.getEmail().equals(emailCourant)
+                        & agentEntretien.getTelephone().equals(telephoneCourant);
 
                 if (isNotUnique) {
 
@@ -167,7 +169,8 @@ public class ControleurAgentEntretien {
             agentEntretien.setNom(nom);
 
         } else
-            throw new Exception("Le nom de l'agent d'entretien ne peut être modifié car l'événement du controleur est nul");
+            throw new Exception(
+                    "Le nom de l'agent d'entretien ne peut être modifié car l'événement du controleur est nul");
     }
 
     /**
@@ -188,7 +191,8 @@ public class ControleurAgentEntretien {
                 String emailCourant = agent.getEmail();
                 String telephoneCourant = agent.getTelephone();
                 boolean isNotUnique = agentEntretien.getNom().equals(nomCourant) & prenom.equals(prenomCourant)
-                        & agentEntretien.getEmail().equals(emailCourant) & agentEntretien.getTelephone().equals(telephoneCourant);
+                        & agentEntretien.getEmail().equals(emailCourant)
+                        & agentEntretien.getTelephone().equals(telephoneCourant);
 
                 if (isNotUnique) {
 
@@ -200,7 +204,8 @@ public class ControleurAgentEntretien {
             agentEntretien.setPrenom(prenom);
 
         } else
-            throw new Exception("Le prénom de l'agent d'entretien ne peut être modifié car l'événement du controleur est nul");
+            throw new Exception(
+                    "Le prénom de l'agent d'entretien ne peut être modifié car l'événement du controleur est nul");
     }
 
     /**
@@ -220,7 +225,8 @@ public class ControleurAgentEntretien {
                 String prenomCourant = agent.getPrenom();
                 String emailCourant = agent.getEmail();
                 String telephoneCourant = agent.getTelephone();
-                boolean isNotUnique = agentEntretien.getNom().equals(nomCourant) & agentEntretien.getPrenom().equals(prenomCourant)
+                boolean isNotUnique = agentEntretien.getNom().equals(nomCourant)
+                        & agentEntretien.getPrenom().equals(prenomCourant)
                         & email.equals(emailCourant) & agentEntretien.getTelephone().equals(telephoneCourant);
 
                 if (isNotUnique) {
@@ -233,7 +239,8 @@ public class ControleurAgentEntretien {
             agentEntretien.setEmail(email);
 
         } else
-            throw new Exception("L'email de l'agent d'entretien ne peut être modifié car l'événement du controleur est nul");
+            throw new Exception(
+                    "L'email de l'agent d'entretien ne peut être modifié car l'événement du controleur est nul");
     }
 
     /**
@@ -254,7 +261,8 @@ public class ControleurAgentEntretien {
                 String prenomCourant = agent.getPrenom();
                 String emailCourant = agent.getEmail();
                 String telephoneCourant = agent.getTelephone();
-                boolean isNotUnique = agentEntretien.getNom().equals(nomCourant) & agentEntretien.getPrenom().equals(prenomCourant)
+                boolean isNotUnique = agentEntretien.getNom().equals(nomCourant)
+                        & agentEntretien.getPrenom().equals(prenomCourant)
                         & agentEntretien.getEmail().equals(emailCourant) & telephone.equals(telephoneCourant);
 
                 if (isNotUnique) {
@@ -267,7 +275,8 @@ public class ControleurAgentEntretien {
             agentEntretien.setTelephone(telephone);
 
         } else
-            throw new Exception("Le numéro de téléphone de l'agent d'entretien ne peut être modifié car l'événement du controleur est nul");
+            throw new Exception(
+                    "Le numéro de téléphone de l'agent d'entretien ne peut être modifié car l'événement du controleur est nul");
     }
 
     /**
@@ -293,7 +302,8 @@ public class ControleurAgentEntretien {
             agentEntretien.setHeureDebut(heureDebut);
 
         } else
-            throw new Exception("L'heure de début de l'agent d'entretien ne peut être modifié car l'événement du controleur est nul");
+            throw new Exception(
+                    "L'heure de début de l'agent d'entretien ne peut être modifié car l'événement du controleur est nul");
     }
 
     /**
@@ -319,6 +329,7 @@ public class ControleurAgentEntretien {
             agentEntretien.setHeureFin(heureFin);
 
         } else
-            throw new Exception("L'heure de fin de l'agent d'entretien ne peut être modifié car l'événement du controleur est nul");
+            throw new Exception(
+                    "L'heure de fin de l'agent d'entretien ne peut être modifié car l'événement du controleur est nul");
     }
 }
