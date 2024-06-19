@@ -88,7 +88,7 @@ public class VueOnglets extends IHM {
      * Modifie l'état de la fenêtre en argument pour lui appliquer l'onglet spécifié
      * par l'argument {@code fxmlName}, puis ajoute le panneau de navigation
      * vertical pour compléter.
-     * 
+     *
      * @param stage Le stage dont la vue doit être changée
      */
     @Override
@@ -97,6 +97,8 @@ public class VueOnglets extends IHM {
         getContent().load();
         ((Pane) getContent().getParent()).getChildren().add(0, getParent());
         Vues.showParentOnStage(getContent().getParent(), stage);
+        stage.setMaximized(false);
+        stage.setMaximized(true);
     }
 
     @Override
