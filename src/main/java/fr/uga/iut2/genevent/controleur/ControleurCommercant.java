@@ -60,7 +60,7 @@ public class ControleurCommercant {
                                          int heureFin, Emplacement emplacement, TypeCommerce typeCommerce) throws Exception {
         if (evenement != null) {
 
-            boolean quotaNotRespected = false; // TODO
+            boolean quotaNotRespected = typeCommerce != null && typeCommerce.getQuota() == typeCommerce.getCommercants().size();
             boolean isStartAfterEnd = heureDebut > heureFin;
 
             if (quotaNotRespected) {
