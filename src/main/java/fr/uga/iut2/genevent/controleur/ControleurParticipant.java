@@ -135,8 +135,7 @@ public class ControleurParticipant {
                 String nomCourant = agent.getNom();
                 String prenomCourant = agent.getPrenom();
                 String emailCourant = agent.getEmail();
-                boolean isNotUnique = participant.getNom().equals(nomCourant)
-                        & participant.getPrenom().equals(prenomCourant)
+                boolean isNotUnique = participant.getNom().equals(nomCourant) & participant.getPrenom().equals(prenomCourant)
                         & email.equals(emailCourant);
 
                 if (isNotUnique) {

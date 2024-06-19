@@ -1,6 +1,7 @@
 package fr.uga.iut2.genevent.util;
 
 import fr.uga.iut2.genevent.controleur.Controleur;
+import fr.uga.iut2.genevent.controleur.ControleurCommercant;
 import javafx.util.StringConverter;
 import fr.uga.iut2.genevent.modele.Emplacement;
 

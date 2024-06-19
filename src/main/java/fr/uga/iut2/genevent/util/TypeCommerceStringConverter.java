@@ -1,5 +1,8 @@
 package fr.uga.iut2.genevent.util;
 
+import fr.uga.iut2.genevent.controleur.Controleur;
+import fr.uga.iut2.genevent.controleur.ControleurCommercant;
+import fr.uga.iut2.genevent.modele.Emplacement;
 import fr.uga.iut2.genevent.modele.TypeCommerce;
 import javafx.util.StringConverter;
 

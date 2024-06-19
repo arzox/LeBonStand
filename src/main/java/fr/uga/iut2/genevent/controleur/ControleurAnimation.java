@@ -49,7 +49,7 @@ public class ControleurAnimation {
      * @throws Exception si il est impossible d'ajouter l'animation
      */
     public Animation ajouterAnimation(String nom, float prix, LocalDateTime dateHeureDebut,
-            LocalDateTime dateHeureFin) throws Exception {
+                                      LocalDateTime dateHeureFin) throws Exception {
         if (evenement != null) {
 
             LocalDate dateDebut = dateHeureDebut.toLocalDate();
@@ -97,27 +97,23 @@ public class ControleurAnimation {
 
             if (isStartAfterEnd) {
 
-                throw new MauvaisChampsException(
-                        "La date et l'heure de début de l'animation est ultérieure à sa date et son heure de fin",
+                throw new MauvaisChampsException("La date et l'heure de début de l'animation est ultérieure à sa date et son heure de fin",
                         new ArrayList<>(Arrays.asList(true, true, false, false)));
 
             } else if (isStartBeforeEventStart & isEndAfterEventEnd) {
 
-                throw new MauvaisChampsException(
-                        "La date de début de l'animation est antérieure à l'heure de début de l'événement et " +
-                                "la date de fin de l'animation est ultérieure à l'heure de fin de l'événement",
+                throw new MauvaisChampsException("La date de début de l'animation est antérieure à l'heure de début de l'événement et " +
+                        "la date de fin de l'animation est ultérieure à l'heure de fin de l'événement",
                         new ArrayList<>(Arrays.asList(true, true, false, false)));
 
             } else if (isStartBeforeEventStart) {
 
-                throw new MauvaisChampsException(
-                        "La date de début de l'animation est antérieure à la date de début de l'événement",
+                throw new MauvaisChampsException("La date de début de l'animation est antérieure à la date de début de l'événement",
                         new ArrayList<>(Arrays.asList(true, true, false, true)));
 
             } else if (isEndAfterEventEnd) {
 
-                throw new MauvaisChampsException(
-                        "La date de fin de l'animation est ultérieure à la date de fin de l'événement",
+                throw new MauvaisChampsException("La date de fin de l'animation est ultérieure à la date de fin de l'événement",
                         new ArrayList<>(Arrays.asList(true, true, true, false)));
             }
             Animation nouvelleAnimation = new Animation(nom, prix, dateHeureDebut, dateHeureFin);
@@ -180,8 +176,7 @@ public class ControleurAnimation {
 
                 if (isNotUnique) {
 
-                    throw new MauvaisChampsException(
-                            "En changeant le nom de l'animation, celle-ci devient identique à une autre animation",
+                    throw new MauvaisChampsException("En changeant le nom de l'animation, celle-ci devient identique à une autre animation",
                             new ArrayList<>(Arrays.asList(false, true, true, true)));
                 }
             }
@@ -224,21 +219,18 @@ public class ControleurAnimation {
 
             if (isStartAfterEnd) {
 
-                throw new MauvaisChampsException(
-                        "La date et l'heure de début de l'animation est ultérieure à sa date et son heure de fin",
+                throw new MauvaisChampsException("La date et l'heure de début de l'animation est ultérieure à sa date et son heure de fin",
                         new ArrayList<>(Collections.singleton(false)));
 
             } else if (isStartBeforeEventStart) {
 
-                throw new MauvaisChampsException(
-                        "La date de début de l'animation est antérieure à la date de début de l'événement",
+                throw new MauvaisChampsException("La date de début de l'animation est antérieure à la date de début de l'événement",
                         new ArrayList<>(Collections.singleton(false)));
             }
             animation.setDateHeureDebut(dateHeureDebut);
 
         } else
-            throw new Exception(
-                    "La date de début de l'animation ne peut être modifiée car l'événement du controleur est nul");
+            throw new Exception("La date de début de l'animation ne peut être modifiée car l'événement du controleur est nul");
     }
 
     /**
@@ -258,20 +250,17 @@ public class ControleurAnimation {
 
             if (isEndBeforeStart) {
 
-                throw new MauvaisChampsException(
-                        "La date et l'heure de fin de l'animation est antérieure à sa date et son heure de début",
+                throw new MauvaisChampsException("La date et l'heure de fin de l'animation est antérieure à sa date et son heure de début",
                         new ArrayList<>(Collections.singleton(false)));
 
             } else if (isEndAfterEventEnd) {
 
-                throw new MauvaisChampsException(
-                        "La date de fin de l'animation est ultérieure à la date de fin de l'événement",
+                throw new MauvaisChampsException("La date de fin de l'animation est ultérieure à la date de fin de l'événement",
                         new ArrayList<>(Collections.singleton(false)));
             }
             animation.setDateHeureFin(dateHeureFin);
 
         } else
-            throw new Exception(
-                    "La date de fin de l'animation ne peut être modifiée car l'événement du controleur est nul");
+            throw new Exception("La date de fin de l'animation ne peut être modifiée car l'événement du controleur est nul");
     }
 }
