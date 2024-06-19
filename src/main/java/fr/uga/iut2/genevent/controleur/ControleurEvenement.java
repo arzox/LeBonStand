@@ -3,36 +3,52 @@ package fr.uga.iut2.genevent.controleur;
 import fr.uga.iut2.genevent.exception.MauvaisChampsException;
 import fr.uga.iut2.genevent.modele.*;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
 /**
- * Contrôleur pour les événements
+ * Contrôleur pour la catégorie "Evenement".
  */
 public class ControleurEvenement {
 
     private Application application;
     private Evenement evenement;
 
+    /**
+     * Crée le contrôleur, doit être uniquement appelée par le constructeur de la classe Controleur.
+     * @param application L'application que le contrôleur gérera
+     */
     public ControleurEvenement(Application application) {
         this.application = application;
     }
 
+    /**
+     * Récupère l'événement géré par le contrôleur.
+     * @return L'événement actuel
+     */
     public Evenement getEvenement() {
         return evenement;
     }
 
+    /**
+     * Attribue un événement au contrôleur.
+     * @param evenement L'événement à attribuer
+     */
     public void setEvenement(Evenement evenement) {
         this.evenement = evenement;
     }
 
-    // Événement
-    public Evenement creerEvenement(String nom, TypeEvenement type,
-                                    ArrayList<Fonctionnalite> fonctionnalites) throws MauvaisChampsException {
-
+    /**
+     * Crée un nouvel événement et l'ajoute à la liste des événements de cette application.
+     * @param nom Nom de l'événement
+     * @param type Type de l'événement
+     * @param fonctionnalites Liste des fonctionnalités de l'événement
+     * @return L'événement créé.
+     * @throws MauvaisChampsException Si un événement avec le même nom et type existe déjà.
+     */
+    public Evenement creerEvenement(String nom, TypeEvenement type, ArrayList<Fonctionnalite> fonctionnalites) throws MauvaisChampsException {
         // Création d'un événement
         if (type == null) {
 
@@ -57,14 +73,24 @@ public class ControleurEvenement {
         // Ajout de l'événement à la liste des événements
         application.addEvenement(evenement);
 
-        // Renvoi de l'événement afin d'y attribuer les controleurs dans le controleur FXML dans la vue
+        // Renvoi de l'événement afin d'y attribuer les contrôleurs dans le contrôleur FXML dans la vue
         return evenement;
     }
 
+    /**
+     * Retire de la liste des événements de cette application l'événement donné en paramètre.
+     * @param evenement L'événement à supprimer
+     */
     public void supprimerEvenement(Evenement evenement) {
         application.removeEvenement(evenement);
     }
 
+    /**
+     * Modifie le nom de l'événement donné en paramètre.
+     * @param evenement L'événement dont le nom doit être modifié
+     * @param nom Nouveau nom
+     * @throws MauvaisChampsException Si le nouveau nom rend l'événement identique à un autre événement.
+     */
     public void modifierNomEvenement(Evenement evenement, String nom) throws MauvaisChampsException {
 
         for (Evenement evenementCourant : application.getEvenements()) {
@@ -83,6 +109,12 @@ public class ControleurEvenement {
         evenement.setNom(nom);
     }
 
+    /**
+     * Modifie le type de l'événement donné en paramètre.
+     * @param evenement L'événement dont le type doit être modifié
+     * @param type Nouveau type
+     * @throws MauvaisChampsException Si le nouveau type rend l'événement identique à un autre événement.
+     */
     public void modifierTypeEvenement(Evenement evenement, TypeEvenement type) throws MauvaisChampsException {
 
         for (Evenement evenementCourant : application.getEvenements()) {
@@ -101,16 +133,32 @@ public class ControleurEvenement {
         evenement.setType(type);
     }
 
+    /**
+     * Modifie les fonctionnalités de l'événement donné en paramètre.
+     * @param evenement L'événement dont les fonctionnalités doivent être modifiées
+     * @param fonctionnalites Nouvelles fonctionnalités
+     */
     public void modifierFonctionnalitesEvenement(Evenement evenement, ArrayList<Fonctionnalite> fonctionnalites) {
 
         evenement.setFonctionnalites(fonctionnalites);
     }
 
+    /**
+     * Modifie le lieu de l'événement donné en paramètre.
+     * @param evenement L'événement dont le nom doit être modifié
+     * @param lieu Nouveau lieu
+     */
     public void modifierLieuEvenement(Evenement evenement, Lieu lieu) {
 
         evenement.setLieu(lieu);
     }
 
+    /**
+     * Modifie la date de début de l'événement donné en paramètre.
+     * @param evenement L'événement dont la date de début doit être modifié
+     * @param dateDebut Nouvelle date de début
+     * @throws MauvaisChampsException Si la nouvelle date de début de cet événement est ultérieure à sa date de fin.
+     */
     public void modifierDebutEvenement(Evenement evenement, LocalDate dateDebut) throws MauvaisChampsException {
 
         boolean isStartAfterEnd = evenement.getDateFin() != null && dateDebut.isAfter(evenement.getDateFin());
@@ -123,6 +171,12 @@ public class ControleurEvenement {
         evenement.setDateDebut(dateDebut);
     }
 
+    /**
+     * Modifie la date de fin d'un événement.
+     * @param evenement L'événement à modifier
+     * @param dateFin Nouvelle date de fin
+     * @throws MauvaisChampsException Si la nouvelle date de fin de cet événement est antérieure à sa date de début.
+     */
     public void modifierFinEvenement(Evenement evenement, LocalDate dateFin) throws MauvaisChampsException {
 
         boolean isStartAfterEnd = evenement.getDateDebut() != null && dateFin.isBefore(evenement.getDateDebut());
@@ -143,7 +197,7 @@ public class ControleurEvenement {
      * @param adresse Adresse du lieu
      * @param ville Ville du lieu
      * @param codePostal Code postal du lieu
-     * @return le lieu créé.
+     * @return Le lieu créé.
      */
     public Lieu creerLieu(String nom, String adresse, String ville, int codePostal) {
 
@@ -154,9 +208,9 @@ public class ControleurEvenement {
     }
 
     /**
-     * Modifie le nom du lieu donné par un nom donné
-     * @param lieu Lieu dont le nom est modifié
-     * @param nom Nouveau nom à donner
+     * Modifie le nom du lieu donné en paramètre.
+     * @param lieu Lieu à modifier
+     * @param nom Nouveau nom
      */
     public void modifierNomLieu(Lieu lieu ,String nom) {
 
@@ -164,9 +218,9 @@ public class ControleurEvenement {
     }
 
     /**
-     * Modifie l'adresse du lieu donné par une adresse donnée
-     * @param lieu Lieu dont l'adresse est modifiée
-     * @param adresse Nouvelle adresse à donner
+     * Modifie l'adresse du lieu donné en paramètre.
+     * @param lieu Lieu à modifier
+     * @param adresse Nouvelle adresse
      */
     public void modifierAdresseLieu(Lieu lieu, String adresse) {
 
@@ -174,9 +228,9 @@ public class ControleurEvenement {
     }
 
     /**
-     * Modifie la ville du lieu donné par une ville donnée
-     * @param lieu Lieu dont la ville est modifiée
-     * @param ville Nouvelle ville à donner
+     * Modifie la ville du lieu donné en paramètre.
+     * @param lieu Lieu à modifier
+     * @param ville Nouvelle ville
      */
     public void modifierVilleLieu(Lieu lieu, String ville) {
 
@@ -184,15 +238,19 @@ public class ControleurEvenement {
     }
 
     /**
-     * Modifie le code postal du lieu donné par un code postal donnée
-     * @param lieu Lieu dont le code postal est modifié
-     * @param codePostal Nouveau code postal à donner
+     * Modifie le code postal du lieu donné en paramètre.
+     * @param lieu Lieu à modifier
+     * @param codePostal Nouveau code postal
      */
     public void modifierCodePostalLieu(Lieu lieu, int codePostal) {
 
         lieu.setCodePostal(codePostal);
     }
 
+    /**
+     * Récupère les fonctionnalités de l'événement.
+     * @return Liste des fonctionnalités de l'événement.
+     */
     public ArrayList<Fonctionnalite> getFonctionnalites() {
         return evenement.getFonctionnalites();
     }
