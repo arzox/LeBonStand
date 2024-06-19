@@ -25,9 +25,6 @@ public class VueCommercants extends IHM {
     private ControleurCommercant controleurCommercant;
 
     @FXML
-    HBox container;
-
-    @FXML
     TableView<Commercant> commercantsTable;
 
     private Map<Commercant, BooleanProperty> checkedMap = new HashMap<>();
