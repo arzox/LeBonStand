@@ -7,7 +7,6 @@ import fr.uga.iut2.genevent.modele.Fonctionnalite;
 import fr.uga.iut2.genevent.modele.Lieu;
 import fr.uga.iut2.genevent.modele.TypeEvenement;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -16,8 +15,11 @@ import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Observable;
+import java.util.Observer;
 
-public class VueEvenement extends IHM {
+public class VueEvenement extends IHM implements Observer {
 
     public static final String FXML_NAME = "tab-event.fxml";
 
@@ -63,10 +65,10 @@ public class VueEvenement extends IHM {
         addFieldListeners();
     }
 
+
     private void loadEventData() {
         Evenement evenement = controleurEvenement.getEvenement();
         nomEvenementField.setText(evenement.getNom());
-        // Mise à jour pour définir la valeur de la ComboBox avec le nom correct
         typeEvenementComboBox.setValue(evenement.getType().getDisplayName());
         dateDebutPicker.setValue(evenement.getDateDebut());
         dateFinPicker.setValue(evenement.getDateFin());
@@ -85,23 +87,30 @@ public class VueEvenement extends IHM {
             villeField.setText("");
             codePostalField.setText("");
         }
-    }
 
-        @FXML
-        private void changerImage() {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Choisir une image");
-            fileChooser.getExtensionFilters().addAll(
-                    new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
-            );
-            File file = fileChooser.showOpenDialog(null);
-            if (file != null) {
-                Image newImage = new Image(file.toURI().toString());
-                changeImageView.setImage(newImage);
-                // Enregistrer le chemin de la nouvelle image
-                controleurEvenement.setImagePath(file.getAbsolutePath());
+        if (evenement.getImagePath() != null && !evenement.getImagePath().isEmpty()) {
+            File imageFile = new File(evenement.getImagePath());
+            if (imageFile.exists()) {
+                Image image = new Image(imageFile.toURI().toString());
+                changeImageView.setImage(image);
             }
         }
+    }
+
+    @FXML
+    private void changerImage() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choisir une image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
+        );
+        File file = fileChooser.showOpenDialog(null);
+        if (file != null) {
+            Image newImage = new Image(file.toURI().toString());
+            changeImageView.setImage(newImage);
+            controleurEvenement.setImagePath(controleurEvenement.getEvenement(), file.getAbsolutePath());
+        }
+    }
 
     private void addFieldListeners() {
         nomEvenementField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -195,15 +204,9 @@ public class VueEvenement extends IHM {
         controleurEvenement.modifierFonctionnalitesEvenement(evenement, fonctionnalites);
     }
 
-    private void changerImage(ActionEvent event, ImageView mainImage) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Choisir une image");
-        File file = fileChooser.showOpenDialog(null);
-        if (file != null) {
-            Image newImage = new Image(file.toURI().toString());
-            mainImage.setImage(newImage);
-            // Ici, vous pouvez enregistrer la nouvelle image dans votre modèle ou faire d'autres opérations nécessaires
-        }
+    @Override
+    public void update(Observable o, Object arg) {
+        loadEventData();
     }
 
     @Override
@@ -217,6 +220,4 @@ public class VueEvenement extends IHM {
     public String getFxmlName() {
         return FXML_NAME;
     }
-
-
 }

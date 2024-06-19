@@ -11,17 +11,15 @@ import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.util.ArrayList;
 
-/**
- * La classe VueCreation est responsable des interactions avec
- * l'utilisa·teur/trice en mode graphique pour la vue création d'événement
- * <p>
- * Contrôleur de : new-event.fxml
- */
 public class VueCreation extends IHM {
 
     public static final String FXML_NAME = "new-event.fxml";
@@ -34,6 +32,11 @@ public class VueCreation extends IHM {
 
     @FXML
     private ComboBox<String> typeMarche;
+
+    @FXML
+    private ImageView imageView;
+
+    private String imagePath;
 
     private Stage previousStage;
 
@@ -49,6 +52,21 @@ public class VueCreation extends IHM {
     }
 
     @FXML
+    private void selectImage(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choisir une image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
+        );
+        File file = fileChooser.showOpenDialog(null);
+        if (file != null) {
+            imagePath = file.getAbsolutePath();
+            Image newImage = new Image(file.toURI().toString());
+            imageView.setImage(newImage);
+        }
+    }
+
+    @FXML
     private void onAnnuler(ActionEvent event) {
         Stage stage = (Stage) typeMarche.getScene().getWindow();
         stage.fireEvent(
@@ -60,8 +78,12 @@ public class VueCreation extends IHM {
     @FXML
     private void onCreer(ActionEvent event) {
         try {
-            Evenement evenement = controleur.getControleurEvenement().creerEvenement(nom.getText(), getTypeEvenement(),
-                    getFonctionnalitesSelected());
+            Evenement evenement = controleur.getControleurEvenement().creerEvenement(
+                    nom.getText(),
+                    getTypeEvenement(),
+                    getFonctionnalitesSelected(),
+                    imagePath
+            );
             controleur.setEvenementCourant(evenement);
             ((Stage) typeMarche.getScene().getWindow()).close();
             VueOnglets vueOnglets = new VueOnglets(new VueEvenement());
@@ -69,7 +91,6 @@ public class VueCreation extends IHM {
         } catch (MauvaisChampsException e) {
             e.printStackTrace();
         }
-
     }
 
     private ArrayList<Fonctionnalite> getFonctionnalitesSelected() {

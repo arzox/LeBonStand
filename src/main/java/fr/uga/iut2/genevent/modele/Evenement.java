@@ -17,6 +17,7 @@ public class Evenement implements Serializable {
     private LocalDate dateDebut;
     private LocalDate dateFin;
     private int maxParticipants;
+    private String imagePath;
 
     // Module Commerçants
     private HashMap<TypeCommerce, Integer> typeCommerces = new HashMap<>();
@@ -46,12 +47,13 @@ public class Evenement implements Serializable {
      * @param fonctionnalites La liste des fonctionnalités de l'événement.
      */
     public Evenement(String nom, LocalDate dateDebut, LocalDate dateFin, TypeEvenement typeEvenement,
-            ArrayList<Fonctionnalite> fonctionnalites) {
+            ArrayList<Fonctionnalite> fonctionnalites, String imagePath) {
         setNom(nom);
         setDateDebut(dateDebut);
         setDateFin(dateFin);
         setType(typeEvenement);
         setFonctionnalites(fonctionnalites);
+        setImagePath(imagePath);
     }
 
     // ---------Module Commercants---------
@@ -429,6 +431,24 @@ public class Evenement implements Serializable {
      */
     public void setMaxParticipants(int maxParticipants) {
         this.maxParticipants = maxParticipants;
+    }
+
+    /**
+     * Obtient le chemin de l'image de l'événement.
+     *
+     * @return Le chemin de l'image.
+     */
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    /**
+     * Définit le chemin de l'image de l'événement.
+     *
+     * @param imagePath Le chemin de l'image.
+     */
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     /**
