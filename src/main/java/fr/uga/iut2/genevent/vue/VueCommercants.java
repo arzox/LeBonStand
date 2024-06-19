@@ -54,6 +54,9 @@ public class VueCommercants extends IHM {
     public VueCommercants() {
         super();
         this.controleurCommercant = controleur.getControleurCommercant();
+        annexTable = new TableView<>();
+        idAnnex = new TableColumn<>();
+        valueAnnex = new TableColumn<>();
     }
 
     // Implémentations et redéfinitions

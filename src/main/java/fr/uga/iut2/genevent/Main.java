@@ -2,17 +2,11 @@ package fr.uga.iut2.genevent;
 
 import fr.uga.iut2.genevent.controleur.Controleur;
 import fr.uga.iut2.genevent.modele.Application;
-import fr.uga.iut2.genevent.modele.Evenement;
-import fr.uga.iut2.genevent.modele.Fonctionnalite;
-import fr.uga.iut2.genevent.modele.TypeEvenement;
 import fr.uga.iut2.genevent.util.Persisteur;
 import fr.uga.iut2.genevent.vue.JavaFXGUI;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
@@ -71,7 +65,7 @@ public class Main {
         Controleur controleur = Controleur.getInstance(application);
 
         // Set evenement courant pour tester
-        controleur.setEvenementCourant(application.getEvenements().get(0));
+        // controleur.setEvenementCourant(application.getEvenements().get(0));
 
         try {
             LOGGER.log(Level.INFO, "Démarrage de l'interface graphique");

@@ -3,11 +3,15 @@ package fr.uga.iut2.genevent.vue;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.logging.Level;
 
+import fr.uga.iut2.genevent.Main;
 import fr.uga.iut2.genevent.modele.Fonctionnalite;
 import fr.uga.iut2.genevent.util.Vues;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -37,17 +41,20 @@ public class VueOnglets extends IHM {
 
     @FXML
     private void onAccueilClicked() {
-        switchOnglet(new VueAccueil());
+        Main.setLOGGER(Level.INFO, "L'utilisateur a cliqué sur \"Accueil\" : changement de vue");
+        new VueAccueil().changerFenetre((Stage) nomEvenement.getScene().getWindow());
     }
 
     @FXML
-    private void onEventClicked() {
-        switchOnglet(new VueEvenement());
+    private void onEventClicked(MouseEvent event) {
+        Main.setLOGGER(Level.INFO, "L'utilisateur a cliqué sur \"" + nomEvenement.getText() + "\" (le nom actuel de l'événement) : changement de vue");
+        switchOnglet(new VueEvenement(), (Node) event.getSource());
     }
 
     @FXML
-    private void onCommercantsClicked() {
-        switchOnglet(new VueCommercants());
+    private void onCommercantsClicked(MouseEvent event) {
+        Main.setLOGGER(Level.INFO, "L'utilisateur a cliqué sur \"Commerçants\" : changement de vue");
+        switchOnglet(new VueCommercants(), (Node) event.getSource());
     }
 
     @FXML
@@ -78,25 +85,29 @@ public class VueOnglets extends IHM {
             }
         }
 
+        // TODO : confirmer la suppression de ce bloc de code
         // add clicked section
-        panel.getChildren().subList(3, panel.getChildren().size() - 1).forEach(node -> node.setOnMouseClicked(event -> {
-            int index = panel.getChildren().indexOf(node);
-            setCurrentOnglet(index);
-        }));
+        // panel.getChildren().subList(3, panel.getChildren().size() - 1).forEach(node -> node.setOnMouseClicked(event -> {
+        //     int index = panel.getChildren().indexOf(node);
+        //     setCurrentOnglet(index);
+        // }));
     }
 
-    private void switchOnglet(IHM nouvelleVue) {
+    private void switchOnglet(IHM nouvelleVue, Node button) {
         setContent(nouvelleVue);
         changerFenetre((Stage) nomEvenement.getScene().getWindow());
+        panel.getChildren().forEach(node -> node.getStyleClass().remove("button-selected"));
+        button.getStyleClass().add("button-selected");
     }
 
-    public void setCurrentOnglet(int i) {
-        if (i < 0 || i >= panel.getChildren().size()) {
-            return;
-        }
-        panel.getChildren().forEach(node -> node.getStyleClass().remove("button-selected"));
-        panel.getChildren().get(i).getStyleClass().add("button-selected");
-    }
+    // TODO : confirmer la suppression de cette méthode
+    // public void setCurrentOnglet(int i) {
+    //     if (i < 0 || i >= panel.getChildren().size()) {
+    //         return;
+    //     }
+    //     panel.getChildren().forEach(node -> node.getStyleClass().remove("button-selected"));
+    //     panel.getChildren().get(i).getStyleClass().add("button-selected");
+    // }
 
     /**
      * Modifie l'état de la fenêtre en argument pour lui appliquer l'onglet spécifié
