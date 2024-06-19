@@ -9,7 +9,6 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-
 /**
  * La classe JavaFXGUI délègue les interactions graphiques aux classes
  * {@code VueXXX} du même package. Elle constitue l'intermédiaire entre la
@@ -28,7 +27,7 @@ import javafx.stage.WindowEvent;
  */
 public class JavaFXGUI {
 
-    private final CountDownLatch eolBarrier;  // /!\ ne pas supprimer /!\ : suivi de la durée de vie de l'interface
+    private final CountDownLatch eolBarrier; // /!\ ne pas supprimer /!\ : suivi de la durée de vie de l'interface
 
     /**
      * Constructeur de la classe JavaFXGUI.
@@ -37,7 +36,7 @@ public class JavaFXGUI {
      */
     public JavaFXGUI() {
         super();
-        this.eolBarrier = new CountDownLatch(1);  // /!\ ne pas supprimer /!\
+        this.eolBarrier = new CountDownLatch(1); // /!\ ne pas supprimer /!\
     }
 
     /**
@@ -57,7 +56,8 @@ public class JavaFXGUI {
         accueil.changerFenetre(primaryStage);
 
         // On applique quelques propriétés supplémentaires
-        primaryStage.getIcons().add(new Image(getClass().getResource("/fr/uga/iut2/genevent/images/LBS-blanc-orange.png").toExternalForm()));
+        primaryStage.getIcons().add(new Image(
+                getClass().getResource("/fr/uga/iut2/genevent/images/LBS-blanc-orange.png").toExternalForm()));
         primaryStage.setMaximized(true);
         primaryStage.setTitle("LeBonStand");
     }

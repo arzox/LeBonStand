@@ -46,7 +46,8 @@ public class VueOnglets extends IHM {
 
     @FXML
     private void onEventClicked(MouseEvent event) {
-        Main.setLOGGER(Level.INFO, "L'utilisateur a cliqué sur \"" + nomEvenement.getText() + "\" (le nom actuel de l'événement) : changement de vue");
+        Main.setLOGGER(Level.INFO, "L'utilisateur a cliqué sur \"" + nomEvenement.getText()
+                + "\" (le nom actuel de l'événement) : changement de vue");
         switchOnglet(new VueEvenement(), (Node) event.getSource());
     }
 
@@ -66,7 +67,8 @@ public class VueOnglets extends IHM {
      * <p>
      * - Applique le nom de l'événement pour le bouton "Événement"
      * <p>
-     * - Met à jour les boutons selon les fonctionnalités activées pour cet événement
+     * - Met à jour les boutons selon les fonctionnalités activées pour cet
+     * événement
      */
     private void setupButton() {
         nomEvenement.setText(controleur.getControleurEvenement().getEvenement().getNom());
@@ -86,9 +88,10 @@ public class VueOnglets extends IHM {
 
         // TODO : confirmer la suppression de ce bloc de code
         // add clicked section
-        // panel.getChildren().subList(3, panel.getChildren().size() - 1).forEach(node -> node.setOnMouseClicked(event -> {
-        //     int index = panel.getChildren().indexOf(node);
-        //     setCurrentOnglet(index);
+        // panel.getChildren().subList(3, panel.getChildren().size() - 1).forEach(node
+        // -> node.setOnMouseClicked(event -> {
+        // int index = panel.getChildren().indexOf(node);
+        // setCurrentOnglet(index);
         // }));
     }
 
@@ -96,7 +99,8 @@ public class VueOnglets extends IHM {
         setContent(nouvelleVue);
         changerFenetre((Stage) nomEvenement.getScene().getWindow());
         setCurrentOnglet(panel.getChildren().indexOf(button));
-        // panel.getChildren().forEach(node -> node.getStyleClass().remove("button-selected"));
+        // panel.getChildren().forEach(node ->
+        // node.getStyleClass().remove("button-selected"));
         // button.getStyleClass().add("button-selected");
     }
 

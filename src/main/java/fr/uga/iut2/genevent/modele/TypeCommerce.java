@@ -26,7 +26,7 @@ public class TypeCommerce implements Serializable {
      * @param commercant Le commerçant à ajouter.
      */
     public void addCommercant(Commercant commercant) {
-        if (commercant != null){
+        if (commercant != null) {
             this.commercants.add(commercant);
             if (commercant.getTypeCommerce() == null || !commercant.getTypeCommerce().equals(this)) {
                 commercant.setTypeCommerce(this);

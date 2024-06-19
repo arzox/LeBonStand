@@ -61,7 +61,8 @@ public class ControleurCommercant {
                 throw new MauvaisChampsException("L'heure de début est ultérieure à l'heure de fin",
                         new ArrayList<>(Arrays.asList(true, true, true, true, false, false, true, true)));
             }
-            Commercant nouveauCommercant = new Commercant(nom, prenom, email, telephone, heureDebut, heureFin, emplacement, typeCommerce);
+            Commercant nouveauCommercant = new Commercant(nom, prenom, email, telephone, heureDebut, heureFin,
+                    emplacement, typeCommerce);
             evenement.inscrireCommercant(nouveauCommercant);
 
             return nouveauCommercant;
@@ -112,11 +113,13 @@ public class ControleurCommercant {
                 String emailCourant = commercantCourant.getEmail();
                 String telephoneCourant = commercantCourant.getTelephone();
                 boolean isNotUnique = nom.equals(nomCourant) & commercant.getPrenom().equals(prenomCourant)
-                        & commercant.getEmail().equals(emailCourant) & commercant.getTelephone().equals(telephoneCourant);
+                        & commercant.getEmail().equals(emailCourant)
+                        & commercant.getTelephone().equals(telephoneCourant);
 
                 if (isNotUnique) {
 
-                    throw new MauvaisChampsException("En changeant le nom du commerçant, celui-ci devient identique à un autre commerçant",
+                    throw new MauvaisChampsException(
+                            "En changeant le nom du commerçant, celui-ci devient identique à un autre commerçant",
                             new ArrayList<>(Collections.singleton(false)));
                 }
             }
@@ -136,7 +139,8 @@ public class ControleurCommercant {
                 String emailCourant = commercantCourant.getEmail();
                 String telephoneCourant = commercantCourant.getTelephone();
                 boolean isNotUnique = commercant.getNom().equals(nomCourant) & prenom.equals(prenomCourant)
-                        & commercant.getEmail().equals(emailCourant) & commercant.getTelephone().equals(telephoneCourant);
+                        & commercant.getEmail().equals(emailCourant)
+                        & commercant.getTelephone().equals(telephoneCourant);
 
                 if (isNotUnique) {
 
@@ -160,7 +164,8 @@ public class ControleurCommercant {
                 String prenomCourant = commercantCourant.getPrenom();
                 String emailCourant = commercantCourant.getEmail();
                 String telephoneCourant = commercantCourant.getTelephone();
-                boolean isNotUnique = commercant.getNom().equals(nomCourant) & commercant.getPrenom().equals(prenomCourant)
+                boolean isNotUnique = commercant.getNom().equals(nomCourant)
+                        & commercant.getPrenom().equals(prenomCourant)
                         & email.equals(emailCourant) & commercant.getTelephone().equals(telephoneCourant);
 
                 if (isNotUnique) {
@@ -185,7 +190,8 @@ public class ControleurCommercant {
                 String prenomCourant = commercantCourant.getPrenom();
                 String emailCourant = commercantCourant.getEmail();
                 String telephoneCourant = commercantCourant.getTelephone();
-                boolean isNotUnique = commercant.getNom().equals(nomCourant) & commercant.getPrenom().equals(prenomCourant)
+                boolean isNotUnique = commercant.getNom().equals(nomCourant)
+                        & commercant.getPrenom().equals(prenomCourant)
                         & commercant.getEmail().equals(emailCourant) & telephone.equals(telephoneCourant);
 
                 if (isNotUnique) {
@@ -198,7 +204,8 @@ public class ControleurCommercant {
             commercant.setTelephone(telephone);
 
         } else
-            throw new Exception("Le numéro de téléphone du commerçant ne peut être mofifié car l'événement du controleur est nul");
+            throw new Exception(
+                    "Le numéro de téléphone du commerçant ne peut être mofifié car l'événement du controleur est nul");
     }
 
     public void modifierHeureDebutCommercant(Commercant commercant, int heureDebut) throws Exception {
@@ -214,7 +221,8 @@ public class ControleurCommercant {
             commercant.setHeureDebut(heureDebut);
 
         } else
-            throw new Exception("L'heure de début du commerçant ne peut être mofifié car l'événement du controleur est nul");
+            throw new Exception(
+                    "L'heure de début du commerçant ne peut être mofifié car l'événement du controleur est nul");
     }
 
     public void modifierHeureFinCommercant(Commercant commercant, int heureFin) throws Exception {
@@ -230,7 +238,8 @@ public class ControleurCommercant {
             commercant.setHeureFin(heureFin);
 
         } else
-            throw new Exception("L'heure de fin du commerçant ne peut être mofifié car l'événement du controleur est nul");
+            throw new Exception(
+                    "L'heure de fin du commerçant ne peut être mofifié car l'événement du controleur est nul");
     }
 
     public void modifierEmplacementCommercant(Commercant commercant, Emplacement emplacement) throws Exception {
@@ -239,7 +248,8 @@ public class ControleurCommercant {
             commercant.setEmplacement(emplacement);
 
         } else
-            throw new Exception("L'emplacement du commerçant ne peut être mofifié car l'événement du controleur est nul");
+            throw new Exception(
+                    "L'emplacement du commerçant ne peut être mofifié car l'événement du controleur est nul");
     }
 
     public void modifierTypeCommerceCommercant(Commercant commercant, TypeCommerce typeCommerce) throws Exception {
@@ -248,7 +258,8 @@ public class ControleurCommercant {
             commercant.setTypeCommerce(typeCommerce);
 
         } else
-            throw new Exception("Le type de commerce du commerçant ne peut être mofifié car l'événement du controleur est nul");
+            throw new Exception(
+                    "Le type de commerce du commerçant ne peut être mofifié car l'événement du controleur est nul");
     }
 
     // Emplacement
@@ -313,7 +324,8 @@ public class ControleurCommercant {
             emplacement.setTaille(taille);
 
         } else
-            throw new Exception("La taille de l'emplacement ne peut être modifiée car l'événement du controleur est nul");
+            throw new Exception(
+                    "La taille de l'emplacement ne peut être modifiée car l'événement du controleur est nul");
     }
 
     // Type de commerce
@@ -332,8 +344,7 @@ public class ControleurCommercant {
                     throw new MauvaisChampsException("Le type de commerce que vous souhaitez créer existe déjà et " +
                             "le quota ne peut pas être nul ou négatif",
                             new ArrayList<>(Arrays.asList(false, false)));
-                }
-                else if (isNotUnique) {
+                } else if (isNotUnique) {
 
                     throw new MauvaisChampsException("Le type de commerce que vous souhaitez créer existe déjà",
                             new ArrayList<>(Arrays.asList(false, true)));
@@ -399,7 +410,8 @@ public class ControleurCommercant {
             type.setNom(nom);
 
         } else
-            throw new Exception("Le nom du type de commerce ne peut être modifié car l'événement du controleur est nul");
+            throw new Exception(
+                    "Le nom du type de commerce ne peut être modifié car l'événement du controleur est nul");
 
     }
 
@@ -418,11 +430,11 @@ public class ControleurCommercant {
                 evenement.getTypeCommerces().put(type, quota);
             }
         } else
-            throw new Exception("Le quota du type de commerce ne peut être modifié car l'événement du controleur est nul");
+            throw new Exception(
+                    "Le quota du type de commerce ne peut être modifié car l'événement du controleur est nul");
     }
 
     public ArrayList<Emplacement> getEmplacements() {
         return evenement.getEmplacements();
     }
 }
-
