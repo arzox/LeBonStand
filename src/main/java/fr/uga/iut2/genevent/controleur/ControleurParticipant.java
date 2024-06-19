@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 /**
- * Sous-contrôleur pour la catégorie "Participants"
+ * Contrôleur pour la catégorie "Participants"
  */
 public class ControleurParticipant {
 
@@ -23,6 +23,7 @@ public class ControleurParticipant {
         this.evenement = evenement;
     }
 
+    // Participant
     public Participant inscrireParticipant(String nom, String prenom, String email) throws Exception {
         if (evenement != null) {
 
@@ -49,19 +50,24 @@ public class ControleurParticipant {
             throw new Exception("Le participant ne peut être inscrit car l'événement du controleur est nul");
     }
 
-    public Participant getParticipant(String nom, String prenom, String email) {
-        for (Participant participant : evenement.getParticipants()) {
+    public Participant getParticipant(String nom, String prenom, String email) throws Exception {
+        if (evenement != null) {
 
-            String nomCourant = participant.getNom();
-            String prenomCourant = participant.getPrenom();
-            String emailCourant = participant.getEmail();
+            for (Participant participant : evenement.getParticipants()) {
 
-            if (nom.equals(nomCourant) & prenom.equals(prenomCourant) & email.equals(emailCourant)) {
+                String nomCourant = participant.getNom();
+                String prenomCourant = participant.getPrenom();
+                String emailCourant = participant.getEmail();
 
-                return participant;
+                if (nom.equals(nomCourant) & prenom.equals(prenomCourant) & email.equals(emailCourant)) {
+
+                    return participant;
+                }
             }
-        }
-        return null;
+            return null;
+
+        } else
+            throw new Exception("Le participant ne peut être récupéré car l'événement du controleur est nul");
     }
 
     public void desinscrireParticipant(Participant participant) throws Exception {
@@ -86,8 +92,8 @@ public class ControleurParticipant {
 
                 if (isNotUnique) {
 
-                    throw new MauvaisChampsException(
-                            "En changeant le nom du participant, celui-ci devient identique à un autre participant",
+                    throw new MauvaisChampsException("En changeant le nom du participant, " +
+                            "celui-ci devient identique à un autre participant",
                             new ArrayList<>(Collections.singleton(false)));
                 }
             }
@@ -110,8 +116,8 @@ public class ControleurParticipant {
 
                 if (isNotUnique) {
 
-                    throw new MauvaisChampsException(
-                            "En changeant le prénom du participant, celui-ci devient identique à un autre participant",
+                    throw new MauvaisChampsException("En changeant le prénom du participant, " +
+                            "celui-ci devient identique à un autre participant",
                             new ArrayList<>(Collections.singleton(false)));
                 }
             }
@@ -129,14 +135,13 @@ public class ControleurParticipant {
                 String nomCourant = agent.getNom();
                 String prenomCourant = agent.getPrenom();
                 String emailCourant = agent.getEmail();
-                boolean isNotUnique = participant.getNom().equals(nomCourant)
-                        & participant.getPrenom().equals(prenomCourant)
+                boolean isNotUnique = participant.getNom().equals(nomCourant) & participant.getPrenom().equals(prenomCourant)
                         & email.equals(emailCourant);
 
                 if (isNotUnique) {
 
-                    throw new MauvaisChampsException(
-                            "En changeant l'adresse email du participant, celui-ci devient identique à un autre participant",
+                    throw new MauvaisChampsException("En changeant l'adresse email du participant, " +
+                            "celui-ci devient identique à un autre participant",
                             new ArrayList<>(Collections.singleton(false)));
                 }
             }

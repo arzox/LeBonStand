@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 /**
- * Sous-contrôleur pour la catégorie "Agents d'entretien"
+ * Contrôleur pour la catégorie "Agents d'entretien"
  */
 public class ControleurAgentEntretien {
 
@@ -34,6 +34,8 @@ public class ControleurAgentEntretien {
     public void setEvenement(Evenement evenement) {
         this.evenement = evenement;
     }
+
+    // Agent d'entretien
 
     /**
      * Ajoute un agent d'entretien à l'événement.
@@ -60,8 +62,8 @@ public class ControleurAgentEntretien {
                 String prenomCourant = agent.getPrenom();
                 String emailCourant = agent.getEmail();
                 String telephoneCourant = agent.getTelephone();
-                boolean isNotUnique = nom.equals(nomCourant) & prenom.equals(prenomCourant) & email.equals(emailCourant)
-                        & telephone.equals(telephoneCourant);
+                boolean isNotUnique = nom.equals(nomCourant) & prenom.equals(prenomCourant)
+                        & email.equals(emailCourant) & telephone.equals(telephoneCourant);
 
                 if (isNotUnique & isStartAfterEnd) {
 
@@ -99,21 +101,27 @@ public class ControleurAgentEntretien {
      * @return L'agent d'entretien correspondant aux informations fournies, ou null
      *         si aucun agent d'entretien ne correspond.
      */
-    public AgentEntretien getAgentEntretien(String nom, String prenom, String email, String telephone) {
-        for (AgentEntretien agentEntretien : evenement.getAgentsEntretien()) {
+    public AgentEntretien getAgentEntretien(String nom, String prenom, String email, String telephone) throws Exception {
+        if (evenement != null) {
 
-            String nomCourant = agentEntretien.getNom();
-            String prenomCourant = agentEntretien.getPrenom();
-            String emailCourant = agentEntretien.getEmail();
-            String telephoneCourant = agentEntretien.getTelephone();
+            for (AgentEntretien agentEntretien : evenement.getAgentsEntretien()) {
 
-            if (nom.equals(nomCourant) & prenom.equals(prenomCourant) & email.equals(emailCourant)
-                    & telephone.equals(telephoneCourant)) {
+                String nomCourant = agentEntretien.getNom();
+                String prenomCourant = agentEntretien.getPrenom();
+                String emailCourant = agentEntretien.getEmail();
+                String telephoneCourant = agentEntretien.getTelephone();
+                boolean agentFound = nom.equals(nomCourant) & prenom.equals(prenomCourant)
+                        & email.equals(emailCourant) & telephone.equals(telephoneCourant);
 
-                return agentEntretien;
+                if (agentFound) {
+
+                    return agentEntretien;
+                }
             }
-        }
-        return null;
+            return null;
+
+        } else
+            throw new Exception("L'agent d'entretien ne peut être récupéré car l'événement du controleur est nul");
     }
 
     /**
@@ -147,21 +155,19 @@ public class ControleurAgentEntretien {
                 String emailCourant = agent.getEmail();
                 String telephoneCourant = agent.getTelephone();
                 boolean isNotUnique = nom.equals(nomCourant) & agentEntretien.getPrenom().equals(prenomCourant)
-                        & agentEntretien.getEmail().equals(emailCourant)
-                        & agentEntretien.getTelephone().equals(telephoneCourant);
+                        & agentEntretien.getEmail().equals(emailCourant) & agentEntretien.getTelephone().equals(telephoneCourant);
 
                 if (isNotUnique) {
 
-                    throw new MauvaisChampsException(
-                            "En changeant le nom de l'agent d'entretien, celui-ci devient identique à un autre agent d'entretien",
+                    throw new MauvaisChampsException("En changeant le nom de l'agent d'entretien, " +
+                            "celui-ci devient identique à un autre agent d'entretien",
                             new ArrayList<>(Collections.singleton(false)));
                 }
             }
             agentEntretien.setNom(nom);
 
         } else
-            throw new Exception(
-                    "Le nom de l'agent d'entretien ne peut être modifié car l'événement du controleur est nul");
+            throw new Exception("Le nom de l'agent d'entretien ne peut être modifié car l'événement du controleur est nul");
     }
 
     /**
@@ -182,21 +188,19 @@ public class ControleurAgentEntretien {
                 String emailCourant = agent.getEmail();
                 String telephoneCourant = agent.getTelephone();
                 boolean isNotUnique = agentEntretien.getNom().equals(nomCourant) & prenom.equals(prenomCourant)
-                        & agentEntretien.getEmail().equals(emailCourant)
-                        & agentEntretien.getTelephone().equals(telephoneCourant);
+                        & agentEntretien.getEmail().equals(emailCourant) & agentEntretien.getTelephone().equals(telephoneCourant);
 
                 if (isNotUnique) {
 
-                    throw new MauvaisChampsException(
-                            "En changeant le prénom de l'agent d'entretien, celui-ci devient identique à un autre agent d'entretien",
+                    throw new MauvaisChampsException("En changeant le prénom de l'agent d'entretien, " +
+                            "celui-ci devient identique à un autre agent d'entretien",
                             new ArrayList<>(Collections.singleton(false)));
                 }
             }
             agentEntretien.setPrenom(prenom);
 
         } else
-            throw new Exception(
-                    "Le prénom de l'agent d'entretien ne peut être modifié car l'événement du controleur est nul");
+            throw new Exception("Le prénom de l'agent d'entretien ne peut être modifié car l'événement du controleur est nul");
     }
 
     /**
@@ -216,22 +220,20 @@ public class ControleurAgentEntretien {
                 String prenomCourant = agent.getPrenom();
                 String emailCourant = agent.getEmail();
                 String telephoneCourant = agent.getTelephone();
-                boolean isNotUnique = agentEntretien.getNom().equals(nomCourant)
-                        & agentEntretien.getPrenom().equals(prenomCourant)
+                boolean isNotUnique = agentEntretien.getNom().equals(nomCourant) & agentEntretien.getPrenom().equals(prenomCourant)
                         & email.equals(emailCourant) & agentEntretien.getTelephone().equals(telephoneCourant);
 
                 if (isNotUnique) {
 
-                    throw new MauvaisChampsException(
-                            "En changeant l'adresse email de l'agent d'entretien, celui-ci devient identique à un autre agent d'entretien",
+                    throw new MauvaisChampsException("En changeant l'adresse email de l'agent d'entretien, " +
+                            "celui-ci devient identique à un autre agent d'entretien",
                             new ArrayList<>(Collections.singleton(false)));
                 }
             }
             agentEntretien.setEmail(email);
 
         } else
-            throw new Exception(
-                    "L'email de l'agent d'entretien ne peut être modifié car l'événement du controleur est nul");
+            throw new Exception("L'email de l'agent d'entretien ne peut être modifié car l'événement du controleur est nul");
     }
 
     /**
@@ -252,22 +254,20 @@ public class ControleurAgentEntretien {
                 String prenomCourant = agent.getPrenom();
                 String emailCourant = agent.getEmail();
                 String telephoneCourant = agent.getTelephone();
-                boolean isNotUnique = agentEntretien.getNom().equals(nomCourant)
-                        & agentEntretien.getPrenom().equals(prenomCourant)
+                boolean isNotUnique = agentEntretien.getNom().equals(nomCourant) & agentEntretien.getPrenom().equals(prenomCourant)
                         & agentEntretien.getEmail().equals(emailCourant) & telephone.equals(telephoneCourant);
 
                 if (isNotUnique) {
 
-                    throw new MauvaisChampsException(
-                            "En changeant le numéro de téléphone de l'agent d'entretien, celui-ci devient identique à un autre agent d'entretien",
+                    throw new MauvaisChampsException("En changeant le numéro de téléphone de l'agent d'entretien, " +
+                            "celui-ci devient identique à un autre agent d'entretien",
                             new ArrayList<>(Collections.singleton(false)));
                 }
             }
             agentEntretien.setTelephone(telephone);
 
         } else
-            throw new Exception(
-                    "Le numéro de téléphone de l'agent d'entretien ne peut être modifié car l'événement du controleur est nul");
+            throw new Exception("Le numéro de téléphone de l'agent d'entretien ne peut être modifié car l'événement du controleur est nul");
     }
 
     /**
@@ -293,8 +293,7 @@ public class ControleurAgentEntretien {
             agentEntretien.setHeureDebut(heureDebut);
 
         } else
-            throw new Exception(
-                    "L'heure de début de l'agent d'entretien ne peut être modifié car l'événement du controleur est nul");
+            throw new Exception("L'heure de début de l'agent d'entretien ne peut être modifié car l'événement du controleur est nul");
     }
 
     /**
@@ -320,7 +319,6 @@ public class ControleurAgentEntretien {
             agentEntretien.setHeureFin(heureFin);
 
         } else
-            throw new Exception(
-                    "L'heure de fin de l'agent d'entretien ne peut être modifié car l'événement du controleur est nul");
+            throw new Exception("L'heure de fin de l'agent d'entretien ne peut être modifié car l'événement du controleur est nul");
     }
 }
