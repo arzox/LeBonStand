@@ -6,7 +6,6 @@ import fr.uga.iut2.genevent.modele.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Map;
 
 /**
  * Contrôleur pour la catégorie "Commerçants"

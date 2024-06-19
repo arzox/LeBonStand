@@ -5,7 +5,6 @@ import fr.uga.iut2.genevent.controleur.ControleurAgentSecurite;
 import fr.uga.iut2.genevent.modele.*;
 import fr.uga.iut2.genevent.util.NombreAgentStringConverter;
 import fr.uga.iut2.genevent.util.ZoneStringConverter;
-import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
