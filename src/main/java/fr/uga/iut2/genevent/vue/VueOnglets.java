@@ -10,7 +10,6 @@ import fr.uga.iut2.genevent.modele.Fonctionnalite;
 import fr.uga.iut2.genevent.util.Vues;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -96,18 +95,19 @@ public class VueOnglets extends IHM {
     private void switchOnglet(IHM nouvelleVue, Node button) {
         setContent(nouvelleVue);
         changerFenetre((Stage) nomEvenement.getScene().getWindow());
-        panel.getChildren().forEach(node -> node.getStyleClass().remove("button-selected"));
-        button.getStyleClass().add("button-selected");
+        setCurrentOnglet(panel.getChildren().indexOf(button));
+        // panel.getChildren().forEach(node -> node.getStyleClass().remove("button-selected"));
+        // button.getStyleClass().add("button-selected");
     }
 
     // TODO : confirmer la suppression de cette méthode
-    // public void setCurrentOnglet(int i) {
-    //     if (i < 0 || i >= panel.getChildren().size()) {
-    //         return;
-    //     }
-    //     panel.getChildren().forEach(node -> node.getStyleClass().remove("button-selected"));
-    //     panel.getChildren().get(i).getStyleClass().add("button-selected");
-    // }
+    public void setCurrentOnglet(int i) {
+        if (i < 0 || i >= panel.getChildren().size()) {
+            return;
+        }
+        panel.getChildren().forEach(node -> node.getStyleClass().remove("button-selected"));
+        panel.getChildren().get(i).getStyleClass().add("button-selected");
+    }
 
     /**
      * Modifie l'état de la fenêtre en argument pour lui appliquer l'onglet spécifié
