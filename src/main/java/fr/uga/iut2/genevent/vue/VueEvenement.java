@@ -47,7 +47,11 @@ public class VueEvenement extends IHM {
 
     @FXML
     private void initialize() {
-        typeEvenementComboBox.setItems(FXCollections.observableArrayList(TypeEvenement.values().toString()));
+        typeEvenementComboBox.setItems(FXCollections.observableArrayList(
+                Arrays.stream(TypeEvenement.values())
+                        .map(TypeEvenement::toString)
+                        .toArray(String[]::new)
+        ));
 
         loadEventData();
 
