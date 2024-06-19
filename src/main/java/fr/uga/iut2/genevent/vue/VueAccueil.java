@@ -136,7 +136,11 @@ public class VueAccueil extends IHM {
         }
         try {
             VueOnglets vueOnglets = new VueOnglets(new VueEvenement());
-            vueOnglets.changerFenetre((Stage) eventsFlowPane.getScene().getWindow());
+            Stage la = (Stage) eventsFlowPane.getScene().getWindow();
+            vueOnglets.changerFenetre(la);
+            la.setMaximized(false);
+            la.setMaximized(true);
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
