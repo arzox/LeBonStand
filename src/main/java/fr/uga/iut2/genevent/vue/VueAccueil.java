@@ -2,7 +2,6 @@ package fr.uga.iut2.genevent.vue;
 
 import fr.uga.iut2.genevent.modele.Evenement;
 import fr.uga.iut2.genevent.util.Vues;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -13,11 +12,9 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-import java.io.File;
 import java.util.List;
 
 /**
@@ -29,7 +26,9 @@ import java.util.List;
  * confirmation pour supprimer un événement)
  */
 public class VueAccueil extends IHM {
+
     public static final String FXML_NAME = "accueil.fxml";
+    public static final String DELETE = "delete-event.fxml";
 
     @FXML
     private FlowPane eventsFlowPane;
@@ -51,7 +50,6 @@ public class VueAccueil extends IHM {
      * des événements affichés par l'accueil.
      */
     private void loadEvents() {
-        // Exemple de liste d'événements. Remplacez ceci par votre propre logique pour récupérer les événements.
         List<Evenement> eventNames = controleur.getEvents();
 
         // Clear the current children before adding new events
@@ -95,9 +93,6 @@ public class VueAccueil extends IHM {
         trash.getStyleClass().add("trash");
         trash.setOnMouseClicked(e -> supprimerEvenement(e, event));
 
-        Button changeImageButton = new Button("Changer l'image");
-        changeImageButton.setOnAction(e -> changerImage(e, mainImage)); // Ajouter la logique pour changer l'image
-
         stackPane.getChildren().addAll(mainImage, trash);
         StackPane.setAlignment(trash, Pos.BOTTOM_LEFT);
 
@@ -108,7 +103,6 @@ public class VueAccueil extends IHM {
 
         return vBox;
     }
-
 
     private VBox createNewEventButton() {
         VBox vBox = new VBox();
@@ -141,9 +135,8 @@ public class VueAccueil extends IHM {
             otherVue.close();
         }
         try {
-            VueCommercants vueCommercants = new VueCommercants();
-            VueOnglets vueOnglets = new VueOnglets(vueCommercants);
-            vueOnglets.changerFenetre(new Stage());
+            VueOnglets vueOnglets = new VueOnglets(new VueEvenement());
+            vueOnglets.changerFenetre((Stage) eventsFlowPane.getScene().getWindow());
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -178,7 +171,7 @@ public class VueAccueil extends IHM {
         if (isAlreadyOpened()) return;
         try {
             toDelete = event;
-            Vues.loadViewIntoStage(otherVue, "delete-event.fxml", this);
+            Vues.loadViewIntoStage(otherVue, DELETE, this);
             // Reload events after deleting one
             loadEvents();
         } catch (Exception exception) {
@@ -198,24 +191,11 @@ public class VueAccueil extends IHM {
     @FXML
     private void onValider() {
         controleur.supprimerEvenement(toDelete);
-        Stage stage = (Stage) annulerBouton.getScene().getWindow();
-        stage.fireEvent(
-                new WindowEvent(
-                        stage,
-                        WindowEvent.WINDOW_CLOSE_REQUEST));
+        ((Stage) annulerBouton.getScene().getWindow()).close();
         loadEvents();
     }
 
-    private void changerImage(ActionEvent event, ImageView mainImage) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Choisir une image");
-        File file = fileChooser.showOpenDialog(null);
-        if (file != null) {
-            Image newImage = new Image(file.toURI().toString());
-            mainImage.setImage(newImage);
-            // Ici, vous pouvez enregistrer la nouvelle image dans votre modèle ou faire d'autres opérations nécessaires
-        }
-    }
+    // Implémentations et redéfinitions
 
     @Override
     public void informerUtilisateur(String msg, boolean succes) {
