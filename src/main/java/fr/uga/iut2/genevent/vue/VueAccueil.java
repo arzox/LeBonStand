@@ -191,11 +191,7 @@ public class VueAccueil extends IHM {
     @FXML
     private void onValider() {
         controleur.supprimerEvenement(toDelete);
-        Stage stage = (Stage) annulerBouton.getScene().getWindow();
-        stage.fireEvent(
-                new WindowEvent(
-                        stage,
-                        WindowEvent.WINDOW_CLOSE_REQUEST));
+        ((Stage) annulerBouton.getScene().getWindow()).close();
         loadEvents();
     }
 

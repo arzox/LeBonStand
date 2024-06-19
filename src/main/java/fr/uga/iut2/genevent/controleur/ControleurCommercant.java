@@ -30,7 +30,7 @@ public class ControleurCommercant {
 
     // Commerçant
     public Commercant inscrireCommercant(String nom, String prenom, String email, String telephone, int heureDebut,
-            int heureFin, Emplacement emplacement, TypeCommerce typeCommerce) throws Exception {
+                                         int heureFin, Emplacement emplacement, TypeCommerce typeCommerce) throws Exception {
         if (evenement != null) {
 
             boolean isStartAfterEnd = heureDebut > heureFin;
@@ -255,11 +255,11 @@ public class ControleurCommercant {
     public Emplacement creerEmplacement(int taille) throws Exception {
         if (evenement != null) {
 
-            boolean isNegative = taille <= 0;
+            boolean isNegative = taille < 0;
 
             if (isNegative) {
 
-                throw new MauvaisChampsException("La taille ne peut pas être nulle ou négative",
+                throw new MauvaisChampsException("La taille ne peut pas être négative",
                         new ArrayList<>(Collections.singleton(false)));
             }
             int numero = evenement.getEmplacements().size() + 1;
@@ -320,20 +320,19 @@ public class ControleurCommercant {
     public TypeCommerce creerTypeCommerce(String nom, int quota) throws Exception {
         if (evenement != null) {
 
-            boolean isNegative = quota <= 0;
+            boolean isNegative = quota < 0;
 
-            for (Map.Entry<TypeCommerce, Integer> type : evenement.getTypeCommerces().entrySet()) {
+            for (TypeCommerce type : evenement.getTypeCommerces()) {
 
-                String nomCourant = type.getKey().getNom();
+                String nomCourant = type.getNom();
                 boolean isNotUnique = nom.equals(nomCourant);
 
                 if (isNotUnique & isNegative) {
 
                     throw new MauvaisChampsException("Le type de commerce que vous souhaitez créer existe déjà et " +
-                            "le quota ne peut pas être nul ou négatif",
+                            "le quota ne peut pas être négatif",
                             new ArrayList<>(Arrays.asList(false, false)));
-                }
-                else if (isNotUnique) {
+                } else if (isNotUnique) {
 
                     throw new MauvaisChampsException("Le type de commerce que vous souhaitez créer existe déjà",
                             new ArrayList<>(Arrays.asList(false, true)));
@@ -344,8 +343,8 @@ public class ControleurCommercant {
                 throw new MauvaisChampsException("Le quota ne peut pas être nul ou négatif",
                         new ArrayList<>(Arrays.asList(true, false)));
             }
-            TypeCommerce nouveauTypeCommerce = new TypeCommerce(nom);
-            evenement.ajouterTypeCommerce(nouveauTypeCommerce, quota);
+            TypeCommerce nouveauTypeCommerce = new TypeCommerce(nom, quota);
+            evenement.ajouterTypeCommerce(nouveauTypeCommerce);
 
             return nouveauTypeCommerce;
 
@@ -356,15 +355,13 @@ public class ControleurCommercant {
     public TypeCommerce getTypeCommerce(String nom) throws Exception {
         if (evenement != null) {
 
-            for (Map.Entry<TypeCommerce, Integer> dict : evenement.getTypeCommerces().entrySet()) {
+            for (TypeCommerce typeCommerce : evenement.getTypeCommerces()) {
 
-                TypeCommerce type = dict.getKey();
-                String nomCourant = type.getNom();
+                String nomCourant = typeCommerce.getNom();
                 boolean typeFound = nom.equals(nomCourant);
 
                 if (typeFound) {
-
-                    return type;
+                    return typeCommerce;
                 }
             }
             return null;
@@ -384,17 +381,9 @@ public class ControleurCommercant {
 
     public void modifierNomTypeCommerce(TypeCommerce type, String nom) throws Exception {
         if (evenement != null) {
-
-            for (Map.Entry<TypeCommerce, Integer> typeCourant : evenement.getTypeCommerces().entrySet()) {
-
-                String nomCourant = typeCourant.getKey().getNom();
-                boolean isNotUnique = nom.equals(nomCourant);
-
-                if (isNotUnique) {
-
-                    throw new MauvaisChampsException("Le type de commerce que vous souhaitez créer existe déjà",
-                            new ArrayList<>(Collections.singleton(false)));
-                }
+            if (getTypeCommerce(nom) != null) {
+                throw new MauvaisChampsException("Le type de commerce que vous souhaitez créer existe déjà",
+                        new ArrayList<>(Collections.singleton(false)));
             }
             type.setNom(nom);
 
@@ -413,9 +402,8 @@ public class ControleurCommercant {
                 throw new MauvaisChampsException("Le quota ne peut pas être nul ou négatif",
                         new ArrayList<>(Collections.singleton(false)));
             }
-            if (evenement.getTypeCommerces().containsKey(type)) {
-
-                evenement.getTypeCommerces().put(type, quota);
+            if (getTypeCommerce(type.getNom()) != null) {
+                getTypeCommerce(type.getNom()).setQuota(quota);
             }
         } else
             throw new Exception("Le quota du type de commerce ne peut être modifié car l'événement du controleur est nul");
@@ -423,6 +411,10 @@ public class ControleurCommercant {
 
     public ArrayList<Emplacement> getEmplacements() {
         return evenement.getEmplacements();
+    }
+
+    public ArrayList<TypeCommerce> getTypeCommerces() {
+        return new ArrayList<>(evenement.getTypeCommerces());
     }
 }
 

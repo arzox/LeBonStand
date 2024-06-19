@@ -9,6 +9,7 @@ import java.util.ArrayList;
  */
 public class TypeCommerce implements Serializable {
     private String nom;
+    private int quota;
     private ArrayList<Commercant> commercants = new ArrayList<>();
 
     /**
@@ -16,8 +17,9 @@ public class TypeCommerce implements Serializable {
      *
      * @param nom Le nom du type de commerce.
      */
-    public TypeCommerce(String nom) {
+    public TypeCommerce(String nom, int quota) {
         setNom(nom);
+        setQuota(quota);
     }
 
     /**
@@ -75,6 +77,18 @@ public class TypeCommerce implements Serializable {
      */
     public void setNom(String nom) {
         this.nom = nom;
+    }
+
+    public int getQuota() {
+        return quota;
+    }
+
+    public void setQuota(int quota) {
+        this.quota = quota;
+    }
+
+    public void setCommercants(ArrayList<Commercant> commercants) {
+        this.commercants = commercants;
     }
 
     @Override

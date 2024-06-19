@@ -19,7 +19,7 @@ public class Evenement implements Serializable {
     private int maxParticipants;
 
     // Module Commerçants
-    private HashMap<TypeCommerce, Integer> typeCommerces = new HashMap<>();
+    private ArrayList<TypeCommerce> typeCommerces = new ArrayList<>();
     private ArrayList<Commercant> commercants = new ArrayList<>();
     private ArrayList<Emplacement> emplacements = new ArrayList<>();
 
@@ -118,10 +118,9 @@ public class Evenement implements Serializable {
      * Ajoute un type de commerce à l'événement.
      *
      * @param typeCommerce Le type de commerce à ajouter.
-     * @param nombre Le nombre de ce type de commerce.
      */
-    public void ajouterTypeCommerce(TypeCommerce typeCommerce, int nombre) {
-        this.typeCommerces.put(typeCommerce, nombre);
+    public void ajouterTypeCommerce(TypeCommerce typeCommerce) {
+        this.typeCommerces.add(typeCommerce);
     }
 
     /**
@@ -129,7 +128,7 @@ public class Evenement implements Serializable {
      *
      * @return Les types de commerces.
      */
-    public HashMap<TypeCommerce, Integer> getTypeCommerces() {
+    public ArrayList<TypeCommerce> getTypeCommerces() {
         return typeCommerces;
     }
 
