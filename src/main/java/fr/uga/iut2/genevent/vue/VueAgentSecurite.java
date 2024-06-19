@@ -224,7 +224,8 @@ public class VueAgentSecurite extends IHM {
     }
 
     private void addLine(int i) throws Exception {
-        agentsTable.getItems().add(controleurAgentSecurite.ajouterAgentSecurite(("Nom" + i), "Prenom", "Mail", "06010203", 8, 20, null));
+        agentsTable.getItems().add(
+                controleurAgentSecurite.ajouterAgentSecurite(("Nom" + i), "Prenom", "Mail", "06010203", 8, 20, null));
     }
 
     @FXML

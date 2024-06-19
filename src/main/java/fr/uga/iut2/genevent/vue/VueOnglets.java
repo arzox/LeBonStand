@@ -88,23 +88,20 @@ public class VueOnglets extends IHM {
 
         // TODO : confirmer la suppression de ce bloc de code
         // add clicked section
-        // panel.getChildren().subList(3, panel.getChildren().size() - 1).forEach(node
-        // -> node.setOnMouseClicked(event -> {
-        // int index = panel.getChildren().indexOf(node);
-        // setCurrentOnglet(index);
+        // panel.getChildren().subList(3, panel.getChildren().size() - 1).forEach(node -> node.setOnMouseClicked(event -> {
+        //     int index = panel.getChildren().indexOf(node);
+        //     setCurrentOnglet(index);
         // }));
     }
 
     private void switchOnglet(IHM nouvelleVue, Node button) {
+        panel.getChildren().forEach(node -> node.getStyleClass().remove("button-selected"));
+        button.getStyleClass().add("button-selected");
         setContent(nouvelleVue);
         changerFenetre((Stage) nomEvenement.getScene().getWindow());
-        setCurrentOnglet(panel.getChildren().indexOf(button));
-        // panel.getChildren().forEach(node ->
-        // node.getStyleClass().remove("button-selected"));
-        // button.getStyleClass().add("button-selected");
+        // setCurrentOnglet(panel.getChildren().indexOf(button));
     }
 
-    // TODO : confirmer la suppression de cette méthode
     public void setCurrentOnglet(int i) {
         if (i < 0 || i >= panel.getChildren().size()) {
             return;
