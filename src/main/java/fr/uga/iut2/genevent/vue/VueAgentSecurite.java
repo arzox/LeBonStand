@@ -5,7 +5,6 @@ import fr.uga.iut2.genevent.controleur.ControleurAgentSecurite;
 import fr.uga.iut2.genevent.modele.*;
 import fr.uga.iut2.genevent.util.NombreAgentStringConverter;
 import fr.uga.iut2.genevent.util.ZoneStringConverter;
-import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
@@ -225,7 +224,8 @@ public class VueAgentSecurite extends IHM {
     }
 
     private void addLine(int i) throws Exception {
-        agentsTable.getItems().add(controleurAgentSecurite.ajouterAgentSecurite(("Nom" + i), "Prenom", "Mail", "06010203", 8, 20, null));
+        agentsTable.getItems().add(
+                controleurAgentSecurite.ajouterAgentSecurite(("Nom" + i), "Prenom", "Mail", "06010203", 8, 20, null));
     }
 
     @FXML

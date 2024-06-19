@@ -136,10 +136,10 @@ public class VueAccueil extends IHM {
         }
         try {
             VueOnglets vueOnglets = new VueOnglets(new VueEvenement());
-            Stage onglet = (Stage) eventsFlowPane.getScene().getWindow();
-            vueOnglets.changerFenetre(onglet);
-            onglet.setMaximized(false);
-            onglet.setMaximized(true);
+            Stage la = (Stage) eventsFlowPane.getScene().getWindow();
+            vueOnglets.changerFenetre(la);
+            la.setMaximized(false);
+            la.setMaximized(true);
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -151,7 +151,6 @@ public class VueAccueil extends IHM {
         if (isAlreadyOpened())
             return;
         try {
-
             VueCreation vueCreation = new VueCreation((Stage) eventsFlowPane.getScene().getWindow());
             vueCreation.changerFenetre(otherVue);
         } catch (Exception e) {
@@ -173,7 +172,8 @@ public class VueAccueil extends IHM {
     @FXML
     protected void supprimerEvenement(MouseEvent e, Evenement event) {
         e.consume();
-        if (isAlreadyOpened()) return;
+        if (isAlreadyOpened())
+            return;
         try {
             toDelete = event;
             Vues.loadViewIntoStage(otherVue, DELETE, this);

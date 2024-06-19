@@ -60,7 +60,8 @@ public class ControleurEvenement {
         // Ajout de l'événement à la liste des événements
         application.addEvenement(evenement);
 
-        // Renvoi de l'événement afin d'y attribuer les controleurs dans le controleur FXML dans la vue
+        // Renvoi de l'événement afin d'y attribuer les controleurs dans le controleur
+        // FXML dans la vue
         return evenement;
     }
 
@@ -142,9 +143,10 @@ public class ControleurEvenement {
 
     /**
      * Crée un nouveau lieu et l'associe à cet événement.
-     * @param nom Nom du lieu
-     * @param adresse Adresse du lieu
-     * @param ville Ville du lieu
+     * 
+     * @param nom        Nom du lieu
+     * @param adresse    Adresse du lieu
+     * @param ville      Ville du lieu
      * @param codePostal Code postal du lieu
      * @return le lieu créé.
      */
@@ -158,17 +160,19 @@ public class ControleurEvenement {
 
     /**
      * Modifie le nom du lieu donné par un nom donné
+     * 
      * @param lieu Lieu dont le nom est modifié
-     * @param nom Nouveau nom à donner
+     * @param nom  Nouveau nom à donner
      */
-    public void modifierNomLieu(Lieu lieu ,String nom) {
+    public void modifierNomLieu(Lieu lieu, String nom) {
 
         lieu.setNom(nom);
     }
 
     /**
      * Modifie l'adresse du lieu donné par une adresse donnée
-     * @param lieu Lieu dont l'adresse est modifiée
+     * 
+     * @param lieu    Lieu dont l'adresse est modifiée
      * @param adresse Nouvelle adresse à donner
      */
     public void modifierAdresseLieu(Lieu lieu, String adresse) {
@@ -178,7 +182,8 @@ public class ControleurEvenement {
 
     /**
      * Modifie la ville du lieu donné par une ville donnée
-     * @param lieu Lieu dont la ville est modifiée
+     * 
+     * @param lieu  Lieu dont la ville est modifiée
      * @param ville Nouvelle ville à donner
      */
     public void modifierVilleLieu(Lieu lieu, String ville) {
@@ -188,7 +193,8 @@ public class ControleurEvenement {
 
     /**
      * Modifie le code postal du lieu donné par un code postal donnée
-     * @param lieu Lieu dont le code postal est modifié
+     * 
+     * @param lieu       Lieu dont le code postal est modifié
      * @param codePostal Nouveau code postal à donner
      */
     public void modifierCodePostalLieu(Lieu lieu, int codePostal) {
@@ -199,6 +205,5 @@ public class ControleurEvenement {
     public ArrayList<Fonctionnalite> getFonctionnalites() {
         return evenement.getFonctionnalites();
     }
-
 
 }

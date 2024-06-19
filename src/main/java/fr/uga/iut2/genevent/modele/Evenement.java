@@ -2,7 +2,6 @@ package fr.uga.iut2.genevent.modele;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.time.LocalDate;
 
 /**
@@ -39,10 +38,10 @@ public class Evenement implements Serializable {
     /**
      * Constructeur pour la classe Evenement.
      *
-     * @param nom Le nom de l'événement.
-     * @param dateDebut La date de début de l'événement.
-     * @param dateFin La date de fin de l'événement.
-     * @param typeEvenement Le type de l'événement.
+     * @param nom             Le nom de l'événement.
+     * @param dateDebut       La date de début de l'événement.
+     * @param dateFin         La date de fin de l'événement.
+     * @param typeEvenement   Le type de l'événement.
      * @param fonctionnalites La liste des fonctionnalités de l'événement.
      */
     public Evenement(String nom, LocalDate dateDebut, LocalDate dateFin, TypeEvenement typeEvenement,
@@ -176,6 +175,7 @@ public class Evenement implements Serializable {
 
     /**
      * Ajoute une zone donnée à la liste des zones.
+     * 
      * @param zone Zone ajoutée
      */
     public void ajouterZone(Zone zone) {
@@ -437,6 +437,7 @@ public class Evenement implements Serializable {
      */
     @Override
     public String toString() {
-        return this.nom + "\n" + this.dateDebut + " - " + this.dateFin + "\n" + this.type + "\n" + this.fonctionnalites + "\n";
+        return this.nom + "\n" + this.dateDebut + " - " + this.dateFin + "\n" + this.type + "\n" + this.fonctionnalites
+                + "\n";
     }
 }
