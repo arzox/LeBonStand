@@ -53,4 +53,13 @@ public enum TypeEvenement implements Serializable {
         }
         return null;
     }
+
+    /**
+     * Récupère le nom propre du type d'événement.
+     *
+     * @return Le nom propre du type d'événement.
+     */
+    public String getDisplayName() {
+        return type;
+    }
 }

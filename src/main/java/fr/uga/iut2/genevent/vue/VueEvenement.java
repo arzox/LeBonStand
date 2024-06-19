@@ -7,9 +7,14 @@ import fr.uga.iut2.genevent.modele.Fonctionnalite;
 import fr.uga.iut2.genevent.modele.Lieu;
 import fr.uga.iut2.genevent.modele.TypeEvenement;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class VueEvenement extends IHM {
@@ -38,6 +43,10 @@ public class VueEvenement extends IHM {
     private DatePicker dateDebutPicker;
     @FXML
     private DatePicker dateFinPicker;
+    @FXML
+    private Button changeImageButton;
+    @FXML
+    private ImageView changeImageView;
 
     private ControleurEvenement controleurEvenement = controleur.getControleurEvenement();
 
@@ -47,11 +56,7 @@ public class VueEvenement extends IHM {
 
     @FXML
     private void initialize() {
-        typeEvenementComboBox.setItems(FXCollections.observableArrayList(
-                Arrays.stream(TypeEvenement.values())
-                        .map(TypeEvenement::toString)
-                        .toArray(String[]::new)
-        ));
+        typeEvenementComboBox.setItems(FXCollections.observableList(TypeEvenement.getTypesEvenement()));
 
         loadEventData();
 
@@ -61,7 +66,8 @@ public class VueEvenement extends IHM {
     private void loadEventData() {
         Evenement evenement = controleurEvenement.getEvenement();
         nomEvenementField.setText(evenement.getNom());
-        typeEvenementComboBox.setValue(evenement.getType().toString());
+        // Mise à jour pour définir la valeur de la ComboBox avec le nom correct
+        typeEvenementComboBox.setValue(evenement.getType().getDisplayName());
         dateDebutPicker.setValue(evenement.getDateDebut());
         dateFinPicker.setValue(evenement.getDateFin());
 
@@ -81,6 +87,22 @@ public class VueEvenement extends IHM {
         }
     }
 
+        @FXML
+        private void changerImage() {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Choisir une image");
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
+            );
+            File file = fileChooser.showOpenDialog(null);
+            if (file != null) {
+                Image newImage = new Image(file.toURI().toString());
+                changeImageView.setImage(newImage);
+                // Enregistrer le chemin de la nouvelle image
+                controleurEvenement.setImagePath(file.getAbsolutePath());
+            }
+        }
+
     private void addFieldListeners() {
         nomEvenementField.textProperty().addListener((observable, oldValue, newValue) -> {
             try {
@@ -92,7 +114,8 @@ public class VueEvenement extends IHM {
 
         typeEvenementComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             try {
-                controleurEvenement.modifierTypeEvenement(controleurEvenement.getEvenement(), TypeEvenement.fromString(newValue));
+                TypeEvenement typeEvenement = TypeEvenement.fromString(newValue);
+                controleurEvenement.modifierTypeEvenement(controleurEvenement.getEvenement(), typeEvenement);
             } catch (MauvaisChampsException e) {
                 informerUtilisateur(e.getMessage(), false);
             }
@@ -115,29 +138,40 @@ public class VueEvenement extends IHM {
         });
 
         adresseField.textProperty().addListener((observable, oldValue, newValue) -> {
-            Lieu lieu = controleurEvenement.getEvenement().getLieu();
-            if (lieu == null) {
-                lieu = controleurEvenement.creerLieu("", newValue, "", 0);
-            } else {
-                controleurEvenement.modifierAdresseLieu(lieu, newValue);
+            if (!newValue.trim().isEmpty()) {
+                Lieu lieu = controleurEvenement.getEvenement().getLieu();
+                if (lieu == null) {
+                    lieu = controleurEvenement.creerLieu("", newValue, "", 0);
+                } else {
+                    controleurEvenement.modifierAdresseLieu(lieu, newValue);
+                }
             }
         });
 
         villeField.textProperty().addListener((observable, oldValue, newValue) -> {
-            Lieu lieu = controleurEvenement.getEvenement().getLieu();
-            if (lieu == null) {
-                lieu = controleurEvenement.creerLieu("", "", newValue, 0);
-            } else {
-                controleurEvenement.modifierVilleLieu(lieu, newValue);
+            if (!newValue.trim().isEmpty()) {
+                Lieu lieu = controleurEvenement.getEvenement().getLieu();
+                if (lieu == null) {
+                    lieu = controleurEvenement.creerLieu("", "", newValue, 0);
+                } else {
+                    controleurEvenement.modifierVilleLieu(lieu, newValue);
+                }
             }
         });
 
         codePostalField.textProperty().addListener((observable, oldValue, newValue) -> {
-            Lieu lieu = controleurEvenement.getEvenement().getLieu();
-            if (lieu == null) {
-                lieu = controleurEvenement.creerLieu("", "", "", Integer.parseInt(newValue));
-            } else {
-                controleurEvenement.modifierCodePostalLieu(lieu, Integer.parseInt(newValue));
+            if (!newValue.trim().isEmpty()) {
+                try {
+                    int codePostal = Integer.parseInt(newValue);
+                    Lieu lieu = controleurEvenement.getEvenement().getLieu();
+                    if (lieu == null) {
+                        lieu = controleurEvenement.creerLieu("", "", "", codePostal);
+                    } else {
+                        controleurEvenement.modifierCodePostalLieu(lieu, codePostal);
+                    }
+                } catch (NumberFormatException e) {
+                    informerUtilisateur("Code postal invalide", false);
+                }
             }
         });
 
@@ -161,6 +195,17 @@ public class VueEvenement extends IHM {
         controleurEvenement.modifierFonctionnalitesEvenement(evenement, fonctionnalites);
     }
 
+    private void changerImage(ActionEvent event, ImageView mainImage) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choisir une image");
+        File file = fileChooser.showOpenDialog(null);
+        if (file != null) {
+            Image newImage = new Image(file.toURI().toString());
+            mainImage.setImage(newImage);
+            // Ici, vous pouvez enregistrer la nouvelle image dans votre modèle ou faire d'autres opérations nécessaires
+        }
+    }
+
     @Override
     public void informerUtilisateur(String message, boolean succes) {
         Alert alert = new Alert(succes ? Alert.AlertType.INFORMATION : Alert.AlertType.ERROR);
@@ -172,4 +217,6 @@ public class VueEvenement extends IHM {
     public String getFxmlName() {
         return FXML_NAME;
     }
+
+
 }

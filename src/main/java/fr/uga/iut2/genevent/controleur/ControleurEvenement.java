@@ -20,6 +20,8 @@ public class ControleurEvenement {
     private Application application;
     private Evenement evenement;
 
+    private String imagePath;
+
     public ControleurEvenement(Application application) {
         this.application = application;
     }
@@ -200,5 +202,13 @@ public class ControleurEvenement {
         return evenement.getFonctionnalites();
     }
 
+    // Image
 
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
 }
