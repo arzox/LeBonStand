@@ -229,7 +229,6 @@ public class VueCommercants extends IHM {
         emplacementColumn.setCellValueFactory(new PropertyValueFactory<>("emplacement"));
         emplacementColumn.setOnEditCommit(event -> {
             try {
-                System.out.println(controleurCommercant.getEmplacements());
                 Emplacement emplacement = controleurCommercant.getEmplacement(event.getNewValue().getNumero());
                 if (emplacement != null) {
                     controleurCommercant.modifierEmplacementCommercant(event.getRowValue(), emplacement);
