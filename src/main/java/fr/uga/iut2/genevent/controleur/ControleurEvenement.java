@@ -274,7 +274,7 @@ public class ControleurEvenement {
         return evenement.getImagePath();
     }
 
-    public List<Evenement> getTousEvenements() {
+    public ArrayList<Evenement> getTousEvenements() {
         return application.getEvenements();
     }
 }
