@@ -35,7 +35,7 @@
                         <VBox alignment="CENTER_LEFT" prefHeight="90.0" prefWidth="205.0">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nom" />
-                              <TextField fx:id="nomEvenementField" promptText="Marché de Noël Place Victor Hugo" />
+                              <TextField fx:id="nomEvenementField" onKeyTyped="#updateEventName" promptText="Marché de Noël Place Victor Hugo" />
                            </children>
                         </VBox>
                         <VBox alignment="CENTER_LEFT" prefHeight="90.0" prefWidth="169.0">

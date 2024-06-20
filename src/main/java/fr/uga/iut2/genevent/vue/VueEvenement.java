@@ -70,6 +70,12 @@ public class VueEvenement extends IHM {
     private void updatePanel() {
         getPanelController().isLoaded = false;
         getPanelController().changerFenetre((Stage) nomEvenementField.getScene().getWindow());
+        // TODO : afficher une boîte de dialogue pour avertir de la suppression des données des fonctionnalités si elle sont retirées
+    }
+
+    @FXML
+    private void updateEventName() {
+        getPanelController().nomEvenement.setText(nomEvenementField.getText());
     }
 
     private void loadEventData() {
