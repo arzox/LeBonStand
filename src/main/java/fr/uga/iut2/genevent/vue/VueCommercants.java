@@ -346,7 +346,7 @@ public class VueCommercants extends IHM {
                     delete(commercant);
                 }
             }));
-            if (commercantsTable.getItems().isEmpty()) checkBox.setSelected(false);
+            checkBox.setSelected(false);
         } else if (!commercantsTable.getSelectionModel().getSelectedItems().isEmpty()) {
             commercantsTable.getSelectionModel().getSelectedItems().forEach(this::delete);
         }

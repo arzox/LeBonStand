@@ -253,7 +253,7 @@ public class VueAgentSecurite extends IHM {
                     delete(agentSecurite);
                 }
             }));
-            if (agentsTable.getItems().isEmpty()) checkBox.setSelected(false);
+            checkBox.setSelected(false);
         } else if (!agentsTable.getSelectionModel().getSelectedItems().isEmpty()) {
             agentsTable.getSelectionModel().getSelectedItems().forEach(this::delete);
         }
