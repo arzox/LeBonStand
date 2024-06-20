@@ -5,6 +5,7 @@ import fr.uga.iut2.genevent.util.Vues;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -38,6 +39,9 @@ public class VueAccueil extends IHM {
 
     private Evenement toDelete;
     private Stage otherVue;
+
+    @FXML
+    private ScrollPane scrollPane;
 
     @FXML
     public void initialize() {
@@ -137,9 +141,7 @@ public class VueAccueil extends IHM {
         try {
             VueOnglets vueOnglets = new VueOnglets(new VueEvenement());
             Stage la = (Stage) eventsFlowPane.getScene().getWindow();
-            vueOnglets.changerFenetre(la);
-            la.setMaximized(false);
-            la.setMaximized(true);
+            vueOnglets.changerFenetre(la, true);
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -152,7 +154,7 @@ public class VueAccueil extends IHM {
             return;
         try {
             VueCreation vueCreation = new VueCreation((Stage) eventsFlowPane.getScene().getWindow());
-            vueCreation.changerFenetre(otherVue);
+            vueCreation.changerFenetre(otherVue, false);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -176,7 +178,7 @@ public class VueAccueil extends IHM {
             return;
         try {
             toDelete = event;
-            Vues.loadViewIntoStage(otherVue, DELETE, this);
+            Vues.loadViewIntoStage(otherVue, DELETE, this, false);
             // Reload events after deleting one
             loadEvents();
         } catch (Exception exception) {

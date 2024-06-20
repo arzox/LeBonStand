@@ -65,7 +65,7 @@ class EvenementTest {
         Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, new ArrayList<Fonctionnalite>(
                 Arrays.asList(Fonctionnalite.ANIMATION, Fonctionnalite.AGENT_SECURITE)
         ));
-        e.ajouterTypeCommerce(new TypeCommerce("nom"), 1);
+        e.ajouterTypeCommerce(new TypeCommerce("nom", 5));
         assertEquals(1, e.getTypeCommerces().size());
     }
 
@@ -75,8 +75,8 @@ class EvenementTest {
         Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, new ArrayList<Fonctionnalite>(
                 Arrays.asList(Fonctionnalite.ANIMATION, Fonctionnalite.AGENT_SECURITE)
         ));
-        TypeCommerce tc = new TypeCommerce("nom");
-        e.ajouterTypeCommerce(tc, 1);
+        TypeCommerce tc = new TypeCommerce("nom", 5);
+        e.ajouterTypeCommerce(tc);
         e.retirerTypeCommerce(tc);
         assertEquals(0, e.getTypeCommerces().size());
     }
@@ -300,9 +300,9 @@ class EvenementTest {
     @Test
     void getTypeCommerces() {
         LocalDate date = LocalDate.of(2021, 1, 1);
-        TypeCommerce tc = new TypeCommerce("nom");
+        TypeCommerce tc = new TypeCommerce("nom", 5);
         Evenement e = new Evenement("nom", date, date, null, null);
-        e.ajouterTypeCommerce(tc, 1);
+        e.ajouterTypeCommerce(tc);
         assertEquals(1, e.getTypeCommerces().size());
     }
 

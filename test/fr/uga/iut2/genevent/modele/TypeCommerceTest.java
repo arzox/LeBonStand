@@ -8,7 +8,7 @@ class TypeCommerceTest {
 
     @Test
     void addCommercant() {
-        TypeCommerce typeCommerce = new TypeCommerce("nom");
+        TypeCommerce typeCommerce = new TypeCommerce("nom", 5);
         Commercant commercant = new Commercant("nom", "prenom", "email",
                 "telephone", 0, 0, null, typeCommerce);
         typeCommerce.addCommercant(commercant);
@@ -17,7 +17,7 @@ class TypeCommerceTest {
 
     @Test
     void removeCommercant() {
-        TypeCommerce typeCommerce = new TypeCommerce("nom");
+        TypeCommerce typeCommerce = new TypeCommerce("nom", 5);
         Commercant commercant = new Commercant("nom", "prenom", "email",
                 "telephone", 0, 0, null, typeCommerce);
         typeCommerce.addCommercant(commercant);
@@ -27,7 +27,7 @@ class TypeCommerceTest {
 
     @Test
     void getCommercants() {
-        TypeCommerce typeCommerce = new TypeCommerce("nom");
+        TypeCommerce typeCommerce = new TypeCommerce("nom", 5);
         Commercant commercant = new Commercant("nom", "prenom", "email",
                 "telephone", 0, 0, null, typeCommerce);
         typeCommerce.addCommercant(commercant);
@@ -36,13 +36,13 @@ class TypeCommerceTest {
 
     @Test
     void getNom() {
-        TypeCommerce typeCommerce = new TypeCommerce("nom");
+        TypeCommerce typeCommerce = new TypeCommerce("nom", 5);
         assertEquals("nom", typeCommerce.getNom());
     }
 
     @Test
     void setNom() {
-        TypeCommerce typeCommerce = new TypeCommerce("nom");
+        TypeCommerce typeCommerce = new TypeCommerce("nom", 5);
         typeCommerce.setNom("nouveau nom");
         assertEquals("nouveau nom", typeCommerce.getNom());
     }

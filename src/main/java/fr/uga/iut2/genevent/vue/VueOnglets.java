@@ -41,7 +41,7 @@ public class VueOnglets extends IHM {
     @FXML
     private void onAccueilClicked() {
         Main.setLOGGER(Level.INFO, "L'utilisateur a cliqué sur \"Accueil\" : changement de vue");
-        new VueAccueil().changerFenetre((Stage) nomEvenement.getScene().getWindow());
+        new VueAccueil().changerFenetre((Stage) nomEvenement.getScene().getWindow(), false);
     }
 
     @FXML
@@ -128,7 +128,7 @@ public class VueOnglets extends IHM {
 
     private void switchOnglet(IHM nouvelleVue, Node button) {
         setContent(nouvelleVue);
-        changerFenetre((Stage) nomEvenement.getScene().getWindow());
+        changerFenetre((Stage) nomEvenement.getScene().getWindow(), true);
         panel.getChildren().forEach(node -> node.getStyleClass().remove("button-selected"));
         button.getStyleClass().add("button-selected");
         // setCurrentOnglet(panel.getChildren().indexOf(button));
@@ -150,11 +150,11 @@ public class VueOnglets extends IHM {
      * @param stage Le stage dont la vue doit être changée
      */
     @Override
-    public void changerFenetre(Stage stage) {
+    public void changerFenetre(Stage stage, Boolean fullScreen) {
         if (!isLoaded) load();
         getContent().load();
         ((Pane) getContent().getParent()).getChildren().add(0, getParent());
-        Vues.showParentOnStage(getContent().getParent(), stage);
+        Vues.showParentOnStage(getContent().getParent(), stage, fullScreen);
     }
 
     @Override

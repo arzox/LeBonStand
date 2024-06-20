@@ -5,9 +5,11 @@ import java.io.IOException;
 import fr.uga.iut2.genevent.vue.IHM;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
@@ -27,12 +29,12 @@ public class Vues {
      *
      * @return l'objet Parent utilisé pour charger la vue
      */
-    public static Parent loadViewIntoStage(Stage stage, String fxmlName, IHM controleur) {
+    public static Parent loadViewIntoStage(Stage stage, String fxmlName, IHM controleur, Boolean fullScreen) {
         try {
             // Charger la scène dans le loader et lui affecter le controleur en argument
             Parent parent = loadViewAsParent(fxmlName, controleur);
             Platform.runLater(() -> {
-                showParentOnStage(parent, stage);
+                showParentOnStage(parent, stage, fullScreen);
             });
             return parent;
         } catch (Exception e) {
@@ -80,9 +82,22 @@ public class Vues {
      * @param parent
      * @param stage
      */
-    public static void showParentOnStage(Parent parent, Stage stage) {
+    public static void showParentOnStage(Parent parent, Stage stage, Boolean fullScreen) {
         stage.setScene(stage.getScene());
         stage.setScene(loadParentWithStyle(parent));
+
+        if (fullScreen) {
+            stage.setMaximized(false);
+            stage.setMaximized(true);
+            stage.setX(0);
+            stage.setY(0);
+        } else {
+            Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+            double centerX = screenBounds.getWidth() / 2.0;
+            double centerY = screenBounds.getHeight() / 2.0;
+            stage.setX(centerX - stage.getWidth() / 2.0);
+            stage.setY(centerY - stage.getHeight() / 2.0);
+        }
         stage.show();
         stage.getIcons().add(new Image(
                 Vues.class.getResource("/fr/uga/iut2/genevent/images/LBS-blanc-orange.png").toExternalForm()));

@@ -35,8 +35,8 @@ public abstract class IHM {
      * 
      * @param stage
      */
-    public void changerFenetre(Stage stage) {
-        Vues.loadViewIntoStage(stage, getFxmlName(), this);
+    public void changerFenetre(Stage stage, Boolean fullScreen) {
+        Vues.loadViewIntoStage(stage, getFxmlName(), this, fullScreen);
     }
 
     /**

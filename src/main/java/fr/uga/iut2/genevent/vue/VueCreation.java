@@ -65,7 +65,7 @@ public class VueCreation extends IHM {
             controleur.setEvenementCourant(evenement);
             ((Stage) typeMarche.getScene().getWindow()).close();
             VueOnglets vueOnglets = new VueOnglets(new VueEvenement());
-            vueOnglets.changerFenetre(previousStage);
+            vueOnglets.changerFenetre(previousStage, true);
         } catch (MauvaisChampsException e) {
             e.printStackTrace();
         }

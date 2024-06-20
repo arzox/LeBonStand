@@ -53,12 +53,11 @@ public class JavaFXGUI {
         // Création d'un objet VueAccueil qui servira de contrôleur
         VueAccueil accueil = new VueAccueil();
         // On applique la nouvelle vue au Stage
-        accueil.changerFenetre(primaryStage);
+        accueil.changerFenetre(primaryStage, false);
 
         // On applique quelques propriétés supplémentaires
         primaryStage.getIcons().add(new Image(
                 getClass().getResource("/fr/uga/iut2/genevent/images/LBS-blanc-orange.png").toExternalForm()));
-        primaryStage.setMaximized(true);
         primaryStage.setTitle("LeBonStand");
     }
 

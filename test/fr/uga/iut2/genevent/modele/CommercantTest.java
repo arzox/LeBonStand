@@ -101,7 +101,7 @@ class CommercantTest {
     @Test
     void setTypeCommerce() {
         Commercant c = new Commercant("nom", "prenom", "email", "telephone", 8, 18, null, null);
-        TypeCommerce t = new TypeCommerce("type");
+        TypeCommerce t = new TypeCommerce("type", 5);
         c.setTypeCommerce(t);
         assertEquals(t, c.getTypeCommerce());
     }
