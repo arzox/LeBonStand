@@ -12,12 +12,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Observable;
 
 /**
  * Contrôleur pour le module "Evenement".
  */
-public class ControleurEvenement extends Observable {
+public class ControleurEvenement {
 
     private Application application;
     private Evenement evenement;
@@ -44,8 +43,6 @@ public class ControleurEvenement extends Observable {
      */
     public void setEvenement(Evenement evenement) {
         this.evenement = evenement;
-        setChanged();
-        notifyObservers();
     }
 
     // Événement
@@ -82,8 +79,6 @@ public class ControleurEvenement extends Observable {
         }
         Evenement evenement = new Evenement(nom, null, null, type, fonctionnalites, imagePath);
         application.addEvenement(evenement);
-        setChanged();
-        notifyObservers();
 
         // Renvoi de l'événement afin d'y attribuer les contrôleurs dans le contrôleur FXML dans la vue
         return evenement;
@@ -95,8 +90,6 @@ public class ControleurEvenement extends Observable {
      */
     public void supprimerEvenement(Evenement evenement) {
         application.removeEvenement(evenement);
-        setChanged();
-        notifyObservers();
     }
 
     /**
@@ -121,8 +114,6 @@ public class ControleurEvenement extends Observable {
             }
         }
         evenement.setNom(nom);
-        setChanged();
-        notifyObservers();
     }
 
     /**
@@ -147,8 +138,6 @@ public class ControleurEvenement extends Observable {
             }
         }
         evenement.setType(type);
-        setChanged();
-        notifyObservers();
     }
 
     /**
@@ -158,8 +147,6 @@ public class ControleurEvenement extends Observable {
      */
     public void modifierFonctionnalitesEvenement(Evenement evenement, ArrayList<Fonctionnalite> fonctionnalites) {
         evenement.setFonctionnalites(fonctionnalites);
-        setChanged();
-        notifyObservers();
     }
 
     /**
@@ -169,8 +156,6 @@ public class ControleurEvenement extends Observable {
      */
     public void modifierLieuEvenement(Evenement evenement, Lieu lieu) {
         evenement.setLieu(lieu);
-        setChanged();
-        notifyObservers();
     }
 
     /**
@@ -189,8 +174,6 @@ public class ControleurEvenement extends Observable {
                     new ArrayList<>(Collections.singleton(false)));
         }
         evenement.setDateDebut(dateDebut);
-        setChanged();
-        notifyObservers();
     }
 
     /**
@@ -209,8 +192,6 @@ public class ControleurEvenement extends Observable {
                     new ArrayList<>(Collections.singleton(false)));
         }
         evenement.setDateFin(dateFin);
-        setChanged();
-        notifyObservers();
     }
 
     // Lieu
@@ -227,8 +208,6 @@ public class ControleurEvenement extends Observable {
 
         Lieu nouveauLieu = new Lieu(nom, adresse, ville, codePostal);
         evenement.setLieu(nouveauLieu);
-        setChanged();
-        notifyObservers();
         return nouveauLieu;
     }
 
@@ -240,8 +219,6 @@ public class ControleurEvenement extends Observable {
     public void modifierNomLieu(Lieu lieu, String nom) {
 
         lieu.setNom(nom);
-        setChanged();
-        notifyObservers();
     }
 
     /**
@@ -252,8 +229,6 @@ public class ControleurEvenement extends Observable {
     public void modifierAdresseLieu(Lieu lieu, String adresse) {
 
         lieu.setAdresse(adresse);
-        setChanged();
-        notifyObservers();
     }
 
     /**
@@ -264,8 +239,6 @@ public class ControleurEvenement extends Observable {
     public void modifierVilleLieu(Lieu lieu, String ville) {
 
         lieu.setVille(ville);
-        setChanged();
-        notifyObservers();
     }
 
     /**
@@ -276,8 +249,6 @@ public class ControleurEvenement extends Observable {
     public void modifierCodePostalLieu(Lieu lieu, int codePostal) {
 
         lieu.setCodePostal(codePostal);
-        setChanged();
-        notifyObservers();
     }
 
     /**
@@ -291,8 +262,6 @@ public class ControleurEvenement extends Observable {
     // Image
     public void setImagePath(Evenement evenement, String imagePath) {
         evenement.setImagePath(imagePath);
-        setChanged();
-        notifyObservers();
     }
 
     public String getImagePath(Evenement evenement) {
