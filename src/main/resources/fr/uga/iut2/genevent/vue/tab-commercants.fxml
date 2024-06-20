@@ -34,7 +34,7 @@
                                     </ImageView>
                                  </graphic>
                                  <tooltip>
-                                    <Tooltip text="Ajouter une nouvelle ligne" />
+                                    <Tooltip text="Ajouter un commerçant" />
                                  </tooltip>
                               </Button>
                               <Button layoutX="483.0" layoutY="43.0" mnemonicParsing="false" onAction="#onSupprimer">
@@ -46,7 +46,7 @@
                                     </ImageView>
                                  </graphic>
                                  <tooltip>
-                                    <Tooltip text="Supprimer la ligne" />
+                                    <Tooltip text="Supprimer commerçant(s)" />
                                  </tooltip>
                               </Button>
                               <Button layoutX="507.0" layoutY="43.0" mnemonicParsing="false">
@@ -58,7 +58,7 @@
                                     </ImageView>
                                  </graphic>
                                  <tooltip>
-                                    <Tooltip text="Send" />
+                                    <Tooltip text="Envoyer mail(s)" />
                                  </tooltip>
                               </Button>
                               <Button layoutX="531.0" layoutY="43.0" mnemonicParsing="false">
@@ -139,7 +139,7 @@
                               </ImageView>
                            </graphic>
                            <tooltip>
-                              <Tooltip text="Supprimer la ligne" />
+                              <Tooltip text="Supprimer une ligne" />
                            </tooltip>
                         </Button>
                      </children>

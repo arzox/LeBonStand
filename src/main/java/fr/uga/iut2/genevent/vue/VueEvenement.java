@@ -1,5 +1,6 @@
 package fr.uga.iut2.genevent.vue;
 
+
 import fr.uga.iut2.genevent.controleur.ControleurEvenement;
 import fr.uga.iut2.genevent.exception.MauvaisChampsException;
 
@@ -10,6 +11,11 @@ import fr.uga.iut2.genevent.modele.TypeEvenement;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
+
+import java.io.File;
 import java.util.ArrayList;
 
 public class VueEvenement extends IHM {
@@ -38,6 +44,10 @@ public class VueEvenement extends IHM {
     private DatePicker dateDebutPicker;
     @FXML
     private DatePicker dateFinPicker;
+    @FXML
+    private Button changeImageButton;
+    @FXML
+    private ImageView changeImageView;
 
     private ControleurEvenement controleurEvenement = controleur.getControleurEvenement();
 
@@ -47,8 +57,7 @@ public class VueEvenement extends IHM {
 
     @FXML
     private void initialize() {
-        typeEvenementComboBox
-                .setItems(FXCollections.observableArrayList(controleurEvenement.getEvenement().getType().toString()));
+        typeEvenementComboBox.setItems(FXCollections.observableList(TypeEvenement.getTypesEvenement()));
 
         loadEventData();
 
@@ -56,28 +65,63 @@ public class VueEvenement extends IHM {
     }
 
     private void loadEventData() {
-        nomEvenementField.setText(controleurEvenement.getEvenement().getNom());
-        typeEvenementComboBox.setValue(controleurEvenement.getEvenement().getType().toString());
-        dateDebutPicker.setValue(controleurEvenement.getEvenement().getDateDebut());
-        dateFinPicker.setValue(controleurEvenement.getEvenement().getDateFin());
+        Evenement evenement = controleurEvenement.getEvenement();
+        nomEvenementField.setText(evenement.getNom());
+        typeEvenementComboBox.setValue(evenement.getType().getDisplayName());
+        dateDebutPicker.setValue(evenement.getDateDebut());
+        dateFinPicker.setValue(evenement.getDateFin());
 
-        securiteCheckBox.setSelected(
-                controleurEvenement.getEvenement().getFonctionnalites().contains(Fonctionnalite.AGENT_SECURITE));
-        entretienCheckBox.setSelected(
-                controleurEvenement.getEvenement().getFonctionnalites().contains(Fonctionnalite.AGENT_ENTRETIEN));
-        animationsCheckBox.setSelected(
-                controleurEvenement.getEvenement().getFonctionnalites().contains(Fonctionnalite.ANIMATION));
-        participantsCheckBox.setSelected(
-                controleurEvenement.getEvenement().getFonctionnalites().contains(Fonctionnalite.PARTICIPANT));
+        securiteCheckBox.setSelected(evenement.getFonctionnalites().contains(Fonctionnalite.AGENT_SECURITE));
+        entretienCheckBox.setSelected(evenement.getFonctionnalites().contains(Fonctionnalite.AGENT_ENTRETIEN));
+        animationsCheckBox.setSelected(evenement.getFonctionnalites().contains(Fonctionnalite.ANIMATION));
+        participantsCheckBox.setSelected(evenement.getFonctionnalites().contains(Fonctionnalite.PARTICIPANT));
 
-        if (controleurEvenement.getEvenement().getLieu() != null) {
-            adresseField.setText(controleurEvenement.getEvenement().getLieu().getAdresse());
-            villeField.setText(controleurEvenement.getEvenement().getLieu().getNom());
-            codePostalField.setText(String.valueOf(controleurEvenement.getEvenement().getLieu().getCodePostal()));
+        if (evenement.getLieu() != null) {
+            adresseField.setText(evenement.getLieu().getAdresse());
+            villeField.setText(evenement.getLieu().getVille());
+            codePostalField.setText(String.valueOf(evenement.getLieu().getCodePostal()));
         } else {
             adresseField.setText("");
             villeField.setText("");
             codePostalField.setText("");
+        }
+
+        // Charger l'image de l'événement ou une image par défaut
+        String imagePath = evenement.getImagePath();
+        Image image_defaut = new Image(getClass().getResourceAsStream("/fr/uga/iut2/genevent/images/marche_noel.jpg"));
+        if (imagePath != null && !imagePath.isEmpty()) {
+            File imageFile = new File(imagePath);
+            if (imageFile.exists()) {
+                Image image = new Image(imageFile.toURI().toString());
+                changeImageView.setImage(image);
+                changeImageView.setFitHeight(120);
+                changeImageView.setFitWidth(120);
+            } else {
+                // Charger une image par défaut si l'image n'existe pas
+                changeImageView.setImage(image_defaut);
+                changeImageView.setFitHeight(120);
+                changeImageView.setFitWidth(120);
+            }
+        } else {
+            // Charger une image par défaut si aucun chemin d'image n'est défini
+            changeImageView.setImage(image_defaut);
+            changeImageView.setFitHeight(120);
+            changeImageView.setFitWidth(120);
+        }
+    }
+
+    @FXML
+    private void changerImage() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choisir une image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
+        );
+        File file = fileChooser.showOpenDialog(null);
+        if (file != null) {
+            Image newImage = new Image(file.toURI().toString());
+            changeImageView.setImage(newImage);
+            controleurEvenement.setImagePath(controleurEvenement.getEvenement(), file.getAbsolutePath());
         }
     }
 
@@ -92,8 +136,8 @@ public class VueEvenement extends IHM {
 
         typeEvenementComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             try {
-                controleurEvenement.modifierTypeEvenement(controleurEvenement.getEvenement(),
-                        TypeEvenement.fromString(newValue));
+                TypeEvenement typeEvenement = TypeEvenement.fromString(newValue);
+                controleurEvenement.modifierTypeEvenement(controleurEvenement.getEvenement(), typeEvenement);
             } catch (MauvaisChampsException e) {
                 informerUtilisateur(e.getMessage(), false);
             }
@@ -116,36 +160,51 @@ public class VueEvenement extends IHM {
         });
 
         adresseField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (controleurEvenement.getEvenement().getLieu() == null) {
-                controleurEvenement.getEvenement().setLieu(new Lieu("", "", "", 0));
+            if (!newValue.trim().isEmpty()) {
+                Lieu lieu = controleurEvenement.getEvenement().getLieu();
+                if (lieu == null) {
+                    lieu = controleurEvenement.creerLieu("", newValue, "", 0);
+                } else {
+                    controleurEvenement.modifierAdresseLieu(lieu, newValue);
+                }
             }
             controleurEvenement.getEvenement().getLieu().setAdresse(newValue);
         });
 
         villeField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (controleurEvenement.getEvenement().getLieu() == null) {
-                controleurEvenement.getEvenement().setLieu(controleurEvenement.creerLieu("", "", "", 0));
+            if (!newValue.trim().isEmpty()) {
+                Lieu lieu = controleurEvenement.getEvenement().getLieu();
+                if (lieu == null) {
+                    lieu = controleurEvenement.creerLieu("", "", newValue, 0);
+                } else {
+                    controleurEvenement.modifierVilleLieu(lieu, newValue);
+                }
             }
             controleurEvenement.getEvenement().getLieu().setNom(newValue);
         });
 
         codePostalField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (controleurEvenement.getEvenement().getLieu() == null) {
-                controleurEvenement.getEvenement().setLieu(controleurEvenement.creerLieu("", "", "", 0));
+            if (!newValue.trim().isEmpty()) {
+                try {
+                    int codePostal = Integer.parseInt(newValue);
+                    Lieu lieu = controleurEvenement.getEvenement().getLieu();
+                    if (lieu == null) {
+                        lieu = controleurEvenement.creerLieu("", "", "", codePostal);
+                    } else {
+                        controleurEvenement.modifierCodePostalLieu(lieu, codePostal);
+                    }
+                } catch (NumberFormatException e) {
+                    informerUtilisateur("Code postal invalide", false);
+                }
             }
-            controleurEvenement.modifierCodePostalLieu(controleurEvenement.getEvenement().getLieu(),
-                    controleurEvenement.getEvenement().getLieu().getCodePostal());
         });
 
-        securiteCheckBox.selectedProperty().addListener(
-                (observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.AGENT_SECURITE, newValue));
-        entretienCheckBox.selectedProperty().addListener(
-                (observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.AGENT_ENTRETIEN, newValue));
-        animationsCheckBox.selectedProperty().addListener(
-                (observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.ANIMATION, newValue));
-        participantsCheckBox.selectedProperty().addListener(
-                (observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.PARTICIPANT, newValue));
+        securiteCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.AGENT_SECURITE, newValue));
+        entretienCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.AGENT_ENTRETIEN, newValue));
+        animationsCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.ANIMATION, newValue));
+        participantsCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.PARTICIPANT, newValue));
     }
+
 
     private void updateFonctionnalite(Fonctionnalite fonctionnalite, boolean add) {
         Evenement evenement = controleurEvenement.getEvenement();

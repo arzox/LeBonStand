@@ -129,3 +129,8 @@ HBox {
   -fx-border-width: 2;
   -fx-border-radius: 100;
 }
+
+.imageopp:hover{
+  -fx-opacity: 0.6;
+  -fx-cursor: hand;
+}
