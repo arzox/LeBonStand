@@ -54,7 +54,7 @@
                                     <Tooltip text="Supprimer commerçant(s)" />
                                  </tooltip>
                               </Button>
-                              <Button layoutX="507.0" layoutY="43.0" mnemonicParsing="false">
+                              <Button layoutX="507.0" layoutY="43.0" mnemonicParsing="false" onAction="#sendMail">
                                  <graphic>
                                     <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -80,18 +80,6 @@
                               </Button>
                            </children>
                         </HBox>
-                        <Button mnemonicParsing="false" onMouseClicked="#onSave">
-                           <graphic>
-                              <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/sauvegarder.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <tooltip>
-                              <Tooltip text="Sauvegarder" />
-                           </tooltip>
-                        </Button>
                      </children>
                      <padding>
                         <Insets left="20.0" right="20.0" />

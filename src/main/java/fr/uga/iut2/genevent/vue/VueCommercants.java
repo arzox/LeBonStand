@@ -4,6 +4,7 @@ import fr.uga.iut2.genevent.controleur.ControleurCommercant;
 import fr.uga.iut2.genevent.exception.MauvaisChampsException;
 import fr.uga.iut2.genevent.modele.Commercant;
 import fr.uga.iut2.genevent.modele.Emplacement;
+import fr.uga.iut2.genevent.modele.Employe;
 import fr.uga.iut2.genevent.modele.TypeCommerce;
 import fr.uga.iut2.genevent.util.EmplacementStringConverter;
 import fr.uga.iut2.genevent.util.TypeCommerceStringConverter;
@@ -24,6 +25,7 @@ import javafx.util.converter.IntegerStringConverter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class VueCommercants extends IHM {
     public static final String FXML_NAME = "tab-commercants.fxml";
@@ -453,6 +455,23 @@ public class VueCommercants extends IHM {
     @FXML
     private void onSave() {
         commercantsTable.refresh();
+    }
+
+    @FXML
+    private void sendMail() {
+        ArrayList<Commercant> selectedCommercants = (ArrayList<Commercant>) checkedMap.entrySet().stream()
+                .filter(entry -> entry.getValue().get())
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+        ArrayList<Employe> employes = selectedCommercants.stream()
+                .map(commercant -> (Employe) commercant)
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        try {
+            controleur.envoyerMail(employes);
+        } catch (Exception e) {
+            informerUtilisateur(e.getMessage(), false);
+        }
     }
 
     @Override

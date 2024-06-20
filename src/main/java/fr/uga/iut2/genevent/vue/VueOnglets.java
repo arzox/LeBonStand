@@ -122,6 +122,7 @@ public class VueOnglets extends IHM {
     }
 
     private void switchOnglet(IHM nouvelleVue, Node button) {
+        if (button.getStyleClass().contains("button-selected")) return;
         setContent(nouvelleVue);
         changerFenetre((Stage) nomEvenement.getScene().getWindow());
         updateSelectedOngletStyle(button);
@@ -154,7 +155,6 @@ public class VueOnglets extends IHM {
         getContent().load();
         ((Pane) getContent().getParent()).getChildren().add(0, getParent());
         Vues.showParentOnStage(getContent().getParent(), stage);
-        if (getContent() instanceof VueEvenement) panel.getChildren().get(3).getStyleClass().add("button-selected");
     }
 
     @Override

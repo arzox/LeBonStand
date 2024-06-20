@@ -105,7 +105,7 @@ public class Controleur {
         return application.getEvenements();
     }
 
-    public void envoyerMail(ArrayList<Employe> employes) {
+    public void envoyerMail(ArrayList<Employe> employes) throws Exception {
         if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.MAIL)) {
             try {
                 StringBuilder mailto = new StringBuilder("mailto:");
@@ -122,13 +122,13 @@ public class Controleur {
                 Desktop.getDesktop().mail(new URI(mailto.toString()));
             } catch (IOException e) {
                 e.printStackTrace();
-                System.out.println("Erreur d'entrée/sortie : " + e.getMessage());
+                throw new Exception("Erreur d'entrée/sortie : " + e.getMessage());
             } catch (URISyntaxException e) {
                 e.printStackTrace();
-                System.out.println("Erreur de syntaxe URI : " + e.getMessage());
+                throw new Exception("Erreur de syntaxe d'URI : " + e.getMessage());
             }
         } else {
-            System.out.println("Le client mail n'est pas supporté sur ce système.");
+            throw new Exception("L'envoi de mail n'est pas supporté sur cette machine.");
         }
     }
     public void supprimerEvenement(Evenement evenement) {
