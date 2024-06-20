@@ -55,9 +55,8 @@ public class ControleurEvenement {
      * @return L'événement créé.
      * @throws MauvaisChampsException Si un événement avec le même nom et type existe déjà.
      */
-    public Evenement creerEvenement(String nom, TypeEvenement type,
-                                    ArrayList<Fonctionnalite> fonctionnalites, String imagePath) throws MauvaisChampsException {
-
+    public Evenement creerEvenement(String nom, TypeEvenement type, ArrayList<Fonctionnalite> fonctionnalites, String imagePath)
+            throws MauvaisChampsException {
         // Création d'un événement
         if (type == null) {
 
@@ -217,7 +216,6 @@ public class ControleurEvenement {
      * @param nom Nouveau nom
      */
     public void modifierNomLieu(Lieu lieu, String nom) {
-
         lieu.setNom(nom);
     }
 

@@ -1,6 +1,5 @@
 package fr.uga.iut2.genevent.vue;
 
-
 import fr.uga.iut2.genevent.controleur.ControleurEvenement;
 import fr.uga.iut2.genevent.exception.MauvaisChampsException;
 
@@ -11,12 +10,15 @@ import fr.uga.iut2.genevent.modele.TypeEvenement;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
+
+import java.util.ArrayList;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 
 import java.io.File;
-import java.util.ArrayList;
 
 public class VueEvenement extends IHM {
 
@@ -64,6 +66,12 @@ public class VueEvenement extends IHM {
         addFieldListeners();
     }
 
+    @FXML
+    private void updatePanel() {
+        getPanelController().isLoaded = false;
+        getPanelController().changerFenetre((Stage) nomEvenementField.getScene().getWindow());
+    }
+
     private void loadEventData() {
         Evenement evenement = controleurEvenement.getEvenement();
         nomEvenementField.setText(evenement.getNom());
@@ -71,10 +79,14 @@ public class VueEvenement extends IHM {
         dateDebutPicker.setValue(evenement.getDateDebut());
         dateFinPicker.setValue(evenement.getDateFin());
 
-        securiteCheckBox.setSelected(evenement.getFonctionnalites().contains(Fonctionnalite.AGENT_SECURITE));
-        entretienCheckBox.setSelected(evenement.getFonctionnalites().contains(Fonctionnalite.AGENT_ENTRETIEN));
-        animationsCheckBox.setSelected(evenement.getFonctionnalites().contains(Fonctionnalite.ANIMATION));
-        participantsCheckBox.setSelected(evenement.getFonctionnalites().contains(Fonctionnalite.PARTICIPANT));
+        securiteCheckBox.setSelected(
+                controleurEvenement.getEvenement().getFonctionnalites().contains(Fonctionnalite.AGENT_SECURITE));
+        entretienCheckBox.setSelected(
+                controleurEvenement.getEvenement().getFonctionnalites().contains(Fonctionnalite.AGENT_ENTRETIEN));
+        animationsCheckBox.setSelected(
+                controleurEvenement.getEvenement().getFonctionnalites().contains(Fonctionnalite.ANIMATION));
+        participantsCheckBox.setSelected(
+                controleurEvenement.getEvenement().getFonctionnalites().contains(Fonctionnalite.PARTICIPANT));
 
         if (evenement.getLieu() != null) {
             adresseField.setText(evenement.getLieu().getAdresse());
@@ -115,8 +127,7 @@ public class VueEvenement extends IHM {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choisir une image");
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
-        );
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif"));
         File file = fileChooser.showOpenDialog(null);
         if (file != null) {
             Image newImage = new Image(file.toURI().toString());
@@ -136,8 +147,8 @@ public class VueEvenement extends IHM {
 
         typeEvenementComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             try {
-                TypeEvenement typeEvenement = TypeEvenement.fromString(newValue);
-                controleurEvenement.modifierTypeEvenement(controleurEvenement.getEvenement(), typeEvenement);
+                controleurEvenement.modifierTypeEvenement(controleurEvenement.getEvenement(),
+                        TypeEvenement.fromString(newValue));
             } catch (MauvaisChampsException e) {
                 informerUtilisateur(e.getMessage(), false);
             }
@@ -160,51 +171,67 @@ public class VueEvenement extends IHM {
         });
 
         adresseField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.trim().isEmpty()) {
-                Lieu lieu = controleurEvenement.getEvenement().getLieu();
-                if (lieu == null) {
-                    lieu = controleurEvenement.creerLieu("", newValue, "", 0);
-                } else {
-                    controleurEvenement.modifierAdresseLieu(lieu, newValue);
-                }
+            if (controleurEvenement.getEvenement().getLieu() == null) {
+                controleurEvenement.getEvenement().setLieu(new Lieu("", "", "", 0));
             }
-            controleurEvenement.getEvenement().getLieu().setAdresse(newValue);
+            // Depuis la branche de Rahim
+            // if (!newValue.trim().isEmpty()) {
+            // Lieu lieu = controleurEvenement.getEvenement().getLieu();
+            // if (lieu == null) {
+            // lieu = controleurEvenement.creerLieu("", newValue, "", 0);
+            // } else {
+            // controleurEvenement.modifierAdresseLieu(lieu, newValue);
+            // }
+            // }
         });
 
         villeField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.trim().isEmpty()) {
-                Lieu lieu = controleurEvenement.getEvenement().getLieu();
-                if (lieu == null) {
-                    lieu = controleurEvenement.creerLieu("", "", newValue, 0);
-                } else {
-                    controleurEvenement.modifierVilleLieu(lieu, newValue);
-                }
+            if (controleurEvenement.getEvenement().getLieu() == null) {
+                controleurEvenement.getEvenement().setLieu(controleurEvenement.creerLieu("", "", "", 0));
             }
-            controleurEvenement.getEvenement().getLieu().setNom(newValue);
+            // Depuis la branche de Rahim
+            // if (!newValue.trim().isEmpty()) {
+            // Lieu lieu = controleurEvenement.getEvenement().getLieu();
+            // if (lieu == null) {
+            // lieu = controleurEvenement.creerLieu("", "", newValue, 0);
+            // } else {
+            // controleurEvenement.modifierVilleLieu(lieu, newValue);
+            // }
+            // }
         });
 
         codePostalField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.trim().isEmpty()) {
-                try {
-                    int codePostal = Integer.parseInt(newValue);
-                    Lieu lieu = controleurEvenement.getEvenement().getLieu();
-                    if (lieu == null) {
-                        lieu = controleurEvenement.creerLieu("", "", "", codePostal);
-                    } else {
-                        controleurEvenement.modifierCodePostalLieu(lieu, codePostal);
-                    }
-                } catch (NumberFormatException e) {
-                    informerUtilisateur("Code postal invalide", false);
-                }
+            if (controleurEvenement.getEvenement().getLieu() == null) {
+                controleurEvenement.getEvenement().setLieu(controleurEvenement.creerLieu("", "", "", 0));
             }
+            controleurEvenement.modifierCodePostalLieu(controleurEvenement.getEvenement().getLieu(),
+                    controleurEvenement.getEvenement().getLieu().getCodePostal());
+
+            // Depuis la branche de Rahim
+            // if (!newValue.trim().isEmpty()) {
+            // try {
+            // int codePostal = Integer.parseInt(newValue);
+            // Lieu lieu = controleurEvenement.getEvenement().getLieu();
+            // if (lieu == null) {
+            // lieu = controleurEvenement.creerLieu("", "", "", codePostal);
+            // } else {
+            // controleurEvenement.modifierCodePostalLieu(lieu, codePostal);
+            // }
+            // } catch (NumberFormatException e) {
+            // informerUtilisateur("Code postal invalide", false);
+            // }
+            // }
         });
 
-        securiteCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.AGENT_SECURITE, newValue));
-        entretienCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.AGENT_ENTRETIEN, newValue));
-        animationsCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.ANIMATION, newValue));
-        participantsCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.PARTICIPANT, newValue));
+        securiteCheckBox.selectedProperty().addListener(
+                (observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.AGENT_SECURITE, newValue));
+        entretienCheckBox.selectedProperty().addListener(
+                (observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.AGENT_ENTRETIEN, newValue));
+        animationsCheckBox.selectedProperty().addListener(
+                (observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.ANIMATION, newValue));
+        participantsCheckBox.selectedProperty().addListener(
+                (observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.PARTICIPANT, newValue));
     }
-
 
     private void updateFonctionnalite(Fonctionnalite fonctionnalite, boolean add) {
         Evenement evenement = controleurEvenement.getEvenement();
