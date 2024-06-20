@@ -118,10 +118,13 @@ HBox {
 }
 
 .tableButtons .button {
-  -fx-border-width: 0;
+
   -fx-background-radius: 100;
   -fx-padding: 10;
   -fx-background-color: #f4f4f4;
+  -fx-border-color: #ffffff;
+  -fx-border-width: 2;
+  -fx-border-radius: 100;
 }
 
 .tableButtons .button:hover {
