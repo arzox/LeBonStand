@@ -58,18 +58,20 @@ public class ControleurEvenement {
     public Evenement creerEvenement(String nom, TypeEvenement type, ArrayList<Fonctionnalite> fonctionnalites, String imagePath)
             throws MauvaisChampsException {
         // Création d'un événement
-
         if (type == null) {
+
             throw new MauvaisChampsException("Veuillez choisir un type pour l'événement",
                     new ArrayList<>(Arrays.asList(true, false, true)));
         }
 
         for (Evenement evenementCourant : application.getEvenements()) {
+
             String nomCourant = evenementCourant.getNom();
             TypeEvenement typeCourant = evenementCourant.getType();
             boolean isNotUnique = nom.equals(nomCourant) && type == typeCourant;
 
             if (isNotUnique) {
+
                 throw new MauvaisChampsException("L'événement que vous souhaitez créer existe déjà",
                         new ArrayList<>(Arrays.asList(false, false, true)));
             }
@@ -96,12 +98,15 @@ public class ControleurEvenement {
      * @throws MauvaisChampsException Si le nouveau nom rend l'événement identique à un autre événement.
      */
     public void modifierNomEvenement(Evenement evenement, String nom) throws MauvaisChampsException {
+
         for (Evenement evenementCourant : application.getEvenements()) {
+
             String nomCourant = evenementCourant.getNom();
             TypeEvenement typeCourant = evenementCourant.getType();
             boolean isNotUnique = nom.equals(nomCourant) && evenement.getType() == typeCourant;
 
             if (isNotUnique) {
+
                 throw new MauvaisChampsException("En changeant le nom de l'événement, " +
                         "celui-ci devient identique à un autre événement",
                         new ArrayList<>(Collections.singleton(false)));
@@ -117,12 +122,15 @@ public class ControleurEvenement {
      * @throws MauvaisChampsException Si le nouveau type rend l'événement identique à un autre événement.
      */
     public void modifierTypeEvenement(Evenement evenement, TypeEvenement type) throws MauvaisChampsException {
+
         for (Evenement evenementCourant : application.getEvenements()) {
+
             String nomCourant = evenementCourant.getNom();
             TypeEvenement typeCourant = evenementCourant.getType();
             boolean isNotUnique = evenement.getNom().equals(nomCourant) && type == typeCourant;
 
             if (isNotUnique) {
+
                 throw new MauvaisChampsException("En changeant le type de l'événement, " +
                         "celui-ci devient identique à un autre événement",
                         new ArrayList<>(Collections.singleton(false)));
@@ -156,9 +164,11 @@ public class ControleurEvenement {
      * @throws MauvaisChampsException Si la nouvelle date de début de cet événement est ultérieure à sa date de fin.
      */
     public void modifierDebutEvenement(Evenement evenement, LocalDate dateDebut) throws MauvaisChampsException {
+
         boolean isStartAfterEnd = evenement.getDateFin() != null && dateDebut.isAfter(evenement.getDateFin());
 
         if (isStartAfterEnd) {
+
             throw new MauvaisChampsException("La date de début de l'événement est ultérieure à sa date de fin",
                     new ArrayList<>(Collections.singleton(false)));
         }
@@ -172,9 +182,11 @@ public class ControleurEvenement {
      * @throws MauvaisChampsException Si la nouvelle date de fin de cet événement est antérieure à sa date de début.
      */
     public void modifierFinEvenement(Evenement evenement, LocalDate dateFin) throws MauvaisChampsException {
+
         boolean isStartAfterEnd = evenement.getDateDebut() != null && dateFin.isBefore(evenement.getDateDebut());
 
         if (isStartAfterEnd) {
+
             throw new MauvaisChampsException("La date de fin de l'événement est antérieure à sa date de début",
                     new ArrayList<>(Collections.singleton(false)));
         }
@@ -192,6 +204,7 @@ public class ControleurEvenement {
      * @return Le lieu créé.
      */
     public Lieu creerLieu(String nom, String adresse, String ville, int codePostal) {
+
         Lieu nouveauLieu = new Lieu(nom, adresse, ville, codePostal);
         evenement.setLieu(nouveauLieu);
         return nouveauLieu;
@@ -212,6 +225,7 @@ public class ControleurEvenement {
      * @param adresse Nouvelle adresse
      */
     public void modifierAdresseLieu(Lieu lieu, String adresse) {
+
         lieu.setAdresse(adresse);
     }
 
@@ -221,6 +235,7 @@ public class ControleurEvenement {
      * @param ville Nouvelle ville
      */
     public void modifierVilleLieu(Lieu lieu, String ville) {
+
         lieu.setVille(ville);
     }
 
@@ -230,6 +245,7 @@ public class ControleurEvenement {
      * @param codePostal Nouveau code postal
      */
     public void modifierCodePostalLieu(Lieu lieu, int codePostal) {
+
         lieu.setCodePostal(codePostal);
     }
 

@@ -1,7 +1,9 @@
 package fr.uga.iut2.genevent.vue;
 
+
 import fr.uga.iut2.genevent.controleur.ControleurEvenement;
 import fr.uga.iut2.genevent.exception.MauvaisChampsException;
+
 import fr.uga.iut2.genevent.modele.Evenement;
 import fr.uga.iut2.genevent.modele.Fonctionnalite;
 import fr.uga.iut2.genevent.modele.Lieu;
@@ -225,15 +227,12 @@ public class VueEvenement extends IHM {
             // }
         });
 
-        securiteCheckBox.selectedProperty().addListener(
-                (observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.AGENT_SECURITE, newValue));
-        entretienCheckBox.selectedProperty().addListener(
-                (observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.AGENT_ENTRETIEN, newValue));
-        animationsCheckBox.selectedProperty().addListener(
-                (observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.ANIMATION, newValue));
-        participantsCheckBox.selectedProperty().addListener(
-                (observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.PARTICIPANT, newValue));
+        securiteCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.AGENT_SECURITE, newValue));
+        entretienCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.AGENT_ENTRETIEN, newValue));
+        animationsCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.ANIMATION, newValue));
+        participantsCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.PARTICIPANT, newValue));
     }
+
 
     private void updateFonctionnalite(Fonctionnalite fonctionnalite, boolean add) {
         Evenement evenement = controleurEvenement.getEvenement();
