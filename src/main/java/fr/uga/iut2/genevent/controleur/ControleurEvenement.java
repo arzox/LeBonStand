@@ -11,7 +11,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 /**
  * Contrôleur pour le module "Evenement".
@@ -55,9 +54,8 @@ public class ControleurEvenement {
      * @return L'événement créé.
      * @throws MauvaisChampsException Si un événement avec le même nom et type existe déjà.
      */
-    public Evenement creerEvenement(String nom, TypeEvenement type,
-                                    ArrayList<Fonctionnalite> fonctionnalites, String imagePath) throws MauvaisChampsException {
-
+    public Evenement creerEvenement(String nom, TypeEvenement type, ArrayList<Fonctionnalite> fonctionnalites, String imagePath)
+            throws MauvaisChampsException {
         // Création d'un événement
         if (type == null) {
 
@@ -69,7 +67,8 @@ public class ControleurEvenement {
 
             String nomCourant = evenementCourant.getNom();
             TypeEvenement typeCourant = evenementCourant.getType();
-            boolean isNotUnique = nom.equals(nomCourant) && type == typeCourant;
+
+            boolean isNotUnique = nom.equals(nomCourant) & type == typeCourant;
 
             if (isNotUnique) {
 
@@ -104,9 +103,11 @@ public class ControleurEvenement {
 
             String nomCourant = evenementCourant.getNom();
             TypeEvenement typeCourant = evenementCourant.getType();
-            boolean isNotUnique = nom.equals(nomCourant) && evenement.getType() == typeCourant;
 
-            if (isNotUnique) {
+            boolean isNotSameEvenement = evenement != evenementCourant;
+            boolean isNotUnique = nom.equals(nomCourant) & evenement.getType() == typeCourant;
+
+            if (isNotSameEvenement & isNotUnique) {
 
                 throw new MauvaisChampsException("En changeant le nom de l'événement, " +
                         "celui-ci devient identique à un autre événement",
@@ -128,9 +129,11 @@ public class ControleurEvenement {
 
             String nomCourant = evenementCourant.getNom();
             TypeEvenement typeCourant = evenementCourant.getType();
-            boolean isNotUnique = evenement.getNom().equals(nomCourant) && type == typeCourant;
 
-            if (isNotUnique) {
+            boolean isNotSameEvenement = evenement != evenementCourant;
+            boolean isNotUnique = evenement.getNom().equals(nomCourant) & type == typeCourant;
+
+            if (isNotSameEvenement & isNotUnique) {
 
                 throw new MauvaisChampsException("En changeant le type de l'événement, " +
                         "celui-ci devient identique à un autre événement",
@@ -146,6 +149,7 @@ public class ControleurEvenement {
      * @param fonctionnalites Nouvelles fonctionnalités
      */
     public void modifierFonctionnalitesEvenement(Evenement evenement, ArrayList<Fonctionnalite> fonctionnalites) {
+
         evenement.setFonctionnalites(fonctionnalites);
     }
 
@@ -155,6 +159,7 @@ public class ControleurEvenement {
      * @param lieu Nouveau lieu
      */
     public void modifierLieuEvenement(Evenement evenement, Lieu lieu) {
+
         evenement.setLieu(lieu);
     }
 
@@ -170,7 +175,7 @@ public class ControleurEvenement {
 
         if (isStartAfterEnd) {
 
-            throw new MauvaisChampsException("La date de début de l'événement est ultérieure à sa date de fin",
+            throw new MauvaisChampsException("La date de début de l'événement ne peut être ultérieure à sa date de fin",
                     new ArrayList<>(Collections.singleton(false)));
         }
         evenement.setDateDebut(dateDebut);
@@ -188,7 +193,7 @@ public class ControleurEvenement {
 
         if (isStartAfterEnd) {
 
-            throw new MauvaisChampsException("La date de fin de l'événement est antérieure à sa date de début",
+            throw new MauvaisChampsException("La date de fin de l'événement ne peut être antérieure à sa date de début",
                     new ArrayList<>(Collections.singleton(false)));
         }
         evenement.setDateFin(dateFin);
@@ -208,6 +213,7 @@ public class ControleurEvenement {
 
         Lieu nouveauLieu = new Lieu(nom, adresse, ville, codePostal);
         evenement.setLieu(nouveauLieu);
+
         return nouveauLieu;
     }
 
@@ -268,7 +274,7 @@ public class ControleurEvenement {
         return evenement.getImagePath();
     }
 
-    public List<Evenement> getTousEvenements() {
+    public ArrayList<Evenement> getTousEvenements() {
         return application.getEvenements();
     }
 }

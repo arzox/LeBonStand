@@ -89,7 +89,7 @@ public class VueCreation extends IHM {
             VueOnglets vueOnglets = new VueOnglets(new VueEvenement());
             vueOnglets.changerFenetre(previousStage);
         } catch (MauvaisChampsException e) {
-            e.printStackTrace();
+            informerUtilisateur(e.getMessage(), false);
         }
     }
 
@@ -111,11 +111,6 @@ public class VueCreation extends IHM {
     }
 
     // Implémentations et redéfinitions
-
-    @Override
-    public void informerUtilisateur(String message, boolean succes) {
-        System.out.println(message);
-    }
 
     @Override
     public String getFxmlName() {

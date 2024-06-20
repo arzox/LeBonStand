@@ -44,60 +44,15 @@ public class ControleurCommercant {
     /**
      * Crée un nouveau commerçant et l'ajoute à la liste des commerçants de cet événement.
      * @param nom Nom du commerçant.
-     * @param prenom Prénom du commerçant.
-     * @param email Adresse email du commerçant.
-     * @param telephone Numéro de téléphone du commerçant.
-     * @param heureDebut Heure de début d'activité du commerçant.
-     * @param heureFin Heure de fin d'activité du commerçant.
-     * @param emplacement Emplacement attribué au commerçant.
-     * @param typeCommerce Type de commerce du commerçant.
      * @return Le commerçant ajouté.
      * @throws Exception Si l'événement est nul.
-     * @throws MauvaisChampsException Si le nom, prénom, adresse email et numéro de téléphone sont identiques à ceux d'un autre commerçant ou
-     * si l'heure de début d'activité du commerçant est ultérieure à l'heure de fin d'activité de celui-ci.
      */
-    public Commercant inscrireCommercant(String nom, String prenom, String email, String telephone, int heureDebut,
-                                         int heureFin, Emplacement emplacement, TypeCommerce typeCommerce) throws Exception {
+    public Commercant inscrireCommercant(String nom) throws Exception {
         if (evenement != null) {
 
-            boolean quotaNotRespected = false; // TODO
-            boolean isStartAfterEnd = heureDebut > heureFin;
+            Commercant nouveauCommercant = new Commercant(nom, "Prénom", "Mail",
+                    "0601020304", 8, 20, null, null);
 
-            if (quotaNotRespected) {
-
-                throw new MauvaisChampsException("Le nombre de commerçant a atteint le quota maximal, " +
-                        "vous ne pouvez plus ajouter de commerçant de ce type",
-                        new ArrayList<>(Arrays.asList(true, true, true, true, true, true, true, true)));
-            }
-
-            for (Commercant commercant : evenement.getCommercants()) {
-
-                String nomCourant = commercant.getNom();
-                String prenomCourant = commercant.getPrenom();
-                String emailCourant = commercant.getEmail();
-                String telephoneCourant = commercant.getTelephone();
-                boolean isNotUnique = nom.equals(nomCourant) & prenom.equals(prenomCourant)
-                        & email.equals(emailCourant) & telephone.equals(telephoneCourant);
-
-                if (isNotUnique & isStartAfterEnd) {
-
-                    throw new MauvaisChampsException("Le commerçant que vous souhaitez inscrire existe déjà et " +
-                            "l'heure de début est ultérieure à l'heure de fin",
-                            new ArrayList<>(Arrays.asList(false, false, false, false, false, false, true, true)));
-
-                } else if (isNotUnique) {
-
-                    throw new MauvaisChampsException("Le commerçant que vous souhaitez inscrire existe déjà",
-                            new ArrayList<>(Arrays.asList(false, false, false, false, true, true, true, true)));
-                }
-            }
-            if (isStartAfterEnd) {
-
-                throw new MauvaisChampsException("L'heure de début est ultérieure à l'heure de fin",
-                        new ArrayList<>(Arrays.asList(true, true, true, true, false, false, true, true)));
-            }
-            Commercant nouveauCommercant = new Commercant(nom, prenom, email, telephone, heureDebut, heureFin,
-                    emplacement, typeCommerce);
             evenement.inscrireCommercant(nouveauCommercant);
 
             return nouveauCommercant;
@@ -124,6 +79,7 @@ public class ControleurCommercant {
                 String prenomCourant = commercant.getPrenom();
                 String emailCourant = commercant.getEmail();
                 String telephoneCourant = commercant.getTelephone();
+
                 boolean commercantFound = nom.equals(nomCourant) & prenom.equals(prenomCourant)
                         & email.equals(emailCourant) & telephone.equals(telephoneCourant);
 
@@ -168,10 +124,12 @@ public class ControleurCommercant {
                 String prenomCourant = commercantCourant.getPrenom();
                 String emailCourant = commercantCourant.getEmail();
                 String telephoneCourant = commercantCourant.getTelephone();
+
+                boolean isNotSameCommercant = commercant != commercantCourant;
                 boolean isNotUnique = nom.equals(nomCourant) & commercant.getPrenom().equals(prenomCourant)
                         & commercant.getEmail().equals(emailCourant) & commercant.getTelephone().equals(telephoneCourant);
 
-                if (isNotUnique) {
+                if (isNotSameCommercant & isNotUnique) {
 
                     throw new MauvaisChampsException("En changeant le nom du commerçant, celui-ci devient identique à un autre commerçant",
                             new ArrayList<>(Collections.singleton(false)));
@@ -199,10 +157,12 @@ public class ControleurCommercant {
                 String prenomCourant = commercantCourant.getPrenom();
                 String emailCourant = commercantCourant.getEmail();
                 String telephoneCourant = commercantCourant.getTelephone();
+
+                boolean isNotSameCommercant = commercant != commercantCourant;
                 boolean isNotUnique = commercant.getNom().equals(nomCourant) & prenom.equals(prenomCourant)
                         & commercant.getEmail().equals(emailCourant) & commercant.getTelephone().equals(telephoneCourant);
 
-                if (isNotUnique) {
+                if (isNotSameCommercant & isNotUnique) {
 
                     throw new MauvaisChampsException("En changeant le prénom du commerçant, " +
                             "celui-ci devient identique à un autre commerçant",
@@ -231,10 +191,12 @@ public class ControleurCommercant {
                 String prenomCourant = commercantCourant.getPrenom();
                 String emailCourant = commercantCourant.getEmail();
                 String telephoneCourant = commercantCourant.getTelephone();
+
+                boolean isNotSameCommercant = commercant != commercantCourant;
                 boolean isNotUnique = commercant.getNom().equals(nomCourant) & commercant.getPrenom().equals(prenomCourant)
                         & email.equals(emailCourant) & commercant.getTelephone().equals(telephoneCourant);
 
-                if (isNotUnique) {
+                if (isNotSameCommercant & isNotUnique) {
 
                     throw new MauvaisChampsException("En changeant l'adresse email du commerçant, " +
                             "celui-ci devient identique à un autre commerçant",
@@ -263,10 +225,12 @@ public class ControleurCommercant {
                 String prenomCourant = commercantCourant.getPrenom();
                 String emailCourant = commercantCourant.getEmail();
                 String telephoneCourant = commercantCourant.getTelephone();
+
+                boolean isNotSameCommercant = commercant != commercantCourant;
                 boolean isNotUnique = commercant.getNom().equals(nomCourant) & commercant.getPrenom().equals(prenomCourant)
                         & commercant.getEmail().equals(emailCourant) & telephone.equals(telephoneCourant);
 
-                if (isNotUnique) {
+                if (isNotSameCommercant & isNotUnique) {
 
                     throw new MauvaisChampsException("En changeant le numéro de téléphone du commerçant, " +
                             "celui-ci devient identique à un autre commerçant",
@@ -293,7 +257,7 @@ public class ControleurCommercant {
 
             if (isStartAfterEnd) {
 
-                throw new MauvaisChampsException("L'heure de début est ultérieure à l'heure de fin",
+                throw new MauvaisChampsException("L'heure de début ne peut être ultérieure à l'heure de fin",
                         new ArrayList<>(Collections.singleton(false)));
             }
             commercant.setHeureDebut(heureDebut);
@@ -316,7 +280,7 @@ public class ControleurCommercant {
 
             if (isStartAfterEnd) {
 
-                throw new MauvaisChampsException("L'heure de fin est antérieure à l'heure de début",
+                throw new MauvaisChampsException("L'heure de fin ne peut être antérieure à l'heure de début",
                         new ArrayList<>(Collections.singleton(false)));
             }
             commercant.setHeureFin(heureFin);
@@ -359,23 +323,16 @@ public class ControleurCommercant {
 
     /**
      * Crée un nouvel emplacement et l'ajoute à la liste des emplacements de cet événement.
-     * @param taille Taille de l'emplacement
      * @return L'emplacement créé.
      * @throws Exception Si l'événement est nul.
      * @throws MauvaisChampsException Si la taille est nulle ou négative.
      */
-    public Emplacement creerEmplacement(int taille) throws Exception {
+    public Emplacement creerEmplacement() throws Exception {
         if (evenement != null) {
 
-            boolean isNegative = taille < 0;
-
-            if (isNegative) {
-
-                throw new MauvaisChampsException("La taille ne peut pas être nulle ou négative",
-                        new ArrayList<>(Collections.singleton(false)));
-            }
             int numero = evenement.getEmplacements().size() + 1;
-            Emplacement nouvelEmplacement = new Emplacement(numero, taille);
+
+            Emplacement nouvelEmplacement = new Emplacement(numero, 0);
             evenement.ajouterEmplacement(nouvelEmplacement);
 
             return nouvelEmplacement;
@@ -396,6 +353,7 @@ public class ControleurCommercant {
             for (Emplacement emplacement : evenement.getEmplacements()) {
 
                 int numeroCourant = emplacement.getNumero();
+
                 boolean emplacementFound = numero == numeroCourant;
 
                 if (emplacementFound) {
@@ -433,7 +391,7 @@ public class ControleurCommercant {
     public void modifierTailleEmplacement(Emplacement emplacement, int taille) throws Exception {
         if (evenement != null) {
 
-            boolean isNegative = taille < 0;
+            boolean isNegative = taille <= 0;
 
             if (isNegative) {
 
@@ -451,40 +409,15 @@ public class ControleurCommercant {
     /**
      * Crée un nouveau type de commerce et l'ajoute à la liste des types de commerce de cet événement.
      * @param nom Nom du type de commerce
-     * @param quota Nombre de commerçants maximum qui peuvent avoir ce type de commerce
      * @return Le type de commerce créé.
      * @throws Exception Si l'événement est nul.
      * @throws MauvaisChampsException Si le nouveau nom rend le type de commerce identique à un autre type de commerce ou
      * si le quota est nul ou négatif.
      */
-    public TypeCommerce creerTypeCommerce(String nom, int quota) throws Exception {
+    public TypeCommerce creerTypeCommerce(String nom) throws Exception {
         if (evenement != null) {
 
-            boolean isNegative = quota <= 0;
-
-            for (TypeCommerce type : evenement.getTypeCommerces()) {
-
-                String nomCourant = type.getNom();
-                boolean isNotUnique = nom.equals(nomCourant);
-
-                if (isNotUnique & isNegative) {
-
-                    throw new MauvaisChampsException("Le type de commerce que vous souhaitez créer existe déjà et " +
-                            "le quota ne peut pas être nul ou négatif",
-                            new ArrayList<>(Arrays.asList(false, false)));
-
-                } else if (isNotUnique) {
-
-                    throw new MauvaisChampsException("Le type de commerce que vous souhaitez créer existe déjà",
-                            new ArrayList<>(Arrays.asList(false, true)));
-                }
-            }
-            if (isNegative) {
-
-                throw new MauvaisChampsException("Le quota ne peut pas être nul ou négatif",
-                        new ArrayList<>(Arrays.asList(true, false)));
-            }
-            TypeCommerce nouveauTypeCommerce = new TypeCommerce(nom, quota);
+            TypeCommerce nouveauTypeCommerce = new TypeCommerce(nom, 0);
             evenement.ajouterTypeCommerce(nouveauTypeCommerce);
 
             return nouveauTypeCommerce;
@@ -505,6 +438,7 @@ public class ControleurCommercant {
             for (TypeCommerce typeCommerce : evenement.getTypeCommerces()) {
 
                 String nomCourant = typeCommerce.getNom();
+
                 boolean typeFound = nom.equals(nomCourant);
 
                 if (typeFound) {
@@ -542,16 +476,23 @@ public class ControleurCommercant {
     public void modifierNomTypeCommerce(TypeCommerce type, String nom) throws Exception {
         if (evenement != null) {
 
-            if (getTypeCommerce(nom) != null) {
+            for (TypeCommerce typeCourant : evenement.getTypeCommerces()) {
 
-                throw new MauvaisChampsException("En changeant le nom du type de commerce, celui-ci devient identique à un autre type de commerce",
-                        new ArrayList<>(Collections.singleton(false)));
+                String nomCourant = typeCourant.getNom();
+
+                boolean isNotSameType = type != typeCourant;
+                boolean isNotUnique = nom.equals(nomCourant);
+
+                if (isNotSameType & isNotUnique) {
+
+                    throw new MauvaisChampsException("En changeant le nom du type de commerce, celui-ci devient identique à un autre type de commerce",
+                            new ArrayList<>(Collections.singleton(false)));
+                }
             }
             type.setNom(nom);
 
         } else
             throw new Exception("Le nom du type de commerce ne peut être modifié car l'événement du controleur est nul");
-
     }
 
     /**
@@ -564,7 +505,7 @@ public class ControleurCommercant {
     public void modifierQuotaTypeCommerce(TypeCommerce type, int quota) throws Exception {
         if (evenement != null) {
 
-            boolean isNegative = quota < 0;
+            boolean isNegative = quota <= 0;
 
             if (isNegative) {
 

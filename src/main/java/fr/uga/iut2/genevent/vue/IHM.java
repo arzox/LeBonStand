@@ -3,6 +3,7 @@ package fr.uga.iut2.genevent.vue;
 import fr.uga.iut2.genevent.controleur.Controleur;
 import fr.uga.iut2.genevent.util.Vues;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 /**
@@ -11,6 +12,7 @@ import javafx.stage.Stage;
  */
 public abstract class IHM {
     private Parent parent;
+    private VueOnglets panelController;
     protected boolean isLoaded = false;
 
     /**
@@ -28,7 +30,11 @@ public abstract class IHM {
      * @param message - Le message à afficher
      * @param succes  - true si le message correspond à un succès, false sinon.
      */
-    public abstract void informerUtilisateur(String message, boolean succes);
+    public void informerUtilisateur(String message, boolean succes) {
+        Alert alert = new Alert(succes ? Alert.AlertType.INFORMATION : Alert.AlertType.ERROR);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 
     /**
      * Applique cette vue à l'objet Stage en argument
@@ -63,6 +69,17 @@ public abstract class IHM {
 
     public void setParent(Parent parent) {
         this.parent = parent;
+    }
+
+    public VueOnglets getPanelController() {
+        return panelController;
+    }
+
+    public void setPanelController(VueOnglets panelController) {
+        this.panelController = panelController;
+        if (!panelController.getContent().equals(this)) {
+            panelController.setContent(this);
+        }
     }
 
     public abstract String getFxmlName();

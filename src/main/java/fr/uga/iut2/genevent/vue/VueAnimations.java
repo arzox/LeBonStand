@@ -153,7 +153,7 @@ public class VueAnimations extends IHM {
 
     private void addLine(int i) throws Exception {
         animationsTable.getItems().add(
-                controleurAnimation.ajouterAnimation(("Nom" + i), 5.2f, LocalDateTime.now(), LocalDateTime.now().plusDays(1)));
+                controleurAnimation.ajouterAnimation(("Nom" + i)));
     }
 
     @FXML

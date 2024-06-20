@@ -88,6 +88,9 @@ public class Controleur {
     }
 
     public ArrayList<Evenement> getEvents() {
+        if (application == null) {
+            return new ArrayList<>();
+        }
         return application.getEvenements();
     }
 

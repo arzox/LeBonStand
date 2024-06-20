@@ -2,6 +2,7 @@ package fr.uga.iut2.genevent.vue;
 
 import fr.uga.iut2.genevent.controleur.Controleur;
 import fr.uga.iut2.genevent.controleur.ControleurAgentSecurite;
+import fr.uga.iut2.genevent.exception.MauvaisChampsException;
 import fr.uga.iut2.genevent.modele.*;
 import fr.uga.iut2.genevent.util.NombreAgentStringConverter;
 import fr.uga.iut2.genevent.util.ZoneStringConverter;
@@ -62,12 +63,6 @@ public class VueAgentSecurite extends IHM {
         controleurAgentSecurite = Controleur.getInstance(null).getControleurAgentSecurite();
     }
 
-    @Override
-    public void informerUtilisateur(String message, boolean succes) {
-        System.out.println(message);
-        System.out.println(succes);
-    }
-
     @FXML
     private void initialize() {
         setupTable();
@@ -87,9 +82,11 @@ public class VueAgentSecurite extends IHM {
                 controleurAgentSecurite.modifierNomZone(event.getRowValue(), event.getNewValue());
                 agentsTable.getItems().clear();
                 agentsTable.getItems().addAll(controleurAgentSecurite.getEvenement().getAgentsSecurite());
+            } catch (MauvaisChampsException e) {
+                informerUtilisateur(e.getMessage(), false);
+                zoneTable.refresh();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
-                zoneTable.refresh();
             }
         });
 
@@ -131,10 +128,12 @@ public class VueAgentSecurite extends IHM {
         nomColumn.setOnEditCommit(event -> {
             try {
                 controleurAgentSecurite.modifierNomAgentSecurite(event.getRowValue(), event.getNewValue());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            } catch (MauvaisChampsException e) {
+                informerUtilisateur(e.getMessage(), false);
                 event.getRowValue().setNom(event.getOldValue());
                 agentsTable.refresh();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         });
 
@@ -143,10 +142,12 @@ public class VueAgentSecurite extends IHM {
         prenomColumn.setOnEditCommit(event -> {
             try {
                 controleurAgentSecurite.modifierPrenomAgentSecurite(event.getRowValue(), event.getNewValue());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            } catch (MauvaisChampsException e) {
+                informerUtilisateur(e.getMessage(), false);
                 event.getRowValue().setPrenom(event.getOldValue());
                 agentsTable.refresh();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         });
 
@@ -155,10 +156,12 @@ public class VueAgentSecurite extends IHM {
         emailColumn.setOnEditCommit(event -> {
             try {
                 controleurAgentSecurite.modifierEmailAgentSecurite(event.getRowValue(), event.getNewValue());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            } catch (MauvaisChampsException e) {
+                informerUtilisateur(e.getMessage(), false);
                 event.getRowValue().setEmail(event.getOldValue());
                 agentsTable.refresh();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         });
 
@@ -167,10 +170,12 @@ public class VueAgentSecurite extends IHM {
         telephoneColumn.setOnEditCommit(event -> {
             try {
                 controleurAgentSecurite.modifierTelephoneAgentSecurite(event.getRowValue(), event.getNewValue());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            } catch (MauvaisChampsException e) {
+                informerUtilisateur(e.getMessage(), false);
                 event.getRowValue().setTelephone(event.getOldValue());
                 agentsTable.refresh();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         });
 
@@ -179,10 +184,12 @@ public class VueAgentSecurite extends IHM {
         heureDebutColumn.setOnEditCommit(event -> {
             try {
                 controleurAgentSecurite.modifierHeureDebutAgentSecurite(event.getRowValue(), event.getNewValue());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            } catch (MauvaisChampsException e) {
+                informerUtilisateur(e.getMessage(), false);
                 event.getRowValue().setHeureDebut(event.getOldValue());
                 agentsTable.refresh();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         });
 
@@ -191,10 +198,12 @@ public class VueAgentSecurite extends IHM {
         heureFinColumn.setOnEditCommit(event -> {
             try {
                 controleurAgentSecurite.modifierHeureFinAgentSecurite(event.getRowValue(), event.getNewValue());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            } catch (MauvaisChampsException e) {
+                informerUtilisateur(e.getMessage(), false);
                 event.getRowValue().setHeureFin(event.getOldValue());
                 agentsTable.refresh();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         });
 
@@ -212,14 +221,16 @@ public class VueAgentSecurite extends IHM {
                         controleurAgentSecurite.modifierZoneAgentSecurite(event.getRowValue(), newZone);
                         zoneTable.getItems().add(newZone);
                         zoneTable.refresh();
-                    } catch (Exception ex) {
-                        System.out.println(ex.getMessage());
+                    } catch (MauvaisChampsException e) {
+                        informerUtilisateur(e.getMessage(), false);
                         event.getRowValue().setZone(event.getOldValue());
                     }
                 }
                 agentsTable.refresh();
+            } catch (MauvaisChampsException e) {
+                informerUtilisateur(e.getMessage(), false);
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                System.out.println(e.getMessage());
             }
         });
     }
@@ -240,7 +251,7 @@ public class VueAgentSecurite extends IHM {
 
     private void addLine(int i) throws Exception {
         agentsTable.getItems().add(
-                controleurAgentSecurite.ajouterAgentSecurite(("Nom" + i), "Prenom", "Mail", "06010203", 8, 20, null));
+                controleurAgentSecurite.ajouterAgentSecurite(("Nom" + i)));
     }
 
     @FXML
@@ -263,6 +274,8 @@ public class VueAgentSecurite extends IHM {
         try {
             controleurAgentSecurite.supprimerAgentSecurite(agentSecurite);
             agentsTable.getItems().remove(agentSecurite);
+        } catch (MauvaisChampsException e) {
+            informerUtilisateur(e.getMessage(), false);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

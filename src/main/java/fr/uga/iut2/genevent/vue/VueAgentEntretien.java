@@ -2,10 +2,8 @@ package fr.uga.iut2.genevent.vue;
 
 import fr.uga.iut2.genevent.controleur.Controleur;
 import fr.uga.iut2.genevent.controleur.ControleurAgentEntretien;
+import fr.uga.iut2.genevent.exception.MauvaisChampsException;
 import fr.uga.iut2.genevent.modele.AgentEntretien;
-import fr.uga.iut2.genevent.modele.AgentSecurite;
-import fr.uga.iut2.genevent.modele.Zone;
-import fr.uga.iut2.genevent.util.ZoneStringConverter;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
@@ -52,12 +50,6 @@ public class VueAgentEntretien extends IHM {
         controleurAgentEntretien = Controleur.getInstance(null).getControleurAgentEntretien();
     }
 
-    @Override
-    public void informerUtilisateur(String message, boolean succes) {
-        System.out.println(message);
-        System.out.println(succes);
-    }
-
     @FXML
     private void initialize() {
         setupTable();
@@ -99,10 +91,12 @@ public class VueAgentEntretien extends IHM {
         nomColumn.setOnEditCommit(event -> {
             try {
                 controleurAgentEntretien.modifierNomAgentEntretien(event.getRowValue(), event.getNewValue());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            } catch (MauvaisChampsException e) {
+                informerUtilisateur(e.getMessage(), false);
                 event.getRowValue().setNom(event.getOldValue());
                 agentsTable.refresh();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         });
 
@@ -111,10 +105,12 @@ public class VueAgentEntretien extends IHM {
         prenomColumn.setOnEditCommit(event -> {
             try {
                 controleurAgentEntretien.modifierPrenomAgentEntretien(event.getRowValue(), event.getNewValue());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            } catch (MauvaisChampsException e) {
+                informerUtilisateur(e.getMessage(), false);
                 event.getRowValue().setPrenom(event.getOldValue());
                 agentsTable.refresh();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         });
 
@@ -123,10 +119,12 @@ public class VueAgentEntretien extends IHM {
         emailColumn.setOnEditCommit(event -> {
             try {
                 controleurAgentEntretien.modifierEmailAgentEntretien(event.getRowValue(), event.getNewValue());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            } catch (MauvaisChampsException e) {
+                informerUtilisateur(e.getMessage(), false);
                 event.getRowValue().setEmail(event.getOldValue());
                 agentsTable.refresh();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         });
 
@@ -135,10 +133,12 @@ public class VueAgentEntretien extends IHM {
         telephoneColumn.setOnEditCommit(event -> {
             try {
                 controleurAgentEntretien.modifierTelephoneAgentEntretien(event.getRowValue(), event.getNewValue());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            } catch (MauvaisChampsException e) {
+                informerUtilisateur(e.getMessage(), false);
                 event.getRowValue().setTelephone(event.getOldValue());
                 agentsTable.refresh();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         });
 
@@ -147,10 +147,12 @@ public class VueAgentEntretien extends IHM {
         heureDebutColumn.setOnEditCommit(event -> {
             try {
                 controleurAgentEntretien.modifierHeureDebutAgentEntretien(event.getRowValue(), event.getNewValue());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            } catch (MauvaisChampsException e) {
+                informerUtilisateur(e.getMessage(), false);
                 event.getRowValue().setHeureDebut(event.getOldValue());
                 agentsTable.refresh();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         });
 
@@ -159,10 +161,12 @@ public class VueAgentEntretien extends IHM {
         heureFinColumn.setOnEditCommit(event -> {
             try {
                 controleurAgentEntretien.modifierHeureFinAgentEntretien(event.getRowValue(), event.getNewValue());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            } catch (MauvaisChampsException e) {
+                informerUtilisateur(e.getMessage(), false);
                 event.getRowValue().setHeureFin(event.getOldValue());
                 agentsTable.refresh();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         });
     }
@@ -183,7 +187,7 @@ public class VueAgentEntretien extends IHM {
 
     private void addLine(int i) throws Exception {
         agentsTable.getItems().add(
-                controleurAgentEntretien.ajouterAgentEntretien(("Nom" + i), "Prenom", "Mail", "06010203", 8, 20));
+                controleurAgentEntretien.ajouterAgentEntretien(("Nom" + i)));
     }
 
     @FXML
@@ -206,6 +210,8 @@ public class VueAgentEntretien extends IHM {
         try {
             controleurAgentEntretien.supprimerAgentEntretien(agentEntretien);
             agentsTable.getItems().remove(agentEntretien);
+        } catch (MauvaisChampsException e) {
+            informerUtilisateur(e.getMessage(), false);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
