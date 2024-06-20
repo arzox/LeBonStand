@@ -19,7 +19,7 @@ class ApplicationTest {
     void addEvenement() {
         ArrayList<Evenement> evenements = new ArrayList<>();
         Application application = new Application();
-        Evenement evenement = new Evenement("nom", null, null, null, null);
+        Evenement evenement = new Evenement("nom", null, null, null, null, null);
         application.addEvenement(evenement);
         evenements.add(evenement);
         assertEquals(evenements, application.getEvenements());
@@ -29,7 +29,7 @@ class ApplicationTest {
     void removeEvenement() {
         ArrayList<Evenement> evenements = new ArrayList<>();
         Application application = new Application();
-        Evenement evenement = new Evenement("nom", null, null, null, null);
+        Evenement evenement = new Evenement("nom", null, null, null, null, null);
         application.addEvenement(evenement);
         evenements.add(evenement);
         application.removeEvenement(evenement);
@@ -43,9 +43,9 @@ class ApplicationTest {
     void addEvenementProbleme() {
         ArrayList<Evenement> evenements = new ArrayList<>();
         Application application = new Application();
-        Evenement evenement = new Evenement("nom", null, null, null, null);
+        Evenement evenement = new Evenement("nom", null, null, null, null, null);
         application.addEvenement(evenement);
-        evenements.add(new Evenement("nom", null, null, null, null));
+        evenements.add(new Evenement("nom", null, null, null, null, null));
         assertEquals(evenements, application.getEvenements());
     }
 
@@ -53,11 +53,11 @@ class ApplicationTest {
     void removeEvenementProbleme() {
         ArrayList<Evenement> evenements = new ArrayList<>();
         Application application = new Application();
-        Evenement evenement = new Evenement("nom", null, null, null, null);
+        Evenement evenement = new Evenement("nom", null, null, null, null, null);
         application.addEvenement(evenement);
-        evenements.add(new Evenement("nom", null, null, null, null));
+        evenements.add(new Evenement("nom", null, null, null, null, null));
         application.removeEvenement(evenement);
-        evenements.remove(new Evenement("nom", null, null, null, null));
+        evenements.remove(new Evenement("nom", null, null, null, null, null));
         assertEquals(evenements, application.getEvenements());
     }
 

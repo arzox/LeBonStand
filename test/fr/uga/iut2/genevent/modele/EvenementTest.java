@@ -18,7 +18,7 @@ class EvenementTest {
         LocalDate date = LocalDate.of(2021, 1, 1);
         Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, new ArrayList<Fonctionnalite>(
                 Arrays.asList(Fonctionnalite.ANIMATION, Fonctionnalite.AGENT_SECURITE)
-        ));
+        ), null);
         Commercant c = new Commercant("nom", "prenom", "email", "telephone", 8, 18, null, null);
         e.inscrireCommercant(c);
         assertEquals(1, e.getCommercants().size());
@@ -29,7 +29,7 @@ class EvenementTest {
         LocalDate date = LocalDate.of(2021, 1, 1);
         Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, new ArrayList<Fonctionnalite>(
                 Arrays.asList(Fonctionnalite.ANIMATION, Fonctionnalite.AGENT_SECURITE)
-        ));
+        ), null);
         Commercant c = new Commercant("nom", "prenom", "email", "telephone", 8, 18, null, null);
         e.inscrireCommercant(c);
         e.desinscrireCommercant(c);
@@ -41,7 +41,7 @@ class EvenementTest {
         LocalDate date = LocalDate.of(2021, 1, 1);
         Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, new ArrayList<Fonctionnalite>(
                 Arrays.asList(Fonctionnalite.ANIMATION, Fonctionnalite.AGENT_SECURITE)
-        ));
+        ), null);
         Emplacement em = new Emplacement(1, 10);
         e.ajouterEmplacement(em);
         assertEquals(1, e.getEmplacements().size());
@@ -52,7 +52,7 @@ class EvenementTest {
         LocalDate date = LocalDate.of(2021, 1, 1);
         Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, new ArrayList<Fonctionnalite>(
                 Arrays.asList(Fonctionnalite.ANIMATION, Fonctionnalite.AGENT_SECURITE)
-        ));
+        ), null);
         Emplacement em = new Emplacement(1, 10);
         e.ajouterEmplacement(em);
         e.retirerEmplacement(em);
@@ -64,7 +64,7 @@ class EvenementTest {
         LocalDate date = LocalDate.of(2021, 1, 1);
         Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, new ArrayList<Fonctionnalite>(
                 Arrays.asList(Fonctionnalite.ANIMATION, Fonctionnalite.AGENT_SECURITE)
-        ));
+        ), null);
         e.ajouterTypeCommerce(new TypeCommerce("nom", 5));
         assertEquals(1, e.getTypeCommerces().size());
     }
@@ -74,7 +74,7 @@ class EvenementTest {
         LocalDate date = LocalDate.of(2021, 1, 1);
         Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, new ArrayList<Fonctionnalite>(
                 Arrays.asList(Fonctionnalite.ANIMATION, Fonctionnalite.AGENT_SECURITE)
-        ));
+        ), null);
         TypeCommerce tc = new TypeCommerce("nom", 5);
         e.ajouterTypeCommerce(tc);
         e.retirerTypeCommerce(tc);
@@ -86,7 +86,7 @@ class EvenementTest {
         LocalDate date = LocalDate.of(2021, 1, 1);
         Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, new ArrayList<Fonctionnalite>(
                 Arrays.asList(Fonctionnalite.ANIMATION, Fonctionnalite.AGENT_SECURITE)
-        ));
+        ), null);
         AgentSecurite a = new AgentSecurite("nom", "prenom", "email", "telephone", 8, 18, null);
         e.ajouterAgentSecurite(a);
         assertEquals(1, e.getAgentsSecurite().size());
@@ -97,7 +97,7 @@ class EvenementTest {
         LocalDate date = LocalDate.of(2021, 1, 1);
         Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, new ArrayList<Fonctionnalite>(
                 Arrays.asList(Fonctionnalite.ANIMATION, Fonctionnalite.AGENT_SECURITE)
-        ));
+        ), null);
         AgentSecurite a = new AgentSecurite("nom", "prenom", "email", "telephone", 8, 18, null);
         e.ajouterAgentSecurite(a);
         e.supprimerAgentSecurite(a);
@@ -109,7 +109,7 @@ class EvenementTest {
         LocalDate date = LocalDate.of(2021, 1, 1);
         Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, new ArrayList<Fonctionnalite>(
                 Arrays.asList(Fonctionnalite.ANIMATION, Fonctionnalite.AGENT_SECURITE)
-        ));
+        ), null);
         Zone z = new Zone("nom");
         e.getZones().add(z);
         e.supprimerZone(z);
@@ -121,7 +121,7 @@ class EvenementTest {
         LocalDate date = LocalDate.of(2021, 1, 1);
         Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, new ArrayList<Fonctionnalite>(
                 Arrays.asList(Fonctionnalite.ANIMATION, Fonctionnalite.AGENT_SECURITE)
-        ));
+        ), null);
         AgentEntretien a = new AgentEntretien("nom", "prenom", "email", "telephone", 8, 18);
         e.ajouterAgentEntretien(a);
         assertEquals(1, e.getAgentsEntretien().size());
@@ -132,7 +132,7 @@ class EvenementTest {
         LocalDate date = LocalDate.of(2021, 1, 1);
         Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, new ArrayList<Fonctionnalite>(
                 Arrays.asList(Fonctionnalite.ANIMATION, Fonctionnalite.AGENT_SECURITE)
-        ));
+        ), null);
         AgentEntretien a = new AgentEntretien("nom", "prenom", "email", "telephone", 8, 18);
         e.ajouterAgentEntretien(a);
         e.supprimerAgentEntretien(a);
@@ -144,7 +144,7 @@ class EvenementTest {
         LocalDate date = LocalDate.of(2021, 1, 1);
         Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, new ArrayList<Fonctionnalite>(
                 Arrays.asList(Fonctionnalite.AGENT_SECURITE)
-        ));
+        ), null);
         Participant p = new Participant("nom", "prenom", "email");
         e.inscrireParticipant(p);
         assertEquals(1, e.getParticipants().size());
@@ -155,7 +155,7 @@ class EvenementTest {
         LocalDate date = LocalDate.of(2021, 1, 1);
         Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, new ArrayList<Fonctionnalite>(
                 Arrays.asList(Fonctionnalite.AGENT_SECURITE)
-        ));
+        ), null);
         Participant p = new Participant("nom", "prenom", "email");
         e.inscrireParticipant(p);
         e.desinscrireParticipant(p);
@@ -166,7 +166,7 @@ class EvenementTest {
     void ajouterAnimation() {
         LocalDate date = LocalDate.of(2021, 1, 1);
         LocalDateTime date2 = LocalDateTime.of(2021, 1, 1, 10, 0);
-        Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, new ArrayList<Fonctionnalite>());
+        Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, new ArrayList<Fonctionnalite>(), null);
         Animation a = new Animation("nom", 10, date2, date2);
         e.ajouterAnimation(a);
         assertEquals(1, e.getAnimations().size());
@@ -176,7 +176,7 @@ class EvenementTest {
     void retirerAnimation() {
         LocalDate date = LocalDate.of(2021, 1, 1);
         LocalDateTime date2 = LocalDateTime.of(2021, 1, 1, 10, 0);
-        Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, new ArrayList<Fonctionnalite>());
+        Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, new ArrayList<Fonctionnalite>(), null);
         Animation a = new Animation("nom", 10, date2, date2);
         e.ajouterAnimation(a);
         e.supprimerAnimation(a);
@@ -186,14 +186,14 @@ class EvenementTest {
     @Test
     void getNom() {
         LocalDate date = LocalDate.of(2021, 1, 1);
-        Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, new ArrayList<Fonctionnalite>());
+        Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, new ArrayList<Fonctionnalite>(), null);
         assertEquals("nom", e.getNom());
     }
 
     @Test
     void setNom() {
         LocalDate date = LocalDate.of(2021, 1, 1);
-        Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, new ArrayList<Fonctionnalite>());
+        Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, new ArrayList<Fonctionnalite>(), null);
         e.setNom("nom2");
         assertEquals("nom2", e.getNom());
     }
@@ -201,14 +201,14 @@ class EvenementTest {
     @Test
     void getDateDebut() {
         LocalDate date = LocalDate.of(2021, 1, 1);
-        Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, new ArrayList<Fonctionnalite>());
+        Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, new ArrayList<Fonctionnalite>(), null);
         assertEquals(date, e.getDateDebut());
     }
 
     @Test
     void setDateDebut() {
         LocalDate date = LocalDate.of(2021, 1, 1);
-        Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, new ArrayList<Fonctionnalite>());
+        Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, new ArrayList<Fonctionnalite>(), null);
         LocalDate date2 = LocalDate.of(2021, 1, 2);
         e.setDateDebut(date2);
         assertEquals(date2, e.getDateDebut());
@@ -217,14 +217,14 @@ class EvenementTest {
     @Test
     void getDateFin() {
         LocalDate date = LocalDate.of(2021, 1, 1);
-        Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, new ArrayList<Fonctionnalite>());
+        Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, new ArrayList<Fonctionnalite>(), null);
         assertEquals(date, e.getDateFin());
     }
 
     @Test
     void setDateFin() {
         LocalDate date = LocalDate.of(2021, 1, 1);
-        Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, new ArrayList<Fonctionnalite>());
+        Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, new ArrayList<Fonctionnalite>(), null);
         LocalDate date2 = LocalDate.of(2021, 1, 2);
         e.setDateFin(date2);
         assertEquals(date2, e.getDateFin());
@@ -235,14 +235,14 @@ class EvenementTest {
         LocalDate date = LocalDate.of(2021, 1, 1);
         Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, new ArrayList<Fonctionnalite>(
                 Arrays.asList(Fonctionnalite.AGENT_SECURITE)
-        ));
+        ), null);
         assertEquals(1, e.getFonctionnalites().size());
     }
 
     @Test
     void setFonctionnalites() {
         LocalDate date = LocalDate.of(2021, 1, 1);
-        Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, null);
+        Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, null, null);
         e.setFonctionnalites(new ArrayList<Fonctionnalite>(
                 Arrays.asList(Fonctionnalite.AGENT_SECURITE)
         ));
@@ -252,14 +252,14 @@ class EvenementTest {
     @Test
     void getMaxParticipants() {
         LocalDate date = LocalDate.of(2021, 1, 1);
-        Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, null);
+        Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, null, null);
         assertEquals(0, e.getMaxParticipants());
     }
 
     @Test
     void setMaxParticipants() {
         LocalDate date = LocalDate.of(2021, 1, 1);
-        Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, null);
+        Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, null, null);
         e.setMaxParticipants(10);
         assertEquals(10, e.getMaxParticipants());
     }
@@ -267,14 +267,14 @@ class EvenementTest {
     @Test
     void getType() {
         LocalDate date = LocalDate.of(2021, 1, 1);
-        Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, null);
+        Evenement e = new Evenement("nom", date, date, TypeEvenement.BROCANTE, null, null);
         assertEquals(TypeEvenement.BROCANTE, e.getType());
     }
 
     @Test
     void setType() {
         LocalDate date = LocalDate.of(2021, 1, 1);
-        Evenement e = new Evenement("nom", date, date, null, null);
+        Evenement e = new Evenement("nom", date, date, null, null, null);
         e.setType(TypeEvenement.BROCANTE);
         assertEquals(TypeEvenement.BROCANTE, e.getType());
     }
@@ -283,7 +283,7 @@ class EvenementTest {
     void getLieu() {
         LocalDate date = LocalDate.of(2021, 1, 1);
         Lieu l = new Lieu("nom", "adresse", "ville", 12345);
-        Evenement e = new Evenement("nom", date, date, null, null);
+        Evenement e = new Evenement("nom", date, date, null, null, null);
         e.setLieu(l);
         assertEquals(l, e.getLieu());
     }
@@ -292,7 +292,7 @@ class EvenementTest {
     void setLieu() {
         LocalDate date = LocalDate.of(2021, 1, 1);
         Lieu l = new Lieu("nom", "adresse", "ville", 12345);
-        Evenement e = new Evenement("nom", date, date, null, null);
+        Evenement e = new Evenement("nom", date, date, null, null, null);
         e.setLieu(l);
         assertEquals(l, e.getLieu());
     }
@@ -301,7 +301,7 @@ class EvenementTest {
     void getTypeCommerces() {
         LocalDate date = LocalDate.of(2021, 1, 1);
         TypeCommerce tc = new TypeCommerce("nom", 5);
-        Evenement e = new Evenement("nom", date, date, null, null);
+        Evenement e = new Evenement("nom", date, date, null, null, null);
         e.ajouterTypeCommerce(tc);
         assertEquals(1, e.getTypeCommerces().size());
     }
@@ -310,7 +310,7 @@ class EvenementTest {
     void getCommercants() {
         LocalDate date = LocalDate.of(2021, 1, 1);
         Commercant c = new Commercant("nom", "prenom", "email", "telephone", 8, 18, null, null);
-        Evenement e = new Evenement("nom", date, date, null, null);
+        Evenement e = new Evenement("nom", date, date, null, null, null);
         e.inscrireCommercant(c);
         assertEquals(1, e.getCommercants().size());
     }
@@ -319,7 +319,7 @@ class EvenementTest {
     void getEmplacements() {
         LocalDate date = LocalDate.of(2021, 1, 1);
         Emplacement em = new Emplacement(1, 10);
-        Evenement e = new Evenement("nom", date, date, null, null);
+        Evenement e = new Evenement("nom", date, date, null, null, null);
         e.ajouterEmplacement(em);
         assertEquals(1, e.getEmplacements().size());
     }
@@ -328,7 +328,7 @@ class EvenementTest {
     void getAgentsSecurite() {
         LocalDate date = LocalDate.of(2021, 1, 1);
         AgentSecurite a = new AgentSecurite("nom", "prenom", "email", "telephone", 8, 18, null);
-        Evenement e = new Evenement("nom", date, date, null, null);
+        Evenement e = new Evenement("nom", date, date, null, null, null);
         e.ajouterAgentSecurite(a);
         assertEquals(1, e.getAgentsSecurite().size());
     }
@@ -337,7 +337,7 @@ class EvenementTest {
     void getZones() {
         LocalDate date = LocalDate.of(2021, 1, 1);
         Zone z = new Zone("nom");
-        Evenement e = new Evenement("nom", date, date, null, null);
+        Evenement e = new Evenement("nom", date, date, null, null, null);
         e.getZones().add(z);
         assertEquals(1, e.getZones().size());
     }
@@ -346,7 +346,7 @@ class EvenementTest {
     void getAgentsEntretien() {
         LocalDate date = LocalDate.of(2021, 1, 1);
         AgentEntretien a = new AgentEntretien("nom", "prenom", "email", "telephone", 8, 18);
-        Evenement e = new Evenement("nom", date, date, null, null);
+        Evenement e = new Evenement("nom", date, date, null, null, null);
         e.ajouterAgentEntretien(a);
         assertEquals(1, e.getAgentsEntretien().size());
     }
@@ -355,7 +355,7 @@ class EvenementTest {
     void getParticipants() {
         LocalDate date = LocalDate.of(2021, 1, 1);
         Participant p = new Participant("nom", "prenom", "email");
-        Evenement e = new Evenement("nom", date, date, null, null);
+        Evenement e = new Evenement("nom", date, date, null, null, null);
         e.inscrireParticipant(p);
         assertEquals(1, e.getParticipants().size());
     }
@@ -365,7 +365,7 @@ class EvenementTest {
         LocalDate date = LocalDate.of(2021, 1, 1);
         LocalDateTime date2 = LocalDateTime.of(2021, 1, 1, 10, 0);
         Animation a = new Animation("nom", 10, date2, date2);
-        Evenement e = new Evenement("nom", date, date, null, null);
+        Evenement e = new Evenement("nom", date, date, null, null, null);
         e.ajouterAnimation(a);
         assertEquals(1, e.getAnimations().size());
     }

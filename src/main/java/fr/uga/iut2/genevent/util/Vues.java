@@ -83,16 +83,17 @@ public class Vues {
      * @param stage
      */
     public static void showParentOnStage(Parent parent, Stage stage, Boolean fullScreen) {
+        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
         stage.setScene(stage.getScene());
         stage.setScene(loadParentWithStyle(parent));
-
         if (fullScreen) {
-            stage.setMaximized(false);
             stage.setMaximized(true);
+            stage.setWidth(screenBounds.getWidth());
+            stage.setHeight(screenBounds.getHeight());
             stage.setX(0);
             stage.setY(0);
         } else {
-            Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+            stage.setMaximized(false);
             double centerX = screenBounds.getWidth() / 2.0;
             double centerY = screenBounds.getHeight() / 2.0;
             stage.setX(centerX - stage.getWidth() / 2.0);

@@ -69,7 +69,7 @@ public class VueEvenement extends IHM {
     @FXML
     private void updatePanel() {
         getPanelController().isLoaded = false;
-        getPanelController().changerFenetre((Stage) nomEvenementField.getScene().getWindow());
+        getPanelController().changerFenetre((Stage) nomEvenementField.getScene().getWindow(), true);
         // TODO : afficher une boîte de dialogue pour avertir de la suppression des données des fonctionnalités si elle sont retirées
     }
 
@@ -216,7 +216,7 @@ public class VueEvenement extends IHM {
                     controleurEvenement.getEvenement().getLieu().getCodePostal());
 
             // TODO : confirmer la suppression de ce bloc de code
-            // Depuis la branche de Rahim
+
              if (!newValue.trim().isEmpty()) {
              try {
              int codePostal = Integer.parseInt(newValue);
