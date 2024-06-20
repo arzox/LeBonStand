@@ -248,13 +248,6 @@ public class VueEvenement extends IHM {
     }
 
     @Override
-    public void informerUtilisateur(String message, boolean succes) {
-        Alert alert = new Alert(succes ? Alert.AlertType.INFORMATION : Alert.AlertType.ERROR);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-
-    @Override
     public String getFxmlName() {
         return FXML_NAME;
     }

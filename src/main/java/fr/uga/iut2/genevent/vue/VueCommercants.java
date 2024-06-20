@@ -1,6 +1,7 @@
 package fr.uga.iut2.genevent.vue;
 
 import fr.uga.iut2.genevent.controleur.ControleurCommercant;
+import fr.uga.iut2.genevent.exception.MauvaisChampsException;
 import fr.uga.iut2.genevent.modele.Commercant;
 import fr.uga.iut2.genevent.modele.Emplacement;
 import fr.uga.iut2.genevent.modele.TypeCommerce;
@@ -68,13 +69,6 @@ public class VueCommercants extends IHM {
         this.controleurCommercant = controleur.getControleurCommercant();
     }
 
-    // Implémentations et redéfinitions
-
-    @Override
-    public void informerUtilisateur(String message, boolean succes) {
-        System.out.println(message);
-    }
-
     @FXML
     private void initialize() {
         setupTable();
@@ -115,9 +109,11 @@ public class VueCommercants extends IHM {
         tailleColumn.setOnEditCommit(event -> {
             try {
                 controleurCommercant.modifierTailleEmplacement(event.getRowValue(), event.getNewValue());
+            } catch (MauvaisChampsException e) {
+                informerUtilisateur(e.getMessage(), false);
+                emplacementTable.refresh();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
-                emplacementTable.refresh();
             }
         });
     }
@@ -130,10 +126,12 @@ public class VueCommercants extends IHM {
                 controleurCommercant.modifierNomTypeCommerce(event.getRowValue(), event.getNewValue());
                 commercantsTable.getItems().clear();
                 commercantsTable.getItems().addAll(controleurCommercant.getEvenement().getCommercants());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            } catch (MauvaisChampsException e) {
+                informerUtilisateur(e.getMessage(), false);
                 event.getRowValue().setNom(event.getOldValue());
                 typeTable.refresh();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         });
 
@@ -142,9 +140,11 @@ public class VueCommercants extends IHM {
         quotaColumn.setOnEditCommit(event -> {
             try {
                 controleurCommercant.modifierQuotaTypeCommerce(event.getRowValue(), event.getNewValue());
+            } catch (MauvaisChampsException e) {
+                informerUtilisateur(e.getMessage(), false);
+                emplacementTable.refresh();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
-                emplacementTable.refresh();
             }
         });
     }
@@ -171,10 +171,12 @@ public class VueCommercants extends IHM {
         nomColumn.setOnEditCommit(event -> {
             try {
                 controleur.getControleurCommercant().modifierNomCommercant(event.getRowValue(), event.getNewValue());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            } catch (MauvaisChampsException e) {
+                informerUtilisateur(e.getMessage(), false);
                 event.getRowValue().setNom(event.getOldValue());
                 commercantsTable.refresh();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         });
 
@@ -183,10 +185,12 @@ public class VueCommercants extends IHM {
         prenomColumn.setOnEditCommit(event -> {
             try {
                 controleur.getControleurCommercant().modifierPrenomCommercant(event.getRowValue(), event.getNewValue());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            } catch (MauvaisChampsException e) {
+                informerUtilisateur(e.getMessage(), false);
                 event.getRowValue().setPrenom(event.getOldValue());
                 commercantsTable.refresh();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         });
 
@@ -195,10 +199,12 @@ public class VueCommercants extends IHM {
         emailColumn.setOnEditCommit(event -> {
             try {
                 controleur.getControleurCommercant().modifierEmailCommercant(event.getRowValue(), event.getNewValue());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            } catch (MauvaisChampsException e) {
+                informerUtilisateur(e.getMessage(), false);
                 event.getRowValue().setEmail(event.getOldValue());
                 commercantsTable.refresh();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         });
 
@@ -208,10 +214,12 @@ public class VueCommercants extends IHM {
             try {
                 controleur.getControleurCommercant().modifierTelephoneCommercant(event.getRowValue(),
                         event.getNewValue());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            } catch (MauvaisChampsException e) {
+                informerUtilisateur(e.getMessage(), false);
                 event.getRowValue().setTelephone(event.getOldValue());
                 commercantsTable.refresh();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         });
 
@@ -221,10 +229,12 @@ public class VueCommercants extends IHM {
             try {
                 controleur.getControleurCommercant().modifierHeureDebutCommercant(event.getRowValue(),
                         event.getNewValue());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            } catch (MauvaisChampsException e) {
+                informerUtilisateur(e.getMessage(), false);
                 event.getRowValue().setHeureDebut(event.getOldValue());
                 commercantsTable.refresh();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         });
 
@@ -234,10 +244,12 @@ public class VueCommercants extends IHM {
             try {
                 controleur.getControleurCommercant().modifierHeureFinCommercant(event.getRowValue(),
                         event.getNewValue());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            } catch (MauvaisChampsException e) {
+                informerUtilisateur(e.getMessage(), false);
                 event.getRowValue().setHeureFin(event.getOldValue());
                 commercantsTable.refresh();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         });
 
@@ -258,18 +270,20 @@ public class VueCommercants extends IHM {
                     controleurCommercant.modifierEmplacementCommercant(event.getRowValue(), emplacement);
                 } else {
                     try {
-                        Emplacement newEmplacement = controleurCommercant.creerEmplacement(0);
+                        Emplacement newEmplacement = controleurCommercant.creerEmplacement();
                         controleurCommercant.modifierEmplacementCommercant(event.getRowValue(), newEmplacement);
                         emplacementTable.getItems().add(newEmplacement);
                         emplacementTable.refresh();
-                    } catch (Exception ex) {
-                        System.out.println(ex.getMessage());
+                    } catch (MauvaisChampsException e) {
+                        System.out.println(e.getMessage());
                         event.getRowValue().setEmplacement(event.getOldValue());
                     }
                 }
                 commercantsTable.refresh();
-            } catch (Exception e) {
+            } catch (MauvaisChampsException e) {
                 throw new RuntimeException(e);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         });
 
@@ -290,16 +304,18 @@ public class VueCommercants extends IHM {
                     controleurCommercant.modifierTypeCommerceCommercant(event.getRowValue(), typeCommerce);
                 } else {
                     try {
-                        TypeCommerce newTypeCommerce = controleurCommercant.creerTypeCommerce(event.getNewValue().getNom(), 1);
+                        TypeCommerce newTypeCommerce = controleurCommercant.creerTypeCommerce(event.getNewValue().getNom());
                         controleurCommercant.modifierTypeCommerceCommercant(event.getRowValue(), newTypeCommerce);
                         typeTable.getItems().add(newTypeCommerce);
                         typeTable.refresh();
-                    } catch (Exception ex) {
-                        System.out.println(ex.getMessage());
+                    } catch (MauvaisChampsException e) {
+                        System.out.println(e.getMessage());
                         event.getRowValue().setTypeCommerce(event.getOldValue());
                         commercantsTable.refresh();
                     }
                 }
+            } catch (MauvaisChampsException e) {
+                informerUtilisateur(e.getMessage(), false);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -333,7 +349,7 @@ public class VueCommercants extends IHM {
 
     private void addLine(int i) throws Exception {
         commercantsTable.getItems().add(
-                controleurCommercant.inscrireCommercant(("Nom" + i), "Prenom", "Mail", "06010203", 8, 20, null, null));
+                controleurCommercant.inscrireCommercant(("Nom" + i)));
     }
 
     @FXML
@@ -356,6 +372,8 @@ public class VueCommercants extends IHM {
         try {
             controleurCommercant.desinscrireCommercant(commercant);
             commercantsTable.getItems().remove(commercant);
+        } catch (MauvaisChampsException e) {
+            informerUtilisateur(e.getMessage(), false);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
