@@ -1,5 +1,6 @@
 package fr.uga.iut2.genevent;
 
+import fr.uga.iut2.genevent.controleur.Controleur;
 import fr.uga.iut2.genevent.modele.Application;
 import fr.uga.iut2.genevent.modele.Evenement;
 import fr.uga.iut2.genevent.modele.Fonctionnalite;
@@ -56,6 +57,7 @@ public class Main {
             LOGGER.log(Level.SEVERE, "Erreur irrécupérable pendant la sauvegarde de l'état : fin d'exécution !");
             throw new RuntimeException(e);
         }
+        
 
         try {
             LOGGER.log(Level.INFO, "Chargement de l'état initial");
@@ -70,6 +72,8 @@ public class Main {
 
         // Set evenement courant pour tester
         // controleur.setEvenementCourant(application.getEvenements().get(0));
+
+        Controleur.getInstance(application);
 
         try {
             LOGGER.log(Level.INFO, "Démarrage de l'interface graphique");
