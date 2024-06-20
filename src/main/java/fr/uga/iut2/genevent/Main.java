@@ -1,6 +1,5 @@
 package fr.uga.iut2.genevent;
 
-import fr.uga.iut2.genevent.controleur.Controleur;
 import fr.uga.iut2.genevent.modele.Application;
 import fr.uga.iut2.genevent.modele.Evenement;
 import fr.uga.iut2.genevent.modele.Fonctionnalite;
@@ -63,14 +62,11 @@ public class Main {
             application = Persisteur.lireEtat();
         } catch (ClassNotFoundException | IOException ignored) {
             LOGGER.log(Level.SEVERE, "Erreur irrécupérable pendant le chargement de l'état : fin d'exécution !");
-            System.err.println("Erreur irrécupérable pendant le chargement de l'état : fin d'exécution !");
             System.err.flush();
             System.exit(Main.EXIT_ERR_LOAD);
         }
 
-        System.out.println(application.getEvenements());
-
-        Controleur.getInstance(application);
+        LOGGER.log(Level.INFO, application.getEvenements().toString());
 
         // Set evenement courant pour tester
         // controleur.setEvenementCourant(application.getEvenements().get(0));
