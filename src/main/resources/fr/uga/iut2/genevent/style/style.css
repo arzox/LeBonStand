@@ -2,6 +2,7 @@
 .button,
 .combo-box,
 .text-field,
+.date-picker,
 .check-box>.box {
   -fx-background-color: white;
   -fx-border-color: gray;
@@ -22,7 +23,8 @@
 .no-border .button,
 .no-border .combo-box,
 .no-border .text-field,
-.no-border .check-box>.box {
+.no-border .check-box>.box,
+.no-border .date-picker {
   -fx-border-width: 0;
 }
 
