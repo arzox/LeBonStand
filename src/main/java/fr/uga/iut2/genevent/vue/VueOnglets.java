@@ -29,7 +29,7 @@ public class VueOnglets extends IHM {
     public IHM content;
 
     @FXML
-    private Text nomEvenement;
+    public Text nomEvenement;
     @FXML
     private VBox panel;
 

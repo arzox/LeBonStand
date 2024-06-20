@@ -13,7 +13,7 @@
 
 <HBox fx:id="container" prefHeight="1028.0" prefWidth="1462.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox spacing="20.0">
+      <HBox spacing="20.0" styleClass="tableButtons">
          <HBox.margin>
             <Insets />
          </HBox.margin>
@@ -116,7 +116,7 @@
                <children>
                   <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="71.0" prefWidth="0.0" spacing="20.0" style="-fx-border-color: lightgrey;">
                      <children>
-                        <Button mnemonicParsing="false">
+                        <Button mnemonicParsing="false" onAction="#addAnnex">
                            <graphic>
                               <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -128,7 +128,7 @@
                               <Tooltip text="Ajouter une ligne" />
                            </tooltip>
                         </Button>
-                        <Button mnemonicParsing="false" style="-fx-background-color: #f4f4f4;">
+                        <Button mnemonicParsing="false" onAction="#deleteAnnex">
                            <graphic>
                               <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
