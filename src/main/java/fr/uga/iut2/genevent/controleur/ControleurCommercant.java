@@ -3,6 +3,13 @@ package fr.uga.iut2.genevent.controleur;
 import fr.uga.iut2.genevent.exception.MauvaisChampsException;
 import fr.uga.iut2.genevent.modele.*;
 
+import java.awt.*;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -578,6 +585,39 @@ public class ControleurCommercant {
             throw new Exception(
                     "Le quota du type de commerce ne peut être modifié car l'événement du controleur est nul");
     }
+
+
+    public void ouvrirClientMailPourCommercants(String sujet, String corps) {
+        if (evenement != null && Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.MAIL)) {
+            try {
+                StringBuilder mailto = new StringBuilder("mailto:");
+                for (Commercant commercant : evenement.getCommercants()) {
+                    mailto.append(URLEncoder.encode(commercant.getEmail(), StandardCharsets.UTF_8.toString())).append(";");
+                }
+                // Retirer le dernier point-virgule
+                if (mailto.length() > 7) {
+                    mailto.setLength(mailto.length() - 1);
+                }
+                mailto.append("?subject=").append(URLEncoder.encode(sujet, StandardCharsets.UTF_8.toString()))
+                        .append("&body=").append(URLEncoder.encode(corps, StandardCharsets.UTF_8.toString()));
+
+                Desktop.getDesktop().mail(new URI(mailto.toString()));
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+                System.out.println("Erreur d'encodage : " + e.getMessage());
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("Erreur d'entrée/sortie : " + e.getMessage());
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+                System.out.println("Erreur de syntaxe URI : " + e.getMessage());
+            }
+        } else {
+            System.out.println("Le client mail n'est pas supporté sur ce système.");
+        }
+    }
+
+
 
     public ArrayList<Emplacement> getEmplacements() {
         return evenement.getEmplacements();
