@@ -127,10 +127,10 @@ public class VueOnglets extends IHM {
     }
 
     private void switchOnglet(IHM nouvelleVue, Node button) {
-        panel.getChildren().forEach(node -> node.getStyleClass().remove("button-selected"));
-        button.getStyleClass().add("button-selected");
         setContent(nouvelleVue);
         changerFenetre((Stage) nomEvenement.getScene().getWindow());
+        panel.getChildren().forEach(node -> node.getStyleClass().remove("button-selected"));
+        button.getStyleClass().add("button-selected");
         // setCurrentOnglet(panel.getChildren().indexOf(button));
     }
 
@@ -151,7 +151,7 @@ public class VueOnglets extends IHM {
      */
     @Override
     public void changerFenetre(Stage stage) {
-        load();
+        if (!isLoaded) load();
         getContent().load();
         ((Pane) getContent().getParent()).getChildren().add(0, getParent());
         Vues.showParentOnStage(getContent().getParent(), stage);

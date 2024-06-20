@@ -42,18 +42,20 @@ public class Main {
         // Créer une instance du modèle (application correspond à la racine du modèle)
         Application application = new Application();
 
-        application.addEvenement(new Evenement("Marche Noel", LocalDate.of(2021, 6, 1), LocalDate.of(2021, 6, 2),
-                TypeEvenement.MARCHE_NOEL,
-                new ArrayList<>(Arrays.asList(Fonctionnalite.AGENT_ENTRETIEN, Fonctionnalite.PARTICIPANT))));
-        application.addEvenement(
-                new Evenement("Brocante", LocalDate.of(2022, 7, 2), LocalDate.of(2022, 7, 3), TypeEvenement.BROCANTE,
-                        new ArrayList<>(Arrays.asList(Fonctionnalite.AGENT_ENTRETIEN, Fonctionnalite.PARTICIPANT))));
-        try {
-            LOGGER.log(Level.INFO, "Sauvegarde de l'état initial");
-            Persisteur.sauverEtat(application);
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Erreur irrécupérable pendant la sauvegarde de l'état : fin d'exécution !");
-            throw new RuntimeException(e);
+        if (false) {
+            application.addEvenement(new Evenement("Marche Noel", LocalDate.of(2021, 6, 1), LocalDate.of(2021, 6, 2),
+                    TypeEvenement.MARCHE_NOEL,
+                    new ArrayList<>(Arrays.asList(Fonctionnalite.AGENT_ENTRETIEN, Fonctionnalite.PARTICIPANT))));
+            application.addEvenement(
+                    new Evenement("Brocante", LocalDate.of(2022, 7, 2), LocalDate.of(2022, 7, 3), TypeEvenement.BROCANTE,
+                            new ArrayList<>(Arrays.asList(Fonctionnalite.AGENT_ENTRETIEN, Fonctionnalite.PARTICIPANT))));
+            try {
+                LOGGER.log(Level.INFO, "Sauvegarde de l'état initial");
+                Persisteur.sauverEtat(application);
+            } catch (IOException e) {
+                LOGGER.log(Level.SEVERE, "Erreur irrécupérable pendant la sauvegarde de l'état : fin d'exécution !");
+                throw new RuntimeException(e);
+            }
         }
 
         try {
@@ -68,7 +70,7 @@ public class Main {
 
         System.out.println(application.getEvenements());
 
-        Controleur controleur = Controleur.getInstance(application);
+        Controleur.getInstance(application);
 
         // Set evenement courant pour tester
         // controleur.setEvenementCourant(application.getEvenements().get(0));
