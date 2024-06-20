@@ -88,12 +88,27 @@ public class VueEvenement extends IHM implements Observer {
             codePostalField.setText("");
         }
 
-        if (evenement.getImagePath() != null && !evenement.getImagePath().isEmpty()) {
-            File imageFile = new File(evenement.getImagePath());
+        // Charger l'image de l'événement ou une image par défaut
+        String imagePath = evenement.getImagePath();
+        Image image_defaut = new Image(getClass().getResourceAsStream("/fr/uga/iut2/genevent/images/marche_noel.jpg"));
+        if (imagePath != null && !imagePath.isEmpty()) {
+            File imageFile = new File(imagePath);
             if (imageFile.exists()) {
                 Image image = new Image(imageFile.toURI().toString());
                 changeImageView.setImage(image);
+                changeImageView.setFitHeight(120);
+                changeImageView.setFitWidth(120);
+            } else {
+                // Charger une image par défaut si l'image n'existe pas
+                changeImageView.setImage(image_defaut);
+                changeImageView.setFitHeight(120);
+                changeImageView.setFitWidth(120);
             }
+        } else {
+            // Charger une image par défaut si aucun chemin d'image n'est défini
+            changeImageView.setImage(image_defaut);
+            changeImageView.setFitHeight(120);
+            changeImageView.setFitWidth(120);
         }
     }
 

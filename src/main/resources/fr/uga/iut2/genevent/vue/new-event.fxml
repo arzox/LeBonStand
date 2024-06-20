@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="457.0" prefWidth="418.0" styleClass="newEvent" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="457.0" prefWidth="418.0" styleClass="newEvent" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="382.0" prefHeight="70.0" prefWidth="418.0" style="-fx-background-color: #F18653FF;">
          <children>
@@ -41,9 +33,9 @@
                 <RowConstraints maxHeight="52.33331489562988" minHeight="10.0" prefHeight="51.66665840148926" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="Nom" />
+                  <Label text="Nom*" />
                   <TextField fx:id="nom" prefHeight="49.0" prefWidth="247.0" promptText="Marché de Noël Saint-Martin d'Heres" GridPane.columnIndex="1" />
-                  <Label text="Type" GridPane.rowIndex="1" />
+                  <Label text="Type*" GridPane.rowIndex="1" />
                   <ComboBox fx:id="typeMarche" prefHeight="26.0" prefWidth="253.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
                <padding>
