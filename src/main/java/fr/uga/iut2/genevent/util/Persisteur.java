@@ -17,7 +17,6 @@ import java.util.logging.Level;
  * <p>
  * C'est une classe utilitaire, toutes les méthodes sont statiques.
  * La classe n'a pas vocation a être instanciée.
- *
  */
 public final class Persisteur {
 

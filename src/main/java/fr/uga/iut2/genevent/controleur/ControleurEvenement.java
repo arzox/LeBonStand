@@ -21,7 +21,9 @@ public class ControleurEvenement {
     private Evenement evenement;
 
     /**
-     * Crée le contrôleur, doit être uniquement appelée par le constructeur de la classe Controleur.
+     * Crée le contrôleur, doit être uniquement appelée par le constructeur de la
+     * classe Controleur.
+     * 
      * @param application L'application que le contrôleur gérera
      */
     public ControleurEvenement(Application application) {
@@ -30,6 +32,7 @@ public class ControleurEvenement {
 
     /**
      * Récupère l'événement géré par le contrôleur.
+     * 
      * @return L'événement actuel
      */
     public Evenement getEvenement() {
@@ -38,6 +41,7 @@ public class ControleurEvenement {
 
     /**
      * Attribue un événement au contrôleur.
+     * 
      * @param evenement L'événement à attribuer
      */
     public void setEvenement(Evenement evenement) {
@@ -47,14 +51,18 @@ public class ControleurEvenement {
     // Événement
 
     /**
-     * Crée un nouvel événement et l'ajoute à la liste des événements de cette application.
-     * @param nom Nom de l'événement
-     * @param type Type de l'événement
+     * Crée un nouvel événement et l'ajoute à la liste des événements de cette
+     * application.
+     * 
+     * @param nom             Nom de l'événement
+     * @param type            Type de l'événement
      * @param fonctionnalites Liste des fonctionnalités de l'événement
      * @return L'événement créé.
-     * @throws MauvaisChampsException Si un événement avec le même nom et type existe déjà.
+     * @throws MauvaisChampsException Si un événement avec le même nom et type
+     *                                existe déjà.
      */
-    public Evenement creerEvenement(String nom, TypeEvenement type, ArrayList<Fonctionnalite> fonctionnalites, String imagePath)
+    public Evenement creerEvenement(String nom, TypeEvenement type, ArrayList<Fonctionnalite> fonctionnalites,
+            String imagePath)
             throws MauvaisChampsException {
         // Création d'un événement
         if (type == null) {
@@ -79,12 +87,15 @@ public class ControleurEvenement {
         Evenement evenement = new Evenement(nom, null, null, type, fonctionnalites, imagePath);
         application.addEvenement(evenement);
 
-        // Renvoi de l'événement afin d'y attribuer les contrôleurs dans le contrôleur FXML dans la vue
+        // Renvoi de l'événement afin d'y attribuer les contrôleurs dans le contrôleur
+        // FXML dans la vue
         return evenement;
     }
 
     /**
-     * Retire de la liste des événements de cette application l'événement donné en paramètre.
+     * Retire de la liste des événements de cette application l'événement donné en
+     * paramètre.
+     * 
      * @param evenement L'événement à supprimer
      */
     public void supprimerEvenement(Evenement evenement) {
@@ -93,9 +104,11 @@ public class ControleurEvenement {
 
     /**
      * Modifie le nom de l'événement donné en paramètre.
+     * 
      * @param evenement L'événement dont le nom doit être modifié
-     * @param nom Nouveau nom
-     * @throws MauvaisChampsException Si le nouveau nom rend l'événement identique à un autre événement.
+     * @param nom       Nouveau nom
+     * @throws MauvaisChampsException Si le nouveau nom rend l'événement identique à
+     *                                un autre événement.
      */
     public void modifierNomEvenement(Evenement evenement, String nom) throws MauvaisChampsException {
 
@@ -119,9 +132,11 @@ public class ControleurEvenement {
 
     /**
      * Modifie le type de l'événement donné en paramètre.
+     * 
      * @param evenement L'événement dont le type doit être modifié
-     * @param type Nouveau type
-     * @throws MauvaisChampsException Si le nouveau type rend l'événement identique à un autre événement.
+     * @param type      Nouveau type
+     * @throws MauvaisChampsException Si le nouveau type rend l'événement identique
+     *                                à un autre événement.
      */
     public void modifierTypeEvenement(Evenement evenement, TypeEvenement type) throws MauvaisChampsException {
 
@@ -145,7 +160,9 @@ public class ControleurEvenement {
 
     /**
      * Modifie les fonctionnalités de l'événement donné en paramètre.
-     * @param evenement L'événement dont les fonctionnalités doivent être modifiées
+     * 
+     * @param evenement       L'événement dont les fonctionnalités doivent être
+     *                        modifiées
      * @param fonctionnalites Nouvelles fonctionnalités
      */
     public void modifierFonctionnalitesEvenement(Evenement evenement, ArrayList<Fonctionnalite> fonctionnalites) {
@@ -155,8 +172,9 @@ public class ControleurEvenement {
 
     /**
      * Modifie le lieu de l'événement donné en paramètre.
+     * 
      * @param evenement L'événement dont le nom doit être modifié
-     * @param lieu Nouveau lieu
+     * @param lieu      Nouveau lieu
      */
     public void modifierLieuEvenement(Evenement evenement, Lieu lieu) {
 
@@ -165,9 +183,11 @@ public class ControleurEvenement {
 
     /**
      * Modifie la date de début de l'événement donné en paramètre.
+     * 
      * @param evenement L'événement dont la date de début doit être modifié
      * @param dateDebut Nouvelle date de début
-     * @throws MauvaisChampsException Si la nouvelle date de début de cet événement est ultérieure à sa date de fin.
+     * @throws MauvaisChampsException Si la nouvelle date de début de cet événement
+     *                                est ultérieure à sa date de fin.
      */
     public void modifierDebutEvenement(Evenement evenement, LocalDate dateDebut) throws MauvaisChampsException {
 
@@ -183,9 +203,11 @@ public class ControleurEvenement {
 
     /**
      * Modifie la date de fin d'un événement.
+     * 
      * @param evenement L'événement à modifier
-     * @param dateFin Nouvelle date de fin
-     * @throws MauvaisChampsException Si la nouvelle date de fin de cet événement est antérieure à sa date de début.
+     * @param dateFin   Nouvelle date de fin
+     * @throws MauvaisChampsException Si la nouvelle date de fin de cet événement
+     *                                est antérieure à sa date de début.
      */
     public void modifierFinEvenement(Evenement evenement, LocalDate dateFin) throws MauvaisChampsException {
 
@@ -203,9 +225,10 @@ public class ControleurEvenement {
 
     /**
      * Crée un nouveau lieu et l'associe à cet événement.
-     * @param nom Nom du lieu
-     * @param adresse Adresse du lieu
-     * @param ville Ville du lieu
+     * 
+     * @param nom        Nom du lieu
+     * @param adresse    Adresse du lieu
+     * @param ville      Ville du lieu
      * @param codePostal Code postal du lieu
      * @return Le lieu créé.
      */
@@ -219,8 +242,9 @@ public class ControleurEvenement {
 
     /**
      * Modifie le nom du lieu donné en paramètre.
+     * 
      * @param lieu Lieu à modifier
-     * @param nom Nouveau nom
+     * @param nom  Nouveau nom
      */
     public void modifierNomLieu(Lieu lieu, String nom) {
 
@@ -229,7 +253,8 @@ public class ControleurEvenement {
 
     /**
      * Modifie l'adresse du lieu donné en paramètre.
-     * @param lieu Lieu à modifier
+     * 
+     * @param lieu    Lieu à modifier
      * @param adresse Nouvelle adresse
      */
     public void modifierAdresseLieu(Lieu lieu, String adresse) {
@@ -239,7 +264,8 @@ public class ControleurEvenement {
 
     /**
      * Modifie la ville du lieu donné en paramètre.
-     * @param lieu Lieu à modifier
+     * 
+     * @param lieu  Lieu à modifier
      * @param ville Nouvelle ville
      */
     public void modifierVilleLieu(Lieu lieu, String ville) {
@@ -249,7 +275,8 @@ public class ControleurEvenement {
 
     /**
      * Modifie le code postal du lieu donné en paramètre.
-     * @param lieu Lieu à modifier
+     * 
+     * @param lieu       Lieu à modifier
      * @param codePostal Nouveau code postal
      */
     public void modifierCodePostalLieu(Lieu lieu, int codePostal) {
@@ -259,6 +286,7 @@ public class ControleurEvenement {
 
     /**
      * Récupère les fonctionnalités de l'événement.
+     * 
      * @return Liste des fonctionnalités de l'événement.
      */
     public ArrayList<Fonctionnalite> getFonctionnalites() {

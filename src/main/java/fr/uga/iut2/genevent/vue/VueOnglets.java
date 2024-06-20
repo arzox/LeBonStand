@@ -20,8 +20,6 @@ import javafx.stage.Stage;
  * La classe VueEvenement est responsable des interactions avec
  * l'utilisa·teur/trice en mode graphique pour la vue accueil (liste des
  * événements)
- * <p>
- * Contrôleur de tab-event.fxml (informations générales sur l'événement)
  */
 public class VueOnglets extends IHM {
 
