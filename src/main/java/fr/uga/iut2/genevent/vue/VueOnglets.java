@@ -124,21 +124,23 @@ public class VueOnglets extends IHM {
     }
 
     private void switchOnglet(IHM nouvelleVue, Node button) {
-        if (button.getStyleClass().contains("button-selected")) return;
         setContent(nouvelleVue);
         changerFenetre((Stage) nomEvenement.getScene().getWindow());
-        panel.getChildren().forEach(node -> node.getStyleClass().remove("button-selected"));
-        button.getStyleClass().add("button-selected");
+        updateSelectedOngletStyle(button);
     }
 
-
     // TODO : confirmer la suppression de cette méthode
-    public void setCurrentOnglet(int i) {
-        if (i < 0 || i >= panel.getChildren().size()) {
-            return;
-        }
+    // public void setCurrentOnglet(int i) {
+    //     if (i < 0 || i >= panel.getChildren().size()) {
+    //         return;
+    //     }
+    //     panel.getChildren().forEach(node -> node.getStyleClass().remove("button-selected"));
+    //     panel.getChildren().get(i).getStyleClass().add("button-selected");
+    // }
+
+    private void updateSelectedOngletStyle(Node button) {
         panel.getChildren().forEach(node -> node.getStyleClass().remove("button-selected"));
-        panel.getChildren().get(i).getStyleClass().add("button-selected");
+        button.getStyleClass().add("button-selected");
     }
 
     /**
@@ -154,6 +156,7 @@ public class VueOnglets extends IHM {
         getContent().load();
         ((Pane) getContent().getParent()).getChildren().add(0, getParent());
         Vues.showParentOnStage(getContent().getParent(), stage);
+        if (getContent() instanceof VueEvenement) panel.getChildren().get(3).getStyleClass().add("button-selected");
     }
 
     @Override
