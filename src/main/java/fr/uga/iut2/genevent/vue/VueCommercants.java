@@ -377,9 +377,7 @@ public class VueCommercants extends IHM {
     @FXML
     private void envoyerMail() {
         try {
-            String sujet = "Sujet de l'email";
-            String corps = "Corps de l'email";
-            controleurCommercant.ouvrirClientMailPourCommercants(sujet, corps);
+            controleurCommercant.ouvrirClientMailPourCommercants();
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erreur lors de l'envoi de l'email : " + e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);

@@ -587,7 +587,7 @@ public class ControleurCommercant {
     }
 
 
-    public void ouvrirClientMailPourCommercants(String sujet, String corps) {
+    public void ouvrirClientMailPourCommercants() {
         if (evenement != null && Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.MAIL)) {
             try {
                 StringBuilder mailto = new StringBuilder("mailto:");
@@ -598,8 +598,8 @@ public class ControleurCommercant {
                 if (mailto.length() > 7) {
                     mailto.setLength(mailto.length() - 1);
                 }
-                mailto.append("?subject=").append(URLEncoder.encode(sujet, StandardCharsets.UTF_8.toString()))
-                        .append("&body=").append(URLEncoder.encode(corps, StandardCharsets.UTF_8.toString()));
+                mailto.append("?subject=").append(URLEncoder.encode("Sujet de l'email", StandardCharsets.UTF_8.toString()))
+                        .append("&body=").append(URLEncoder.encode("Corps de l'email", StandardCharsets.UTF_8.toString()));
 
                 Desktop.getDesktop().mail(new URI(mailto.toString()));
             } catch (UnsupportedEncodingException e) {
