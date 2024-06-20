@@ -2,6 +2,7 @@ package fr.uga.iut2.genevent.vue;
 
 import fr.uga.iut2.genevent.controleur.Controleur;
 import fr.uga.iut2.genevent.controleur.ControleurAnimation;
+import fr.uga.iut2.genevent.exception.MauvaisChampsException;
 import fr.uga.iut2.genevent.modele.Animation;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -52,12 +53,6 @@ public class VueAnimations extends IHM {
         return "tab-animations.fxml";
     }
 
-    @Override
-    public void informerUtilisateur(String message, boolean succes) {
-        System.out.println(message);
-        System.out.println(succes);
-    }
-
     @FXML
     private void initialize() {
         setupTable();
@@ -93,10 +88,12 @@ public class VueAnimations extends IHM {
         nomColumn.setOnEditCommit(event -> {
             try {
                 controleurAnimation.modifierNomAnimation(event.getRowValue(), event.getNewValue());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            } catch (MauvaisChampsException e) {
+                informerUtilisateur(e.getMessage(), false);
                 event.getRowValue().setNom(event.getOldValue());
                 animationsTable.refresh();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         });
 
@@ -105,10 +102,12 @@ public class VueAnimations extends IHM {
         prixColumn.setOnEditCommit(event -> {
             try {
                 controleurAnimation.modifierPrixAnimation(event.getRowValue(), event.getNewValue());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            } catch (MauvaisChampsException e) {
+                informerUtilisateur(e.getMessage(), false);
                 event.getRowValue().setPrix(event.getOldValue());
                 animationsTable.refresh();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         });
 
@@ -117,10 +116,12 @@ public class VueAnimations extends IHM {
         heureDebutColumn.setOnEditCommit(event -> {
             try {
                 controleurAnimation.modifierDebutAnimation(event.getRowValue(), event.getNewValue());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            } catch (MauvaisChampsException e) {
+                informerUtilisateur(e.getMessage(), false);
                 event.getRowValue().setDateHeureDebut(event.getOldValue());
                 animationsTable.refresh();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         });
 
@@ -129,10 +130,12 @@ public class VueAnimations extends IHM {
         heureFinColumn.setOnEditCommit(event -> {
             try {
                 controleurAnimation.modifierFinAnimation(event.getRowValue(), event.getNewValue());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            } catch (MauvaisChampsException e) {
+                informerUtilisateur(e.getMessage(), false);
                 event.getRowValue().setDateHeureFin(event.getOldValue());
                 animationsTable.refresh();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         });
     }
@@ -176,6 +179,8 @@ public class VueAnimations extends IHM {
         try {
             controleurAnimation.supprimerAnimation(animation);
             animationsTable.getItems().remove(animation);
+        } catch (MauvaisChampsException e) {
+            informerUtilisateur(e.getMessage(), false);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
