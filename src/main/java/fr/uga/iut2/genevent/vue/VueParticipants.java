@@ -2,6 +2,7 @@ package fr.uga.iut2.genevent.vue;
 
 import fr.uga.iut2.genevent.controleur.Controleur;
 import fr.uga.iut2.genevent.controleur.ControleurParticipant;
+import fr.uga.iut2.genevent.exception.MauvaisChampsException;
 import fr.uga.iut2.genevent.modele.Participant;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -53,12 +54,6 @@ public class VueParticipants extends IHM {
         return "tab-participants.fxml";
     }
 
-    @Override
-    public void informerUtilisateur(String message, boolean succes) {
-        System.out.println(message);
-        System.out.println(succes);
-    }
-
     @FXML
     private void initialize() {
         setupTable();
@@ -94,10 +89,12 @@ public class VueParticipants extends IHM {
         nomColumn.setOnEditCommit(event -> {
             try {
                 controleurParticipant.modifierNomParticipant(event.getRowValue(), event.getNewValue());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            } catch (MauvaisChampsException e) {
+                informerUtilisateur(e.getMessage(), false);
                 event.getRowValue().setNom(event.getOldValue());
                 participantsTable.refresh();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         });
 
@@ -106,10 +103,12 @@ public class VueParticipants extends IHM {
         prenomColumn.setOnEditCommit(event -> {
             try {
                 controleurParticipant.modifierPrenomParticipant(event.getRowValue(), event.getNewValue());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            } catch (MauvaisChampsException e) {
+                informerUtilisateur(e.getMessage(), false);
                 event.getRowValue().setPrenom(event.getOldValue());
                 participantsTable.refresh();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         });
 
@@ -118,10 +117,12 @@ public class VueParticipants extends IHM {
         emailColumn.setOnEditCommit(event -> {
             try {
                 controleurParticipant.modifierEmailParticipant(event.getRowValue(), event.getNewValue());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            } catch (MauvaisChampsException e) {
+                informerUtilisateur(e.getMessage(), false);
                 event.getRowValue().setEmail(event.getOldValue());
                 participantsTable.refresh();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         });
     }
@@ -165,6 +166,8 @@ public class VueParticipants extends IHM {
         try {
             controleurParticipant.desinscrireParticipant(participant);
             participantsTable.getItems().remove(participant);
+        } catch (MauvaisChampsException e) {
+            informerUtilisateur(e.getMessage(), false);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
