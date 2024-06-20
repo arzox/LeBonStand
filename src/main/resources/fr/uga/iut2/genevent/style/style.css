@@ -116,3 +116,8 @@ HBox {
 .leftPanel > .button-selected {
   -fx-background-color: white;
 }
+
+.imageopp:hover{
+  -fx-opacity: 0.6;
+  -fx-cursor: hand;
+}

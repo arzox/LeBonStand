@@ -20,8 +20,6 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 
 import java.io.File;
-// import java.util.Observable;
-// import java.util.Observer;
 
 public class VueEvenement extends IHM {
 
@@ -247,11 +245,6 @@ public class VueEvenement extends IHM {
         }
         controleurEvenement.modifierFonctionnalitesEvenement(evenement, fonctionnalites);
     }
-
-    // @Override
-    // public void update(Observable o, Object arg) {
-    //     loadEventData();
-    // }
 
     @Override
     public void informerUtilisateur(String message, boolean succes) {

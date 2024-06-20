@@ -42,7 +42,6 @@ public class VueAccueil extends IHM {
 
     @FXML
     public void initialize() {
-        // controleur.getControleurEvenement().addObserver(this);
         loadEvents();
     }
 
