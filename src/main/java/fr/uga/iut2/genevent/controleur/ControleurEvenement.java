@@ -56,8 +56,18 @@ public class ControleurEvenement {
      */
     public Evenement creerEvenement(String nom, TypeEvenement type, ArrayList<Fonctionnalite> fonctionnalites, String imagePath)
             throws MauvaisChampsException {
-        // Création d'un événement
-        if (type == null) {
+
+        if (nom.isBlank() & type == null) {
+
+            throw new MauvaisChampsException("Veuillez choisir un nom et un type pour l'événement",
+                    new ArrayList<>(Arrays.asList(false, true, true)));
+
+        } else if (nom.isBlank()) {
+
+             throw new MauvaisChampsException("Veuillez choisir un nom pour l'événement",
+                     new ArrayList<>(Arrays.asList(false, true, true)));
+
+        } else if (type == null) {
 
             throw new MauvaisChampsException("Veuillez choisir un type pour l'événement",
                     new ArrayList<>(Arrays.asList(true, false, true)));
@@ -98,6 +108,13 @@ public class ControleurEvenement {
      * @throws MauvaisChampsException Si le nouveau nom rend l'événement identique à un autre événement.
      */
     public void modifierNomEvenement(Evenement evenement, String nom) throws MauvaisChampsException {
+
+        if (nom.isBlank()) {
+
+            throw new MauvaisChampsException("Veuillez choisir un nom pour l'événement",
+                    new ArrayList<>(Arrays.asList(false, true, true)));
+
+        }
 
         for (Evenement evenementCourant : application.getEvenements()) {
 

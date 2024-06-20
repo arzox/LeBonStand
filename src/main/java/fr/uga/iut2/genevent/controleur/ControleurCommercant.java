@@ -4,7 +4,6 @@ import fr.uga.iut2.genevent.exception.MauvaisChampsException;
 import fr.uga.iut2.genevent.modele.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 /**
@@ -313,6 +312,13 @@ public class ControleurCommercant {
     public void modifierTypeCommerceCommercant(Commercant commercant, TypeCommerce typeCommerce) throws Exception {
         if (evenement != null) {
 
+            boolean quotaNotRespected = typeCommerce.getQuota() == typeCommerce.getCommercants().size();
+
+            if (quotaNotRespected) {
+
+                throw new MauvaisChampsException("Le nombre de commerçant a atteint le quota maximal, " +
+                        "vous ne pouvez plus ajouter de commerçant de ce type", null);
+            }
             commercant.setTypeCommerce(typeCommerce);
 
         } else
@@ -331,6 +337,18 @@ public class ControleurCommercant {
         if (evenement != null) {
 
             int numero = evenement.getEmplacements().size() + 1;
+
+            for (int i = 0; i < evenement.getEmplacements().size() - 1; i++) {
+
+                int numeroCourant = evenement.getEmplacements().get(i).getNumero();
+
+                boolean numMissing = numeroCourant != (i+1);
+
+                if (numMissing) {
+
+                    numero = (i);
+                }
+            }
 
             Emplacement nouvelEmplacement = new Emplacement(numero, 0);
             evenement.ajouterEmplacement(nouvelEmplacement);
