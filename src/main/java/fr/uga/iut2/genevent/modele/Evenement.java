@@ -2,7 +2,6 @@ package fr.uga.iut2.genevent.modele;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.time.LocalDate;
 
 /**
@@ -20,7 +19,7 @@ public class Evenement implements Serializable {
     private String imagePath;
 
     // Module Commerçants
-    private HashMap<TypeCommerce, Integer> typeCommerces = new HashMap<>();
+    private ArrayList<TypeCommerce> typeCommerces = new ArrayList<>();
     private ArrayList<Commercant> commercants = new ArrayList<>();
     private ArrayList<Emplacement> emplacements = new ArrayList<>();
 
@@ -40,10 +39,10 @@ public class Evenement implements Serializable {
     /**
      * Constructeur pour la classe Evenement.
      *
-     * @param nom Le nom de l'événement.
-     * @param dateDebut La date de début de l'événement.
-     * @param dateFin La date de fin de l'événement.
-     * @param typeEvenement Le type de l'événement.
+     * @param nom             Le nom de l'événement.
+     * @param dateDebut       La date de début de l'événement.
+     * @param dateFin         La date de fin de l'événement.
+     * @param typeEvenement   Le type de l'événement.
      * @param fonctionnalites La liste des fonctionnalités de l'événement.
      */
     public Evenement(String nom, LocalDate dateDebut, LocalDate dateFin, TypeEvenement typeEvenement,
@@ -120,10 +119,9 @@ public class Evenement implements Serializable {
      * Ajoute un type de commerce à l'événement.
      *
      * @param typeCommerce Le type de commerce à ajouter.
-     * @param nombre Le nombre de ce type de commerce.
      */
-    public void ajouterTypeCommerce(TypeCommerce typeCommerce, int nombre) {
-        this.typeCommerces.put(typeCommerce, nombre);
+    public void ajouterTypeCommerce(TypeCommerce typeCommerce) {
+        this.typeCommerces.add(typeCommerce);
     }
 
     /**
@@ -131,7 +129,7 @@ public class Evenement implements Serializable {
      *
      * @return Les types de commerces.
      */
-    public HashMap<TypeCommerce, Integer> getTypeCommerces() {
+    public ArrayList<TypeCommerce> getTypeCommerces() {
         return typeCommerces;
     }
 
@@ -179,6 +177,7 @@ public class Evenement implements Serializable {
 
     /**
      * Ajoute une zone donnée à la liste des zones.
+     * 
      * @param zone Zone ajoutée
      */
     public void ajouterZone(Zone zone) {
@@ -458,6 +457,7 @@ public class Evenement implements Serializable {
      */
     @Override
     public String toString() {
-        return this.nom + "\n" + this.dateDebut + " - " + this.dateFin + "\n" + this.type + "\n" + this.fonctionnalites + "\n";
+        return this.nom + "\n" + this.dateDebut + " - " + this.dateFin + "\n" + this.type + "\n" + this.fonctionnalites
+                + "\n";
     }
 }

@@ -153,7 +153,11 @@ public class VueAccueil extends IHM implements Observer {
         }
         try {
             VueOnglets vueOnglets = new VueOnglets(new VueEvenement());
-            vueOnglets.changerFenetre((Stage) eventsFlowPane.getScene().getWindow());
+            Stage la = (Stage) eventsFlowPane.getScene().getWindow();
+            vueOnglets.changerFenetre(la);
+            la.setMaximized(false);
+            la.setMaximized(true);
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -185,7 +189,8 @@ public class VueAccueil extends IHM implements Observer {
     @FXML
     protected void supprimerEvenement(MouseEvent e, Evenement event) {
         e.consume();
-        if (isAlreadyOpened()) return;
+        if (isAlreadyOpened())
+            return;
         try {
             toDelete = event;
             Vues.loadViewIntoStage(otherVue, DELETE, this);
@@ -208,7 +213,11 @@ public class VueAccueil extends IHM implements Observer {
     @FXML
     private void onValider() {
         controleur.supprimerEvenement(toDelete);
-        ((Stage) annulerBouton.getScene().getWindow()).close();
+        Stage stage = (Stage) annulerBouton.getScene().getWindow();
+        stage.fireEvent(
+                new WindowEvent(
+                        stage,
+                        WindowEvent.WINDOW_CLOSE_REQUEST));
         loadEvents();
     }
 

@@ -11,6 +11,7 @@ import javafx.stage.Stage;
  */
 public abstract class IHM {
     private Parent parent;
+    protected boolean isLoaded = false;
 
     /**
      * Référence au contrôleur principal de l'application
@@ -45,6 +46,7 @@ public abstract class IHM {
      */
     public void load() {
         try {
+            isLoaded = true;
             // Charger la scène dans le loader et lui affecter le controleur en argument
             setParent(Vues.loadViewAsParent(getFxmlName(), this));
         } catch (Exception e) {

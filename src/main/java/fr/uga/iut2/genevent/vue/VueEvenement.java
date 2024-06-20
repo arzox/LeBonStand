@@ -1,7 +1,9 @@
 package fr.uga.iut2.genevent.vue;
 
+
 import fr.uga.iut2.genevent.controleur.ControleurEvenement;
 import fr.uga.iut2.genevent.exception.MauvaisChampsException;
+
 import fr.uga.iut2.genevent.modele.Evenement;
 import fr.uga.iut2.genevent.modele.Fonctionnalite;
 import fr.uga.iut2.genevent.modele.Lieu;
@@ -64,7 +66,6 @@ public class VueEvenement extends IHM implements Observer {
 
         addFieldListeners();
     }
-
 
     private void loadEventData() {
         Evenement evenement = controleurEvenement.getEvenement();
@@ -170,6 +171,7 @@ public class VueEvenement extends IHM implements Observer {
                     controleurEvenement.modifierAdresseLieu(lieu, newValue);
                 }
             }
+            controleurEvenement.getEvenement().getLieu().setAdresse(newValue);
         });
 
         villeField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -181,6 +183,7 @@ public class VueEvenement extends IHM implements Observer {
                     controleurEvenement.modifierVilleLieu(lieu, newValue);
                 }
             }
+            controleurEvenement.getEvenement().getLieu().setNom(newValue);
         });
 
         codePostalField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -204,6 +207,7 @@ public class VueEvenement extends IHM implements Observer {
         animationsCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.ANIMATION, newValue));
         participantsCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> updateFonctionnalite(Fonctionnalite.PARTICIPANT, newValue));
     }
+
 
     private void updateFonctionnalite(Fonctionnalite fonctionnalite, boolean add) {
         Evenement evenement = controleurEvenement.getEvenement();

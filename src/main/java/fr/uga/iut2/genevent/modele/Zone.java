@@ -41,9 +41,7 @@ public class Zone implements Serializable {
      */
     public void removeAgentSecurite(AgentSecurite agentSecurite) {
         if (agentSecurite != null) {
-            if (
-                    agentSecurite.getZone() != null
-            ) {
+            if (agentSecurite.getZone() != null) {
                 this.agentsSecurites.remove(agentSecurite);
                 if (agentSecurite.getZone().equals(this)) {
                     agentSecurite.setZone(null);
@@ -77,5 +75,10 @@ public class Zone implements Serializable {
      */
     public void setNom(String nom) {
         this.nom = nom;
+    }
+
+    @Override
+    public String toString() {
+        return this.nom;
     }
 }

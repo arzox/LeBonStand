@@ -18,13 +18,13 @@ public class Vues {
      * Charge le fichier FXML (au préalable dans le dossier racine de ressources
      * pour le projet) et place son contenu dans le stage donné en argument. Ajoute
      * aussi le style global à la vue.
-     * 
+     *
      * @param stage    Le stage dont le contenu doit être remplacé
-     * 
+     *
      * @param fxmlName Le nom du fichier à être utilisé pour charger la vue, ou
      *                 alors le chemin relatif à partir du dossier racine pour les
      *                 ressources
-     * 
+     *
      * @return l'objet Parent utilisé pour charger la vue
      */
     public static Parent loadViewIntoStage(Stage stage, String fxmlName, IHM controleur) {
@@ -45,7 +45,7 @@ public class Vues {
     /**
      * Charge la vue spécifiée par l'argument {@code fxml}, lui affecte le
      * controleur en argument et renvoie l'objet Parent correspondant
-     * 
+     *
      * @param fmxl       - Nom du fichier fxml à charger
      * @param controleur - Contrôleur à affecter à la vue
      * @return Objet Parent résultant du chargement
@@ -59,7 +59,7 @@ public class Vues {
 
     /**
      * Charge l'objet Parent et applique le style global
-     * 
+     *
      * @param parent
      * @return
      */
@@ -76,11 +76,12 @@ public class Vues {
     /**
      * Ajoute l'objet Parent en argument au Stage en argument et affiche le résultat
      * dans la fenêtre, tout en affectant le fichier css global
-     * 
+     *
      * @param parent
      * @param stage
      */
     public static void showParentOnStage(Parent parent, Stage stage) {
+        stage.setScene(stage.getScene());
         stage.setScene(loadParentWithStyle(parent));
         stage.show();
         stage.getIcons().add(new Image(

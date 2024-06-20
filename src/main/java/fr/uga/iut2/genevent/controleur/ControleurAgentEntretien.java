@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 /**
- * Contrôleur pour la catégorie "Agents d'entretien"
+ * Contrôleur pour le module "Agent d'entretien"
  */
 public class ControleurAgentEntretien {
 
@@ -18,18 +18,24 @@ public class ControleurAgentEntretien {
     private Evenement evenement;
 
     /**
-     * Constructeur de la classe ControleurAgentEntretien.
-     *
-     * @param application L'application à laquelle ce contrôleur est associé.
+     * Crée le contrôleur, doit être uniquement appelée par le constructeur de la classe Controleur.
+     * @param application L'application que le contrôleur gérera
      */
     public ControleurAgentEntretien(Application application) {
         this.application = application;
     }
 
     /**
-     * Définit l'événement associé à ce contrôleur.
-     *
-     * @param evenement L'événement à associer à ce contrôleur.
+     * Récupère l'événement géré par le contrôleur.
+     * @return L'événement géré par le controleur.
+     */
+    public Evenement getEvenement() {
+        return evenement;
+    }
+
+    /**
+     * Attribue un événement au contrôleur.
+     * @param evenement L'événement à attribuer
      */
     public void setEvenement(Evenement evenement) {
         this.evenement = evenement;
@@ -38,20 +44,19 @@ public class ControleurAgentEntretien {
     // Agent d'entretien
 
     /**
-     * Ajoute un agent d'entretien à l'événement.
-     *
-     * @param nom        Le nom de l'agent d'entretien.
-     * @param prenom     Le prénom de l'agent d'entretien.
-     * @param email      L'email de l'agent d'entretien.
-     * @param telephone  Le numéro de téléphone de l'agent d'entretien.
-     * @param heureDebut L'heure de début du travail de l'agent d'entretien.
-     * @param heureFin   L'heure de fin du travail de l'agent d'entretien.
-     * @return L'agent d'entretien qui a été ajouté.
-     * @throws Exception Si l'événement du contrôleur est nul ou si l'agent
-     *                   d'entretien existe déjà.
+     * Crée un nouvel agent d'entretien et l'ajoute à la liste des agents d'entretien de cet événement.
+     * @param nom Nom de l'agent
+     * @param prenom Prénom de l'agent
+     * @param email Adresse email de l'agent
+     * @param telephone Numéro de téléphone de l'agent
+     * @param heureDebut Heure de début d'activité
+     * @param heureFin Heure de fin d'activité
+     * @return L'agent d'entretien créé.
+     * @throws Exception Si l'événement est nul.
+     * @throws MauvaisChampsException Si le nom, prénom, adresse email et numéro de téléphone sont identiques à ceux d'un autre agent d'entretien ou
+     * si l'heure de début d'activité de l'agent est ultérieure à l'heure de fin d'activité de celui-ci.
      */
-    public AgentEntretien ajouterAgentEntretien(String nom, String prenom, String email, String telephone,
-            int heureDebut, int heureFin) throws Exception {
+    public AgentEntretien ajouterAgentEntretien(String nom, String prenom, String email, String telephone, int heureDebut, int heureFin) throws Exception {
         if (evenement != null) {
 
             boolean isStartAfterEnd = heureDebut > heureFin;
@@ -67,8 +72,7 @@ public class ControleurAgentEntretien {
 
                 if (isNotUnique & isStartAfterEnd) {
 
-                    throw new MauvaisChampsException(
-                            "L'agent d'entretien que vous souhaitez ajouter existe déjà et l'heure de début est ultérieure à l'heure de fin",
+                    throw new MauvaisChampsException("L'agent d'entretien que vous souhaitez ajouter existe déjà et l'heure de début est ultérieure à l'heure de fin",
                             new ArrayList<>(Arrays.asList(false, false, false, false, false, false)));
 
                 } else if (isNotUnique) {
@@ -88,18 +92,17 @@ public class ControleurAgentEntretien {
             return nouvelAgent;
 
         } else
-            throw new Exception("L'agent d'entretien ne peut être ajouté car l'événement du controleur est nul");
+            throw new Exception("L'agent d'entretien ne peut être ajouté car l'événement du contrôleur est nul");
     }
 
     /**
-     * Récupère un agent d'entretien de l'événement.
-     *
-     * @param nom       Le nom de l'agent d'entretien.
-     * @param prenom    Le prénom de l'agent d'entretien.
-     * @param email     L'email de l'agent d'entretien.
-     * @param telephone Le numéro de téléphone de l'agent d'entretien.
-     * @return L'agent d'entretien correspondant aux informations fournies, ou null
-     *         si aucun agent d'entretien ne correspond.
+     * Récupère un agent d'entretien à partir de son nom, prénom, adresse email et numéro de téléphone.
+     * @param nom Nom de l'agent qu'on souhaite récupérer
+     * @param prenom Prénom de l'agent qu'on souhaite récupérer
+     * @param email Adresse email de l'agent qu'on souhaite récupérer
+     * @param telephone Numéro de téléphone de l'agent qu'on souhaite récupérer
+     * @return L'agent d'entretien correspondant aux attributs donnés en paramètres ou null s'il n'existe pas.
+     * @throws Exception Si l'événement est nul.
      */
     public AgentEntretien getAgentEntretien(String nom, String prenom, String email, String telephone) throws Exception {
         if (evenement != null) {
@@ -121,29 +124,27 @@ public class ControleurAgentEntretien {
             return null;
 
         } else
-            throw new Exception("L'agent d'entretien ne peut être récupéré car l'événement du controleur est nul");
+            throw new Exception("L'agent d'entretien ne peut être récupéré car l'événement du contrôleur est nul");
     }
 
     /**
-     * Supprime un agent d'entretien de l'événement.
-     *
-     * @param agentEntretien L'agent d'entretien à supprimer.
-     * @throws Exception Si l'événement du contrôleur est nul.
+     * Retire de la liste des agents d'entretien de cet événement l'agent d'entretien donné en paramètre.
+     * @param agentEntretien Agent d'entretien à retirer
+     * @throws Exception Si l'événement est nul.
      */
     public void supprimerAgentEntretien(AgentEntretien agentEntretien) throws Exception {
         if (evenement != null) {
             evenement.supprimerAgentEntretien(agentEntretien);
         } else
-            throw new Exception("L'agent d'entretien ne peut être suppimé car l'événement du controleur est nul");
+            throw new Exception("L'agent d'entretien ne peut être suppimé car l'événement du contrôleur est nul");
     }
 
     /**
-     * Modifie le nom d'un agent d'entretien.
-     *
-     * @param agentEntretien L'agent d'entretien dont le nom doit être modifié.
-     * @param nom            Le nouveau nom de l'agent d'entretien.
-     * @throws Exception Si l'événement du contrôleur est nul ou si le nom de
-     *                   l'agent d'entretien est déjà utilisé.
+     * Modifie le nom de l'agent d'entretien donné en paramètre.
+     * @param agentEntretien L'agent d'entretien dont le nom doit être modifié
+     * @param nom Nouveau nom
+     * @throws Exception Si l'événement est nul.
+     * @throws MauvaisChampsException Si le nouveau nom rend l'agent d'entretien identique à un autre agent d'entretien.
      */
     public void modifierNomAgentEntretien(AgentEntretien agentEntretien, String nom) throws Exception {
         if (evenement != null) {
@@ -167,16 +168,15 @@ public class ControleurAgentEntretien {
             agentEntretien.setNom(nom);
 
         } else
-            throw new Exception("Le nom de l'agent d'entretien ne peut être modifié car l'événement du controleur est nul");
+            throw new Exception("Le nom de l'agent d'entretien ne peut être modifié car l'événement du contrôleur est nul");
     }
 
     /**
-     * Modifie le prénom d'un agent d'entretien.
-     *
-     * @param agentEntretien L'agent d'entretien dont le prénom doit être modifié.
-     * @param prenom         Le nouveau prénom de l'agent d'entretien.
-     * @throws Exception Si l'événement du contrôleur est nul ou si le prénom de
-     *                   l'agent d'entretien est déjà utilisé.
+     * Modifie le prénom de l'agent d'entretien donné en paramètre.
+     * @param agentEntretien L'agent d'entretien dont le prénom doit être modifié
+     * @param prenom Nouveau prénom
+     * @throws Exception Si l'événement est nul.
+     * @throws MauvaisChampsException Si le nouveau prénom rend l'agent d'entretien identique à un autre agent d'entretien.
      */
     public void modifierPrenomAgentEntretien(AgentEntretien agentEntretien, String prenom) throws Exception {
         if (evenement != null) {
@@ -200,16 +200,15 @@ public class ControleurAgentEntretien {
             agentEntretien.setPrenom(prenom);
 
         } else
-            throw new Exception("Le prénom de l'agent d'entretien ne peut être modifié car l'événement du controleur est nul");
+            throw new Exception("Le prénom de l'agent d'entretien ne peut être modifié car l'événement du contrôleur est nul");
     }
 
     /**
-     * Modifie l'email d'un agent d'entretien.
-     *
-     * @param agentEntretien L'agent d'entretien dont l'email doit être modifié.
-     * @param email          Le nouvel email de l'agent d'entretien.
-     * @throws Exception Si l'événement du contrôleur est nul ou si l'email de
-     *                   l'agent d'entretien est déjà utilisé.
+     * Modifie l'adresse email de l'agent d'entretien donnée en paramètre.
+     * @param agentEntretien L'agent d'entretien dont l'adresse email doit être modifié
+     * @param email Nouvelle adresse email
+     * @throws Exception Si l'événement est nul.
+     * @throws MauvaisChampsException Si la nouvelle adresse email rend l'agent d'entretien identique à un autre agent d'entretien.
      */
     public void modifierEmailAgentEntretien(AgentEntretien agentEntretien, String email) throws Exception {
         if (evenement != null) {
@@ -233,17 +232,15 @@ public class ControleurAgentEntretien {
             agentEntretien.setEmail(email);
 
         } else
-            throw new Exception("L'email de l'agent d'entretien ne peut être modifié car l'événement du controleur est nul");
+            throw new Exception("L'email de l'agent d'entretien ne peut être modifié car l'événement du contrôleur est nul");
     }
 
     /**
-     * Modifie le numéro de téléphone d'un agent d'entretien.
-     *
-     * @param agentEntretien L'agent d'entretien dont le numéro de téléphone doit
-     *                       être modifié.
-     * @param telephone      Le nouveau numéro de téléphone de l'agent d'entretien.
-     * @throws Exception Si l'événement du contrôleur est nul ou si le numéro de
-     *                   téléphone de l'agent d'entretien est déjà utilisé.
+     * Modifie le numéro de téléphone de l'agent d'entretien donné en paramètre.
+     * @param agentEntretien L'agent d'entretien dont le numéro de téléphone doit être modifié
+     * @param telephone Nouveau numéro de téléphone
+     * @throws Exception Si l'événement est nul.
+     * @throws MauvaisChampsException Si le nouveau numéro de téléphone rend l'agent d'entretien identique à un autre agent d'entretien.
      */
     public void modifierTelephoneAgentEntretien(AgentEntretien agentEntretien, String telephone) throws Exception {
         if (evenement != null) {
@@ -267,18 +264,15 @@ public class ControleurAgentEntretien {
             agentEntretien.setTelephone(telephone);
 
         } else
-            throw new Exception("Le numéro de téléphone de l'agent d'entretien ne peut être modifié car l'événement du controleur est nul");
+            throw new Exception("Le numéro de téléphone de l'agent d'entretien ne peut être modifié car l'événement du contrôleur est nul");
     }
 
     /**
-     * Modifie l'heure de début du travail d'un agent d'entretien.
-     *
-     * @param agentEntretien L'agent d'entretien dont l'heure de début doit être
-     *                       modifiée.
-     * @param heureDebut     La nouvelle heure de début du travail de l'agent
-     *                       d'entretien.
-     * @throws Exception Si l'événement du contrôleur est nul ou si l'heure de début
-     *                   est ultérieure à l'heure de fin.
+     * Modifie l'heure de début d'activité de l'agent d'entretien donné en paramètre.
+     * @param agentEntretien L'agent d'entretien dont l'heure de début d'activité doit être modifiée
+     * @param heureDebut Nouvelle heure de début d'activité
+     * @throws Exception Si l'événement est nul.
+     * @throws MauvaisChampsException Si la nouvelle heure de début d'activité de l'agent est ultérieure à l'heure de fin d'activité de celui-ci.
      */
     public void modifierHeureDebutAgentEntretien(AgentEntretien agentEntretien, int heureDebut) throws Exception {
         if (evenement != null) {
@@ -293,18 +287,15 @@ public class ControleurAgentEntretien {
             agentEntretien.setHeureDebut(heureDebut);
 
         } else
-            throw new Exception("L'heure de début de l'agent d'entretien ne peut être modifié car l'événement du controleur est nul");
+            throw new Exception("L'heure de début de l'agent d'entretien ne peut être modifié car l'événement du contrôleur est nul");
     }
 
     /**
-     * Modifie l'heure de fin du travail d'un agent d'entretien.
-     *
-     * @param agentEntretien L'agent d'entretien dont l'heure de fin doit être
-     *                       modifiée.
-     * @param heureFin       La nouvelle heure de fin du travail de l'agent
-     *                       d'entretien.
-     * @throws Exception Si l'événement du contrôleur est nul ou si l'heure de fin
-     *                   est antérieure à l'heure de début.
+     * Modifie l'heure de fin d'activité de l'agent d'entretien donné en paramètre.
+     * @param agentEntretien L'agent d'entretien dont l'heure de fin d'activité doit être modifiée
+     * @param heureFin Nouvelle heure de fin d'activité
+     * @throws Exception Si l'événement est nul.
+     * @throws MauvaisChampsException Si la nouvelle heure de fin d'activité de l'agent est antérieure à l'heure de début d'activité de celui-ci.
      */
     public void modifierHeureFinAgentEntretien(AgentEntretien agentEntretien, int heureFin) throws Exception {
         if (evenement != null) {
@@ -319,6 +310,6 @@ public class ControleurAgentEntretien {
             agentEntretien.setHeureFin(heureFin);
 
         } else
-            throw new Exception("L'heure de fin de l'agent d'entretien ne peut être modifié car l'événement du controleur est nul");
+            throw new Exception("L'heure de fin de l'agent d'entretien ne peut être modifié car l'événement du contrôleur est nul");
     }
 }

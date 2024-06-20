@@ -21,6 +21,11 @@ public class Controleur {
     ControleurEvenement controleurEvenement;
     ControleurAnimation controleurAnimation;
 
+    /**
+     * Méthode appelée pour créer un controleur s'il n'en existe pas déjà ou pour récupérer le controleur déjà existant.
+     * @param application L'application que le controleur gérera.
+     * @return un nouveau controleur ou le controleur déjà existant.
+     */
     public static Controleur getInstance(Application application) {
         if (instance == null) {
             instance = new Controleur(application);
@@ -28,6 +33,10 @@ public class Controleur {
         return instance;
     }
 
+    /**
+     * Méthode appelée uniquement par la méthode getInstance afin de créer un nouveau controleur.
+     * @param application L'application que le controleur gérera.
+     */
     private Controleur(Application application) {
         this.application = application;
         controleurAgentSecurite = new ControleurAgentSecurite(application);
@@ -43,7 +52,7 @@ public class Controleur {
      * choisit un événement sur la page d'accueil, depuis les classes du package
      * {@code vue}
      *
-     * @param evenement - L'événement qui doit devenir l'événement courant
+     * @param evenement L'événement qui doit devenir l'événement courant
      */
     public void setEvenementCourant(Evenement evenement) {
         controleurEvenement.setEvenement(evenement);

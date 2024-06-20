@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 /**
- * Contrôleur pour la catégorie "Animations"
+ * Contrôleur pour le module "Animation"
  */
 public class ControleurAnimation {
 
@@ -20,18 +20,24 @@ public class ControleurAnimation {
     private Evenement evenement;
 
     /**
-     * Constructeur du controleur
-     *
-     * @param application Application
+     * Crée le contrôleur, doit être uniquement appelée par le constructeur de la classe Controleur.
+     * @param application L'application que le contrôleur gérera
      */
     public ControleurAnimation(Application application) {
         this.application = application;
     }
 
     /**
-     * Setter de l'événement
-     *
-     * @param evenement Evenement
+     * Récupère l'événement géré par le contrôleur.
+     * @return L'événement géré par le controleur.
+     */
+    public Evenement getEvenement() {
+        return evenement;
+    }
+
+    /**
+     * Attribue un événement au contrôleur.
+     * @param evenement L'événement à attribuer
      */
     public void setEvenement(Evenement evenement) {
         this.evenement = evenement;
@@ -40,16 +46,18 @@ public class ControleurAnimation {
     // Animation
 
     /**
-     * Ajoute une animation à l'événement
-     *
-     * @param nom            Nom de l'animation
-     * @param prix           Prix de l'animation
+     * Crée une nouvelle animation et l'ajoute à la liste des animations de cet événement.
+     * @param nom Nom de l'animation
+     * @param prix Prix de l'animation
      * @param dateHeureDebut Date et heure de début de l'animation
-     * @param dateHeureFin   Date et heure de fin de l'animation
-     * @throws Exception si il est impossible d'ajouter l'animation
+     * @param dateHeureFin Date et heure de fin de l'animation
+     * @return L'animation créée.
+     * @throws Exception Si l'événement est nul.
+     * @throws MauvaisChampsException Si le nom est identique à celui d'une autre animation ou
+     * si la date et l'heure de début de l'animation est ultérieure à la date et l'heure de fin de l'animation ou encore
+     * si les dates ne sont pas comprises entre les dates de début et de fin de cet événement.
      */
-    public Animation ajouterAnimation(String nom, float prix, LocalDateTime dateHeureDebut,
-                                      LocalDateTime dateHeureFin) throws Exception {
+    public Animation ajouterAnimation(String nom, float prix, LocalDateTime dateHeureDebut, LocalDateTime dateHeureFin) throws Exception {
         if (evenement != null) {
 
             LocalDate dateDebut = dateHeureDebut.toLocalDate();
@@ -122,9 +130,15 @@ public class ControleurAnimation {
             return nouvelleAnimation;
 
         } else
-            throw new Exception("L'animation ne peut être ajoutée car l'événement du controleur est nul");
+            throw new Exception("L'animation ne peut être ajoutée car l'événement du contrôleur est nul");
     }
 
+    /**
+     * Récupère une animation à partir de son nom.
+     * @param nom Nom de l'animation qu'on souhaite récupérer
+     * @return L'animation correspondante au nom donné en paramètre ou null si elle n'existe pas.
+     * @throws Exception Si l'événement est nul.
+     */
     public Animation getAnimation(String nom) throws Exception {
         if (evenement != null) {
 
@@ -141,14 +155,13 @@ public class ControleurAnimation {
             return null;
 
         } else
-            throw new Exception("L'animation ne peut être récupéré car l'événement du controleur est nul");
+            throw new Exception("L'animation ne peut être récupérée car l'événement du contrôleur est nul");
     }
 
     /**
-     * Supprime une animation de l'événement
-     *
-     * @param animation Animation
-     * @throws Exception si il est impossible de supprimer l'animation
+     * Retire de la liste des animations de cet événement l'animation donnée en paramètre.
+     * @param animation Animation à retirer
+     * @throws Exception Si l'événement est nul.
      */
     public void supprimerAnimation(Animation animation) throws Exception {
         if (evenement != null) {
@@ -156,15 +169,15 @@ public class ControleurAnimation {
             evenement.supprimerAnimation(animation);
 
         } else
-            throw new Exception("L'animation ne peut être supprimée car l'événement du controleur est nul");
+            throw new Exception("L'animation ne peut être supprimée car l'événement du contrôleur est nul");
     }
 
     /**
-     * Modifie le nom de l'animation
-     *
-     * @param animation Animation
-     * @param nom       Nom de l'animation
-     * @throws Exception si il est impossible de modifier le nom de l'animation
+     * Modifie le nom de l'animation donné en paramètre.
+     * @param animation L'animation dont le nom doit être modifié
+     * @param nom Nouveau nom
+     * @throws Exception Si l'événement est nul.
+     * @throws MauvaisChampsException Si le nouveau nom rend l'animation identique à une autre animation.
      */
     public void modifierNomAnimation(Animation animation, String nom) throws Exception {
         if (evenement != null) {
@@ -183,15 +196,14 @@ public class ControleurAnimation {
             animation.setNom(nom);
 
         } else
-            throw new Exception("Le nom de l'animation ne peut être modifié car l'événement du controleur est nul");
+            throw new Exception("Le nom de l'animation ne peut être modifié car l'événement du contrôleur est nul");
     }
 
     /**
-     * Modifie le prix de l'animation
-     *
-     * @param animation Animation
-     * @param prix      Prix de l'animation
-     * @throws Exception si il est impossible de modifier le prix de l'animation
+     * Modifie le prix de l'animation donné en paramètre.
+     * @param animation L'animation dont le prix doit être modifié
+     * @param prix Nouveau prix
+     * @throws Exception Si l'événement est nul.
      */
     public void modifierPrixAnimation(Animation animation, float prix) throws Exception {
         if (evenement != null) {
@@ -199,16 +211,16 @@ public class ControleurAnimation {
             animation.setPrix(prix);
 
         } else
-            throw new Exception("Le prix de l'animation ne peut être modifié car l'événement du controleur est nul");
+            throw new Exception("Le prix de l'animation ne peut être modifié car l'événement du contrôleur est nul");
     }
 
     /**
-     * Modifie la date et l'heure de début de l'animation
-     *
-     * @param animation      Animation
-     * @param dateHeureDebut Date et heure de début de l'animation
-     * @throws Exception si il est impossible de modifier la date et l'heure de
-     *                   début de l'animation
+     * Modifie la date et l'heure de début de l'animation données en paramètre.
+     * @param animation L'animation dont la date et l'heure de début doivent être modifiées
+     * @param dateHeureDebut Nouvelle date et heure de début
+     * @throws Exception Si l'événement est nul.
+     * @throws MauvaisChampsException Si la nouvelle date et heure de début de l'animation est ultérieure à sa date et heure de fin ou
+     * si la nouvelle date de début n'est pas comprise entre les dates de début et de fin de cet événement.
      */
     public void modifierDebutAnimation(Animation animation, LocalDateTime dateHeureDebut) throws Exception {
         if (evenement != null) {
@@ -230,16 +242,16 @@ public class ControleurAnimation {
             animation.setDateHeureDebut(dateHeureDebut);
 
         } else
-            throw new Exception("La date de début de l'animation ne peut être modifiée car l'événement du controleur est nul");
+            throw new Exception("La date de début de l'animation ne peut être modifiée car l'événement du contrôleur est nul");
     }
 
     /**
-     * Modifie la date et l'heure de fin de l'animation
-     *
-     * @param animation    Animation
-     * @param dateHeureFin Date et heure de fin de l'animation
-     * @throws Exception si il est impossible de modifier la date et l'heure de fin
-     *                   de l'animation
+     * Modifie la date et l'heure de fin de l'animation donnée en paramètre.
+     * @param animation L'animation dont la date et l'heure de fin doivent être modifiées
+     * @param dateHeureFin Nouvelle date et heure de fin
+     * @throws Exception Si l'événement est nul.
+     * @throws MauvaisChampsException Si la nouvelle date et heure de fin de l'animation est antérieure à sa date et heure de début ou
+     * si la nouvelle date de fin n'est pas comprise entre les dates de début et de fin de cet événement.
      */
     public void modifierFinAnimation(Animation animation, LocalDateTime dateHeureFin) throws Exception {
         if (evenement != null) {
@@ -261,6 +273,6 @@ public class ControleurAnimation {
             animation.setDateHeureFin(dateHeureFin);
 
         } else
-            throw new Exception("La date de fin de l'animation ne peut être modifiée car l'événement du controleur est nul");
+            throw new Exception("La date de fin de l'animation ne peut être modifiée car l'événement du contrôleur est nul");
     }
 }

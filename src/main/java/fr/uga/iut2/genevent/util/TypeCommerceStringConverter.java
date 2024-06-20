@@ -12,6 +12,6 @@ public class TypeCommerceStringConverter extends StringConverter<TypeCommerce> {
 
     @Override
     public TypeCommerce fromString(String nom) {
-        return new TypeCommerce(nom);
+        return new TypeCommerce(nom, 0);
     }
 }
