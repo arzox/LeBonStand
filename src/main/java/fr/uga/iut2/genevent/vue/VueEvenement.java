@@ -18,10 +18,10 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 
 import java.io.File;
-import java.util.Observable;
-import java.util.Observer;
+// import java.util.Observable;
+// import java.util.Observer;
 
-public class VueEvenement extends IHM implements Observer {
+public class VueEvenement extends IHM {
 
     public static final String FXML_NAME = "tab-event.fxml";
 
@@ -249,10 +249,10 @@ public class VueEvenement extends IHM implements Observer {
         controleurEvenement.modifierFonctionnalitesEvenement(evenement, fonctionnalites);
     }
 
-    @Override
-    public void update(Observable o, Object arg) {
-        loadEventData();
-    }
+    // @Override
+    // public void update(Observable o, Object arg) {
+    //     loadEventData();
+    // }
 
     @Override
     public void informerUtilisateur(String message, boolean succes) {

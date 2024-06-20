@@ -1,6 +1,5 @@
 package fr.uga.iut2.genevent.vue;
 
-import fr.uga.iut2.genevent.controleur.ControleurEvenement;
 import fr.uga.iut2.genevent.modele.Evenement;
 import fr.uga.iut2.genevent.util.Vues;
 import javafx.fxml.FXML;
@@ -18,8 +17,6 @@ import javafx.stage.WindowEvent;
 
 import java.io.File;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
 /**
  * La classe VueAccueil est responsable des interactions avec
@@ -29,7 +26,7 @@ import java.util.Observer;
  * Contrôleur de : accueil.fxml, new-event.fxml, delete-event.fxml (boîte de
  * confirmation pour supprimer un événement)
  */
-public class VueAccueil extends IHM implements Observer {
+public class VueAccueil extends IHM {
 
     public static final String FXML_NAME = "accueil.fxml";
     public static final String DELETE = "delete-event.fxml";
@@ -45,7 +42,7 @@ public class VueAccueil extends IHM implements Observer {
 
     @FXML
     public void initialize() {
-        controleur.getControleurEvenement().addObserver(this);
+        // controleur.getControleurEvenement().addObserver(this);
         loadEvents();
     }
 
@@ -218,11 +215,6 @@ public class VueAccueil extends IHM implements Observer {
                 new WindowEvent(
                         stage,
                         WindowEvent.WINDOW_CLOSE_REQUEST));
-        loadEvents();
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
         loadEvents();
     }
 
