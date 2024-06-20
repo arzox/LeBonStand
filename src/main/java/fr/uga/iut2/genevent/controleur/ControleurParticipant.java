@@ -4,7 +4,6 @@ import fr.uga.iut2.genevent.exception.MauvaisChampsException;
 import fr.uga.iut2.genevent.modele.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 /**
@@ -16,7 +15,9 @@ public class ControleurParticipant {
     private Evenement evenement;
 
     /**
-     * Crée le contrôleur, doit être uniquement appelée par le constructeur de la classe Controleur.
+     * Crée le contrôleur, doit être uniquement appelée par le constructeur de la
+     * classe Controleur.
+     * 
      * @param application L'application que le contrôleur gérera
      */
     public ControleurParticipant(Application application) {
@@ -25,6 +26,7 @@ public class ControleurParticipant {
 
     /**
      * Récupère l'événement géré par le contrôleur.
+     * 
      * @return L'événement géré par le controleur.
      */
     public Evenement getEvenement() {
@@ -33,6 +35,7 @@ public class ControleurParticipant {
 
     /**
      * Attribue un événement au contrôleur.
+     * 
      * @param evenement L'événement à attribuer
      */
     public void setEvenement(Evenement evenement) {
@@ -42,32 +45,17 @@ public class ControleurParticipant {
     // Participant
 
     /**
-     * Crée un nouveau participant et l'ajoute à la liste des participants de cet événement.
+     * Crée un nouveau participant et l'ajoute à la liste des participants de cet
+     * événement.
+     * 
      * @param nom Nom du participant
-     * @param prenom Prénom du participant
-     * @param email Email du participant
      * @return Le participant créé.
      * @throws Exception Si l'événement est nul.
-     * @throws MauvaisChampsException Si le nom, prénom et adresse email sont identiques à ceux d'un autre participant.
      */
-    public Participant inscrireParticipant(String nom, String prenom, String email) throws Exception {
+    public Participant inscrireParticipant(String nom) throws Exception {
         if (evenement != null) {
 
-            for (Participant participantCourant : evenement.getParticipants()) {
-
-                String nomCourant = participantCourant.getNom();
-                String prenomCourant = participantCourant.getPrenom();
-                String emailCourant = participantCourant.getEmail();
-                boolean isNotUnique = nom.equals(nomCourant) & prenom.equals(prenomCourant)
-                        & email.equals(emailCourant);
-
-                if (isNotUnique) {
-
-                    throw new MauvaisChampsException("Le participant que vous souhaitez inscrire existe déjà",
-                            new ArrayList<>(Arrays.asList(false, false, false)));
-                }
-            }
-            Participant nouveauParticipant = new Participant(nom, prenom, email);
+            Participant nouveauParticipant = new Participant(nom, "Prénom", "Mail");
             evenement.inscrireParticipant(nouveauParticipant);
 
             return nouveauParticipant;
@@ -78,10 +66,12 @@ public class ControleurParticipant {
 
     /**
      * Récupère un participant à partir de son nom, prénom et adresse email.
-     * @param nom Le nom du participant qu'on souhaite récupérer
+     * 
+     * @param nom    Le nom du participant qu'on souhaite récupérer
      * @param prenom Le prénom du participant qu'on souhaite récupérer
-     * @param email L'adresse email du participant qu'on souhaite récupérer
-     * @return Le participant correspondant aux attributs donnés en paramètres ou null s'il n'existe pas.
+     * @param email  L'adresse email du participant qu'on souhaite récupérer
+     * @return Le participant correspondant aux attributs donnés en paramètres ou
+     *         null s'il n'existe pas.
      * @throws Exception Si l'événement est nul.
      */
     public Participant getParticipant(String nom, String prenom, String email) throws Exception {
@@ -105,7 +95,9 @@ public class ControleurParticipant {
     }
 
     /**
-     * Retire de la liste des participants de cet événement le participant donné en paramètre.
+     * Retire de la liste des participants de cet événement le participant donné en
+     * paramètre.
+     * 
      * @param participant Le participant à retirer
      * @throws Exception Si l'événement est nul.
      */
@@ -120,23 +112,27 @@ public class ControleurParticipant {
 
     /**
      * Modifie le nom du participant donné en paramètre.
+     * 
      * @param participant Le participant dont le nom doit être modifié
-     * @param nom Nouveau nom
-     * @throws Exception Si l'événement est nul.
-     * @throws MauvaisChampsException Si le nouveau nom rend le participant identique à un autre participant.
+     * @param nom         Nouveau nom
+     * @throws Exception              Si l'événement est nul.
+     * @throws MauvaisChampsException Si le nouveau nom rend le participant
+     *                                identique à un autre participant.
      */
     public void modifierNomParticipant(Participant participant, String nom) throws Exception {
         if (evenement != null) {
 
-            for (AgentEntretien agent : evenement.getAgentsEntretien()) {
+            for (Participant participantCourant : evenement.getParticipants()) {
 
-                String nomCourant = agent.getNom();
-                String prenomCourant = agent.getPrenom();
-                String emailCourant = agent.getEmail();
+                String nomCourant = participantCourant.getNom();
+                String prenomCourant = participantCourant.getPrenom();
+                String emailCourant = participantCourant.getEmail();
+
+                boolean isNotSameParticipant = participant != participantCourant;
                 boolean isNotUnique = nom.equals(nomCourant) & participant.getPrenom().equals(prenomCourant)
                         & participant.getEmail().equals(emailCourant);
 
-                if (isNotUnique) {
+                if (isNotSameParticipant & isNotUnique) {
 
                     throw new MauvaisChampsException("En changeant le nom du participant, " +
                             "celui-ci devient identique à un autre participant",
@@ -151,23 +147,27 @@ public class ControleurParticipant {
 
     /**
      * Modifie le prénom du participant donné en paramètre.
+     * 
      * @param participant Le participant dont le prénom doit être modifié
-     * @param prenom Nouveau prénom
-     * @throws Exception Si l'événement est nul.
-     * @throws MauvaisChampsException Si le nouveau prénom rend le participant identique à un autre participant.
+     * @param prenom      Nouveau prénom
+     * @throws Exception              Si l'événement est nul.
+     * @throws MauvaisChampsException Si le nouveau prénom rend le participant
+     *                                identique à un autre participant.
      */
     public void modifierPrenomParticipant(Participant participant, String prenom) throws Exception {
         if (evenement != null) {
 
-            for (AgentEntretien agent : evenement.getAgentsEntretien()) {
+            for (Participant participantCourant : evenement.getParticipants()) {
 
-                String nomCourant = agent.getNom();
-                String prenomCourant = agent.getPrenom();
-                String emailCourant = agent.getEmail();
+                String nomCourant = participantCourant.getNom();
+                String prenomCourant = participantCourant.getPrenom();
+                String emailCourant = participantCourant.getEmail();
+
+                boolean isNotSameParticipant = participant != participantCourant;
                 boolean isNotUnique = participant.getNom().equals(nomCourant) & prenom.equals(prenomCourant)
                         & participant.getEmail().equals(emailCourant);
 
-                if (isNotUnique) {
+                if (isNotSameParticipant & isNotUnique) {
 
                     throw new MauvaisChampsException("En changeant le prénom du participant, " +
                             "celui-ci devient identique à un autre participant",
@@ -182,24 +182,28 @@ public class ControleurParticipant {
 
     /**
      * Modifie l'adresse email du participant donnée en paramètre.
+     * 
      * @param participant Le participant dont l'adresse email doit être modifiée
-     * @param email Nouvelle adresse email
-     * @throws Exception Si l'événement est nul.
-     * @throws MauvaisChampsException Si la nouvelle adresse email rend le participant identique à un autre participant.
+     * @param email       Nouvelle adresse email
+     * @throws Exception              Si l'événement est nul.
+     * @throws MauvaisChampsException Si la nouvelle adresse email rend le
+     *                                participant identique à un autre participant.
      */
     public void modifierEmailParticipant(Participant participant, String email) throws Exception {
         if (evenement != null) {
 
-            for (AgentEntretien agent : evenement.getAgentsEntretien()) {
+            for (Participant participantCourant : evenement.getParticipants()) {
 
-                String nomCourant = agent.getNom();
-                String prenomCourant = agent.getPrenom();
-                String emailCourant = agent.getEmail();
+                String nomCourant = participantCourant.getNom();
+                String prenomCourant = participantCourant.getPrenom();
+                String emailCourant = participantCourant.getEmail();
+
+                boolean isNotSameParticipant = participant != participantCourant;
                 boolean isNotUnique = participant.getNom().equals(nomCourant)
                         & participant.getPrenom().equals(prenomCourant)
                         & email.equals(emailCourant);
 
-                if (isNotUnique) {
+                if (isNotSameParticipant & isNotUnique) {
 
                     throw new MauvaisChampsException("En changeant l'adresse email du participant, " +
                             "celui-ci devient identique à un autre participant",
@@ -210,5 +214,9 @@ public class ControleurParticipant {
 
         } else
             throw new Exception("L'email du participant ne peut être modifié car l'événement du contrôleur est nul");
+    }
+
+    public ArrayList<Participant> getParticipants() {
+        return evenement.getParticipants();
     }
 }

@@ -20,8 +20,6 @@ import javafx.stage.Stage;
  * La classe VueEvenement est responsable des interactions avec
  * l'utilisa·teur/trice en mode graphique pour la vue accueil (liste des
  * événements)
- * <p>
- * Contrôleur de tab-event.fxml (informations générales sur l'événement)
  */
 public class VueOnglets extends IHM {
 
@@ -29,7 +27,7 @@ public class VueOnglets extends IHM {
     public IHM content;
 
     @FXML
-    private Text nomEvenement;
+    public Text nomEvenement;
     @FXML
     private VBox panel;
 
@@ -66,14 +64,12 @@ public class VueOnglets extends IHM {
 
     @FXML
     private void onAnimationClicked(MouseEvent event) {
-        // TODO : créer la vue et la classe correspondante
-        throw new UnsupportedOperationException("Vue et classe correspondante non crée.");
+        onTabClickedGeneric(new VueAnimations(), event);
     }
 
     @FXML
     private void onParticipantsClicked(MouseEvent event) {
-        // TODO : créer la vue et la classe correspondante
-        throw new UnsupportedOperationException("Vue et classe correspondante non crée.");
+        onTabClickedGeneric(new VueParticipants(), event);
     }
 
     @FXML
@@ -126,21 +122,23 @@ public class VueOnglets extends IHM {
     }
 
     private void switchOnglet(IHM nouvelleVue, Node button) {
-        if (button.getStyleClass().contains("button-selected")) return;
         setContent(nouvelleVue);
         changerFenetre((Stage) nomEvenement.getScene().getWindow());
-        panel.getChildren().forEach(node -> node.getStyleClass().remove("button-selected"));
-        button.getStyleClass().add("button-selected");
+        updateSelectedOngletStyle(button);
     }
 
-
     // TODO : confirmer la suppression de cette méthode
-    public void setCurrentOnglet(int i) {
-        if (i < 0 || i >= panel.getChildren().size()) {
-            return;
-        }
+    // public void setCurrentOnglet(int i) {
+    //     if (i < 0 || i >= panel.getChildren().size()) {
+    //         return;
+    //     }
+    //     panel.getChildren().forEach(node -> node.getStyleClass().remove("button-selected"));
+    //     panel.getChildren().get(i).getStyleClass().add("button-selected");
+    // }
+
+    private void updateSelectedOngletStyle(Node button) {
         panel.getChildren().forEach(node -> node.getStyleClass().remove("button-selected"));
-        panel.getChildren().get(i).getStyleClass().add("button-selected");
+        button.getStyleClass().add("button-selected");
     }
 
     /**
@@ -156,11 +154,7 @@ public class VueOnglets extends IHM {
         getContent().load();
         ((Pane) getContent().getParent()).getChildren().add(0, getParent());
         Vues.showParentOnStage(getContent().getParent(), stage);
-    }
-
-    @Override
-    public void informerUtilisateur(String message, boolean succes) {
-        System.out.println(message);
+        if (getContent() instanceof VueEvenement) panel.getChildren().get(3).getStyleClass().add("button-selected");
     }
 
     @Override

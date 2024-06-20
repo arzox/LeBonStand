@@ -1,9 +1,9 @@
 package fr.uga.iut2.genevent.vue;
 
 import fr.uga.iut2.genevent.controleur.Controleur;
-import fr.uga.iut2.genevent.controleur.ControleurAgentEntretien;
+import fr.uga.iut2.genevent.controleur.ControleurParticipant;
 import fr.uga.iut2.genevent.exception.MauvaisChampsException;
-import fr.uga.iut2.genevent.modele.AgentEntretien;
+import fr.uga.iut2.genevent.modele.Participant;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
@@ -13,41 +13,45 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.util.converter.IntegerStringConverter;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class VueAgentEntretien extends IHM {
+public class VueParticipants extends IHM {
 
     @FXML
-    TableView<AgentEntretien> agentsTable;
+    TableView<Participant> participantsTable;
 
-    private Map<AgentEntretien, BooleanProperty> checkedMap = new HashMap<>();
+    private Map<Participant, BooleanProperty> checkedMap = new HashMap<>();
 
     @FXML
     CheckBox checkBox;
 
     @FXML
-    TableColumn<AgentEntretien, Boolean> checkBoxColumn;
+    TableColumn<Participant, Boolean> checkBoxColumn;
     @FXML
-    TableColumn<AgentEntretien, String> nomColumn;
+    TableColumn<Participant, String> nomColumn;
     @FXML
-    TableColumn<AgentEntretien, String> prenomColumn;
+    TableColumn<Participant, String> prenomColumn;
     @FXML
-    TableColumn<AgentEntretien, String> emailColumn;
+    TableColumn<Participant, String> emailColumn;
     @FXML
-    TableColumn<AgentEntretien, String> telephoneColumn;
+    TableColumn<Participant, String> telephoneColumn;
     @FXML
-    TableColumn<AgentEntretien, Integer> heureDebutColumn;
+    TableColumn<Participant, Integer> heureDebutColumn;
     @FXML
-    TableColumn<AgentEntretien, Integer> heureFinColumn;
+    TableColumn<Participant, Integer> heureFinColumn;
 
-    ControleurAgentEntretien controleurAgentEntretien;
+    ControleurParticipant controleurParticipant;
 
-    public VueAgentEntretien() {
+    public VueParticipants() {
         super();
-        controleurAgentEntretien = Controleur.getInstance(null).getControleurAgentEntretien();
+        controleurParticipant = Controleur.getInstance(null).getControleurParticipant();
+    }
+
+    @Override
+    public String getFxmlName() {
+        return "tab-participants.fxml";
     }
 
     @FXML
@@ -55,7 +59,7 @@ public class VueAgentEntretien extends IHM {
         setupTable();
         setupCheckBox();
 
-        agentsTable.getItems().addAll(controleurAgentEntretien.getAgentEntretiens());
+        participantsTable.getItems().addAll(controleurParticipant.getParticipants());
     }
 
     private void setupCheckBox() {
@@ -63,15 +67,9 @@ public class VueAgentEntretien extends IHM {
             checkedMap.forEach((commercant, booleanProperty) -> booleanProperty.set(checkBox.isSelected()));
         });
     }
-
-    @Override
-    public String getFxmlName() {
-        return "tab-entretien.fxml";
-    }
-
     private void setupTable() {
         checkBoxColumn.setCellValueFactory(cellData -> {
-            AgentEntretien agentSecurite = cellData.getValue();
+            Participant agentSecurite = cellData.getValue();
             BooleanProperty checkedProperty = checkedMap.get(agentSecurite);
             if (checkedProperty == null) {
                 checkedProperty = new SimpleBooleanProperty(false);
@@ -85,16 +83,16 @@ public class VueAgentEntretien extends IHM {
         });
         checkBoxColumn.setCellFactory(CheckBoxTableCell.forTableColumn(checkBoxColumn));
 
-        agentsTable.setEditable(true);
+        participantsTable.setEditable(true);
         nomColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         nomColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
         nomColumn.setOnEditCommit(event -> {
             try {
-                controleurAgentEntretien.modifierNomAgentEntretien(event.getRowValue(), event.getNewValue());
+                controleurParticipant.modifierNomParticipant(event.getRowValue(), event.getNewValue());
             } catch (MauvaisChampsException e) {
                 informerUtilisateur(e.getMessage(), false);
                 event.getRowValue().setNom(event.getOldValue());
-                agentsTable.refresh();
+                participantsTable.refresh();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -104,11 +102,11 @@ public class VueAgentEntretien extends IHM {
         prenomColumn.setCellValueFactory(new PropertyValueFactory<>("prenom"));
         prenomColumn.setOnEditCommit(event -> {
             try {
-                controleurAgentEntretien.modifierPrenomAgentEntretien(event.getRowValue(), event.getNewValue());
+                controleurParticipant.modifierPrenomParticipant(event.getRowValue(), event.getNewValue());
             } catch (MauvaisChampsException e) {
                 informerUtilisateur(e.getMessage(), false);
                 event.getRowValue().setPrenom(event.getOldValue());
-                agentsTable.refresh();
+                participantsTable.refresh();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -118,53 +116,11 @@ public class VueAgentEntretien extends IHM {
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         emailColumn.setOnEditCommit(event -> {
             try {
-                controleurAgentEntretien.modifierEmailAgentEntretien(event.getRowValue(), event.getNewValue());
+                controleurParticipant.modifierEmailParticipant(event.getRowValue(), event.getNewValue());
             } catch (MauvaisChampsException e) {
                 informerUtilisateur(e.getMessage(), false);
                 event.getRowValue().setEmail(event.getOldValue());
-                agentsTable.refresh();
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        });
-
-        telephoneColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        telephoneColumn.setCellValueFactory(new PropertyValueFactory<>("telephone"));
-        telephoneColumn.setOnEditCommit(event -> {
-            try {
-                controleurAgentEntretien.modifierTelephoneAgentEntretien(event.getRowValue(), event.getNewValue());
-            } catch (MauvaisChampsException e) {
-                informerUtilisateur(e.getMessage(), false);
-                event.getRowValue().setTelephone(event.getOldValue());
-                agentsTable.refresh();
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        });
-
-        heureDebutColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        heureDebutColumn.setCellValueFactory(new PropertyValueFactory<>("heureDebut"));
-        heureDebutColumn.setOnEditCommit(event -> {
-            try {
-                controleurAgentEntretien.modifierHeureDebutAgentEntretien(event.getRowValue(), event.getNewValue());
-            } catch (MauvaisChampsException e) {
-                informerUtilisateur(e.getMessage(), false);
-                event.getRowValue().setHeureDebut(event.getOldValue());
-                agentsTable.refresh();
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        });
-
-        heureFinColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        heureFinColumn.setCellValueFactory(new PropertyValueFactory<>("heureFin"));
-        heureFinColumn.setOnEditCommit(event -> {
-            try {
-                controleurAgentEntretien.modifierHeureFinAgentEntretien(event.getRowValue(), event.getNewValue());
-            } catch (MauvaisChampsException e) {
-                informerUtilisateur(e.getMessage(), false);
-                event.getRowValue().setHeureFin(event.getOldValue());
-                agentsTable.refresh();
+                participantsTable.refresh();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -173,7 +129,7 @@ public class VueAgentEntretien extends IHM {
 
     @FXML
     private void onNewRow() {
-        int i = (agentsTable.getItems().size() + 1);
+        int i = (participantsTable.getItems().size() + 1);
         while (true) {
             try {
                 addLine(i);
@@ -186,8 +142,8 @@ public class VueAgentEntretien extends IHM {
     }
 
     private void addLine(int i) throws Exception {
-        agentsTable.getItems().add(
-                controleurAgentEntretien.ajouterAgentEntretien(("Nom" + i)));
+        participantsTable.getItems().add(
+                controleurParticipant.inscrireParticipant(("Nom" + i)));
     }
 
     @FXML
@@ -201,15 +157,15 @@ public class VueAgentEntretien extends IHM {
                 }
             }));
             checkBox.setSelected(false);
-        } else if (!agentsTable.getSelectionModel().getSelectedItems().isEmpty()) {
-            agentsTable.getSelectionModel().getSelectedItems().forEach(this::delete);
+        } else if (!participantsTable.getSelectionModel().getSelectedItems().isEmpty()) {
+            participantsTable.getSelectionModel().getSelectedItems().forEach(this::delete);
         }
     }
 
-    private void delete(AgentEntretien agentEntretien) {
+    private void delete(Participant participant) {
         try {
-            controleurAgentEntretien.supprimerAgentEntretien(agentEntretien);
-            agentsTable.getItems().remove(agentEntretien);
+            controleurParticipant.desinscrireParticipant(participant);
+            participantsTable.getItems().remove(participant);
         } catch (MauvaisChampsException e) {
             informerUtilisateur(e.getMessage(), false);
         } catch (Exception e) {
@@ -219,6 +175,6 @@ public class VueAgentEntretien extends IHM {
 
     @FXML
     private void onSave() {
-        agentsTable.refresh();
+        participantsTable.refresh();
     }
 }

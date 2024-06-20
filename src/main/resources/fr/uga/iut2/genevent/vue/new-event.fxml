@@ -34,9 +34,9 @@
                 <RowConstraints maxHeight="52.33331489562988" minHeight="10.0" prefHeight="51.66665840148926" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="Nom" />
+                  <Label text="Nom*" />
                   <TextField fx:id="nom" prefHeight="49.0" prefWidth="247.0" promptText="Marché de Noël Saint-Martin d'Heres" GridPane.columnIndex="1" />
-                  <Label text="Type" GridPane.rowIndex="1" />
+                  <Label text="Type*" GridPane.rowIndex="1" />
                   <ComboBox fx:id="typeMarche" prefHeight="26.0" prefWidth="253.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
                <padding>

@@ -22,9 +22,6 @@ import java.util.List;
  * La classe VueAccueil est responsable des interactions avec
  * l'utilisa·teur/trice en mode graphique pour la vue accueil (liste des
  * événements)
- * <p>
- * Contrôleur de : accueil.fxml, new-event.fxml, delete-event.fxml (boîte de
- * confirmation pour supprimer un événement)
  */
 public class VueAccueil extends IHM {
 
@@ -218,11 +215,6 @@ public class VueAccueil extends IHM {
     }
 
     // Implémentations et redéfinitions
-
-    @Override
-    public void informerUtilisateur(String msg, boolean succes) {
-        System.out.println(msg);
-    }
 
     @Override
     public String getFxmlName() {

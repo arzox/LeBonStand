@@ -22,7 +22,9 @@ public class Controleur {
     ControleurAnimation controleurAnimation;
 
     /**
-     * Méthode appelée pour créer un controleur s'il n'en existe pas déjà ou pour récupérer le controleur déjà existant.
+     * Méthode appelée pour créer un controleur s'il n'en existe pas déjà ou pour
+     * récupérer le controleur déjà existant.
+     * 
      * @param application L'application que le controleur gérera.
      * @return un nouveau controleur ou le controleur déjà existant.
      */
@@ -34,7 +36,9 @@ public class Controleur {
     }
 
     /**
-     * Méthode appelée uniquement par la méthode getInstance afin de créer un nouveau controleur.
+     * Méthode appelée uniquement par la méthode getInstance afin de créer un
+     * nouveau controleur.
+     * 
      * @param application L'application que le controleur gérera.
      */
     private Controleur(Application application) {

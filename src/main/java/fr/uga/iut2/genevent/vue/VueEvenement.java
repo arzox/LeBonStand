@@ -70,6 +70,12 @@ public class VueEvenement extends IHM {
     private void updatePanel() {
         getPanelController().isLoaded = false;
         getPanelController().changerFenetre((Stage) nomEvenementField.getScene().getWindow());
+        // TODO : afficher une boîte de dialogue pour avertir de la suppression des données des fonctionnalités si elle sont retirées
+    }
+
+    @FXML
+    private void updateEventName() {
+        getPanelController().nomEvenement.setText(nomEvenementField.getText());
     }
 
     private void loadEventData() {
@@ -174,6 +180,7 @@ public class VueEvenement extends IHM {
             if (controleurEvenement.getEvenement().getLieu() == null) {
                 controleurEvenement.getEvenement().setLieu(new Lieu("", "", "", 0));
             }
+            // TODO : confirmer la suppression de ce bloc de code
             // Depuis la branche de Rahim
              if (!newValue.trim().isEmpty()) {
              Lieu lieu = controleurEvenement.getEvenement().getLieu();
@@ -189,6 +196,7 @@ public class VueEvenement extends IHM {
             if (controleurEvenement.getEvenement().getLieu() == null) {
                 controleurEvenement.getEvenement().setLieu(controleurEvenement.creerLieu("", "", "", 0));
             }
+            // TODO : confirmer la suppression de ce bloc de code
             // Depuis la branche de Rahim
              if (!newValue.trim().isEmpty()) {
              Lieu lieu = controleurEvenement.getEvenement().getLieu();
@@ -207,6 +215,7 @@ public class VueEvenement extends IHM {
             controleurEvenement.modifierCodePostalLieu(controleurEvenement.getEvenement().getLieu(),
                     controleurEvenement.getEvenement().getLieu().getCodePostal());
 
+            // TODO : confirmer la suppression de ce bloc de code
             // Depuis la branche de Rahim
              if (!newValue.trim().isEmpty()) {
              try {
@@ -245,13 +254,6 @@ public class VueEvenement extends IHM {
             fonctionnalites.remove(fonctionnalite);
         }
         controleurEvenement.modifierFonctionnalitesEvenement(evenement, fonctionnalites);
-    }
-
-    @Override
-    public void informerUtilisateur(String message, boolean succes) {
-        Alert alert = new Alert(succes ? Alert.AlertType.INFORMATION : Alert.AlertType.ERROR);
-        alert.setContentText(message);
-        alert.showAndWait();
     }
 
     @Override

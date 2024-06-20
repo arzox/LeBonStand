@@ -1,11 +1,9 @@
 package fr.uga.iut2.genevent.modele;
 
-import java.io.Serializable;
-
 /**
  * Classe représentant un agent de sécurité, héritant de la classe Employe.
  */
-public class AgentSecurite extends Employe implements Serializable {
+public class AgentSecurite extends Employe {
     private Zone zone;
 
     /**
