@@ -109,8 +109,8 @@ public class Evenement implements Serializable {
      * @param emplacement L'emplacement à retirer.
      */
     public void retirerEmplacement(Emplacement emplacement) {
-        for (Commercant commercant : emplacement.getCommercants()) {
-            commercant.setEmplacement(null);
+        while (!emplacement.getCommercants().isEmpty()) {
+            emplacement.removeCommercant(emplacement.getCommercants().get(0));
         }
         this.emplacements.remove(emplacement);
     }
@@ -139,8 +139,8 @@ public class Evenement implements Serializable {
      * @param typeCommerce Le type de commerce à retirer.
      */
     public void retirerTypeCommerce(TypeCommerce typeCommerce) {
-        for (Commercant commercant : typeCommerce.getCommercants()) {
-            commercant.setTypeCommerce(null);
+        while (!typeCommerce.getCommercants().isEmpty()) {
+            typeCommerce.removeCommercant(typeCommerce.getCommercants().get(0));
         }
         this.typeCommerces.remove(typeCommerce);
     }
@@ -199,12 +199,10 @@ public class Evenement implements Serializable {
      * @param zone La zone à retirer.
      */
     public void supprimerZone(Zone zone) {
-        for (AgentSecurite agent : agentsSecurite) {
-            if (agent.getZone().equals(zone)) {
-                agent.setZone(null);
-            }
+        while (!zone.getAgentsSecurites().isEmpty()) {
+            zone.removeAgentSecurite(zone.getAgentsSecurites().get(0));
         }
-        zones.remove(zone);
+        this.zones.remove(zone);
     }
 
     // ---------Module Entretien---------

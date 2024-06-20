@@ -20,6 +20,11 @@ public class EmplacementStringConverter extends StringConverter<Emplacement> {
     public Emplacement fromString(String numero) {
         System.out.println(numero);
         if (numero.isEmpty()) return new Emplacement(null, 0);
+        try {
+            Integer.parseInt(numero);
+        } catch (NumberFormatException e) {
+            return new Emplacement(null, 0);
+        }
         return new Emplacement(Integer.parseInt(numero), 0);
     }
 }
