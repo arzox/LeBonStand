@@ -142,7 +142,7 @@ public class VueParticipants extends IHM {
 
     private void addLine(int i) throws Exception {
         participantsTable.getItems().add(
-                controleurParticipant.inscrireParticipant(("Nom" + i), "Prenom", "Mail"));
+                controleurParticipant.inscrireParticipant(("Nom" + i)));
     }
 
     @FXML
