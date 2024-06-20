@@ -84,23 +84,41 @@ public class Vues {
      */
     public static void showParentOnStage(Parent parent, Stage stage, Boolean fullScreen) {
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+        String os = getOperatingSystem();
         stage.setScene(stage.getScene());
         stage.setScene(loadParentWithStyle(parent));
         if (fullScreen) {
+            if (os.equals("Windows")){
+                stage.setMaximized(false);
+            }
             stage.setMaximized(true);
-            stage.setWidth(screenBounds.getWidth());
-            stage.setHeight(screenBounds.getHeight());
             stage.setX(0);
             stage.setY(0);
         } else {
+            if (os.equals("Linux")){
+                stage.setMaximized(true);
+            }
             stage.setMaximized(false);
-            double centerX = screenBounds.getWidth() / 2.0;
-            double centerY = screenBounds.getHeight() / 2.0;
-            stage.setX(centerX - stage.getWidth() / 2.0);
-            stage.setY(centerY - stage.getHeight() / 2.0);
+            if (os.equals("Windows")) {
+                double centerX = screenBounds.getWidth() / 2.0;
+                double centerY = screenBounds.getHeight() / 2.0;
+                stage.setX(centerX - stage.getWidth() / 2.0);
+                stage.setY(centerY - stage.getHeight() / 2.0);
+            }
         }
         stage.show();
         stage.getIcons().add(new Image(
                 Vues.class.getResource("/fr/uga/iut2/genevent/images/LBS-blanc-orange.png").toExternalForm()));
+    }
+
+    public static String getOperatingSystem() {
+        String os = System.getProperty("os.name").toLowerCase();
+        if (os.contains("win")) {
+            return "Windows";
+        } else if (os.contains("nix") || os.contains("nux") || os.contains("mac")) {
+            return "Linux";
+        } else {
+            return "Other";
+        }
     }
 }
