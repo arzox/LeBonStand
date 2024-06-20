@@ -1,5 +1,6 @@
 package fr.uga.iut2.genevent.vue;
 
+import fr.uga.iut2.genevent.controleur.ControleurEvenement;
 import fr.uga.iut2.genevent.modele.Evenement;
 import fr.uga.iut2.genevent.util.Vues;
 import javafx.fxml.FXML;
@@ -15,7 +16,10 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+import java.io.File;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * La classe VueAccueil est responsable des interactions avec
@@ -25,7 +29,7 @@ import java.util.List;
  * Contrôleur de : accueil.fxml, new-event.fxml, delete-event.fxml (boîte de
  * confirmation pour supprimer un événement)
  */
-public class VueAccueil extends IHM {
+public class VueAccueil extends IHM implements Observer {
 
     public static final String FXML_NAME = "accueil.fxml";
     public static final String DELETE = "delete-event.fxml";
@@ -41,6 +45,7 @@ public class VueAccueil extends IHM {
 
     @FXML
     public void initialize() {
+        controleur.getControleurEvenement().addObserver(this);
         loadEvents();
     }
 
@@ -68,7 +73,7 @@ public class VueAccueil extends IHM {
     private VBox createEventButton(Evenement event) {
         VBox vBox = new VBox();
         vBox.getStyleClass().add("eventIcon");
-        vBox.setAlignment(javafx.geometry.Pos.CENTER);
+        vBox.setAlignment(Pos.CENTER);
         vBox.setMinHeight(169.0);
         vBox.setMinWidth(160.0);
         vBox.setPrefHeight(169.0);
@@ -84,7 +89,19 @@ public class VueAccueil extends IHM {
         mainImage.setFitWidth(120);
         mainImage.setPickOnBounds(true);
         mainImage.setPreserveRatio(true);
-        mainImage.setImage(new Image(getClass().getResourceAsStream("/fr/uga/iut2/genevent/images/marche_noel.jpg")));
+
+        // Load the image if the path is specified and the file exists
+        String imagePath = event.getImagePath();
+        if (imagePath != null && !imagePath.isEmpty()) {
+            File imageFile = new File(imagePath);
+            if (imageFile.exists()) {
+                mainImage.setImage(new Image(imageFile.toURI().toString()));
+            } else {
+                mainImage.setImage(new Image(getClass().getResourceAsStream("/fr/uga/iut2/genevent/images/marche_noel.jpg")));
+            }
+        } else {
+            mainImage.setImage(new Image(getClass().getResourceAsStream("/fr/uga/iut2/genevent/images/marche_noel.jpg")));
+        }
 
         ImageView trash = new ImageView();
         trash.setFitHeight(30);
@@ -107,7 +124,7 @@ public class VueAccueil extends IHM {
     private VBox createNewEventButton() {
         VBox vBox = new VBox();
         vBox.getStyleClass().add("eventIcon");
-        vBox.setAlignment(javafx.geometry.Pos.CENTER);
+        vBox.setAlignment(Pos.CENTER);
         vBox.setMinHeight(169.0);
         vBox.setMinWidth(160.0);
         vBox.setPrefHeight(169.0);
@@ -201,6 +218,11 @@ public class VueAccueil extends IHM {
                 new WindowEvent(
                         stage,
                         WindowEvent.WINDOW_CLOSE_REQUEST));
+        loadEvents();
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
         loadEvents();
     }
 

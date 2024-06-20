@@ -2,7 +2,6 @@ package fr.uga.iut2.genevent.vue;
 
 import fr.uga.iut2.genevent.controleur.ControleurEvenement;
 import fr.uga.iut2.genevent.exception.MauvaisChampsException;
-
 import fr.uga.iut2.genevent.modele.Evenement;
 import fr.uga.iut2.genevent.modele.Fonctionnalite;
 import fr.uga.iut2.genevent.modele.Lieu;
@@ -14,7 +13,15 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
-public class VueEvenement extends IHM {
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
+
+import java.io.File;
+import java.util.Observable;
+import java.util.Observer;
+
+public class VueEvenement extends IHM implements Observer {
 
     public static final String FXML_NAME = "tab-event.fxml";
 
@@ -40,6 +47,10 @@ public class VueEvenement extends IHM {
     private DatePicker dateDebutPicker;
     @FXML
     private DatePicker dateFinPicker;
+    @FXML
+    private Button changeImageButton;
+    @FXML
+    private ImageView changeImageView;
 
     private ControleurEvenement controleurEvenement = controleur.getControleurEvenement();
 
@@ -63,10 +74,11 @@ public class VueEvenement extends IHM {
     }
 
     private void loadEventData() {
-        nomEvenementField.setText(controleurEvenement.getEvenement().getNom());
-        typeEvenementComboBox.setValue(controleurEvenement.getEvenement().getType().toString());
-        dateDebutPicker.setValue(controleurEvenement.getEvenement().getDateDebut());
-        dateFinPicker.setValue(controleurEvenement.getEvenement().getDateFin());
+        Evenement evenement = controleurEvenement.getEvenement();
+        nomEvenementField.setText(evenement.getNom());
+        typeEvenementComboBox.setValue(evenement.getType().getDisplayName());
+        dateDebutPicker.setValue(evenement.getDateDebut());
+        dateFinPicker.setValue(evenement.getDateFin());
 
         securiteCheckBox.setSelected(
                 controleurEvenement.getEvenement().getFonctionnalites().contains(Fonctionnalite.AGENT_SECURITE));
@@ -77,14 +89,52 @@ public class VueEvenement extends IHM {
         participantsCheckBox.setSelected(
                 controleurEvenement.getEvenement().getFonctionnalites().contains(Fonctionnalite.PARTICIPANT));
 
-        if (controleurEvenement.getEvenement().getLieu() != null) {
-            adresseField.setText(controleurEvenement.getEvenement().getLieu().getAdresse());
-            villeField.setText(controleurEvenement.getEvenement().getLieu().getNom());
-            codePostalField.setText(String.valueOf(controleurEvenement.getEvenement().getLieu().getCodePostal()));
+        if (evenement.getLieu() != null) {
+            adresseField.setText(evenement.getLieu().getAdresse());
+            villeField.setText(evenement.getLieu().getVille());
+            codePostalField.setText(String.valueOf(evenement.getLieu().getCodePostal()));
         } else {
             adresseField.setText("");
             villeField.setText("");
             codePostalField.setText("");
+        }
+
+        // Charger l'image de l'événement ou une image par défaut
+        String imagePath = evenement.getImagePath();
+        Image image_defaut = new Image(getClass().getResourceAsStream("/fr/uga/iut2/genevent/images/marche_noel.jpg"));
+        if (imagePath != null && !imagePath.isEmpty()) {
+            File imageFile = new File(imagePath);
+            if (imageFile.exists()) {
+                Image image = new Image(imageFile.toURI().toString());
+                changeImageView.setImage(image);
+                changeImageView.setFitHeight(120);
+                changeImageView.setFitWidth(120);
+            } else {
+                // Charger une image par défaut si l'image n'existe pas
+                changeImageView.setImage(image_defaut);
+                changeImageView.setFitHeight(120);
+                changeImageView.setFitWidth(120);
+            }
+        } else {
+            // Charger une image par défaut si aucun chemin d'image n'est défini
+            changeImageView.setImage(image_defaut);
+            changeImageView.setFitHeight(120);
+            changeImageView.setFitWidth(120);
+        }
+    }
+
+    @FXML
+    private void changerImage() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choisir une image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
+        );
+        File file = fileChooser.showOpenDialog(null);
+        if (file != null) {
+            Image newImage = new Image(file.toURI().toString());
+            changeImageView.setImage(newImage);
+            controleurEvenement.setImagePath(controleurEvenement.getEvenement(), file.getAbsolutePath());
         }
     }
 
@@ -126,14 +176,30 @@ public class VueEvenement extends IHM {
             if (controleurEvenement.getEvenement().getLieu() == null) {
                 controleurEvenement.getEvenement().setLieu(new Lieu("", "", "", 0));
             }
-            controleurEvenement.getEvenement().getLieu().setAdresse(newValue);
+            // Depuis la branche de Rahim
+            // if (!newValue.trim().isEmpty()) {
+            //     Lieu lieu = controleurEvenement.getEvenement().getLieu();
+            //     if (lieu == null) {
+            //         lieu = controleurEvenement.creerLieu("", newValue, "", 0);
+            //     } else {
+            //         controleurEvenement.modifierAdresseLieu(lieu, newValue);
+            //     }
+            // }
         });
 
         villeField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (controleurEvenement.getEvenement().getLieu() == null) {
                 controleurEvenement.getEvenement().setLieu(controleurEvenement.creerLieu("", "", "", 0));
             }
-            controleurEvenement.getEvenement().getLieu().setNom(newValue);
+            // Depuis la branche de Rahim
+            // if (!newValue.trim().isEmpty()) {
+            //     Lieu lieu = controleurEvenement.getEvenement().getLieu();
+            //     if (lieu == null) {
+            //         lieu = controleurEvenement.creerLieu("", "", newValue, 0);
+            //     } else {
+            //         controleurEvenement.modifierVilleLieu(lieu, newValue);
+            //     }
+            // }
         });
 
         codePostalField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -142,6 +208,21 @@ public class VueEvenement extends IHM {
             }
             controleurEvenement.modifierCodePostalLieu(controleurEvenement.getEvenement().getLieu(),
                     controleurEvenement.getEvenement().getLieu().getCodePostal());
+
+            // Depuis la branche de Rahim
+            // if (!newValue.trim().isEmpty()) {
+            //     try {
+            //         int codePostal = Integer.parseInt(newValue);
+            //         Lieu lieu = controleurEvenement.getEvenement().getLieu();
+            //         if (lieu == null) {
+            //             lieu = controleurEvenement.creerLieu("", "", "", codePostal);
+            //         } else {
+            //             controleurEvenement.modifierCodePostalLieu(lieu, codePostal);
+            //         }
+            //     } catch (NumberFormatException e) {
+            //         informerUtilisateur("Code postal invalide", false);
+            //     }
+            // }
         });
 
         securiteCheckBox.selectedProperty().addListener(
@@ -166,6 +247,11 @@ public class VueEvenement extends IHM {
             fonctionnalites.remove(fonctionnalite);
         }
         controleurEvenement.modifierFonctionnalitesEvenement(evenement, fonctionnalites);
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        loadEventData();
     }
 
     @Override
