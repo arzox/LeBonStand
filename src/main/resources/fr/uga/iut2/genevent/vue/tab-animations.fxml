@@ -104,9 +104,9 @@
                            </graphic>
                         </TableColumn>
                         <TableColumn fx:id="nomColumn" prefWidth="125.0" text="Nom" />
-                        <TableColumn fx:id="prixColumn" maxWidth="234.0" minWidth="-1.0" prefWidth="163.0" text="prix" />
-                        <TableColumn fx:id="heureDebutColumn" maxWidth="220.0" minWidth="-1.0" prefWidth="104.0" text="heureDebut" />
-                        <TableColumn fx:id="heureFinColumn" maxWidth="220.0" minWidth="-1.0" prefWidth="104.0" text="heureFin" />
+                        <TableColumn fx:id="prixColumn" maxWidth="234.0" minWidth="-1.0" prefWidth="163.0" text="Prix" />
+                        <TableColumn fx:id="heureDebutColumn" maxWidth="220.0" minWidth="-1.0" prefWidth="104.0" text="Heure de début" />
+                        <TableColumn fx:id="heureFinColumn" maxWidth="220.0" minWidth="-1.0" prefWidth="104.0" text="Heure de fin" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

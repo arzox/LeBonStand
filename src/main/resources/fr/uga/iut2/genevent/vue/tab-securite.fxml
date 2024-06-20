@@ -105,11 +105,11 @@
                         </TableColumn>
                         <TableColumn fx:id="nomColumn" prefWidth="125.0" text="Nom" />
                         <TableColumn fx:id="prenomColumn" prefWidth="133.0" text="Prénom" />
-                        <TableColumn fx:id="emailColumn" prefWidth="150.0" text="e-mail" />
-                        <TableColumn fx:id="telephoneColumn" prefWidth="130.0" text="téléphone" />
-                        <TableColumn fx:id="heureDebutColumn" prefWidth="110.0" text="heure debut" />
-                        <TableColumn fx:id="heureFinColumn" prefWidth="110.0" text="heure fin" />
-                        <TableColumn fx:id="zoneColumn" prefWidth="125.0" text="zone" />
+                        <TableColumn fx:id="emailColumn" prefWidth="150.0" text="E-mail" />
+                        <TableColumn fx:id="telephoneColumn" prefWidth="130.0" text="N° de tél." />
+                        <TableColumn fx:id="heureDebutColumn" prefWidth="110.0" text="Heure de début" />
+                        <TableColumn fx:id="heureFinColumn" prefWidth="110.0" text="Heure de fin" />
+                        <TableColumn fx:id="zoneColumn" prefWidth="125.0" text="Zone" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -155,8 +155,8 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                      <columns>
-                        <TableColumn fx:id="nomZoneColumn" prefWidth="125.0" text="nom" />
-                        <TableColumn fx:id="agentsColumn" prefWidth="127.0" text="agents" />
+                        <TableColumn fx:id="nomZoneColumn" prefWidth="125.0" text="Nom" />
+                        <TableColumn fx:id="agentsColumn" prefWidth="127.0" text="Agents" />
                      </columns>
                   </TableView>
                </children>
