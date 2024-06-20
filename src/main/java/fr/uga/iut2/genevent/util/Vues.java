@@ -22,27 +22,36 @@ public class Vues {
      * aussi le style global à la vue.
      *
      * @param stage    Le stage dont le contenu doit être remplacé
-     *
      * @param fxmlName Le nom du fichier à être utilisé pour charger la vue, ou
      *                 alors le chemin relatif à partir du dossier racine pour les
      *                 ressources
-     *
      * @return l'objet Parent utilisé pour charger la vue
      */
     public static Parent loadViewIntoStage(Stage stage, String fxmlName, IHM controleur, Boolean fullScreen) {
         try {
             // Charger la scène dans le loader et lui affecter le controleur en argument
-            Parent parent = loadViewAsParent(fxmlName, controleur);
-            Platform.runLater(() -> {
-                showParentOnStage(parent, stage, fullScreen);
-            });
-            return parent;
+            if (fxmlName == "accueil.fxml") {
+                Parent parent = loadViewAsParent(fxmlName, controleur);
+                Platform.runLater(() -> {
+                    showParentOnStage(parent, stage, fullScreen);
+                    stage.setWidth(750);
+                    stage.setHeight(500);
+                });
+                return parent;
+            } else {
+                Parent parent = loadViewAsParent(fxmlName, controleur);
+                Platform.runLater(() -> {
+                    showParentOnStage(parent, stage, fullScreen);
+                });
+                return parent;
+            }
         } catch (Exception e) {
             System.err.println("Erreur pendant le chargement de la vue :\n");
             e.printStackTrace();
             return null;
         }
     }
+
 
     /**
      * Charge la vue spécifiée par l'argument {@code fxml}, lui affecte le
@@ -88,14 +97,14 @@ public class Vues {
         stage.setScene(stage.getScene());
         stage.setScene(loadParentWithStyle(parent));
         if (fullScreen) {
-            if (os.equals("Windows")){
+            if (os.equals("Windows")) {
                 stage.setMaximized(false);
             }
             stage.setMaximized(true);
             stage.setX(0);
             stage.setY(0);
         } else {
-            if (os.equals("Linux")){
+            if (os.equals("Linux")) {
                 stage.setMaximized(true);
             }
             stage.setMaximized(false);

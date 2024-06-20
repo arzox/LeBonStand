@@ -39,7 +39,8 @@ public class VueOnglets extends IHM {
     @FXML
     private void onAccueilClicked() {
         Main.setLOGGER(Level.INFO, "L'utilisateur a cliqué sur \"Accueil\" : changement de vue");
-        new VueAccueil().changerFenetre((Stage) nomEvenement.getScene().getWindow(), false);
+        Stage accueil = (Stage) nomEvenement.getScene().getWindow();
+        new VueAccueil().changerFenetre(accueil, false);
     }
 
     @FXML
@@ -112,7 +113,7 @@ public class VueOnglets extends IHM {
     /**
      * Factorisation des méthodes de la forme {@code onXXXClicked} de la classe
      * {@code VueOnglets}
-     * 
+     *
      * @param nouvelleVue
      * @param event
      */
@@ -147,7 +148,7 @@ public class VueOnglets extends IHM {
      * Modifie l'état de la fenêtre en argument pour lui appliquer l'onglet spécifié
      * par l'argument {@code fxmlName}, puis ajoute le panneau de navigation
      * vertical pour compléter.
-     * 
+     *
      * @param stage Le stage dont la vue doit être changée
      */
     @Override
