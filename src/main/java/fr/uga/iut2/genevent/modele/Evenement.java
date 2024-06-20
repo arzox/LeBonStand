@@ -440,4 +440,8 @@ public class Evenement implements Serializable {
         return this.nom + "\n" + this.dateDebut + " - " + this.dateFin + "\n" + this.type + "\n" + this.fonctionnalites
                 + "\n";
     }
+
+    public ArrayList<AgentEntretien> getAgentsEntretiens() {
+        return agentsEntretien;
+    }
 }

@@ -367,7 +367,7 @@ public class ControleurCommercant {
     public Emplacement creerEmplacement(int taille) throws Exception {
         if (evenement != null) {
 
-            boolean isNegative = taille <= 0;
+            boolean isNegative = taille < 0;
 
             if (isNegative) {
 
@@ -433,7 +433,7 @@ public class ControleurCommercant {
     public void modifierTailleEmplacement(Emplacement emplacement, int taille) throws Exception {
         if (evenement != null) {
 
-            boolean isNegative = taille <= 0;
+            boolean isNegative = taille < 0;
 
             if (isNegative) {
 
@@ -564,7 +564,7 @@ public class ControleurCommercant {
     public void modifierQuotaTypeCommerce(TypeCommerce type, int quota) throws Exception {
         if (evenement != null) {
 
-            boolean isNegative = quota <= 0;
+            boolean isNegative = quota < 0;
 
             if (isNegative) {
 

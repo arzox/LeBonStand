@@ -1,9 +1,10 @@
 package fr.uga.iut2.genevent.vue;
 
 import fr.uga.iut2.genevent.controleur.Controleur;
-import fr.uga.iut2.genevent.controleur.ControleurAgentSecurite;
-import fr.uga.iut2.genevent.modele.*;
-import fr.uga.iut2.genevent.util.NombreAgentStringConverter;
+import fr.uga.iut2.genevent.controleur.ControleurAgentEntretien;
+import fr.uga.iut2.genevent.modele.AgentEntretien;
+import fr.uga.iut2.genevent.modele.AgentSecurite;
+import fr.uga.iut2.genevent.modele.Zone;
 import fr.uga.iut2.genevent.util.ZoneStringConverter;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -16,50 +17,39 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.IntegerStringConverter;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class VueAgentSecurite extends IHM {
+public class VueAgentEntretien extends IHM {
 
     @FXML
-    TableView<AgentSecurite> agentsTable;
+    TableView<AgentEntretien> agentsTable;
 
-    private Map<AgentSecurite, BooleanProperty> checkedMap = new HashMap<>();
+    private Map<AgentEntretien, BooleanProperty> checkedMap = new HashMap<>();
 
     @FXML
     CheckBox checkBox;
 
     @FXML
-    TableColumn<AgentSecurite, Boolean> checkBoxColumn;
+    TableColumn<AgentEntretien, Boolean> checkBoxColumn;
     @FXML
-    TableColumn<AgentSecurite, String> nomColumn;
+    TableColumn<AgentEntretien, String> nomColumn;
     @FXML
-    TableColumn<AgentSecurite, String> prenomColumn;
+    TableColumn<AgentEntretien, String> prenomColumn;
     @FXML
-    TableColumn<AgentSecurite, String> emailColumn;
+    TableColumn<AgentEntretien, String> emailColumn;
     @FXML
-    TableColumn<AgentSecurite, String> telephoneColumn;
+    TableColumn<AgentEntretien, String> telephoneColumn;
     @FXML
-    TableColumn<AgentSecurite, Integer> heureDebutColumn;
+    TableColumn<AgentEntretien, Integer> heureDebutColumn;
     @FXML
-    TableColumn<AgentSecurite, Integer> heureFinColumn;
-    @FXML
-    TableColumn<AgentSecurite, Zone> zoneColumn;
+    TableColumn<AgentEntretien, Integer> heureFinColumn;
 
-    @FXML
-    TableView<Zone> zoneTable;
+    ControleurAgentEntretien controleurAgentEntretien;
 
-    @FXML
-    TableColumn<Zone, String> nomZoneColumn;
-    @FXML
-    TableColumn<Zone, ArrayList<AgentSecurite>> agentsColumn;
-
-    ControleurAgentSecurite controleurAgentSecurite;
-
-    public VueAgentSecurite() {
+    public VueAgentEntretien() {
         super();
-        controleurAgentSecurite = Controleur.getInstance(null).getControleurAgentSecurite();
+        controleurAgentEntretien = Controleur.getInstance(null).getControleurAgentEntretien();
     }
 
     @Override
@@ -71,31 +61,9 @@ public class VueAgentSecurite extends IHM {
     @FXML
     private void initialize() {
         setupTable();
-        setupZone();
         setupCheckBox();
 
-        agentsTable.getItems().addAll(controleurAgentSecurite.getEvenement().getAgentsSecurite());
-        zoneTable.getItems().addAll(controleurAgentSecurite.getEvenement().getZones());
-    }
-
-    private void setupZone() {
-        nomZoneColumn.setEditable(true);
-        nomZoneColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        nomZoneColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
-        nomZoneColumn.setOnEditCommit(event -> {
-            try {
-                controleurAgentSecurite.modifierNomZone(event.getRowValue(), event.getNewValue());
-                agentsTable.getItems().clear();
-                agentsTable.getItems().addAll(controleurAgentSecurite.getEvenement().getAgentsSecurite());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-                zoneTable.refresh();
-            }
-        });
-
-        agentsColumn.setCellFactory(TextFieldTableCell.forTableColumn(new NombreAgentStringConverter()));
-        agentsColumn.setCellValueFactory(new PropertyValueFactory<>("agentsSecurites"));
-        agentsColumn.setEditable(false);
+        agentsTable.getItems().addAll(controleurAgentEntretien.getAgentEntretiens());
     }
 
     private void setupCheckBox() {
@@ -106,12 +74,12 @@ public class VueAgentSecurite extends IHM {
 
     @Override
     public String getFxmlName() {
-        return "tab-securite.fxml";
+        return "tab-entretien.fxml";
     }
 
     private void setupTable() {
         checkBoxColumn.setCellValueFactory(cellData -> {
-            AgentSecurite agentSecurite = cellData.getValue();
+            AgentEntretien agentSecurite = cellData.getValue();
             BooleanProperty checkedProperty = checkedMap.get(agentSecurite);
             if (checkedProperty == null) {
                 checkedProperty = new SimpleBooleanProperty(false);
@@ -130,7 +98,7 @@ public class VueAgentSecurite extends IHM {
         nomColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
         nomColumn.setOnEditCommit(event -> {
             try {
-                controleurAgentSecurite.modifierNomAgentSecurite(event.getRowValue(), event.getNewValue());
+                controleurAgentEntretien.modifierNomAgentEntretien(event.getRowValue(), event.getNewValue());
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 event.getRowValue().setNom(event.getOldValue());
@@ -142,7 +110,7 @@ public class VueAgentSecurite extends IHM {
         prenomColumn.setCellValueFactory(new PropertyValueFactory<>("prenom"));
         prenomColumn.setOnEditCommit(event -> {
             try {
-                controleurAgentSecurite.modifierPrenomAgentSecurite(event.getRowValue(), event.getNewValue());
+                controleurAgentEntretien.modifierPrenomAgentEntretien(event.getRowValue(), event.getNewValue());
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 event.getRowValue().setPrenom(event.getOldValue());
@@ -154,7 +122,7 @@ public class VueAgentSecurite extends IHM {
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         emailColumn.setOnEditCommit(event -> {
             try {
-                controleurAgentSecurite.modifierEmailAgentSecurite(event.getRowValue(), event.getNewValue());
+                controleurAgentEntretien.modifierEmailAgentEntretien(event.getRowValue(), event.getNewValue());
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 event.getRowValue().setEmail(event.getOldValue());
@@ -166,7 +134,7 @@ public class VueAgentSecurite extends IHM {
         telephoneColumn.setCellValueFactory(new PropertyValueFactory<>("telephone"));
         telephoneColumn.setOnEditCommit(event -> {
             try {
-                controleurAgentSecurite.modifierTelephoneAgentSecurite(event.getRowValue(), event.getNewValue());
+                controleurAgentEntretien.modifierTelephoneAgentEntretien(event.getRowValue(), event.getNewValue());
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 event.getRowValue().setTelephone(event.getOldValue());
@@ -178,7 +146,7 @@ public class VueAgentSecurite extends IHM {
         heureDebutColumn.setCellValueFactory(new PropertyValueFactory<>("heureDebut"));
         heureDebutColumn.setOnEditCommit(event -> {
             try {
-                controleurAgentSecurite.modifierHeureDebutAgentSecurite(event.getRowValue(), event.getNewValue());
+                controleurAgentEntretien.modifierHeureDebutAgentEntretien(event.getRowValue(), event.getNewValue());
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 event.getRowValue().setHeureDebut(event.getOldValue());
@@ -190,36 +158,11 @@ public class VueAgentSecurite extends IHM {
         heureFinColumn.setCellValueFactory(new PropertyValueFactory<>("heureFin"));
         heureFinColumn.setOnEditCommit(event -> {
             try {
-                controleurAgentSecurite.modifierHeureFinAgentSecurite(event.getRowValue(), event.getNewValue());
+                controleurAgentEntretien.modifierHeureFinAgentEntretien(event.getRowValue(), event.getNewValue());
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 event.getRowValue().setHeureFin(event.getOldValue());
                 agentsTable.refresh();
-            }
-        });
-
-        zoneColumn.setCellFactory(TextFieldTableCell.forTableColumn(new ZoneStringConverter()));
-        zoneColumn.setCellValueFactory(new PropertyValueFactory<>("zone"));
-        zoneColumn.setOnEditCommit(event -> {
-            try {
-                Zone emplacement = controleurAgentSecurite.getZone(event.getNewValue().getNom());
-                if (emplacement != null) {
-                    controleurAgentSecurite.modifierZoneAgentSecurite(event.getRowValue(), emplacement);
-                    zoneTable.refresh();
-                } else {
-                    try {
-                        Zone newZone = controleurAgentSecurite.creerZone(event.getNewValue().getNom());
-                        controleurAgentSecurite.modifierZoneAgentSecurite(event.getRowValue(), newZone);
-                        zoneTable.getItems().add(newZone);
-                        zoneTable.refresh();
-                    } catch (Exception ex) {
-                        System.out.println(ex.getMessage());
-                        event.getRowValue().setZone(event.getOldValue());
-                    }
-                }
-                agentsTable.refresh();
-            } catch (Exception e) {
-                throw new RuntimeException(e);
             }
         });
     }
@@ -240,7 +183,7 @@ public class VueAgentSecurite extends IHM {
 
     private void addLine(int i) throws Exception {
         agentsTable.getItems().add(
-                controleurAgentSecurite.ajouterAgentSecurite(("Nom" + i), "Prenom", "Mail", "06010203", 8, 20, null));
+                controleurAgentEntretien.ajouterAgentEntretien(("Nom" + i), "Prenom", "Mail", "06010203", 8, 20));
     }
 
     @FXML
@@ -248,9 +191,9 @@ public class VueAgentSecurite extends IHM {
         boolean isAnyAgentSelected = checkedMap.values().stream()
                 .anyMatch(BooleanProperty::get);
         if (isAnyAgentSelected) {
-            checkedMap.forEach(((agentSecurite, booleanProperty) -> {
+            checkedMap.forEach(((agentEntretien, booleanProperty) -> {
                 if (booleanProperty.get()) {
-                    delete(agentSecurite);
+                    delete(agentEntretien);
                 }
             }));
             if (agentsTable.getItems().isEmpty()) checkBox.setSelected(false);
@@ -259,10 +202,10 @@ public class VueAgentSecurite extends IHM {
         }
     }
 
-    private void delete(AgentSecurite agentSecurite) {
+    private void delete(AgentEntretien agentEntretien) {
         try {
-            controleurAgentSecurite.supprimerAgentSecurite(agentSecurite);
-            agentsTable.getItems().remove(agentSecurite);
+            controleurAgentEntretien.supprimerAgentEntretien(agentEntretien);
+            agentsTable.getItems().remove(agentEntretien);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
