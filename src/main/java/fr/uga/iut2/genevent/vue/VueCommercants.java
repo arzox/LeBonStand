@@ -18,6 +18,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.IntegerStringConverter;
 
+import javax.swing.*;
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -383,6 +388,20 @@ public class VueCommercants extends IHM {
     private void onSave() {
         commercantsTable.refresh();
     }
+
+    /**
+     * Méthode pour ouvrir le client de messagerie et envoyer un mail aux commerçants.
+     */
+    @FXML
+    private void envoyerMail() {
+        try {
+            controleurCommercant.ouvrirClientMailPourCommercants();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erreur lors de l'envoi de l'email : " + e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
 
     @Override
     public String getFxmlName() {

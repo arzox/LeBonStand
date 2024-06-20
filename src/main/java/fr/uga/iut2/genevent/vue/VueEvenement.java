@@ -181,14 +181,14 @@ public class VueEvenement extends IHM {
                 controleurEvenement.getEvenement().setLieu(new Lieu("", "", "", 0));
             }
             // Depuis la branche de Rahim
-            // if (!newValue.trim().isEmpty()) {
-            // Lieu lieu = controleurEvenement.getEvenement().getLieu();
-            // if (lieu == null) {
-            // lieu = controleurEvenement.creerLieu("", newValue, "", 0);
-            // } else {
-            // controleurEvenement.modifierAdresseLieu(lieu, newValue);
-            // }
-            // }
+             if (!newValue.trim().isEmpty()) {
+             Lieu lieu = controleurEvenement.getEvenement().getLieu();
+             if (lieu == null) {
+             lieu = controleurEvenement.creerLieu("", newValue, "", 0);
+             } else {
+             controleurEvenement.modifierAdresseLieu(lieu, newValue);
+             }
+             }
         });
 
         villeField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -196,14 +196,14 @@ public class VueEvenement extends IHM {
                 controleurEvenement.getEvenement().setLieu(controleurEvenement.creerLieu("", "", "", 0));
             }
             // Depuis la branche de Rahim
-            // if (!newValue.trim().isEmpty()) {
-            // Lieu lieu = controleurEvenement.getEvenement().getLieu();
-            // if (lieu == null) {
-            // lieu = controleurEvenement.creerLieu("", "", newValue, 0);
-            // } else {
-            // controleurEvenement.modifierVilleLieu(lieu, newValue);
-            // }
-            // }
+             if (!newValue.trim().isEmpty()) {
+             Lieu lieu = controleurEvenement.getEvenement().getLieu();
+             if (lieu == null) {
+             lieu = controleurEvenement.creerLieu("", "", newValue, 0);
+             } else {
+             controleurEvenement.modifierVilleLieu(lieu, newValue);
+             }
+             }
         });
 
         codePostalField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -214,19 +214,19 @@ public class VueEvenement extends IHM {
                     controleurEvenement.getEvenement().getLieu().getCodePostal());
 
             // Depuis la branche de Rahim
-            // if (!newValue.trim().isEmpty()) {
-            // try {
-            // int codePostal = Integer.parseInt(newValue);
-            // Lieu lieu = controleurEvenement.getEvenement().getLieu();
-            // if (lieu == null) {
-            // lieu = controleurEvenement.creerLieu("", "", "", codePostal);
-            // } else {
-            // controleurEvenement.modifierCodePostalLieu(lieu, codePostal);
-            // }
-            // } catch (NumberFormatException e) {
-            // informerUtilisateur("Code postal invalide", false);
-            // }
-            // }
+             if (!newValue.trim().isEmpty()) {
+             try {
+             int codePostal = Integer.parseInt(newValue);
+             Lieu lieu = controleurEvenement.getEvenement().getLieu();
+             if (lieu == null) {
+             lieu = controleurEvenement.creerLieu("", "", "", codePostal);
+             } else {
+             controleurEvenement.modifierCodePostalLieu(lieu, codePostal);
+             }
+             } catch (NumberFormatException e) {
+             informerUtilisateur("Code postal invalide", false);
+             }
+             }
         });
 
         securiteCheckBox.selectedProperty().addListener(

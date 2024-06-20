@@ -49,7 +49,7 @@
                                     <Tooltip text="Supprimer commerçant(s)" />
                                  </tooltip>
                               </Button>
-                              <Button layoutX="507.0" layoutY="43.0" mnemonicParsing="false">
+                              <Button layoutX="507.0" layoutY="43.0" mnemonicParsing="false" onAction="#envoyerMail">
                                  <graphic>
                                     <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
