@@ -10,6 +10,7 @@ import fr.uga.iut2.genevent.util.TypeCommerceStringConverter;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
+import javafx.print.PrinterJob;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -64,9 +65,12 @@ public class VueCommercants extends IHM {
     @FXML TableColumn<TypeCommerce, String> typeCommerceColumn;
     @FXML TableColumn<TypeCommerce, Integer> quotaColumn;
 
+    PrinterJob job;
+
     public VueCommercants() {
         super();
         this.controleurCommercant = controleur.getControleurCommercant();
+        this.job = PrinterJob.createPrinterJob();
     }
 
     @FXML
@@ -80,6 +84,15 @@ public class VueCommercants extends IHM {
         emplacementTable.getItems().addAll(controleur.getControleurCommercant().getEmplacements());
         typeTable.getItems().addAll(controleur.getControleurCommercant().getTypeCommerces());
 
+    }
+
+    @FXML
+    private void printTable() {
+        if (job != null) {
+            if (job.printPage(commercantsTable)) {
+                job.endJob();
+            }
+        }
     }
 
     private void setupCheckBox() {
