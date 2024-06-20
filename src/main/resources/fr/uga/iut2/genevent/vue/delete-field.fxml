@@ -5,13 +5,22 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.Tooltip?>
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="144.0" prefWidth="436.0" spacing="30.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label text="Etes-vous sur de vouloir supprimer ce champ ?" />
       <HBox alignment="CENTER" prefHeight="36.0" prefWidth="600.0" spacing="25.0">
          <children>
-            <Button fx:id="supprimerChampNon" mnemonicParsing="false" text="Non" />
-            <Button fx:id="supprimerChampOui" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" styleClass="orange" text="Oui" />
+            <Button fx:id="supprimerChampNon" mnemonicParsing="false" text="Non">
+               <tooltip>
+                  <Tooltip text="Annuler la suppression du champ" />
+               </tooltip>
+            </Button>
+            <Button fx:id="supprimerChampOui" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" styleClass="orange" text="Oui">
+               <tooltip>
+                  <Tooltip text="Confirmer la suppression du champ" />
+               </tooltip>
+            </Button>
          </children>
       </HBox>
    </children>

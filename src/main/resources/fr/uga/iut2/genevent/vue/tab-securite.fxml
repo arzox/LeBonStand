@@ -33,7 +33,7 @@
                                     </ImageView>
                                  </graphic>
                                  <tooltip>
-                                    <Tooltip text="Ajouter une nouvelle ligne" />
+                                    <Tooltip text="Ajouter un nouvel agent de sécurité" />
                                  </tooltip>
                               </Button>
                               <Button layoutX="483.0" layoutY="43.0" mnemonicParsing="false" onAction="#onSupprimer" style="-fx-background-color: #f4f4f4;">
@@ -45,7 +45,7 @@
                                     </ImageView>
                                  </graphic>
                                  <tooltip>
-                                    <Tooltip text="Supprimer la ligne" />
+                                    <Tooltip text="Supprimer agent(s) de sécurtité" />
                                  </tooltip>
                               </Button>
                               <Button layoutX="507.0" layoutY="43.0" mnemonicParsing="false" style="-fx-background-color: #f4f4f4;">
@@ -57,7 +57,7 @@
                                     </ImageView>
                                  </graphic>
                                  <tooltip>
-                                    <Tooltip text="Send" />
+                                    <Tooltip text="Envoyer mail(s)" />
                                  </tooltip>
                               </Button>
                               <Button layoutX="531.0" layoutY="43.0" mnemonicParsing="false" style="-fx-background-color: #f4f4f4;">
