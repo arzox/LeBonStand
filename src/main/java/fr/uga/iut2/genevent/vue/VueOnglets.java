@@ -61,8 +61,7 @@ public class VueOnglets extends IHM {
 
     @FXML
     private void onEntretienClicked(MouseEvent event) {
-        // TODO : créer la vue et la classe correspondante
-        throw new UnsupportedOperationException("Vue et classe correspondante non crée.");
+        onTabClickedGeneric(new VueAgentEntretien(), event);
     }
 
     @FXML
@@ -127,13 +126,15 @@ public class VueOnglets extends IHM {
     }
 
     private void switchOnglet(IHM nouvelleVue, Node button) {
+        if (button.getStyleClass().contains("button-selected")) return;
         setContent(nouvelleVue);
         changerFenetre((Stage) nomEvenement.getScene().getWindow(), true);
         panel.getChildren().forEach(node -> node.getStyleClass().remove("button-selected"));
         button.getStyleClass().add("button-selected");
-        // setCurrentOnglet(panel.getChildren().indexOf(button));
     }
 
+
+    // TODO : confirmer la suppression de cette méthode
     public void setCurrentOnglet(int i) {
         if (i < 0 || i >= panel.getChildren().size()) {
             return;
@@ -175,5 +176,6 @@ public class VueOnglets extends IHM {
 
     public void setContent(IHM content) {
         this.content = content;
+        content.setPanelController(this);
     }
 }

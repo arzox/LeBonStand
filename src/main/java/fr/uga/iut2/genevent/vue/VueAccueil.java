@@ -16,6 +16,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -55,15 +56,15 @@ public class VueAccueil extends IHM {
      */
     private void loadEvents() {
         List<Evenement> eventNames = controleur.getEvents();
-
+        
         // Clear the current children before adding new events
         eventsFlowPane.getChildren().clear();
-
+        
         for (Evenement event : eventNames) {
             VBox eventButton = createEventButton(event);
             eventsFlowPane.getChildren().add(0, eventButton);
         }
-
+        
         // Ensure the new event button is always the last child
         VBox newEventButton = createNewEventButton();
         eventsFlowPane.getChildren().add(newEventButton);
@@ -72,7 +73,7 @@ public class VueAccueil extends IHM {
     private VBox createEventButton(Evenement event) {
         VBox vBox = new VBox();
         vBox.getStyleClass().add("eventIcon");
-        vBox.setAlignment(javafx.geometry.Pos.CENTER);
+        vBox.setAlignment(Pos.CENTER);
         vBox.setMinHeight(169.0);
         vBox.setMinWidth(160.0);
         vBox.setPrefHeight(169.0);
@@ -88,7 +89,19 @@ public class VueAccueil extends IHM {
         mainImage.setFitWidth(120);
         mainImage.setPickOnBounds(true);
         mainImage.setPreserveRatio(true);
-        mainImage.setImage(new Image(getClass().getResourceAsStream("/fr/uga/iut2/genevent/images/marche_noel.jpg")));
+
+        // Load the image if the path is specified and the file exists
+        String imagePath = event.getImagePath();
+        if (imagePath != null && !imagePath.isEmpty()) {
+            File imageFile = new File(imagePath);
+            if (imageFile.exists()) {
+                mainImage.setImage(new Image(imageFile.toURI().toString()));
+            } else {
+                mainImage.setImage(new Image(getClass().getResourceAsStream("/fr/uga/iut2/genevent/images/marche_noel.jpg")));
+            }
+        } else {
+            mainImage.setImage(new Image(getClass().getResourceAsStream("/fr/uga/iut2/genevent/images/marche_noel.jpg")));
+        }
 
         ImageView trash = new ImageView();
         trash.setFitHeight(30);
@@ -111,7 +124,7 @@ public class VueAccueil extends IHM {
     private VBox createNewEventButton() {
         VBox vBox = new VBox();
         vBox.getStyleClass().add("eventIcon");
-        vBox.setAlignment(javafx.geometry.Pos.CENTER);
+        vBox.setAlignment(Pos.CENTER);
         vBox.setMinHeight(169.0);
         vBox.setMinWidth(160.0);
         vBox.setPrefHeight(169.0);

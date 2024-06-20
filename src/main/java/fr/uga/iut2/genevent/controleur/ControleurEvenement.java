@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Contrôleur pour le module "Evenement".
@@ -54,9 +55,8 @@ public class ControleurEvenement {
      * @return L'événement créé.
      * @throws MauvaisChampsException Si un événement avec le même nom et type existe déjà.
      */
-    public Evenement creerEvenement(String nom, TypeEvenement type,
-                                    ArrayList<Fonctionnalite> fonctionnalites) throws MauvaisChampsException {
-
+    public Evenement creerEvenement(String nom, TypeEvenement type, ArrayList<Fonctionnalite> fonctionnalites, String imagePath)
+            throws MauvaisChampsException {
         // Création d'un événement
         if (type == null) {
 
@@ -68,7 +68,7 @@ public class ControleurEvenement {
 
             String nomCourant = evenementCourant.getNom();
             TypeEvenement typeCourant = evenementCourant.getType();
-            boolean isNotUnique = nom.equals(nomCourant) & type == typeCourant;
+            boolean isNotUnique = nom.equals(nomCourant) && type == typeCourant;
 
             if (isNotUnique) {
 
@@ -76,9 +76,7 @@ public class ControleurEvenement {
                         new ArrayList<>(Arrays.asList(false, false, true)));
             }
         }
-        Evenement evenement = new Evenement(nom, null, null, type, fonctionnalites);
-
-        // Ajout de l'événement à la liste des événements
+        Evenement evenement = new Evenement(nom, null, null, type, fonctionnalites, imagePath);
         application.addEvenement(evenement);
 
         // Renvoi de l'événement afin d'y attribuer les contrôleurs dans le contrôleur FXML dans la vue
@@ -105,7 +103,7 @@ public class ControleurEvenement {
 
             String nomCourant = evenementCourant.getNom();
             TypeEvenement typeCourant = evenementCourant.getType();
-            boolean isNotUnique = nom.equals(nomCourant) & evenement.getType() == typeCourant;
+            boolean isNotUnique = nom.equals(nomCourant) && evenement.getType() == typeCourant;
 
             if (isNotUnique) {
 
@@ -129,7 +127,7 @@ public class ControleurEvenement {
 
             String nomCourant = evenementCourant.getNom();
             TypeEvenement typeCourant = evenementCourant.getType();
-            boolean isNotUnique = evenement.getNom().equals(nomCourant) & type == typeCourant;
+            boolean isNotUnique = evenement.getNom().equals(nomCourant) && type == typeCourant;
 
             if (isNotUnique) {
 
@@ -147,7 +145,6 @@ public class ControleurEvenement {
      * @param fonctionnalites Nouvelles fonctionnalités
      */
     public void modifierFonctionnalitesEvenement(Evenement evenement, ArrayList<Fonctionnalite> fonctionnalites) {
-
         evenement.setFonctionnalites(fonctionnalites);
     }
 
@@ -157,7 +154,6 @@ public class ControleurEvenement {
      * @param lieu Nouveau lieu
      */
     public void modifierLieuEvenement(Evenement evenement, Lieu lieu) {
-
         evenement.setLieu(lieu);
     }
 
@@ -211,7 +207,6 @@ public class ControleurEvenement {
 
         Lieu nouveauLieu = new Lieu(nom, adresse, ville, codePostal);
         evenement.setLieu(nouveauLieu);
-
         return nouveauLieu;
     }
 
@@ -221,7 +216,6 @@ public class ControleurEvenement {
      * @param nom Nouveau nom
      */
     public void modifierNomLieu(Lieu lieu, String nom) {
-
         lieu.setNom(nom);
     }
 
@@ -261,5 +255,18 @@ public class ControleurEvenement {
      */
     public ArrayList<Fonctionnalite> getFonctionnalites() {
         return evenement.getFonctionnalites();
+    }
+
+    // Image
+    public void setImagePath(Evenement evenement, String imagePath) {
+        evenement.setImagePath(imagePath);
+    }
+
+    public String getImagePath(Evenement evenement) {
+        return evenement.getImagePath();
+    }
+
+    public List<Evenement> getTousEvenements() {
+        return application.getEvenements();
     }
 }

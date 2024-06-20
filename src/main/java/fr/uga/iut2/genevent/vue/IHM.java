@@ -11,6 +11,7 @@ import javafx.stage.Stage;
  */
 public abstract class IHM {
     private Parent parent;
+    private VueOnglets panelController;
     protected boolean isLoaded = false;
 
     /**
@@ -63,6 +64,17 @@ public abstract class IHM {
 
     public void setParent(Parent parent) {
         this.parent = parent;
+    }
+
+    public VueOnglets getPanelController() {
+        return panelController;
+    }
+
+    public void setPanelController(VueOnglets panelController) {
+        this.panelController = panelController;
+        if (!panelController.getContent().equals(this)) {
+            panelController.setContent(this);
+        }
     }
 
     public abstract String getFxmlName();

@@ -3,19 +3,23 @@
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<HBox prefHeight="1028.0" prefWidth="1332.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="50.0" styleClass="no-border">
          <children>
@@ -40,6 +44,21 @@
                               <ComboBox fx:id="typeEvenementComboBox" prefHeight="25.0" prefWidth="174.0" />
                            </children>
                         </VBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="90.0" prefWidth="205.0" style="-fx-spacing: 10;">
+                           <children>
+                              <Button fx:id="changeImageButton" maxHeight="120.0" maxWidth="120.0" minHeight="120.0" minWidth="120.0" onAction="#changerImage" prefHeight="120.0" prefWidth="120.0" styleClass="imageopp">
+                                 <tooltip>
+                                    <Tooltip text="Changer l'image de l'évènement sur l'accueil" />
+                                 </tooltip>
+                                 <graphic>
+                                    <ImageView fx:id="changeImageView" fitHeight="115.0" fitWidth="119.0" styleClass="imageopp" />
+                                 </graphic>
+                              </Button>
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" />
+                           </padding>
+                        </VBox>
                      </children>
                   </HBox>
                </children>
@@ -53,10 +72,10 @@
                   </Pane>
                   <HBox alignment="CENTER" prefHeight="90.0" prefWidth="506.0" style="-fx-spacing: 10;">
                      <children>
-                        <CheckBox fx:id="securiteCheckBox" mnemonicParsing="false" selected="true" text="Sécurité" />
-                        <CheckBox fx:id="entretienCheckBox" mnemonicParsing="false" text="Entretien" />
-                        <CheckBox fx:id="animationsCheckBox" mnemonicParsing="false" text="Animations" />
-                        <CheckBox fx:id="participantsCheckBox" mnemonicParsing="false" text="Participants" />
+                        <CheckBox fx:id="securiteCheckBox" mnemonicParsing="false" onAction="#updatePanel" selected="true" text="Sécurité" />
+                        <CheckBox fx:id="entretienCheckBox" mnemonicParsing="false" onAction="#updatePanel" text="Entretien" />
+                        <CheckBox fx:id="animationsCheckBox" mnemonicParsing="false" onAction="#updatePanel" text="Animations" />
+                        <CheckBox fx:id="participantsCheckBox" mnemonicParsing="false" onAction="#updatePanel" text="Participants" />
                      </children>
                   </HBox>
                </children>

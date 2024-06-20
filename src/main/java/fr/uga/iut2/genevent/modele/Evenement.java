@@ -16,6 +16,7 @@ public class Evenement implements Serializable {
     private LocalDate dateDebut;
     private LocalDate dateFin;
     private int maxParticipants;
+    private String imagePath;
 
     // Module Commerçants
     private ArrayList<TypeCommerce> typeCommerces = new ArrayList<>();
@@ -45,12 +46,13 @@ public class Evenement implements Serializable {
      * @param fonctionnalites La liste des fonctionnalités de l'événement.
      */
     public Evenement(String nom, LocalDate dateDebut, LocalDate dateFin, TypeEvenement typeEvenement,
-            ArrayList<Fonctionnalite> fonctionnalites) {
+            ArrayList<Fonctionnalite> fonctionnalites, String imagePath) {
         setNom(nom);
         setDateDebut(dateDebut);
         setDateFin(dateFin);
         setType(typeEvenement);
         setFonctionnalites(fonctionnalites);
+        setImagePath(imagePath);
     }
 
     // ---------Module Commercants---------
@@ -431,6 +433,24 @@ public class Evenement implements Serializable {
     }
 
     /**
+     * Obtient le chemin de l'image de l'événement.
+     *
+     * @return Le chemin de l'image.
+     */
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    /**
+     * Définit le chemin de l'image de l'événement.
+     *
+     * @param imagePath Le chemin de l'image.
+     */
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    /**
      * Retourne une chaîne de caractères représentant l'événement.
      *
      * @return Une chaîne de caractères représentant l'événement.
@@ -439,5 +459,9 @@ public class Evenement implements Serializable {
     public String toString() {
         return this.nom + "\n" + this.dateDebut + " - " + this.dateFin + "\n" + this.type + "\n" + this.fonctionnalites
                 + "\n";
+    }
+
+    public ArrayList<AgentEntretien> getAgentsEntretiens() {
+        return agentsEntretien;
     }
 }

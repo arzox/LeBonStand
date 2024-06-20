@@ -68,12 +68,12 @@ public class Main {
             System.exit(Main.EXIT_ERR_LOAD);
         }
 
-        System.out.println(application.getEvenements());
-
-        Controleur.getInstance(application);
+        LOGGER.log(Level.INFO, application.getEvenements().toString());
 
         // Set evenement courant pour tester
         // controleur.setEvenementCourant(application.getEvenements().get(0));
+
+        Controleur.getInstance(application);
 
         try {
             LOGGER.log(Level.INFO, "Démarrage de l'interface graphique");
