@@ -131,9 +131,10 @@ public class VueOnglets extends IHM {
         changerFenetre((Stage) nomEvenement.getScene().getWindow());
         panel.getChildren().forEach(node -> node.getStyleClass().remove("button-selected"));
         button.getStyleClass().add("button-selected");
-        // setCurrentOnglet(panel.getChildren().indexOf(button));
     }
 
+
+    // TODO : confirmer la suppression de cette méthode
     public void setCurrentOnglet(int i) {
         if (i < 0 || i >= panel.getChildren().size()) {
             return;
@@ -175,5 +176,6 @@ public class VueOnglets extends IHM {
 
     public void setContent(IHM content) {
         this.content = content;
+        content.setPanelController(this);
     }
 }

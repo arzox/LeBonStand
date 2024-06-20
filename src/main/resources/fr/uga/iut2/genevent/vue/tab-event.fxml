@@ -53,10 +53,10 @@
                   </Pane>
                   <HBox alignment="CENTER" prefHeight="90.0" prefWidth="506.0" style="-fx-spacing: 10;">
                      <children>
-                        <CheckBox fx:id="securiteCheckBox" mnemonicParsing="false" selected="true" text="Sécurité" />
-                        <CheckBox fx:id="entretienCheckBox" mnemonicParsing="false" text="Entretien" />
-                        <CheckBox fx:id="animationsCheckBox" mnemonicParsing="false" text="Animations" />
-                        <CheckBox fx:id="participantsCheckBox" mnemonicParsing="false" text="Participants" />
+                        <CheckBox fx:id="securiteCheckBox" mnemonicParsing="false" onAction="#onFonctionnaliteCheckBoxAction" selected="true" text="Sécurité" />
+                        <CheckBox fx:id="entretienCheckBox" mnemonicParsing="false" onAction="#onFonctionnaliteCheckBoxAction" text="Entretien" />
+                        <CheckBox fx:id="animationsCheckBox" mnemonicParsing="false" onAction="#onFonctionnaliteCheckBoxAction" text="Animations" />
+                        <CheckBox fx:id="participantsCheckBox" mnemonicParsing="false" onAction="#onFonctionnaliteCheckBoxAction" text="Participants" />
                      </children>
                   </HBox>
                </children>

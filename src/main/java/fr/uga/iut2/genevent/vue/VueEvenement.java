@@ -10,6 +10,8 @@ import fr.uga.iut2.genevent.modele.TypeEvenement;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
+
 import java.util.ArrayList;
 
 public class VueEvenement extends IHM {
@@ -53,6 +55,11 @@ public class VueEvenement extends IHM {
         loadEventData();
 
         addFieldListeners();
+    }
+
+    @FXML
+    private void onFonctionnaliteCheckBoxAction() {
+        getPanelController().changerFenetre((Stage) nomEvenementField.getScene().getWindow());
     }
 
     private void loadEventData() {

@@ -51,15 +51,15 @@ public class VueAccueil extends IHM {
      */
     private void loadEvents() {
         List<Evenement> eventNames = controleur.getEvents();
-
+        
         // Clear the current children before adding new events
         eventsFlowPane.getChildren().clear();
-
+        
         for (Evenement event : eventNames) {
             VBox eventButton = createEventButton(event);
             eventsFlowPane.getChildren().add(0, eventButton);
         }
-
+        
         // Ensure the new event button is always the last child
         VBox newEventButton = createNewEventButton();
         eventsFlowPane.getChildren().add(newEventButton);
