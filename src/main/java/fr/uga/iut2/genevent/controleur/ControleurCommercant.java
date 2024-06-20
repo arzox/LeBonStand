@@ -484,7 +484,7 @@ public class ControleurCommercant {
     public TypeCommerce creerTypeCommerce(String nom) throws Exception {
         if (evenement != null) {
 
-            TypeCommerce nouveauTypeCommerce = new TypeCommerce(nom, 0);
+            TypeCommerce nouveauTypeCommerce = new TypeCommerce(nom, 1);
             evenement.ajouterTypeCommerce(nouveauTypeCommerce);
 
             return nouveauTypeCommerce;

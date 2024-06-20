@@ -123,7 +123,7 @@
                <children>
                   <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="71.0" prefWidth="0.0" spacing="20.0" styleClass="tableButtons">
                      <children>
-                        <Button mnemonicParsing="false">
+                        <Button mnemonicParsing="false" onAction="#addAnnex">
                            <graphic>
                               <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -135,7 +135,7 @@
                               <Tooltip text="Ajouter une ligne" />
                            </tooltip>
                         </Button>
-                        <Button mnemonicParsing="false">
+                        <Button mnemonicParsing="false" onAction="#deleteAnnex">
                            <graphic>
                               <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

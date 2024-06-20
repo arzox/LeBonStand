@@ -73,6 +73,37 @@ public class VueAgentSecurite extends IHM {
         zoneTable.getItems().addAll(controleurAgentSecurite.getEvenement().getZones());
     }
 
+    @FXML
+    private void addAnnex() {
+        try {
+            Zone zone = controleurAgentSecurite.creerZone("Zone" + (zoneTable.getItems().size() + 1));
+            zoneTable.getItems().add(zone);
+        } catch (Exception e) {
+            informerUtilisateur(e.getMessage(), false);
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    private void deleteAnnex() {
+        if (!zoneTable.getSelectionModel().getSelectedItems().isEmpty()) {
+            try {
+                Zone zone = zoneTable.getSelectionModel().getSelectedItem();
+                controleurAgentSecurite.supprimerZone(zone);
+                zoneTable.getItems().remove(zone);
+                reloadCommercantTable();
+            } catch (Exception e) {
+                informerUtilisateur(e.getMessage(), false);
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void reloadCommercantTable() {
+        agentsTable.getItems().clear();
+        agentsTable.getItems().addAll(controleurAgentSecurite.getEvenement().getAgentsSecurite());
+    }
+
     private void setupZone() {
         nomZoneColumn.setEditable(true);
         nomZoneColumn.setCellFactory(TextFieldTableCell.forTableColumn());
