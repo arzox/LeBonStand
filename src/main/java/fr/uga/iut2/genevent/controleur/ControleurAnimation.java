@@ -213,4 +213,8 @@ public class ControleurAnimation {
         } else
             throw new Exception("La date de fin de l'animation ne peut être modifiée car l'événement du contrôleur est nul");
     }
+
+    public ArrayList<Animation> getAnimations() {
+        return evenement.getAnimations();
+    }
 }

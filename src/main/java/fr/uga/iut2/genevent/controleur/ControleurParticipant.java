@@ -200,4 +200,8 @@ public class ControleurParticipant {
         } else
             throw new Exception("L'email du participant ne peut être modifié car l'événement du contrôleur est nul");
     }
+
+    public ArrayList<Participant> getParticipants() {
+        return evenement.getParticipants();
+    }
 }

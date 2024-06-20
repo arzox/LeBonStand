@@ -29,7 +29,7 @@ public class VueOnglets extends IHM {
     public IHM content;
 
     @FXML
-    private Text nomEvenement;
+    public Text nomEvenement;
     @FXML
     private VBox panel;
 
@@ -66,14 +66,12 @@ public class VueOnglets extends IHM {
 
     @FXML
     private void onAnimationClicked(MouseEvent event) {
-        // TODO : créer la vue et la classe correspondante
-        throw new UnsupportedOperationException("Vue et classe correspondante non crée.");
+        onTabClickedGeneric(new VueAnimations(), event);
     }
 
     @FXML
     private void onParticipantsClicked(MouseEvent event) {
-        // TODO : créer la vue et la classe correspondante
-        throw new UnsupportedOperationException("Vue et classe correspondante non crée.");
+        onTabClickedGeneric(new VueParticipants(), event);
     }
 
     @FXML
