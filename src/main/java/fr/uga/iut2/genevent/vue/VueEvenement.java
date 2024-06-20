@@ -61,7 +61,7 @@ public class VueEvenement extends IHM {
     @FXML
     private void initialize() {
         typeEvenementComboBox
-                .setItems(FXCollections.observableArrayList(controleurEvenement.getEvenement().getType().toString()));
+                .setItems(FXCollections.observableArrayList(controleurEvenement.getEvenement().getType().getDisplayName()));
 
         loadEventData();
 
@@ -69,7 +69,8 @@ public class VueEvenement extends IHM {
     }
 
     @FXML
-    private void onFonctionnaliteCheckBoxAction() {
+    private void updatePanel() {
+        getPanelController().isLoaded = false;
         getPanelController().changerFenetre((Stage) nomEvenementField.getScene().getWindow());
     }
 
