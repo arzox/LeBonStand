@@ -1,8 +1,15 @@
 package fr.uga.iut2.genevent.controleur;
 
 import fr.uga.iut2.genevent.modele.Application;
+import fr.uga.iut2.genevent.modele.Employe;
 import fr.uga.iut2.genevent.modele.Evenement;
 
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 /**
@@ -22,7 +29,9 @@ public class Controleur {
     ControleurAnimation controleurAnimation;
 
     /**
-     * Méthode appelée pour créer un controleur s'il n'en existe pas déjà ou pour récupérer le controleur déjà existant.
+     * Méthode appelée pour créer un controleur s'il n'en existe pas déjà ou pour
+     * récupérer le controleur déjà existant.
+     * 
      * @param application L'application que le controleur gérera.
      * @return un nouveau controleur ou le controleur déjà existant.
      */
@@ -34,7 +43,9 @@ public class Controleur {
     }
 
     /**
-     * Méthode appelée uniquement par la méthode getInstance afin de créer un nouveau controleur.
+     * Méthode appelée uniquement par la méthode getInstance afin de créer un
+     * nouveau controleur.
+     * 
      * @param application L'application que le controleur gérera.
      */
     private Controleur(Application application) {
@@ -94,6 +105,32 @@ public class Controleur {
         return application.getEvenements();
     }
 
+    public void envoyerMail(ArrayList<Employe> employes) throws Exception {
+        if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.MAIL)) {
+            try {
+                StringBuilder mailto = new StringBuilder("mailto:");
+                for (Employe employe : employes) {
+                    mailto.append(URLEncoder.encode(employe.getEmail(), StandardCharsets.UTF_8.toString())).append(";");
+                }
+                // Retirer le dernier point-virgule
+                if (mailto.length() > 7) {
+                    mailto.setLength(mailto.length() - 1);
+                }
+                mailto.append("?subject=").append(URLEncoder.encode("Sujet de l'email", StandardCharsets.UTF_8.toString()))
+                        .append("&body=").append(URLEncoder.encode("Corps de l'email", StandardCharsets.UTF_8.toString()));
+
+                Desktop.getDesktop().mail(new URI(mailto.toString()));
+            } catch (IOException e) {
+                e.printStackTrace();
+                throw new Exception("Erreur d'entrée/sortie : " + e.getMessage());
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+                throw new Exception("Erreur de syntaxe d'URI : " + e.getMessage());
+            }
+        } else {
+            throw new Exception("L'envoi de mail n'est pas supporté sur cette machine.");
+        }
+    }
     public void supprimerEvenement(Evenement evenement) {
         application.removeEvenement(evenement);
     }

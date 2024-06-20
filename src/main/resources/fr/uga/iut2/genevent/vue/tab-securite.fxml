@@ -7,7 +7,7 @@
 
 <HBox fx:id="container" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox spacing="20.0">
+      <HBox spacing="20.0" styleClass="tableButtons">
          <HBox.margin>
             <Insets />
          </HBox.margin>
@@ -68,18 +68,6 @@
                               </Button>
                            </children>
                         </HBox>
-                        <Button mnemonicParsing="false" onMouseClicked="#onSave" style="-fx-background-color: #F4F4F4;">
-                           <graphic>
-                              <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/sauvegarder.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <tooltip>
-                              <Tooltip text="Sauvegarder" />
-                           </tooltip>
-                        </Button>
                      </children>
                      <padding>
                         <Insets left="20.0" right="20.0" />
@@ -94,11 +82,11 @@
                         </TableColumn>
                         <TableColumn fx:id="nomColumn" prefWidth="125.0" text="Nom" />
                         <TableColumn fx:id="prenomColumn" prefWidth="133.0" text="Prénom" />
-                        <TableColumn fx:id="emailColumn" prefWidth="150.0" text="e-mail" />
-                        <TableColumn fx:id="telephoneColumn" prefWidth="130.0" text="téléphone" />
-                        <TableColumn fx:id="heureDebutColumn" prefWidth="110.0" text="heure debut" />
-                        <TableColumn fx:id="heureFinColumn" prefWidth="110.0" text="heure fin" />
-                        <TableColumn fx:id="zoneColumn" prefWidth="125.0" text="zone" />
+                        <TableColumn fx:id="emailColumn" prefWidth="150.0" text="E-mail" />
+                        <TableColumn fx:id="telephoneColumn" prefWidth="130.0" text="N° de tél." />
+                        <TableColumn fx:id="heureDebutColumn" prefWidth="110.0" text="Heure de début" />
+                        <TableColumn fx:id="heureFinColumn" prefWidth="110.0" text="Heure de fin" />
+                        <TableColumn fx:id="zoneColumn" prefWidth="125.0" text="Zone" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -110,7 +98,7 @@
                <children>
                   <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="71.0" prefWidth="0.0" spacing="20.0" style="-fx-border-color: lightgrey;">
                      <children>
-                        <Button mnemonicParsing="false">
+                        <Button mnemonicParsing="false" onAction="#addAnnex">
                            <graphic>
                               <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -122,7 +110,7 @@
                               <Tooltip text="Ajouter une ligne" />
                            </tooltip>
                         </Button>
-                        <Button mnemonicParsing="false" style="-fx-background-color: #f4f4f4;">
+                        <Button mnemonicParsing="false" onAction="#deleteAnnex">
                            <graphic>
                               <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -144,8 +132,8 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                      <columns>
-                        <TableColumn fx:id="nomZoneColumn" prefWidth="125.0" text="nom" />
-                        <TableColumn fx:id="agentsColumn" prefWidth="127.0" text="agents" />
+                        <TableColumn fx:id="nomZoneColumn" prefWidth="125.0" text="Nom" />
+                        <TableColumn fx:id="agentsColumn" prefWidth="127.0" text="Agents" />
                      </columns>
                   </TableView>
                </children>

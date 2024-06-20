@@ -20,8 +20,6 @@ import javafx.stage.Stage;
  * La classe VueEvenement est responsable des interactions avec
  * l'utilisa·teur/trice en mode graphique pour la vue accueil (liste des
  * événements)
- * <p>
- * Contrôleur de tab-event.fxml (informations générales sur l'événement)
  */
 public class VueOnglets extends IHM {
 
@@ -127,18 +125,22 @@ public class VueOnglets extends IHM {
         if (button.getStyleClass().contains("button-selected")) return;
         setContent(nouvelleVue);
         changerFenetre((Stage) nomEvenement.getScene().getWindow(), true);
-        panel.getChildren().forEach(node -> node.getStyleClass().remove("button-selected"));
-        button.getStyleClass().add("button-selected");
+        updateSelectedOngletStyle(button);
     }
 
 
     // TODO : confirmer la suppression de cette méthode
-    public void setCurrentOnglet(int i) {
-        if (i < 0 || i >= panel.getChildren().size()) {
-            return;
-        }
+    // public void setCurrentOnglet(int i) {
+    //     if (i < 0 || i >= panel.getChildren().size()) {
+    //         return;
+    //     }
+    //     panel.getChildren().forEach(node -> node.getStyleClass().remove("button-selected"));
+    //     panel.getChildren().get(i).getStyleClass().add("button-selected");
+    // }
+
+    private void updateSelectedOngletStyle(Node button) {
         panel.getChildren().forEach(node -> node.getStyleClass().remove("button-selected"));
-        panel.getChildren().get(i).getStyleClass().add("button-selected");
+        button.getStyleClass().add("button-selected");
     }
 
     /**

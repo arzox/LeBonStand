@@ -180,6 +180,7 @@ public class VueEvenement extends IHM {
             if (controleurEvenement.getEvenement().getLieu() == null) {
                 controleurEvenement.getEvenement().setLieu(new Lieu("", "", "", 0));
             }
+            // TODO : confirmer la suppression de ce bloc de code
             // Depuis la branche de Rahim
              if (!newValue.trim().isEmpty()) {
              Lieu lieu = controleurEvenement.getEvenement().getLieu();
@@ -195,6 +196,7 @@ public class VueEvenement extends IHM {
             if (controleurEvenement.getEvenement().getLieu() == null) {
                 controleurEvenement.getEvenement().setLieu(controleurEvenement.creerLieu("", "", "", 0));
             }
+            // TODO : confirmer la suppression de ce bloc de code
             // Depuis la branche de Rahim
              if (!newValue.trim().isEmpty()) {
              Lieu lieu = controleurEvenement.getEvenement().getLieu();
@@ -213,6 +215,7 @@ public class VueEvenement extends IHM {
             controleurEvenement.modifierCodePostalLieu(controleurEvenement.getEvenement().getLieu(),
                     controleurEvenement.getEvenement().getLieu().getCodePostal());
 
+            // TODO : confirmer la suppression de ce bloc de code
             // Depuis la branche de Rahim
              if (!newValue.trim().isEmpty()) {
              try {

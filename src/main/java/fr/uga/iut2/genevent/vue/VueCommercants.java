@@ -4,12 +4,16 @@ import fr.uga.iut2.genevent.controleur.ControleurCommercant;
 import fr.uga.iut2.genevent.exception.MauvaisChampsException;
 import fr.uga.iut2.genevent.modele.Commercant;
 import fr.uga.iut2.genevent.modele.Emplacement;
+import fr.uga.iut2.genevent.modele.Employe;
 import fr.uga.iut2.genevent.modele.TypeCommerce;
 import fr.uga.iut2.genevent.util.EmplacementStringConverter;
 import fr.uga.iut2.genevent.util.TypeCommerceStringConverter;
+import javafx.beans.Observable;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.print.PrinterJob;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -18,13 +22,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.IntegerStringConverter;
 
-import javax.swing.*;
-import java.awt.Desktop;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class VueCommercants extends IHM {
     public static final String FXML_NAME = "tab-commercants.fxml";
@@ -69,9 +70,12 @@ public class VueCommercants extends IHM {
     @FXML TableColumn<TypeCommerce, String> typeCommerceColumn;
     @FXML TableColumn<TypeCommerce, Integer> quotaColumn;
 
+    PrinterJob job;
+
     public VueCommercants() {
         super();
         this.controleurCommercant = controleur.getControleurCommercant();
+        this.job = PrinterJob.createPrinterJob();
     }
 
     @FXML
@@ -85,6 +89,65 @@ public class VueCommercants extends IHM {
         emplacementTable.getItems().addAll(controleur.getControleurCommercant().getEmplacements());
         typeTable.getItems().addAll(controleur.getControleurCommercant().getTypeCommerces());
 
+    }
+
+    @FXML
+    private void printTable() {
+        if (job != null) {
+            if (job.printPage(commercantsTable)) {
+                job.endJob();
+            }
+        }
+    }
+
+    @FXML
+    private void addAnnex() {
+        if (typeTable.isMouseTransparent()) {
+            try {
+                Emplacement emplacement = controleurCommercant.creerEmplacement();
+                emplacementTable.getItems().add(emplacement);
+            } catch (Exception e) {
+                informerUtilisateur(e.getMessage(), false);
+                throw new RuntimeException(e);
+            }
+        } else {
+            try {
+                TypeCommerce typeCommerce = controleurCommercant.creerTypeCommerce("Nouveau type " + typeTable.getItems().size());
+                typeTable.getItems().add(typeCommerce);
+            } catch (Exception e) {
+                informerUtilisateur(e.getMessage(), false);
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    @FXML
+    private void deleteAnnex() {
+        if (typeTable.isMouseTransparent()) {
+            if (!emplacementTable.getSelectionModel().getSelectedItems().isEmpty()) {
+                try {
+                    Emplacement emplacement = emplacementTable.getSelectionModel().getSelectedItem();
+                    controleurCommercant.supprimerEmplacement(emplacement);
+                    emplacementTable.getItems().remove(emplacement);
+                    reloadCommercantTable();
+                } catch (Exception e) {
+                    informerUtilisateur(e.getMessage(), false);
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            if (!typeTable.getSelectionModel().getSelectedItems().isEmpty()) {
+                try {
+                    TypeCommerce typeCommerce = typeTable.getSelectionModel().getSelectedItem();
+                    controleurCommercant.supprimerTypeCommerce(typeCommerce);
+                    emplacementTable.getItems().remove(typeCommerce);
+                    reloadCommercantTable();
+                } catch (Exception e) {
+                    informerUtilisateur(e.getMessage(), false);
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     private void setupCheckBox() {
@@ -338,6 +401,11 @@ public class VueCommercants extends IHM {
         commercantsTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 
+    private void reloadCommercantTable() {
+        commercantsTable.getItems().clear();
+        commercantsTable.getItems().addAll(controleur.getControleurCommercant().getEvenement().getCommercants());
+    }
+
     @FXML
     private void onNewRow() {
         int i = (commercantsTable.getItems().size() + 1);
@@ -389,19 +457,22 @@ public class VueCommercants extends IHM {
         commercantsTable.refresh();
     }
 
-    /**
-     * Méthode pour ouvrir le client de messagerie et envoyer un mail aux commerçants.
-     */
     @FXML
-    private void envoyerMail() {
+    private void sendMail() {
+        ArrayList<Commercant> selectedCommercants = (ArrayList<Commercant>) checkedMap.entrySet().stream()
+                .filter(entry -> entry.getValue().get())
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+        ArrayList<Employe> employes = selectedCommercants.stream()
+                .map(commercant -> (Employe) commercant)
+                .collect(Collectors.toCollection(ArrayList::new));
+
         try {
-            controleurCommercant.ouvrirClientMailPourCommercants();
+            controleur.envoyerMail(employes);
         } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Erreur lors de l'envoi de l'email : " + e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+            informerUtilisateur(e.getMessage(), false);
         }
     }
-
 
     @Override
     public String getFxmlName() {
