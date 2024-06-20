@@ -2,6 +2,7 @@
 .button,
 .combo-box,
 .text-field,
+.date-picker,
 .check-box>.box {
   -fx-background-color: white;
   -fx-border-color: gray;
@@ -22,7 +23,8 @@
 .no-border .button,
 .no-border .combo-box,
 .no-border .text-field,
-.no-border .check-box>.box {
+.no-border .check-box>.box,
+.no-border .date-picker {
   -fx-border-width: 0;
 }
 
@@ -111,6 +113,26 @@ HBox {
   -fx-cursor: hand;
 }
 
-.leftPanel>.button-selected {
+.leftPanel > .button-selected {
   -fx-background-color: white;
+}
+
+.tableButtons .button {
+  -fx-border-width: 0;
+  -fx-background-radius: 100;
+  -fx-padding: 10;
+  -fx-background-color: #f4f4f4;
+}
+
+.tableButtons .button:hover {
+  -fx-background-color: white;
+  -fx-cursor: hand;
+  -fx-border-color: #f56b2a;
+  -fx-border-width: 2;
+  -fx-border-radius: 100;
+}
+
+.imageopp:hover{
+  -fx-opacity: 0.6;
+  -fx-cursor: hand;
 }

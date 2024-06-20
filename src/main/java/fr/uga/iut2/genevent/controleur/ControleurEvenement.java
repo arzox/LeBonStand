@@ -54,9 +54,8 @@ public class ControleurEvenement {
      * @return L'événement créé.
      * @throws MauvaisChampsException Si un événement avec le même nom et type existe déjà.
      */
-    public Evenement creerEvenement(String nom, TypeEvenement type,
-                                    ArrayList<Fonctionnalite> fonctionnalites) throws MauvaisChampsException {
-
+    public Evenement creerEvenement(String nom, TypeEvenement type, ArrayList<Fonctionnalite> fonctionnalites, String imagePath)
+            throws MauvaisChampsException {
         // Création d'un événement
         if (type == null) {
 
@@ -77,9 +76,7 @@ public class ControleurEvenement {
                         new ArrayList<>(Arrays.asList(false, false, true)));
             }
         }
-        Evenement evenement = new Evenement(nom, null, null, type, fonctionnalites);
-
-        // Ajout de l'événement à la liste des événements
+        Evenement evenement = new Evenement(nom, null, null, type, fonctionnalites, imagePath);
         application.addEvenement(evenement);
 
         // Renvoi de l'événement afin d'y attribuer les contrôleurs dans le contrôleur FXML dans la vue
@@ -266,5 +263,18 @@ public class ControleurEvenement {
      */
     public ArrayList<Fonctionnalite> getFonctionnalites() {
         return evenement.getFonctionnalites();
+    }
+
+    // Image
+    public void setImagePath(Evenement evenement, String imagePath) {
+        evenement.setImagePath(imagePath);
+    }
+
+    public String getImagePath(Evenement evenement) {
+        return evenement.getImagePath();
+    }
+
+    public List<Evenement> getTousEvenements() {
+        return application.getEvenements();
     }
 }

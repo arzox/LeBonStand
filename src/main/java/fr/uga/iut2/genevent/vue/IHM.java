@@ -12,6 +12,8 @@ import javafx.stage.Stage;
  */
 public abstract class IHM {
     private Parent parent;
+    private VueOnglets panelController;
+    protected boolean isLoaded = false;
 
     /**
      * Référence au contrôleur principal de l'application
@@ -50,6 +52,7 @@ public abstract class IHM {
      */
     public void load() {
         try {
+            isLoaded = true;
             // Charger la scène dans le loader et lui affecter le controleur en argument
             setParent(Vues.loadViewAsParent(getFxmlName(), this));
         } catch (Exception e) {
@@ -66,6 +69,17 @@ public abstract class IHM {
 
     public void setParent(Parent parent) {
         this.parent = parent;
+    }
+
+    public VueOnglets getPanelController() {
+        return panelController;
+    }
+
+    public void setPanelController(VueOnglets panelController) {
+        this.panelController = panelController;
+        if (!panelController.getContent().equals(this)) {
+            panelController.setContent(this);
+        }
     }
 
     public abstract String getFxmlName();

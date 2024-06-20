@@ -1,5 +1,6 @@
 package fr.uga.iut2.genevent.util;
 
+import fr.uga.iut2.genevent.Main;
 import fr.uga.iut2.genevent.modele.Application;
 
 import java.io.FileInputStream;
@@ -8,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.logging.Level;
 
 /**
  * La classe Persisteur est responsable de l'enregistrement et de la
@@ -48,14 +50,14 @@ public final class Persisteur {
             // Les classes `FileOutputStream` et `ObjectOutputStream`
             // implémentent l'interface `AutoCloseable` : pas besoin de faire
             // un appel explicite à `.close()`.
-            System.out.println("Sauvegarde de l'état réussie.");
+            Main.setLOGGER(Level.INFO, "Sauvegarde de l'état réussie");
             System.out.flush();
         } catch (FileNotFoundException fnfe) {
-            System.err.println("Erreur à la création/ouverture du fichier de persistance.");
+            Main.setLOGGER(Level.SEVERE, "Erreur à la création/ouverture du fichier de persistance.");
             System.err.flush();
             throw fnfe;
         } catch (IOException ioe) {
-            System.err.println("Erreur lors de l'écriture du fichier de persistance.");
+            Main.setLOGGER(Level.SEVERE, "Erreur lors de l'écriture du fichier de persistance.");
             System.err.flush();
             throw ioe;
         }
@@ -90,15 +92,15 @@ public final class Persisteur {
             // implémentent l'interface `AutoCloseable` : pas besoin de faire
             // un appel explicite à `.close()`.
         } catch (FileNotFoundException ignored) {
-            System.out.println("Fichier de persistance inexistant : création d'une nouvelle instance.");
+            Main.setLOGGER(Level.WARNING, "Fichier de persistance inexistant : création d'une nouvelle instance.");
             System.out.flush();
             application = new Application();
         } catch (IOException ioe) {
-            System.err.println("Erreur de lecture du fichier de persistance.");
+            Main.setLOGGER(Level.SEVERE, "Erreur de lecture du fichier de persistance.");
             System.err.flush();
             throw ioe;
         } catch (ClassNotFoundException cnfe) {
-            System.err.println("Fichier de persistance corrompu.");
+            Main.setLOGGER(Level.SEVERE, "Fichier de persistance corrompu.");
             System.err.flush();
             throw cnfe;
         }

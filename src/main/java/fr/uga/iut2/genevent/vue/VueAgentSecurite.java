@@ -9,6 +9,7 @@ import fr.uga.iut2.genevent.util.ZoneStringConverter;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.CheckBoxTableCell;
@@ -26,6 +27,9 @@ public class VueAgentSecurite extends IHM {
     TableView<AgentSecurite> agentsTable;
 
     private Map<AgentSecurite, BooleanProperty> checkedMap = new HashMap<>();
+
+    @FXML
+    CheckBox checkBox;
 
     @FXML
     TableColumn<AgentSecurite, Boolean> checkBoxColumn;
@@ -63,6 +67,7 @@ public class VueAgentSecurite extends IHM {
     private void initialize() {
         setupTable();
         setupZone();
+        setupCheckBox();
 
         agentsTable.getItems().addAll(controleurAgentSecurite.getEvenement().getAgentsSecurite());
         zoneTable.getItems().addAll(controleurAgentSecurite.getEvenement().getZones());
@@ -90,6 +95,12 @@ public class VueAgentSecurite extends IHM {
         agentsColumn.setEditable(false);
     }
 
+    private void setupCheckBox() {
+        checkBox.setOnAction(actionEvent -> {
+            checkedMap.forEach((commercant, booleanProperty) -> booleanProperty.set(checkBox.isSelected()));
+        });
+    }
+
     @Override
     public String getFxmlName() {
         return "tab-securite.fxml";
@@ -103,6 +114,10 @@ public class VueAgentSecurite extends IHM {
                 checkedProperty = new SimpleBooleanProperty(false);
                 checkedMap.put(agentSecurite, checkedProperty);
             }
+            checkedProperty.addListener(((observableValue, old, newValue) -> {
+                if (newValue) checkBox.setSelected(true);
+                else if (checkedMap.values().stream().noneMatch(BooleanProperty::get)) checkBox.setSelected(false);
+            }));
             return checkedProperty;
         });
         checkBoxColumn.setCellFactory(CheckBoxTableCell.forTableColumn(checkBoxColumn));
@@ -241,26 +256,28 @@ public class VueAgentSecurite extends IHM {
 
     @FXML
     private void onSupprimer() {
-        if (agentsTable.getSelectionModel().getSelectedItem() == null) {
-            try {
-                controleurAgentSecurite.supprimerAgentSecurite(agentsTable.getSelectionModel().getSelectedItem());
-                agentsTable.getItems().remove(agentsTable.getSelectionModel().getSelectedItem());
-            } catch (MauvaisChampsException e) {
-                informerUtilisateur(e.getMessage(), false);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        } else {
-            agentsTable.getSelectionModel().getSelectedItems().forEach(commercant -> {
-                try {
-                    controleurAgentSecurite.supprimerAgentSecurite(commercant);
-                    agentsTable.getItems().remove(commercant);
-                } catch (MauvaisChampsException e) {
-                    informerUtilisateur(e.getMessage(), false);
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
+        boolean isAnyAgentSelected = checkedMap.values().stream()
+                .anyMatch(BooleanProperty::get);
+        if (isAnyAgentSelected) {
+            checkedMap.forEach(((agentSecurite, booleanProperty) -> {
+                if (booleanProperty.get()) {
+                    delete(agentSecurite);
                 }
-            });
+            }));
+            if (agentsTable.getItems().isEmpty()) checkBox.setSelected(false);
+        } else if (!agentsTable.getSelectionModel().getSelectedItems().isEmpty()) {
+            agentsTable.getSelectionModel().getSelectedItems().forEach(this::delete);
+        }
+    }
+
+    private void delete(AgentSecurite agentSecurite) {
+        try {
+            controleurAgentSecurite.supprimerAgentSecurite(agentSecurite);
+            agentsTable.getItems().remove(agentSecurite);
+        } catch (MauvaisChampsException e) {
+            informerUtilisateur(e.getMessage(), false);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 

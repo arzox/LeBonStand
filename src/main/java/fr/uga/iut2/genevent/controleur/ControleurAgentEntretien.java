@@ -1,6 +1,7 @@
 package fr.uga.iut2.genevent.controleur;
 
 import fr.uga.iut2.genevent.exception.MauvaisChampsException;
+import fr.uga.iut2.genevent.modele.AgentSecurite;
 import fr.uga.iut2.genevent.modele.Application;
 import fr.uga.iut2.genevent.modele.Evenement;
 import fr.uga.iut2.genevent.modele.AgentEntretien;
@@ -288,5 +289,9 @@ public class ControleurAgentEntretien {
 
         } else
             throw new Exception("L'heure de fin de l'agent d'entretien ne peut être modifié car l'événement du contrôleur est nul");
+    }
+
+    public ArrayList<AgentEntretien> getAgentEntretiens() {
+        return evenement.getAgentsEntretiens();
     }
 }

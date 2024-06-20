@@ -10,6 +10,7 @@ import fr.uga.iut2.genevent.util.TypeCommerceStringConverter;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.CheckBoxTableCell;
@@ -26,6 +27,9 @@ public class VueCommercants extends IHM {
 
     @FXML
     TableView<Commercant> commercantsTable;
+
+    @FXML
+    CheckBox checkBox;
 
     private Map<Commercant, BooleanProperty> checkedMap = new HashMap<>();
 
@@ -71,9 +75,17 @@ public class VueCommercants extends IHM {
         setupEmplacement();
         setupTypeCommerce();
         showEmplacement();
+        setupCheckBox();
         commercantsTable.getItems().addAll(controleur.getControleurCommercant().getEvenement().getCommercants());
         emplacementTable.getItems().addAll(controleur.getControleurCommercant().getEmplacements());
         typeTable.getItems().addAll(controleur.getControleurCommercant().getTypeCommerces());
+
+    }
+
+    private void setupCheckBox() {
+        checkBox.setOnAction(actionEvent -> {
+            checkedMap.forEach((commercant, booleanProperty) -> booleanProperty.set(checkBox.isSelected()));
+        });
     }
 
     private void showEmplacement() {
@@ -145,6 +157,10 @@ public class VueCommercants extends IHM {
                 checkedProperty = new SimpleBooleanProperty(false);
                 checkedMap.put(commercant, checkedProperty);
             }
+            checkedProperty.addListener(((observableValue, old, newValue) -> {
+                if (newValue) checkBox.setSelected(true);
+                else if (checkedMap.values().stream().noneMatch(BooleanProperty::get)) checkBox.setSelected(false);
+            }));
             return checkedProperty;
         });
         checkBoxColumn.setCellFactory(CheckBoxTableCell.forTableColumn(checkBoxColumn));
@@ -258,8 +274,8 @@ public class VueCommercants extends IHM {
                         controleurCommercant.modifierEmplacementCommercant(event.getRowValue(), newEmplacement);
                         emplacementTable.getItems().add(newEmplacement);
                         emplacementTable.refresh();
-                    } catch (MauvaisChampsException ex) {
-                        System.out.println(ex.getMessage());
+                    } catch (MauvaisChampsException e) {
+                        System.out.println(e.getMessage());
                         event.getRowValue().setEmplacement(event.getOldValue());
                     }
                 }
@@ -292,8 +308,8 @@ public class VueCommercants extends IHM {
                         controleurCommercant.modifierTypeCommerceCommercant(event.getRowValue(), newTypeCommerce);
                         typeTable.getItems().add(newTypeCommerce);
                         typeTable.refresh();
-                    } catch (MauvaisChampsException ex) {
-                        System.out.println(ex.getMessage());
+                    } catch (MauvaisChampsException e) {
+                        System.out.println(e.getMessage());
                         event.getRowValue().setTypeCommerce(event.getOldValue());
                         commercantsTable.refresh();
                     }
@@ -338,26 +354,28 @@ public class VueCommercants extends IHM {
 
     @FXML
     private void onSupprimer() {
-        if (commercantsTable.getSelectionModel().getSelectedItem() == null) {
-            try {
-                controleurCommercant.desinscrireCommercant(commercantsTable.getSelectionModel().getSelectedItem());
-                commercantsTable.getItems().remove(commercantsTable.getSelectionModel().getSelectedItem());
-            } catch (MauvaisChampsException e) {
-                informerUtilisateur(e.getMessage(), false);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        } else {
-            commercantsTable.getSelectionModel().getSelectedItems().forEach(commercant -> {
-                try {
-                    controleurCommercant.desinscrireCommercant(commercant);
-                    commercantsTable.getItems().remove(commercant);
-                } catch (MauvaisChampsException e) {
-                    informerUtilisateur(e.getMessage(), false);
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
+        boolean isAnyCommercantSelected = checkedMap.values().stream()
+                .anyMatch(BooleanProperty::get);
+        if (isAnyCommercantSelected) {
+            checkedMap.forEach(((commercant, booleanProperty) -> {
+                if (booleanProperty.get()) {
+                    delete(commercant);
                 }
-            });
+            }));
+            if (commercantsTable.getItems().isEmpty()) checkBox.setSelected(false);
+        } else if (!commercantsTable.getSelectionModel().getSelectedItems().isEmpty()) {
+            commercantsTable.getSelectionModel().getSelectedItems().forEach(this::delete);
+        }
+    }
+
+    private void delete(Commercant commercant) {
+        try {
+            controleurCommercant.desinscrireCommercant(commercant);
+            commercantsTable.getItems().remove(commercant);
+        } catch (MauvaisChampsException e) {
+            informerUtilisateur(e.getMessage(), false);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 

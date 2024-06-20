@@ -44,10 +44,12 @@ public class Main {
 
         application.addEvenement(new Evenement("Marche Noel", LocalDate.of(2021, 6, 1), LocalDate.of(2021, 6, 2),
                 TypeEvenement.MARCHE_NOEL,
-                new ArrayList<>(Arrays.asList(Fonctionnalite.AGENT_ENTRETIEN, Fonctionnalite.PARTICIPANT))));
+                new ArrayList<>(Arrays.asList(Fonctionnalite.AGENT_ENTRETIEN, Fonctionnalite.PARTICIPANT)),
+                "/fr/uga/iut2/genevent/images/marche_noel.jpg"));
         application.addEvenement(
                 new Evenement("Brocante", LocalDate.of(2022, 7, 2), LocalDate.of(2022, 7, 3), TypeEvenement.BROCANTE,
-                        new ArrayList<>(Arrays.asList(Fonctionnalite.AGENT_ENTRETIEN, Fonctionnalite.PARTICIPANT))));
+                        new ArrayList<>(Arrays.asList(Fonctionnalite.AGENT_ENTRETIEN, Fonctionnalite.PARTICIPANT)),
+                        "/fr/uga/iut2/genevent/images/marche_noel.jpg"));
         try {
             LOGGER.log(Level.INFO, "Sauvegarde de l'état initial");
             Persisteur.sauverEtat(application);
@@ -55,23 +57,23 @@ public class Main {
             LOGGER.log(Level.SEVERE, "Erreur irrécupérable pendant la sauvegarde de l'état : fin d'exécution !");
             throw new RuntimeException(e);
         }
+        
 
         try {
             LOGGER.log(Level.INFO, "Chargement de l'état initial");
             application = Persisteur.lireEtat();
         } catch (ClassNotFoundException | IOException ignored) {
             LOGGER.log(Level.SEVERE, "Erreur irrécupérable pendant le chargement de l'état : fin d'exécution !");
-            System.err.println("Erreur irrécupérable pendant le chargement de l'état : fin d'exécution !");
             System.err.flush();
             System.exit(Main.EXIT_ERR_LOAD);
         }
 
-        System.out.println(application.getEvenements());
-
-        Controleur controleur = Controleur.getInstance(application);
+        LOGGER.log(Level.INFO, application.getEvenements().toString());
 
         // Set evenement courant pour tester
         // controleur.setEvenementCourant(application.getEvenements().get(0));
+
+        Controleur.getInstance(application);
 
         try {
             LOGGER.log(Level.INFO, "Démarrage de l'interface graphique");
