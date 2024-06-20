@@ -48,83 +48,16 @@ public class ControleurAnimation {
     /**
      * Crée une nouvelle animation et l'ajoute à la liste des animations de cet événement.
      * @param nom Nom de l'animation
-     * @param prix Prix de l'animation
-     * @param dateHeureDebut Date et heure de début de l'animation
-     * @param dateHeureFin Date et heure de fin de l'animation
      * @return L'animation créée.
      * @throws Exception Si l'événement est nul.
-     * @throws MauvaisChampsException Si le nom est identique à celui d'une autre animation ou
-     * si la date et l'heure de début de l'animation est ultérieure à la date et l'heure de fin de l'animation ou encore
-     * si les dates ne sont pas comprises entre les dates de début et de fin de cet événement.
      */
-    public Animation ajouterAnimation(String nom, float prix, LocalDateTime dateHeureDebut, LocalDateTime dateHeureFin) throws Exception {
+    public Animation ajouterAnimation(String nom) throws Exception {
         if (evenement != null) {
 
-            LocalDate dateDebut = dateHeureDebut.toLocalDate();
-            LocalDate dateFin = dateHeureFin.toLocalDate();
-            boolean isStartAfterEnd = dateHeureDebut.isAfter(dateHeureFin);
-            boolean isStartBeforeEventStart = dateDebut.isBefore(evenement.getDateDebut());
-            boolean isEndAfterEventEnd = dateFin.isAfter(evenement.getDateFin());
+            Animation nouvelleAnimation = new Animation(nom, 0,
+                    LocalDate.now().plusDays(2).atTime(14, 0),
+                    LocalDate.now().plusDays(2).atTime(16, 0));
 
-            for (Animation animationCourante : evenement.getAnimations()) {
-
-                String nomCourant = animationCourante.getNom();
-                boolean isNotUnique = nom.equals(nomCourant);
-
-                if (isNotUnique & isStartAfterEnd) {
-
-                    throw new MauvaisChampsException("L'animation que vous souhaitez ajouter existe déjà et " +
-                            "la date et l'heure de début est ultérieure à sa date et son heure de fin",
-                            new ArrayList<>(Arrays.asList(false, true, false, false)));
-
-                } else if (isNotUnique & isStartBeforeEventStart & isEndAfterEventEnd) {
-
-                    throw new MauvaisChampsException("L'animation que vous souhaitez ajouter existe déjà, " +
-                            "la date de début de l'animation est antérieure à l'heure de début de l'événement et " +
-                            "la date de fin de l'animation est ultérieure à l'heure de fin de l'événement",
-                            new ArrayList<>(Arrays.asList(false, true, false, false)));
-
-                } else if (isNotUnique & isStartBeforeEventStart) {
-
-                    throw new MauvaisChampsException("L'animation que vous souhaitez ajouter existe déjà et " +
-                            "la date de début de l'animation est antérieure à l'heure de début de l'événement",
-                            new ArrayList<>(Arrays.asList(false, true, false, true)));
-
-                } else if (isNotUnique & isEndAfterEventEnd) {
-
-                    throw new MauvaisChampsException("L'animation que vous souhaitez ajouter existe déjà et " +
-                            "la date de fin de l'animation est ultérieure à l'heure de fin de l'événement",
-                            new ArrayList<>(Arrays.asList(false, true, true, false)));
-
-                } else if (isNotUnique) {
-
-                    throw new MauvaisChampsException("L'animation que vous souhaitez ajouter existe déjà",
-                            new ArrayList<>(Arrays.asList(false, true, true, true)));
-                }
-            }
-
-            if (isStartAfterEnd) {
-
-                throw new MauvaisChampsException("La date et l'heure de début de l'animation est ultérieure à sa date et son heure de fin",
-                        new ArrayList<>(Arrays.asList(true, true, false, false)));
-
-            } else if (isStartBeforeEventStart & isEndAfterEventEnd) {
-
-                throw new MauvaisChampsException("La date de début de l'animation est antérieure à l'heure de début de l'événement et " +
-                        "la date de fin de l'animation est ultérieure à l'heure de fin de l'événement",
-                        new ArrayList<>(Arrays.asList(true, true, false, false)));
-
-            } else if (isStartBeforeEventStart) {
-
-                throw new MauvaisChampsException("La date de début de l'animation est antérieure à la date de début de l'événement",
-                        new ArrayList<>(Arrays.asList(true, true, false, true)));
-
-            } else if (isEndAfterEventEnd) {
-
-                throw new MauvaisChampsException("La date de fin de l'animation est ultérieure à la date de fin de l'événement",
-                        new ArrayList<>(Arrays.asList(true, true, true, false)));
-            }
-            Animation nouvelleAnimation = new Animation(nom, prix, dateHeureDebut, dateHeureFin);
             evenement.ajouterAnimation(nouvelleAnimation);
 
             return nouvelleAnimation;
@@ -145,6 +78,7 @@ public class ControleurAnimation {
             for (Animation animation : evenement.getAnimations()) {
 
                 String nomCourant = animation.getNom();
+
                 boolean animationFound = nom.equals(nomCourant);
 
                 if (animationFound) {
@@ -185,9 +119,11 @@ public class ControleurAnimation {
             for (Animation animationCourante : evenement.getAnimations()) {
 
                 String nomCourant = animationCourante.getNom();
+
+                boolean isNotSameAnimation = animation != animationCourante;
                 boolean isNotUnique = nom.equals(nomCourant);
 
-                if (isNotUnique) {
+                if (isNotSameAnimation & isNotUnique) {
 
                     throw new MauvaisChampsException("En changeant le nom de l'animation, celle-ci devient identique à une autre animation",
                             new ArrayList<>(Arrays.asList(false, true, true, true)));
@@ -226,17 +162,18 @@ public class ControleurAnimation {
         if (evenement != null) {
 
             LocalDate dateDebut = dateHeureDebut.toLocalDate();
+
             boolean isStartAfterEnd = dateHeureDebut.isAfter(animation.getDateHeureFin());
             boolean isStartBeforeEventStart = dateDebut.isBefore(evenement.getDateDebut());
 
             if (isStartAfterEnd) {
 
-                throw new MauvaisChampsException("La date et l'heure de début de l'animation est ultérieure à sa date et son heure de fin",
+                throw new MauvaisChampsException("La date et l'heure de début de l'animation ne peut être ultérieure à sa date et son heure de fin",
                         new ArrayList<>(Collections.singleton(false)));
 
             } else if (isStartBeforeEventStart) {
 
-                throw new MauvaisChampsException("La date de début de l'animation est antérieure à la date de début de l'événement",
+                throw new MauvaisChampsException("La date de début de l'animation ne peut être antérieure à la date de début de l'événement",
                         new ArrayList<>(Collections.singleton(false)));
             }
             animation.setDateHeureDebut(dateHeureDebut);
@@ -257,17 +194,18 @@ public class ControleurAnimation {
         if (evenement != null) {
 
             LocalDate dateFin = dateHeureFin.toLocalDate();
+
             boolean isEndBeforeStart = dateHeureFin.isBefore(animation.getDateHeureDebut());
             boolean isEndAfterEventEnd = dateFin.isAfter(evenement.getDateFin());
 
             if (isEndBeforeStart) {
 
-                throw new MauvaisChampsException("La date et l'heure de fin de l'animation est antérieure à sa date et son heure de début",
+                throw new MauvaisChampsException("La date et l'heure de fin de l'animation ne peut être antérieure à sa date et son heure de début",
                         new ArrayList<>(Collections.singleton(false)));
 
             } else if (isEndAfterEventEnd) {
 
-                throw new MauvaisChampsException("La date de fin de l'animation est ultérieure à la date de fin de l'événement",
+                throw new MauvaisChampsException("La date de fin de l'animation ne peut être ultérieure à la date de fin de l'événement",
                         new ArrayList<>(Collections.singleton(false)));
             }
             animation.setDateHeureFin(dateHeureFin);

@@ -68,6 +68,7 @@ public class ControleurEvenement {
 
             String nomCourant = evenementCourant.getNom();
             TypeEvenement typeCourant = evenementCourant.getType();
+
             boolean isNotUnique = nom.equals(nomCourant) & type == typeCourant;
 
             if (isNotUnique) {
@@ -105,9 +106,11 @@ public class ControleurEvenement {
 
             String nomCourant = evenementCourant.getNom();
             TypeEvenement typeCourant = evenementCourant.getType();
+
+            boolean isNotSameEvenement = evenement != evenementCourant;
             boolean isNotUnique = nom.equals(nomCourant) & evenement.getType() == typeCourant;
 
-            if (isNotUnique) {
+            if (isNotSameEvenement & isNotUnique) {
 
                 throw new MauvaisChampsException("En changeant le nom de l'événement, " +
                         "celui-ci devient identique à un autre événement",
@@ -129,9 +132,11 @@ public class ControleurEvenement {
 
             String nomCourant = evenementCourant.getNom();
             TypeEvenement typeCourant = evenementCourant.getType();
+
+            boolean isNotSameEvenement = evenement != evenementCourant;
             boolean isNotUnique = evenement.getNom().equals(nomCourant) & type == typeCourant;
 
-            if (isNotUnique) {
+            if (isNotSameEvenement & isNotUnique) {
 
                 throw new MauvaisChampsException("En changeant le type de l'événement, " +
                         "celui-ci devient identique à un autre événement",
@@ -173,7 +178,7 @@ public class ControleurEvenement {
 
         if (isStartAfterEnd) {
 
-            throw new MauvaisChampsException("La date de début de l'événement est ultérieure à sa date de fin",
+            throw new MauvaisChampsException("La date de début de l'événement ne peut être ultérieure à sa date de fin",
                     new ArrayList<>(Collections.singleton(false)));
         }
         evenement.setDateDebut(dateDebut);
@@ -191,7 +196,7 @@ public class ControleurEvenement {
 
         if (isStartAfterEnd) {
 
-            throw new MauvaisChampsException("La date de fin de l'événement est antérieure à sa date de début",
+            throw new MauvaisChampsException("La date de fin de l'événement ne peut être antérieure à sa date de début",
                     new ArrayList<>(Collections.singleton(false)));
         }
         evenement.setDateFin(dateFin);

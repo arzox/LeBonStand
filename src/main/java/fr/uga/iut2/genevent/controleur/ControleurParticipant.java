@@ -44,30 +44,13 @@ public class ControleurParticipant {
     /**
      * Crée un nouveau participant et l'ajoute à la liste des participants de cet événement.
      * @param nom Nom du participant
-     * @param prenom Prénom du participant
-     * @param email Email du participant
      * @return Le participant créé.
      * @throws Exception Si l'événement est nul.
-     * @throws MauvaisChampsException Si le nom, prénom et adresse email sont identiques à ceux d'un autre participant.
      */
-    public Participant inscrireParticipant(String nom, String prenom, String email) throws Exception {
+    public Participant inscrireParticipant(String nom) throws Exception {
         if (evenement != null) {
 
-            for (Participant participantCourant : evenement.getParticipants()) {
-
-                String nomCourant = participantCourant.getNom();
-                String prenomCourant = participantCourant.getPrenom();
-                String emailCourant = participantCourant.getEmail();
-                boolean isNotUnique = nom.equals(nomCourant) & prenom.equals(prenomCourant)
-                        & email.equals(emailCourant);
-
-                if (isNotUnique) {
-
-                    throw new MauvaisChampsException("Le participant que vous souhaitez inscrire existe déjà",
-                            new ArrayList<>(Arrays.asList(false, false, false)));
-                }
-            }
-            Participant nouveauParticipant = new Participant(nom, prenom, email);
+            Participant nouveauParticipant = new Participant(nom, "Prénom", "Mail");
             evenement.inscrireParticipant(nouveauParticipant);
 
             return nouveauParticipant;
@@ -128,15 +111,17 @@ public class ControleurParticipant {
     public void modifierNomParticipant(Participant participant, String nom) throws Exception {
         if (evenement != null) {
 
-            for (AgentEntretien agent : evenement.getAgentsEntretien()) {
+            for (Participant participantCourant : evenement.getParticipants()) {
 
-                String nomCourant = agent.getNom();
-                String prenomCourant = agent.getPrenom();
-                String emailCourant = agent.getEmail();
+                String nomCourant = participantCourant.getNom();
+                String prenomCourant = participantCourant.getPrenom();
+                String emailCourant = participantCourant.getEmail();
+
+                boolean isNotSameParticipant = participant != participantCourant;
                 boolean isNotUnique = nom.equals(nomCourant) & participant.getPrenom().equals(prenomCourant)
                         & participant.getEmail().equals(emailCourant);
 
-                if (isNotUnique) {
+                if (isNotSameParticipant & isNotUnique) {
 
                     throw new MauvaisChampsException("En changeant le nom du participant, " +
                             "celui-ci devient identique à un autre participant",
@@ -159,15 +144,17 @@ public class ControleurParticipant {
     public void modifierPrenomParticipant(Participant participant, String prenom) throws Exception {
         if (evenement != null) {
 
-            for (AgentEntretien agent : evenement.getAgentsEntretien()) {
+            for (Participant participantCourant : evenement.getParticipants()) {
 
-                String nomCourant = agent.getNom();
-                String prenomCourant = agent.getPrenom();
-                String emailCourant = agent.getEmail();
+                String nomCourant = participantCourant.getNom();
+                String prenomCourant = participantCourant.getPrenom();
+                String emailCourant = participantCourant.getEmail();
+
+                boolean isNotSameParticipant = participant != participantCourant;
                 boolean isNotUnique = participant.getNom().equals(nomCourant) & prenom.equals(prenomCourant)
                         & participant.getEmail().equals(emailCourant);
 
-                if (isNotUnique) {
+                if (isNotSameParticipant & isNotUnique) {
 
                     throw new MauvaisChampsException("En changeant le prénom du participant, " +
                             "celui-ci devient identique à un autre participant",
@@ -190,16 +177,18 @@ public class ControleurParticipant {
     public void modifierEmailParticipant(Participant participant, String email) throws Exception {
         if (evenement != null) {
 
-            for (AgentEntretien agent : evenement.getAgentsEntretien()) {
+            for (Participant participantCourant : evenement.getParticipants()) {
 
-                String nomCourant = agent.getNom();
-                String prenomCourant = agent.getPrenom();
-                String emailCourant = agent.getEmail();
+                String nomCourant = participantCourant.getNom();
+                String prenomCourant = participantCourant.getPrenom();
+                String emailCourant = participantCourant.getEmail();
+
+                boolean isNotSameParticipant = participant != participantCourant;
                 boolean isNotUnique = participant.getNom().equals(nomCourant)
                         & participant.getPrenom().equals(prenomCourant)
                         & email.equals(emailCourant);
 
-                if (isNotUnique) {
+                if (isNotSameParticipant & isNotUnique) {
 
                     throw new MauvaisChampsException("En changeant l'adresse email du participant, " +
                             "celui-ci devient identique à un autre participant",

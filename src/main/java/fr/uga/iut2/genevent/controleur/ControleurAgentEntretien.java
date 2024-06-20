@@ -46,47 +46,15 @@ public class ControleurAgentEntretien {
     /**
      * Crée un nouvel agent d'entretien et l'ajoute à la liste des agents d'entretien de cet événement.
      * @param nom Nom de l'agent
-     * @param prenom Prénom de l'agent
-     * @param email Adresse email de l'agent
-     * @param telephone Numéro de téléphone de l'agent
-     * @param heureDebut Heure de début d'activité
-     * @param heureFin Heure de fin d'activité
      * @return L'agent d'entretien créé.
      * @throws Exception Si l'événement est nul.
-     * @throws MauvaisChampsException Si le nom, prénom, adresse email et numéro de téléphone sont identiques à ceux d'un autre agent d'entretien ou
-     * si l'heure de début d'activité de l'agent est ultérieure à l'heure de fin d'activité de celui-ci.
      */
-    public AgentEntretien ajouterAgentEntretien(String nom, String prenom, String email, String telephone, int heureDebut, int heureFin) throws Exception {
+    public AgentEntretien ajouterAgentEntretien(String nom) throws Exception {
         if (evenement != null) {
 
-            boolean isStartAfterEnd = heureDebut > heureFin;
+            AgentEntretien nouvelAgent = new AgentEntretien(nom, "Prénom", "Mail",
+                    "0601020304", 6, 10);
 
-            for (AgentEntretien agent : evenement.getAgentsEntretien()) {
-
-                String nomCourant = agent.getNom();
-                String prenomCourant = agent.getPrenom();
-                String emailCourant = agent.getEmail();
-                String telephoneCourant = agent.getTelephone();
-                boolean isNotUnique = nom.equals(nomCourant) & prenom.equals(prenomCourant)
-                        & email.equals(emailCourant) & telephone.equals(telephoneCourant);
-
-                if (isNotUnique & isStartAfterEnd) {
-
-                    throw new MauvaisChampsException("L'agent d'entretien que vous souhaitez ajouter existe déjà et l'heure de début est ultérieure à l'heure de fin",
-                            new ArrayList<>(Arrays.asList(false, false, false, false, false, false)));
-
-                } else if (isNotUnique) {
-
-                    throw new MauvaisChampsException("L'agent d'entretien que vous souhaitez ajouter existe déjà",
-                            new ArrayList<>(Arrays.asList(false, false, false, false, true, true)));
-                }
-            }
-            if (isStartAfterEnd) {
-
-                throw new MauvaisChampsException("L'heure de début est ultérieure à l'heure de fin",
-                        new ArrayList<>(Arrays.asList(true, true, true, true, false, false)));
-            }
-            AgentEntretien nouvelAgent = new AgentEntretien(nom, prenom, email, telephone, heureDebut, heureFin);
             evenement.ajouterAgentEntretien(nouvelAgent);
 
             return nouvelAgent;
@@ -113,6 +81,7 @@ public class ControleurAgentEntretien {
                 String prenomCourant = agentEntretien.getPrenom();
                 String emailCourant = agentEntretien.getEmail();
                 String telephoneCourant = agentEntretien.getTelephone();
+
                 boolean agentFound = nom.equals(nomCourant) & prenom.equals(prenomCourant)
                         & email.equals(emailCourant) & telephone.equals(telephoneCourant);
 
@@ -155,10 +124,12 @@ public class ControleurAgentEntretien {
                 String prenomCourant = agent.getPrenom();
                 String emailCourant = agent.getEmail();
                 String telephoneCourant = agent.getTelephone();
+
+                boolean isNotSameAgent = agentEntretien != agent;
                 boolean isNotUnique = nom.equals(nomCourant) & agentEntretien.getPrenom().equals(prenomCourant)
                         & agentEntretien.getEmail().equals(emailCourant) & agentEntretien.getTelephone().equals(telephoneCourant);
 
-                if (isNotUnique) {
+                if (isNotSameAgent & isNotUnique) {
 
                     throw new MauvaisChampsException("En changeant le nom de l'agent d'entretien, " +
                             "celui-ci devient identique à un autre agent d'entretien",
@@ -187,10 +158,12 @@ public class ControleurAgentEntretien {
                 String prenomCourant = agent.getPrenom();
                 String emailCourant = agent.getEmail();
                 String telephoneCourant = agent.getTelephone();
+
+                boolean isNotSameAgent = agentEntretien != agent;
                 boolean isNotUnique = agentEntretien.getNom().equals(nomCourant) & prenom.equals(prenomCourant)
                         & agentEntretien.getEmail().equals(emailCourant) & agentEntretien.getTelephone().equals(telephoneCourant);
 
-                if (isNotUnique) {
+                if (isNotSameAgent & isNotUnique) {
 
                     throw new MauvaisChampsException("En changeant le prénom de l'agent d'entretien, " +
                             "celui-ci devient identique à un autre agent d'entretien",
@@ -219,10 +192,12 @@ public class ControleurAgentEntretien {
                 String prenomCourant = agent.getPrenom();
                 String emailCourant = agent.getEmail();
                 String telephoneCourant = agent.getTelephone();
+
+                boolean isNotSameAgent = agentEntretien != agent;
                 boolean isNotUnique = agentEntretien.getNom().equals(nomCourant) & agentEntretien.getPrenom().equals(prenomCourant)
                         & email.equals(emailCourant) & agentEntretien.getTelephone().equals(telephoneCourant);
 
-                if (isNotUnique) {
+                if (isNotSameAgent & isNotUnique) {
 
                     throw new MauvaisChampsException("En changeant l'adresse email de l'agent d'entretien, " +
                             "celui-ci devient identique à un autre agent d'entretien",
@@ -251,10 +226,12 @@ public class ControleurAgentEntretien {
                 String prenomCourant = agent.getPrenom();
                 String emailCourant = agent.getEmail();
                 String telephoneCourant = agent.getTelephone();
+
+                boolean isNotSameAgent = agentEntretien != agent;
                 boolean isNotUnique = agentEntretien.getNom().equals(nomCourant) & agentEntretien.getPrenom().equals(prenomCourant)
                         & agentEntretien.getEmail().equals(emailCourant) & telephone.equals(telephoneCourant);
 
-                if (isNotUnique) {
+                if (isNotSameAgent & isNotUnique) {
 
                     throw new MauvaisChampsException("En changeant le numéro de téléphone de l'agent d'entretien, " +
                             "celui-ci devient identique à un autre agent d'entretien",
@@ -281,7 +258,7 @@ public class ControleurAgentEntretien {
 
             if (isStartAfterEnd) {
 
-                throw new MauvaisChampsException("L'heure de début est ultérieure à l'heure de fin",
+                throw new MauvaisChampsException("L'heure de début ne peut être ultérieure à l'heure de fin",
                         new ArrayList<>(Collections.singleton(false)));
             }
             agentEntretien.setHeureDebut(heureDebut);
@@ -304,7 +281,7 @@ public class ControleurAgentEntretien {
 
             if (isStartAfterEnd) {
 
-                throw new MauvaisChampsException("L'heure de fin est antérieure à l'heure de début",
+                throw new MauvaisChampsException("L'heure de fin ne peut être antérieure à l'heure de début",
                         new ArrayList<>(Collections.singleton(false)));
             }
             agentEntretien.setHeureFin(heureFin);

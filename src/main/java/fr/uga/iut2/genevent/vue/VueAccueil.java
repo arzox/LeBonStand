@@ -207,11 +207,6 @@ public class VueAccueil extends IHM {
     // Implémentations et redéfinitions
 
     @Override
-    public void informerUtilisateur(String msg, boolean succes) {
-        System.out.println(msg);
-    }
-
-    @Override
     public String getFxmlName() {
         return FXML_NAME;
     }

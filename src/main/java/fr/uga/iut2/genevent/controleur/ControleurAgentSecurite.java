@@ -43,49 +43,15 @@ public class ControleurAgentSecurite {
     /**
      * Crée un nouvel agent de sécurité et l'ajoute à la liste des agents de sécurité de cet événement.
      * @param nom Nom de l'agent
-     * @param prenom Prénom de l'agent
-     * @param email Adresse email de l'agent
-     * @param telephone Numéro de téléphone de l'agent
-     * @param heureDebut Heure de début d'activité
-     * @param heureFin Heure de fin d'activité
      * @return L'agent de sécurité créé.
      * @throws Exception Si l'événement est nul.
-     * @throws MauvaisChampsException Si le nom, prénom, adresse email et numéro de téléphone sont identiques à ceux d'un autre agent de sécurité ou
-     * si l'heure de début d'activité de l'agent est ultérieure à l'heure de fin d'activité de l'agent.
      */
-    public AgentSecurite ajouterAgentSecurite(String nom, String prenom, String email, String telephone, int heureDebut,
-            int heureFin, Zone zone) throws Exception {
+    public AgentSecurite ajouterAgentSecurite(String nom) throws Exception {
         if (evenement != null) {
 
-            boolean isStartAfterEnd = heureDebut > heureFin;
+            AgentSecurite nouvelAgent = new AgentSecurite(nom, "Prénom", "Mail",
+                    "0601020304", 13, 19, null);
 
-            for (AgentSecurite agent : evenement.getAgentsSecurite()) {
-
-                String nomCourant = agent.getNom();
-                String prenomCourant = agent.getPrenom();
-                String emailCourant = agent.getEmail();
-                String telephoneCourant = agent.getTelephone();
-                boolean isNotUnique = nom.equals(nomCourant) & prenom.equals(prenomCourant)
-                        & email.equals(emailCourant) & telephone.equals(telephoneCourant);
-
-                if (isNotUnique & isStartAfterEnd) {
-
-                    throw new MauvaisChampsException("L'agent de sécurité que vous souhaitez ajouter existe déjà et " +
-                            "l'heure de début est ultérieure à l'heure de fin",
-                            new ArrayList<>(Arrays.asList(false, false, false, false, false, false, true)));
-
-                } else if (isNotUnique) {
-
-                    throw new MauvaisChampsException("L'agent de sécurité que vous souhaitez ajouter existe déjà",
-                            new ArrayList<>(Arrays.asList(false, false, false, false, true, true, true)));
-                }
-            }
-            if (isStartAfterEnd) {
-
-                throw new MauvaisChampsException("L'heure de début est ultérieure à l'heure de fin",
-                        new ArrayList<>(Arrays.asList(true, true, true, true, false, false, true)));
-            }
-            AgentSecurite nouvelAgent = new AgentSecurite(nom, prenom, email, telephone, heureDebut, heureFin, zone);
             evenement.ajouterAgentSecurite(nouvelAgent);
 
             return nouvelAgent;
@@ -112,6 +78,7 @@ public class ControleurAgentSecurite {
                 String prenomCourant = agentSecurite.getPrenom();
                 String emailCourant = agentSecurite.getEmail();
                 String telephoneCourant = agentSecurite.getTelephone();
+
                 boolean agentFound = nom.equals(nomCourant) & prenom.equals(prenomCourant)
                         & email.equals(emailCourant) & telephone.equals(telephoneCourant);
 
@@ -156,10 +123,12 @@ public class ControleurAgentSecurite {
                 String prenomCourant = agent.getPrenom();
                 String emailCourant = agent.getEmail();
                 String telephoneCourant = agent.getTelephone();
+
+                boolean isNotSameAgent = agentSecurite != agent;
                 boolean isNotUnique = nom.equals(nomCourant) & agentSecurite.getPrenom().equals(prenomCourant)
                         & agentSecurite.getEmail().equals(emailCourant) & agentSecurite.getTelephone().equals(telephoneCourant);
 
-                if (isNotUnique) {
+                if (isNotSameAgent & isNotUnique) {
 
                     throw new MauvaisChampsException("En changeant le nom de l'agent de sécurité, " +
                             "celui-ci devient identique à un autre agent de sécurité",
@@ -188,10 +157,12 @@ public class ControleurAgentSecurite {
                 String prenomCourant = agent.getPrenom();
                 String emailCourant = agent.getEmail();
                 String telephoneCourant = agent.getTelephone();
+
+                boolean isNotSameAgent = agentSecurite != agent;
                 boolean isNotUnique = agentSecurite.getNom().equals(nomCourant) & prenom.equals(prenomCourant)
                         & agentSecurite.getEmail().equals(emailCourant) & agentSecurite.getTelephone().equals(telephoneCourant);
 
-                if (isNotUnique) {
+                if (isNotSameAgent & isNotUnique) {
 
                     throw new MauvaisChampsException("En changeant le prénom de l'agent de sécurité, " +
                             "celui-ci devient identique à un autre agent de sécurité",
@@ -220,10 +191,12 @@ public class ControleurAgentSecurite {
                 String prenomCourant = agent.getPrenom();
                 String emailCourant = agent.getEmail();
                 String telephoneCourant = agent.getTelephone();
+
+                boolean isNotSameAgent = agentSecurite != agent;
                 boolean isNotUnique = agentSecurite.getNom().equals(nomCourant) & agentSecurite.getPrenom().equals(prenomCourant)
                         & email.equals(emailCourant) & agentSecurite.getTelephone().equals(telephoneCourant);
 
-                if (isNotUnique) {
+                if (isNotSameAgent & isNotUnique) {
 
                     throw new MauvaisChampsException("En changeant l'adresse email de l'agent de sécurité, " +
                             "celui-ci devient identique à un autre agent de sécurité",
@@ -252,10 +225,12 @@ public class ControleurAgentSecurite {
                 String prenomCourant = agent.getPrenom();
                 String emailCourant = agent.getEmail();
                 String telephoneCourant = agent.getTelephone();
+
+                boolean isNotSameAgent = agentSecurite != agent;
                 boolean isNotUnique = agentSecurite.getNom().equals(nomCourant) & agentSecurite.getPrenom().equals(prenomCourant)
                         & agentSecurite.getEmail().equals(emailCourant) & telephone.equals(telephoneCourant);
 
-                if (isNotUnique) {
+                if (isNotSameAgent & isNotUnique) {
 
                     throw new MauvaisChampsException("En changeant le numéro de téléphone de l'agent de sécurité, " +
                             "celui-ci devient identique à un autre agent de sécurité",
@@ -282,7 +257,7 @@ public class ControleurAgentSecurite {
 
             if (isStartAfterEnd) {
 
-                throw new MauvaisChampsException("L'heure de début est ultérieure à l'heure de fin",
+                throw new MauvaisChampsException("L'heure de début ne peut être ultérieure à l'heure de fin",
                         new ArrayList<>(Collections.singleton(false)));
             }
             agentSecurite.setHeureDebut(heureDebut);
@@ -305,7 +280,7 @@ public class ControleurAgentSecurite {
 
             if (isStartAfterEnd) {
 
-                throw new MauvaisChampsException("L'heure de fin est antérieure à l'heure de début",
+                throw new MauvaisChampsException("L'heure de fin ne peut être antérieure à l'heure de début",
                         new ArrayList<>(Collections.singleton(false)));
             }
             agentSecurite.setHeureFin(heureFin);
@@ -330,22 +305,10 @@ public class ControleurAgentSecurite {
      * @param nom Nom de la zone
      * @return La zone créée.
      * @throws Exception Si l'événement est nul.
-     * @throws MauvaisChampsException Si le nom est identique à celui d'une autre zone.
      */
     public Zone creerZone(String nom) throws Exception {
         if (evenement != null) {
 
-            for (Zone zone : evenement.getZones()) {
-
-                String nomCourant = zone.getNom();
-                boolean isNotUnique = nom.equals(nomCourant);
-
-                if (isNotUnique) {
-
-                    throw new MauvaisChampsException("La zone que vous souhaitez créer existe déjà",
-                            new ArrayList<>(Collections.singleton(false)));
-                }
-            }
             Zone nouvelleZone = new Zone(nom);
             evenement.ajouterZone(nouvelleZone);
 
@@ -367,6 +330,7 @@ public class ControleurAgentSecurite {
             for (Zone zone : evenement.getZones()) {
 
                 String nomCourant = zone.getNom();
+
                 boolean zoneFound = nom.equals(nomCourant);
 
                 if (zoneFound) {
@@ -407,9 +371,11 @@ public class ControleurAgentSecurite {
             for (Zone zoneCourante : evenement.getZones()) {
 
                 String nomCourant = zoneCourante.getNom();
+
+                boolean isNotSameZone = zone != zoneCourante;
                 boolean isNotUnique = nom.equals(nomCourant);
 
-                if (isNotUnique) {
+                if (isNotSameZone & isNotUnique) {
 
                     throw new MauvaisChampsException("En changeant le nom de la zone, celle-ci devient identique à une autre zone",
                             new ArrayList<>(Collections.singleton(false)));
