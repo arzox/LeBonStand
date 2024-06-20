@@ -3,6 +3,9 @@ package fr.uga.iut2.genevent.util;
 import fr.uga.iut2.genevent.modele.TypeCommerce;
 import javafx.util.StringConverter;
 
+/**
+ * Classe permettant de convertir un objet de type TypeCommerce en String
+ */
 public class TypeCommerceStringConverter extends StringConverter<TypeCommerce> {
 
     @Override

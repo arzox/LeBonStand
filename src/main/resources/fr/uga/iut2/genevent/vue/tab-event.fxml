@@ -25,7 +25,7 @@
          <children>
             <VBox prefHeight="128.0" prefWidth="907.0" style="-fx-background-color: #bfcfdb;">
                <children>
-                  <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="140.0" style="-fx-background-color: #F5D0C3;">
+                  <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="145.0" style="-fx-background-color: #F5D0C3;">
                      <children>
                         <Text fx:id="informationsText" layoutX="14.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h4" text="Informations" />
                      </children>
@@ -65,7 +65,7 @@
             </VBox>
             <VBox layoutX="10.0" layoutY="111.0" prefHeight="128.0" prefWidth="907.0" style="-fx-background-color: #bfcfdb;">
                <children>
-                  <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="152.0" style="-fx-background-color: #F5D0C3;">
+                  <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="169.0" style="-fx-background-color: #F5D0C3;">
                      <children>
                         <Text fx:id="fonctionnalitesText" layoutX="14.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h4" text="Fonctionnalités" />
                      </children>
@@ -82,7 +82,7 @@
             </VBox>
             <VBox layoutX="10.0" layoutY="950.0" prefHeight="128.0" prefWidth="907.0" style="-fx-background-color: #bfcfdb;">
                <children>
-                  <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="128.0" style="-fx-background-color: #F5D0C3;">
+                  <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="135.0" style="-fx-background-color: #F5D0C3;">
                      <children>
                         <Text fx:id="localisationText" layoutX="14.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h4" text="Localisation" />
                      </children>

@@ -4,7 +4,6 @@ import fr.uga.iut2.genevent.exception.MauvaisChampsException;
 import fr.uga.iut2.genevent.modele.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 /**
@@ -16,7 +15,9 @@ public class ControleurParticipant {
     private Evenement evenement;
 
     /**
-     * Crée le contrôleur, doit être uniquement appelée par le constructeur de la classe Controleur.
+     * Crée le contrôleur, doit être uniquement appelée par le constructeur de la
+     * classe Controleur.
+     * 
      * @param application L'application que le contrôleur gérera
      */
     public ControleurParticipant(Application application) {
@@ -25,6 +26,7 @@ public class ControleurParticipant {
 
     /**
      * Récupère l'événement géré par le contrôleur.
+     * 
      * @return L'événement géré par le controleur.
      */
     public Evenement getEvenement() {
@@ -33,6 +35,7 @@ public class ControleurParticipant {
 
     /**
      * Attribue un événement au contrôleur.
+     * 
      * @param evenement L'événement à attribuer
      */
     public void setEvenement(Evenement evenement) {
@@ -42,7 +45,9 @@ public class ControleurParticipant {
     // Participant
 
     /**
-     * Crée un nouveau participant et l'ajoute à la liste des participants de cet événement.
+     * Crée un nouveau participant et l'ajoute à la liste des participants de cet
+     * événement.
+     * 
      * @param nom Nom du participant
      * @return Le participant créé.
      * @throws Exception Si l'événement est nul.
@@ -61,10 +66,12 @@ public class ControleurParticipant {
 
     /**
      * Récupère un participant à partir de son nom, prénom et adresse email.
-     * @param nom Le nom du participant qu'on souhaite récupérer
+     * 
+     * @param nom    Le nom du participant qu'on souhaite récupérer
      * @param prenom Le prénom du participant qu'on souhaite récupérer
-     * @param email L'adresse email du participant qu'on souhaite récupérer
-     * @return Le participant correspondant aux attributs donnés en paramètres ou null s'il n'existe pas.
+     * @param email  L'adresse email du participant qu'on souhaite récupérer
+     * @return Le participant correspondant aux attributs donnés en paramètres ou
+     *         null s'il n'existe pas.
      * @throws Exception Si l'événement est nul.
      */
     public Participant getParticipant(String nom, String prenom, String email) throws Exception {
@@ -88,7 +95,9 @@ public class ControleurParticipant {
     }
 
     /**
-     * Retire de la liste des participants de cet événement le participant donné en paramètre.
+     * Retire de la liste des participants de cet événement le participant donné en
+     * paramètre.
+     * 
      * @param participant Le participant à retirer
      * @throws Exception Si l'événement est nul.
      */
@@ -103,10 +112,12 @@ public class ControleurParticipant {
 
     /**
      * Modifie le nom du participant donné en paramètre.
+     * 
      * @param participant Le participant dont le nom doit être modifié
-     * @param nom Nouveau nom
-     * @throws Exception Si l'événement est nul.
-     * @throws MauvaisChampsException Si le nouveau nom rend le participant identique à un autre participant.
+     * @param nom         Nouveau nom
+     * @throws Exception              Si l'événement est nul.
+     * @throws MauvaisChampsException Si le nouveau nom rend le participant
+     *                                identique à un autre participant.
      */
     public void modifierNomParticipant(Participant participant, String nom) throws Exception {
         if (evenement != null) {
@@ -136,10 +147,12 @@ public class ControleurParticipant {
 
     /**
      * Modifie le prénom du participant donné en paramètre.
+     * 
      * @param participant Le participant dont le prénom doit être modifié
-     * @param prenom Nouveau prénom
-     * @throws Exception Si l'événement est nul.
-     * @throws MauvaisChampsException Si le nouveau prénom rend le participant identique à un autre participant.
+     * @param prenom      Nouveau prénom
+     * @throws Exception              Si l'événement est nul.
+     * @throws MauvaisChampsException Si le nouveau prénom rend le participant
+     *                                identique à un autre participant.
      */
     public void modifierPrenomParticipant(Participant participant, String prenom) throws Exception {
         if (evenement != null) {
@@ -169,10 +182,12 @@ public class ControleurParticipant {
 
     /**
      * Modifie l'adresse email du participant donnée en paramètre.
+     * 
      * @param participant Le participant dont l'adresse email doit être modifiée
-     * @param email Nouvelle adresse email
-     * @throws Exception Si l'événement est nul.
-     * @throws MauvaisChampsException Si la nouvelle adresse email rend le participant identique à un autre participant.
+     * @param email       Nouvelle adresse email
+     * @throws Exception              Si l'événement est nul.
+     * @throws MauvaisChampsException Si la nouvelle adresse email rend le
+     *                                participant identique à un autre participant.
      */
     public void modifierEmailParticipant(Participant participant, String email) throws Exception {
         if (evenement != null) {
