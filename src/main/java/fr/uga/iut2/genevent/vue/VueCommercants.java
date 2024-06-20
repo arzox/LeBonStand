@@ -7,8 +7,10 @@ import fr.uga.iut2.genevent.modele.Emplacement;
 import fr.uga.iut2.genevent.modele.TypeCommerce;
 import fr.uga.iut2.genevent.util.EmplacementStringConverter;
 import fr.uga.iut2.genevent.util.TypeCommerceStringConverter;
+import javafx.beans.Observable;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.print.PrinterJob;
 import javafx.scene.control.CheckBox;
@@ -19,6 +21,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.IntegerStringConverter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -91,6 +94,56 @@ public class VueCommercants extends IHM {
         if (job != null) {
             if (job.printPage(commercantsTable)) {
                 job.endJob();
+            }
+        }
+    }
+
+    @FXML
+    private void addAnnex() {
+        if (typeTable.isMouseTransparent()) {
+            try {
+                Emplacement emplacement = controleurCommercant.creerEmplacement();
+                emplacementTable.getItems().add(emplacement);
+            } catch (Exception e) {
+                informerUtilisateur(e.getMessage(), false);
+                throw new RuntimeException(e);
+            }
+        } else {
+            try {
+                TypeCommerce typeCommerce = controleurCommercant.creerTypeCommerce("Nouveau type " + typeTable.getItems().size());
+                typeTable.getItems().add(typeCommerce);
+            } catch (Exception e) {
+                informerUtilisateur(e.getMessage(), false);
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    @FXML
+    private void deleteAnnex() {
+        if (typeTable.isMouseTransparent()) {
+            if (!emplacementTable.getSelectionModel().getSelectedItems().isEmpty()) {
+                try {
+                    Emplacement emplacement = emplacementTable.getSelectionModel().getSelectedItem();
+                    controleurCommercant.supprimerEmplacement(emplacement);
+                    emplacementTable.getItems().remove(emplacement);
+                    reloadCommercantTable();
+                } catch (Exception e) {
+                    informerUtilisateur(e.getMessage(), false);
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            if (!typeTable.getSelectionModel().getSelectedItems().isEmpty()) {
+                try {
+                    TypeCommerce typeCommerce = typeTable.getSelectionModel().getSelectedItem();
+                    controleurCommercant.supprimerTypeCommerce(typeCommerce);
+                    emplacementTable.getItems().remove(typeCommerce);
+                    reloadCommercantTable();
+                } catch (Exception e) {
+                    informerUtilisateur(e.getMessage(), false);
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -344,6 +397,11 @@ public class VueCommercants extends IHM {
         typeColumn.setMinWidth(100);
 
         commercantsTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+    }
+
+    private void reloadCommercantTable() {
+        commercantsTable.getItems().clear();
+        commercantsTable.getItems().addAll(controleur.getControleurCommercant().getEvenement().getCommercants());
     }
 
     @FXML
