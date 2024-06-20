@@ -1,13 +1,11 @@
 package fr.uga.iut2.genevent.controleur;
 
 import fr.uga.iut2.genevent.exception.MauvaisChampsException;
-import fr.uga.iut2.genevent.modele.AgentSecurite;
 import fr.uga.iut2.genevent.modele.Application;
 import fr.uga.iut2.genevent.modele.Evenement;
 import fr.uga.iut2.genevent.modele.AgentEntretien;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 /**

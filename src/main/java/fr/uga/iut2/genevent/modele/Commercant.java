@@ -1,12 +1,10 @@
 package fr.uga.iut2.genevent.modele;
 
-import java.io.Serializable;
-
 /**
  * La classe Commercant représente un commerçant qui est un type d'employé.
  * Un commerçant a un emplacement et un type de commerce.
  */
-public class Commercant extends Employe implements Serializable {
+public class Commercant extends Employe {
     private Emplacement emplacement = null;
     private TypeCommerce typeCommerce = null;
 
