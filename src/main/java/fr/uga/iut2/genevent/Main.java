@@ -42,13 +42,13 @@ public class Main {
         // Créer une instance du modèle (application correspond à la racine du modèle)
         Application application = new Application();
 
-        if (true) {
+        if (false) {
             application.addEvenement(new Evenement("Marche Noel", LocalDate.of(2021, 6, 1), LocalDate.of(2021, 6, 2),
                     TypeEvenement.MARCHE_NOEL,
-                    new ArrayList<>(Arrays.asList(Fonctionnalite.AGENT_ENTRETIEN, Fonctionnalite.PARTICIPANT))));
+                    new ArrayList<>(Arrays.asList(Fonctionnalite.AGENT_ENTRETIEN, Fonctionnalite.PARTICIPANT)),  "/fr/uga/iut2/genevent/images/marche_noel.jpg"));
             application.addEvenement(
                     new Evenement("Brocante", LocalDate.of(2022, 7, 2), LocalDate.of(2022, 7, 3), TypeEvenement.BROCANTE,
-                            new ArrayList<>(Arrays.asList(Fonctionnalite.AGENT_ENTRETIEN, Fonctionnalite.PARTICIPANT))));
+                            new ArrayList<>(Arrays.asList(Fonctionnalite.AGENT_ENTRETIEN, Fonctionnalite.PARTICIPANT)),  "/fr/uga/iut2/genevent/images/marche_noel.jpg"));
             try {
                 LOGGER.log(Level.INFO, "Sauvegarde de l'état initial");
                 Persisteur.sauverEtat(application);
@@ -57,6 +57,7 @@ public class Main {
                 throw new RuntimeException(e);
             }
         }
+        
 
         try {
             LOGGER.log(Level.INFO, "Chargement de l'état initial");

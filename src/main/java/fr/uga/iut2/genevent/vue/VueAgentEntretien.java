@@ -200,7 +200,7 @@ public class VueAgentEntretien extends IHM {
                     delete(agentEntretien);
                 }
             }));
-            if (agentsTable.getItems().isEmpty()) checkBox.setSelected(false);
+            checkBox.setSelected(false);
         } else if (!agentsTable.getSelectionModel().getSelectedItems().isEmpty()) {
             agentsTable.getSelectionModel().getSelectedItems().forEach(this::delete);
         }

@@ -89,7 +89,7 @@
                      <columns>
                         <TableColumn fx:id="checkBoxColumn" minWidth="2.0" prefWidth="32.0" resizable="false" sortable="false">
                            <graphic>
-                              <CheckBox contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="17.0" prefWidth="17.0" />
+                              <CheckBox fx:id="checkBox" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="17.0" prefWidth="17.0" />
                            </graphic>
                         </TableColumn>
                         <TableColumn fx:id="nomColumn" prefWidth="125.0" text="Nom" />
